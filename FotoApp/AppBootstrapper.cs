@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Caliburn.Micro;
+using FotoApp.Schell;
 using FotoApp.ViewModels;
 
 namespace FotoApp
@@ -12,7 +13,7 @@ namespace FotoApp
         }
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            DisplayRootViewFor<MainViewModel>();
+            DisplayRootViewFor<SchellViewModel>();
         }
     }
 }
