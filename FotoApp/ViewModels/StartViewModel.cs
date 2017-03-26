@@ -8,7 +8,7 @@ using FotoApp.Schell;
 
 namespace FotoApp.ViewModels
 {
-    public class StartViewModel : PropertyChangedBase
+    public class StartViewModel : PropertyChangedBase, ISchellable
     {
         public SchellViewModel Schell { get; set; }
 
