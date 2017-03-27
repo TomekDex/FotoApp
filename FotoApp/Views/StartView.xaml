@@ -14,7 +14,7 @@
                cm:Message.Attach="[Event Click] = [Action BtnLogIn(This)]" />
         <PasswordBox x:Name="Password" HorizontalAlignment="Center" Margin="0,0,0,0"
             VerticalAlignment="Center" Width="210" Height="23" />
-        <Label Content="Hasło" HorizontalAlignment="Center" Margin="0,-50,0,0" 
+        <TextBlock Text="Hasło" HorizontalAlignment="Center" Margin="0,-50,0,0" 
             VerticalAlignment="Center"  Height="26" Style="{StaticResource Text}"/>
         <Label Content="Foto App" HorizontalAlignment="Center" Margin="0,-200,0,0" 
             VerticalAlignment="Center" Style="{StaticResource Title}"/>
