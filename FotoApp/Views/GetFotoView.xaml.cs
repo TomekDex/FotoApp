@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,15 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
 namespace FotoApp.Views
 {
     /// <summary>
-    /// Interaction logic for StartView.xaml
+    /// Interaction logic for GetFotoView.xaml
     /// </summary>
-    public partial class StartView : UserControl
+    public partial class GetFotoView : UserControl
     {
-        public StartView()
+        public GetFotoView()
         {
             InitializeComponent();
         }

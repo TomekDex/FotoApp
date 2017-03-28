@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FotoApp.Schell"
-        mc:Ignorable="d"
-        Title="FotoApp" Height="600" Width="600">
+        mc:Ignorable="d" Background="{StaticResource Background}"
+       
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowState="Maximized" AllowDrop="True" WindowStyle="None">
+    
     <Grid>
-        <ContentControl x:Name="ActiveItem"/>
+        <ContentControl x:Name="ActiveItem" />
     </Grid>
 </Window>
