@@ -4,7 +4,9 @@
              xmlns:local="clr-namespace:FotoApp">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary  Source="Resourse/TextStyle.xaml"/>
+
                 <ResourceDictionary>
                     <local:AppBootstrapper x:Key="Bootstrapper" />
                 </ResourceDictionary>
