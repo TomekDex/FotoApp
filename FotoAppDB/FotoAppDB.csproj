@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBModel\Discounts.cs" />
+    <Compile Include="DBModel\FotoAppModel.cs" />
+    <Compile Include="DBModel\Fotos.cs" />
+    <Compile Include="DBModel\Orders.cs" />
+    <Compile Include="DBModel\OrdersFotos.cs" />
+    <Compile Include="DBModel\Papers.cs" />
     <Compile Include="FotoAppModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
