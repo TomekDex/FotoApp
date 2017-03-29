@@ -4,13 +4,16 @@ using System.Linq;
 using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace FotoAppDB.DBModel
 {
-    class Orders
+    public class Orders
     {
+        [Key]
         public int OrderID { get; set; }
-        public double Description { get; set; }
+        [MaxLength(200)]
+        public string Description { get; set; }
         public DateTime Data { get; set; }
     }
 }

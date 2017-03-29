@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -50,11 +51,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBModel\Discounts.cs" />
-    <Compile Include="DBModel\FotoAppModel.cs" />
     <Compile Include="DBModel\Fotos.cs" />
     <Compile Include="DBModel\Orders.cs" />
     <Compile Include="DBModel\OrdersFotos.cs" />
     <Compile Include="DBModel\Papers.cs" />
+    <Compile Include="DBModel\Texts.cs" />
     <Compile Include="FotoAppModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
