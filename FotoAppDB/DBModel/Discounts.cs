@@ -4,14 +4,19 @@ using System.Linq;
 using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FotoAppDB.DBModel
 {
-    class Discounts
+    public class Discounts
     {
-        public int FotoID { get; set; }
+        [Key]
+        [ForeignKey("Pepers")]
         public int PaperID { get; set; }
-        public double Discount { get; set; }
+        [Key]
         public int Quantity { get; set; }
+        public double Discount { get; set; }
+        
     }
 }
