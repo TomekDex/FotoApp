@@ -23,39 +23,7 @@ namespace FotoAppDB
         // public virtual DbSet<MyEntity> MyEntities { get; set; }
     }
 
-    public class Fotos
-    {
-        public int FotoID { get; set; }
-        public int OrderID { get; set; }
-        public int PaperID { get; set; }
-        public int Quantity { get; set; }
-        public string URL { get; set; }
-    }
-    public class Papers
-    {
-        public int PaperID { get; set; }
-        public string Size { get; set; }
-        public string Paper { get; set; }
-        public double Cost { get; set; }
-    }
-    public class Discounts
-    {
-        public int FotoID { get; set; }
-        public int PaperID { get; set; }
-        public double Discount { get; set; }
-        public int Quantity { get; set; }
-    }
-    public class Orders
-    {
-        public int OrderID { get; set; }
-        public double Description { get; set; }
-        public DateTime Data { get; set; }
-    }
-    public class OrdersFotos
-    {
-        public int OrderID { get; set; }
-        public int FotoID { get; set; }
-    }
+
 
     //public class MyEntity
     //{
