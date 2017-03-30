@@ -11,7 +11,7 @@ namespace FotoAppDB.DBModel
 {
     public class Fotos
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity), Required]
         public int FotoID { get; set; }
         [ForeignKey("Orders")]
         public int OrderID { get; set; }

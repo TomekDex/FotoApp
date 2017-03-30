@@ -11,7 +11,7 @@ namespace FotoAppDB.DBModel
 {
     public class Papers
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity), Required]
         public int PaperID { get; set; }
         [ForeignKey("Texts")]
         public int Size { get; set; }
