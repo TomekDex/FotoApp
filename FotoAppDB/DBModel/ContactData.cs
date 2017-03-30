@@ -12,6 +12,7 @@ namespace FotoAppDB.DBModel
     class ContactData
     {
         [ForeignKey("OrderID")]
+        public int OrderID;
         public string Mail;
         public string TelephoneNumber;
     }
