@@ -11,7 +11,7 @@ namespace FotoAppDB.DBModel
 {
     public class Fotos
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity), Required]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int FotoID { get; set; }
         [ForeignKey("Orders")]
         public int OrderID { get; set; }
@@ -20,5 +20,8 @@ namespace FotoAppDB.DBModel
         public int Quantity { get; set; }
         [MaxLength(50)]
         public string Path { get; set; }
+        public Orders Orders { get; set; }
+        public Papers Papers { get; set; }
+  
     }
 }

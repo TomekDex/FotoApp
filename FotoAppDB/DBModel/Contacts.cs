@@ -9,15 +9,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FotoAppDB.DBModel
 {
-    class ContactData
+    public class Contacts
     {
         //Mail i telefon nie beda przechowywane bez zamowienia
         //Wiec bez sensu chyba tworzyć nowy ID dla tej tabeli?
         //Tylko nie jestem pewna, czy zapis prawidłowy, tomek sprawdz
         //ForeignKey => OrderID jako Primary Key
-        [Key, ForeignKey("OrderID")]
-        public int OrderID;
-        public string Mail;
-        public string TelephoneNumber;
+        [Key, ForeignKey("Orders")]
+        public int OrderID { get; set; }
+        public string Mail { get; set; }
+        public string TelephoneNumber { get; set; }
+        public Orders Orders { get; set; }
     }
 }

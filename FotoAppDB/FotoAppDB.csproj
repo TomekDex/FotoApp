@@ -50,19 +50,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBModel\ContactData.cs" />
+    <Compile Include="DBModel\Contacts.cs" />
     <Compile Include="DBModel\Discounts.cs" />
     <Compile Include="DBModel\Fotos.cs" />
     <Compile Include="DBModel\Orders.cs" />
-    <Compile Include="DBModel\OrdersFotos.cs" />
     <Compile Include="DBModel\Papers.cs" />
     <Compile Include="DBModel\Texts.cs" />
-    <Compile Include="FotoAppModel.cs" />
+    <Compile Include="FotoAppDbContext.cs" />
+    <Compile Include="Migrations\201703301740256_DB2.cs" />
+    <Compile Include="Migrations\201703301740256_DB2.Designer.cs">
+      <DependentUpon>201703301740256_DB2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703301740256_DB21.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>201703301740256_DB2.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703301839507_DB21.cs" />
+    <Compile Include="Migrations\201703301839507_DB21.Designer.cs">
+      <DependentUpon>201703301839507_DB21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201703301740256_DB2.resx">
+      <DependentUpon>201703301740256_DB2.cs</DependentUpon>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>201703301740256_DB21.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703301839507_DB21.resx">
+      <DependentUpon>201703301839507_DB21.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
