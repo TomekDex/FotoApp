@@ -11,13 +11,18 @@ namespace FotoAppDB.DBModel
 {
     public class Papers
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity), Required]
+        public Papers(){
+            this.Texts = new HashSet<Texts>();
+}
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PaperID { get; set; }
-        [ForeignKey("Texts"), Required]
+      //  [ForeignKey("Texts"), Required]
         public int Size { get; set; }
-        [ForeignKey("Texts"), Required]
+      //  [ForeignKey("TextsPaper"), Required, Display(Name = "TextsPaper"), Column(Order = 1)]
         public int Paper { get; set; }
         [Required]
         public double Cost { get; set; }
+        public ICollection<Texts> Texts { get; set; }
+
     }
 }
