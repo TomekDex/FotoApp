@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace FotoApp.Schell
 {
-    interface ISchell
+    interface ISchellable
     {
+        SchellViewModel Schell { get; set; }
+
     }
 }
