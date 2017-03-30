@@ -13,10 +13,11 @@ namespace FotoAppDB.DBModel
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity), Required]
         public int PaperID { get; set; }
-        [ForeignKey("Texts")]
+        [ForeignKey("Texts"), Required]
         public int Size { get; set; }
-        [ForeignKey("Texts")]
+        [ForeignKey("Texts"), Required]
         public int Paper { get; set; }
+        [Required]
         public double Cost { get; set; }
     }
 }
