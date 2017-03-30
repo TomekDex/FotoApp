@@ -15,7 +15,7 @@ namespace FotoAppDB.DBModel
         public int FotoID { get; set; }
         [ForeignKey("Orders")]
         public int OrderID { get; set; }
-        [ForeignKey("Pepers")]
+        [ForeignKey("Papers")]
         public int PaperID { get; set; }
         public int Quantity { get; set; }
         [MaxLength(50)]
