@@ -9,12 +9,12 @@ namespace FotoAppDB.DBModel
 {
     public class Texts
     {
-        [Key]
+        [Key, Required]
         public int StringID;
         [Key]
-        [MaxLength(5)]
+        [MaxLength(5), Required]
         public string Language;
-        [MaxLength(20)]
+        [MaxLength(20), Required]
         public string Text;
     }
 }
