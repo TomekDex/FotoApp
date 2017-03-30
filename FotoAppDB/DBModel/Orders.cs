@@ -10,10 +10,11 @@ namespace FotoAppDB.DBModel
 {
     public class Orders
     {
-        [Key]
+        [Key, Required]
         public int OrderID { get; set; }
         [MaxLength(200)]
         public string Description { get; set; }
+        [Required]
         public DateTime Data { get; set; }
     }
 }

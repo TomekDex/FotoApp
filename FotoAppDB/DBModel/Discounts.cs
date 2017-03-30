@@ -12,7 +12,7 @@ namespace FotoAppDB.DBModel
     public class Discounts
     {
         [Key]
-        [ForeignKey("Pepers")]
+        [ForeignKey("Papers")]
         public int PaperID { get; set; }
         [Key]
         public int Quantity { get; set; }
