@@ -7,13 +7,13 @@ namespace FotoAppDB.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class DB2 : IMigrationMetadata
+    public sealed partial class DB3 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DB2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(DB3));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703301740256_DB2"; }
+            get { return "201703311936110_DB3"; }
         }
         
         string IMigrationMetadata.Source

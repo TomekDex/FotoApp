@@ -22,21 +22,38 @@ namespace FotoAppDB
         public DbSet<Fotos> Foto { get; set; }
         public DbSet<Orders> Order { get; set; }
         public DbSet<Papers> Paper { get; set; }
-        public DbSet<Texts> Text { get; set; }
+        public DbSet<Sizes> Size { get; set; }
+        public DbSet<Types> Type { get; set; }
+        public DbSet<Languages> Language { get; set; }
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Papers>()
-                .HasKey(t => t.PaperID);
 
-            modelBuilder.Entity<Papers>()
-                 .HasRequired<Texts>(t => t.Texts)
-                    .WithMany(p => p.TextID)
-                    .HasForeignKey(s => s.Texts);
 
-           // modelBuilder.Entity<Papers>()
-               // .HasOne(pt => pt.Tag)
-               // .WithMany(t => t.PostTags)
-               // .HasForeignKey(pt => pt.TagId);
+
+            modelBuilder.Entity<Languages>()
+                .HasMany(s => s.Sizes)
+                .WithRequired(l => l.Languages)
+                .HasForeignKey(s => s.Language)
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Papers>()
+                .HasMany(s => s.Sizes)
+                .WithRequired(p => p.Papers)
+                .HasForeignKey(s => s.PaperID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Languages>()
+                .HasMany(t => t.Types)
+                .WithRequired(l => l.Languages)
+                .HasForeignKey(s => s.Language)
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Papers>()
+                .HasMany(t => t.Types)
+                .WithRequired(p => p.Papers)
+                .HasForeignKey(s => s.PaperID)
+                .WillCascadeOnDelete(false);
+
         }
 
 

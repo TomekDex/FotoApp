@@ -22,6 +22,6 @@ namespace FotoAppDB.DBModel
         public string Path { get; set; }
         public Orders Orders { get; set; }
         public Papers Papers { get; set; }
-  
+
     }
 }
