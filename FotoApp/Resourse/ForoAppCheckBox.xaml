@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:WpfApp6">
+                    xmlns:local="clr-namespace:FotoApp">
     <Style x:Key="FotoAppCheckBox" TargetType="{x:Type CheckBox}">
         <Setter Property="Template">
             <Setter.Value>
@@ -43,7 +43,11 @@
                                 <VisualState x:Name="Indeterminate"/>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Rectangle x:Name="rectangle" Fill="#FFFBFBFB" Margin="5,5,5,5                                    " RadiusX="5" RadiusY="5" Opacity="0.5"/>
+                        
+                        <Rectangle x:Name="rectangle" Fill="#FFFBFBFB" 
+                                   Margin="5,5,5,5" 
+                                   RadiusX="5" RadiusY="5" 
+                                   Opacity="0.5"/>
 
                         <Rectangle Fill="White"
                                    Margin="10,10,10,20"

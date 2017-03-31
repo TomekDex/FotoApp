@@ -15,5 +15,51 @@ namespace FotoApp.ViewModels
         {
             Schell = schell;
         }
+
+        public void Usb1()
+        {
+
+        }
+
+        public bool CanUsb1()
+        {
+            return true;
+        }
+        public void Usb2()
+        {
+
+        }
+
+        public bool CanUsb2()
+        {
+            return true;
+        }
+        public void Cd()
+        {
+
+        }
+
+        public bool CanCd()
+        {
+            return true;
+        }
+        public void Cart()
+        {
+
+        }
+
+        public bool CanCart()
+        {
+            return true;
+        }
+        public void Ok()
+        {
+
+        }
+
+        public bool CanOk()
+        {
+            return true;
+        }
     }
 }
