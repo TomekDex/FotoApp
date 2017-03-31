@@ -33,18 +33,7 @@
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="Foreground" Value="Red"/>
     </Style>
-    <LinearGradientBrush x:Key="Item" EndPoint="0.5,1" MappingMode="RelativeToBoundingBox"
-                         StartPoint="0.5,0">
-        <GradientStop
-            Color="{DynamicResource ResourceKey={x:Static SystemColors.ActiveCaptionColorKey}}" />
-        <GradientStop Color="#FF0097FF" Offset="0.197" />
-        <GradientStop Color="White" Offset="1" />
-    </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="Background" EndPoint="0.5,1" StartPoint="0.5,0">
-        <GradientStop Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}" Offset="0"/>
-        <GradientStop Color="White" Offset="1"/>
-    </LinearGradientBrush>
+    
 
 
 </ResourceDictionary>

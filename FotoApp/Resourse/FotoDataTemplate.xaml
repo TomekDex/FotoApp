@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:cm="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+                    xmlns:local="clr-namespace:FotoApp.Models">
+
+    <DataTemplate   x:Key="Cos" DataType="local:Data">
+        <CheckBox   Name="Cos"  HorizontalAlignment="Left" Width="300" Style="{StaticResource FotoAppCheckBox}" 
+                    cm:Message.Attach="[Event Click] = [Action Cos($dataContext)]" IsChecked="{Binding Chekerd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <StackPanel>
+                <Image Source="{Binding bitmap}" Margin="10,10,10,10"></Image>
+                <TextBlock Name="index"  HorizontalAlignment="Left" Opacity=".0" TextWrapping="Wrap" Text="{Binding index}" VerticalAlignment="Top"/>
+            </StackPanel>
+        </CheckBox>
+    </DataTemplate>
+</ResourceDictionary>

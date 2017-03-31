@@ -6,7 +6,21 @@
              xmlns:local="clr-namespace:FotoApp.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ItemsPanelTemplate x:Key="ListPanel" >
+            <WrapPanel Margin="10,10,10,10"/>
+        </ItemsPanelTemplate>
+    </UserControl.Resources>
+    
     <Grid>
+        <Rectangle Panel.ZIndex="-1" Fill="White"  Stroke="Blue"  StrokeThickness="2"
+                       Opacity=".1" RadiusX="8" RadiusY="8"/>
+        <ItemsControl ItemsSource="{Binding Start, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                      ItemTemplate="{StaticResource Cos}"
+                      ItemsPanel="{StaticResource ListPanel}"
+                      Margin="10,10,10,10"  >
             
+        </ItemsControl>
+
     </Grid>
 </UserControl>
