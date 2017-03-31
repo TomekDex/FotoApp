@@ -16,7 +16,6 @@ namespace FotoAppDB.DBModel
         [Key, Column(Order = 2)]
         public int Quantity { get; set; }
         public double Discount { get; set; }
-
         public Papers Papers { get; set; }
 
     }

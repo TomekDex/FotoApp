@@ -11,7 +11,6 @@ namespace FotoAppDB.DBModel
 {
     public class Contacts
     {
-
         [Key, ForeignKey("Orders")]
         public int OrderID { get; set; }
         public string Mail { get; set; }
