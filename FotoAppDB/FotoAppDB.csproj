@@ -55,7 +55,9 @@
     <Compile Include="DBModel\Fotos.cs" />
     <Compile Include="DBModel\Orders.cs" />
     <Compile Include="DBModel\Papers.cs" />
-    <Compile Include="DBModel\Texts.cs" />
+    <Compile Include="DBModel\PapersConf.cs" />
+    <Compile Include="DBModel\Sizes.cs" />
+    <Compile Include="DBModel\Types.cs" />
     <Compile Include="FotoAppDbContext.cs" />
     <Compile Include="Migrations\201703301740256_DB2.cs" />
     <Compile Include="Migrations\201703301740256_DB2.Designer.cs">
@@ -69,6 +71,10 @@
     <Compile Include="Migrations\201703301839507_DB21.cs" />
     <Compile Include="Migrations\201703301839507_DB21.Designer.cs">
       <DependentUpon>201703301839507_DB21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703311758443_DB3.cs" />
+    <Compile Include="Migrations\201703311758443_DB3.Designer.cs">
+      <DependentUpon>201703311758443_DB3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703301839507_DB21.resx">
       <DependentUpon>201703301839507_DB21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703311758443_DB3.resx">
+      <DependentUpon>201703311758443_DB3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
