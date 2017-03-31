@@ -22,17 +22,24 @@ namespace FotoAppDB
         public DbSet<Fotos> Foto { get; set; }
         public DbSet<Orders> Order { get; set; }
         public DbSet<Papers> Paper { get; set; }
-        public DbSet<Sizes> Text { get; set; }
-        public DbSet<Types> Type { get; set; }
-
+        public DbSet<Texts> Text { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new PapersConf());
             modelBuilder.Entity<Papers>()
-        .HasMany<Sizes>(s => s.Sizes)
-        .WithRequired(p => p.Paperss)
-        .HasForeignKey(p => p.SizeID);
+                .HasKey(t => t.PaperID);
+
+            modelBuilder.Entity<Papers>()
+                 .HasRequired<Texts>(t => t.Texts)
+                    .WithMany(p => p.TextID)
+                    .HasForeignKey(s => s.Texts);
+
+           // modelBuilder.Entity<Papers>()
+               // .HasOne(pt => pt.Tag)
+               // .WithMany(t => t.PostTags)
+               // .HasForeignKey(pt => pt.TagId);
         }
+
+
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 

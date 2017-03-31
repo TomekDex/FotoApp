@@ -8,15 +8,19 @@ using System.Threading.Tasks;
 
 namespace FotoAppDB.DBModel
 {
-    public class Types
+    public class Texts
     {
+        public Texts()
+        {
+            this.Papers = new HashSet<Papers>();
+        }
+
         [Key, Column(Order = 1)]
-        public int TypeID { get; set; }
+        public int TextID { get; set; }
         [Key, MaxLength(5), Column(Order = 2)]
         public string Language { get; set; }
         [MaxLength(20), Required]
         public string Text { get; set; }
-        public virtual ICollection<Papers> Papers { get; set; }
-        public virtual Papers Paperss { get; set; }
+        public ICollection<Papers> Papers { get; set; }
     }
 }
