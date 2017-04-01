@@ -37,7 +37,8 @@
                         <ContentPresenter HorizontalAlignment="Center" 
                                           RecognizesAccessKey="True"
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                          VerticalAlignment="Center"/>
+                                          VerticalAlignment="Center"
+                                          Style="{StaticResource TextItems}"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

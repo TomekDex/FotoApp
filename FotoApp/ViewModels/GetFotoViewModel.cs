@@ -1,65 +1,114 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Caliburn.Micro;
+using FotoApp.Models;
 using FotoApp.Schell;
+using FotoApp.ViewModels.Debug;
 
 namespace FotoApp.ViewModels
 {
-    public class GetFotoViewModel : ISchellable
+    public class GetFotoViewModel :Conductor<object>, ISchellable
     {
         public SchellViewModel Schell { get; set; }
+        public BindableCollection<Data> FotoCollection ;
+        #region  Propertis
+        private readonly string defaultDiscount = "0zł";
+        private readonly string defaultPrice = "0zł";
+        private string price;
+        private string discount;
+        private int count = 12;
 
+        public string Price
+        {
+            get { return price; }
+            set
+            {
+                price =  value;
+                NotifyOfPropertyChange(() => Price);
+            }
+        }
+        public string Discount
+        {
+            get { return discount; }
+            set
+            {
+                discount =  value;
+                NotifyOfPropertyChange(() => Discount);
+            }
+        }
+        public int Count
+        {
+            get { return count; }
+            set
+            {
+                count = value;
+                NotifyOfPropertyChange(() => Count);
+            }
+        }
+        #endregion
+
+        #region Constractor
         public GetFotoViewModel(SchellViewModel schell)
         {
             Schell = schell;
-        }
 
+#if DEBUG
+            discount = "kjsdhsdkjfhsdkfs";
+            price = "klsdfjskdfhsdf";
+            
+#endif
+        }
+        #endregion
+
+        #region  Actions
         public void Usb1()
         {
-
+            ActivateItem(new ListFotoViewModel(Schell, this));
         }
+        public void Usb2()
+        {
+            ActivateItem(new ListFotoViewModel(Schell, this));
+        }
+        public void Cd()
+        {
+            ActivateItem(new ListFotoViewModel(Schell, this));
+        }
+        public void Cart()
+        {
+            ActivateItem(new ListFotoViewModel(Schell, this));
+        }
+        public void Ok()
+        {
+            ActivateItem(null); // wczytanie danych z do zatwierdzenia zlecenia 
+        }
+        #endregion
 
+        #region CanActions
         public bool CanUsb1()
         {
             return true;
         }
-        public void Usb2()
-        {
-
-        }
-
         public bool CanUsb2()
         {
             return true;
         }
-        public void Cd()
-        {
-
-        }
-
         public bool CanCd()
         {
             return true;
         }
-        public void Cart()
-        {
-
-        }
-
         public bool CanCart()
         {
             return true;
         }
-        public void Ok()
-        {
-
-        }
-
         public bool CanOk()
         {
             return true;
         }
+        #endregion
+
     }
 }

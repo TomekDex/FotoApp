@@ -89,6 +89,7 @@
       <DependentUpon>SchellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Schell\SchellViewModel.cs" />
+    <Compile Include="ViewModels\Debug\Additems.cs" />
     <Compile Include="ViewModels\GetFotoViewModel.cs" />
     <Compile Include="ViewModels\ListFotoViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
