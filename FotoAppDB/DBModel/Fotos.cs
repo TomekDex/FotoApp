@@ -11,14 +11,17 @@ namespace FotoAppDB.DBModel
 {
     public class Fotos
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int FotoID { get; set; }
         [ForeignKey("Orders")]
         public int OrderID { get; set; }
-        [ForeignKey("Pepers")]
+        [ForeignKey("Papers")]
         public int PaperID { get; set; }
         public int Quantity { get; set; }
         [MaxLength(50)]
         public string Path { get; set; }
+        public Orders Orders { get; set; }
+        public Papers Papers { get; set; }
+
     }
 }
