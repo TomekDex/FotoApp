@@ -50,19 +50,64 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBModel\ContactData.cs" />
+    <Compile Include="DBModel\Contacts.cs" />
     <Compile Include="DBModel\Discounts.cs" />
     <Compile Include="DBModel\Fotos.cs" />
+    <Compile Include="DBModel\Languages.cs" />
     <Compile Include="DBModel\Orders.cs" />
-    <Compile Include="DBModel\OrdersFotos.cs" />
     <Compile Include="DBModel\Papers.cs" />
-    <Compile Include="DBModel\Texts.cs" />
-    <Compile Include="FotoAppModel.cs" />
+    <Compile Include="DBModel\Sizes.cs" />
+    <Compile Include="FotoAppDbContext.cs" />
+    <Compile Include="Migrations\201703311903570_DB1.cs" />
+    <Compile Include="Migrations\201703311903570_DB1.Designer.cs">
+      <DependentUpon>201703311903570_DB1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703311922348_DB2.cs" />
+    <Compile Include="Migrations\201703311922348_DB2.Designer.cs">
+      <DependentUpon>201703311922348_DB2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703311936110_DB3.cs" />
+    <Compile Include="Migrations\201703311936110_DB3.Designer.cs">
+      <DependentUpon>201703311936110_DB3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703312001560_DB4.cs" />
+    <Compile Include="Migrations\201703312001560_DB4.Designer.cs">
+      <DependentUpon>201703312001560_DB4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703312009025_DB5.cs" />
+    <Compile Include="Migrations\201703312009025_DB5.Designer.cs">
+      <DependentUpon>201703312009025_DB5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DBModel\Types.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201703311903570_DB1.resx">
+      <DependentUpon>201703311903570_DB1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703311922348_DB2.resx">
+      <DependentUpon>201703311922348_DB2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703311936110_DB3.resx">
+      <DependentUpon>201703311936110_DB3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703312001560_DB4.resx">
+      <DependentUpon>201703312001560_DB4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703312009025_DB5.resx">
+      <DependentUpon>201703312009025_DB5.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Other\Entity Migracja.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DB\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
