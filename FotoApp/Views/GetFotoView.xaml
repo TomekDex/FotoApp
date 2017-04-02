@@ -21,10 +21,6 @@
 
         <ContentControl x:Name="ActiveItem" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"
                         Margin="10,10,10,10" Grid.Row="1" >
-
-            <!-- <Rectangle Panel.ZIndex="-1" Fill="White"  Stroke="Blue"  StrokeThickness="2"
-                       Opacity=".1" RadiusX="8" RadiusY="8"/>-->
-
         </ContentControl>
         <WrapPanel  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"   
                      Grid.Row="0" Grid.Column="1">

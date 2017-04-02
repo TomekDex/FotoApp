@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using FotoApp.Models;
 using FotoApp.Schell;
-using FotoApp.ViewModels.Debug;
 
 namespace FotoApp.ViewModels
 {
     public class GetFotoViewModel :Conductor<object>, ISchellable
     {
         public SchellViewModel Schell { get; set; }
-        public BindableCollection<Data> FotoCollection ;
+
+        public  FinalColection FotoCollection { get; set; }
         #region  Propertis
-        private readonly string defaultDiscount = "0zł";
-        private readonly string defaultPrice = "0zł";
+        
         private string price;
         private string discount;
         private int count = 12;
@@ -59,7 +58,6 @@ namespace FotoApp.ViewModels
 #if DEBUG
             discount = "kjsdhsdkjfhsdkfs";
             price = "klsdfjskdfhsdf";
-            
 #endif
         }
         #endregion
