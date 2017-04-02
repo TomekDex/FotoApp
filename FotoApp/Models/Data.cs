@@ -4,7 +4,7 @@ namespace FotoApp.Models
 {
     public class Data
     {
-        public int index { get; set; }
+        public int Index { get; set; }
         public BitmapImage bitmap { get; set; }
         public bool Chekerd { get; set; }
     }

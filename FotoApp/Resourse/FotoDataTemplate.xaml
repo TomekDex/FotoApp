@@ -6,7 +6,7 @@
         <CheckBox   HorizontalAlignment="Left" Width="300" 
                         Style="{StaticResource FotoAppCheckBox}" 
                         Action:Message.Attach="[Event Click] = [Action ActiveChechBox($dataContext)]"
-                        IsChecked="{Binding Chekerd, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                        IsChecked="{Binding Chekerd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <StackPanel>
                 <Image Source="{Binding bitmap}"
                        Margin="10,10,10,10" />

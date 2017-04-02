@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Caliburn.Micro;
+using FotoApp.Enum;
 using FotoApp.Models;
 using FotoApp.Schell;
 using FotoApp.ViewModels.Actions;
@@ -13,10 +14,11 @@ namespace FotoApp.ViewModels
 {
     public class ListFotoViewModel :PropertyChangedBase, ISchellable
     {
-        #region Propertis;
+       
         public SchellViewModel Schell { get; set; }
         private GetFotoViewModel getFoto;
 
+        #region Propertis;
         private BindableCollection<Data> _fotoData;
         public BindableCollection<Data> FotoData {
             get { return _fotoData; }
@@ -26,8 +28,30 @@ namespace FotoApp.ViewModels
                 NotifyOfPropertyChange(()=> FotoData );
             }
         }
+
+        private Paper _paper;
+        private SizeFoto _sizeFoto;
+
+        public Paper Paper
+        {
+            get { return _paper; }
+            set
+            {
+                _paper = value;
+                NotifyOfPropertyChange(() => Paper);
+            }
+        }
+        public SizeFoto SizeFoto
+        {
+            get { return _sizeFoto; }
+            set
+            {
+                _sizeFoto = value;
+                NotifyOfPropertyChange(() => SizeFoto);
+            }
+        }
         #endregion
-       
+
         #region Constractor
         public ListFotoViewModel(SchellViewModel schellViewModel, GetFotoViewModel getFotoViewModel)
         {
@@ -52,7 +76,7 @@ namespace FotoApp.ViewModels
                         new BitmapImage(
                             new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
                                 UriKind.Absolute)),
-                     index = 1
+                     Index = 1
                  },
                 new Data
                 {
@@ -60,7 +84,7 @@ namespace FotoApp.ViewModels
                         new BitmapImage(
                             new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
                                 UriKind.Absolute)),
-                    index = 2
+                    Index = 2
                 },
                 new Data
                 {
@@ -68,7 +92,7 @@ namespace FotoApp.ViewModels
                         new BitmapImage(
                             new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
                                 UriKind.Absolute)),
-                    index = 3
+                    Index = 3
                 },
                 new Data
                 {
@@ -76,7 +100,7 @@ namespace FotoApp.ViewModels
                         new BitmapImage(
                             new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
                                 UriKind.Absolute)),
-                    index = 4
+                    Index = 4
                 },
                 new Data
                 {
@@ -84,7 +108,7 @@ namespace FotoApp.ViewModels
                         new BitmapImage(
                             new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
                                 UriKind.Absolute)),
-                    index = 5
+                    Index = 5
                 },
                 new Data
                 {
@@ -92,7 +116,7 @@ namespace FotoApp.ViewModels
                         new BitmapImage(
                             new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
                                 UriKind.Absolute)),
-                    index = 6
+                    Index = 6
                 },
                 new Data
                 {
@@ -100,7 +124,7 @@ namespace FotoApp.ViewModels
                         new BitmapImage(
                             new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
                                 UriKind.Absolute)),
-                    index = 7
+                    Index = 7
                 },
                 new Data
                 {
@@ -108,7 +132,7 @@ namespace FotoApp.ViewModels
                         new BitmapImage(
                             new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
                                 UriKind.Absolute)),
-                    index = 8
+                    Index = 8
                 }
             };
         }
@@ -124,15 +148,25 @@ namespace FotoApp.ViewModels
                 uri = tmp.bitmap.UriSource;
                 var foto = new FinalFoto
                 {
-                    NumbersOFFoto = 1,
-                    Urifoto = uri
+                    NumbersOfFoto = 1,
+                    Index = tmp.Index,
+                    Urifoto = uri,
+                    Paper = Paper,
+                    SizeFoto = SizeFoto
                 };
                 getFoto.FotoCollection.FotoColection.Add(foto);
+
+                var copyFoto = new CopyFoto();
+                copyFoto.CopyFotoToLocal(uri);
+            }
+            else
+            {
+                var removeTmp = getFoto.FotoCollection.FotoColection.FirstOrDefault(e => e.Index == tmp.Index);
+                getFoto.FotoCollection.FotoColection.Remove(removeTmp);
             }
 
             // przekazuje do kopiowania
-            var copyFoto = new CopyFoto();
-            copyFoto.CopyFotoToLocal(uri);
+            
         }
 
 

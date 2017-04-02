@@ -95,12 +95,17 @@
     <Compile Include="Schell\SchellViewModel.cs" />
     <Compile Include="ViewModels\Actions\CopyFoto.cs" />
     <Compile Include="ViewModels\Actions\LoadFoto.cs" />
+    <Compile Include="ViewModels\ClosingOrderViewModel.cs" />
+    <Compile Include="ViewModels\Converter\RatioButtonToEnumConverter.cs" />
     <Compile Include="ViewModels\GetFotoViewModel.cs" />
     <Compile Include="ViewModels\ListFotoViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ClosingOrderView.xaml.cs">
+      <DependentUpon>ClosingOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GetFotoView.xaml.cs">
       <DependentUpon>GetFotoView.xaml</DependentUpon>
@@ -136,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Schell\SchellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ClosingOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

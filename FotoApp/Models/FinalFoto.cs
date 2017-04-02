@@ -12,6 +12,8 @@ namespace FotoApp.Models
         public Uri Urifoto { get; set; }
         public Paper Paper { get; set; }
         public SizeFoto SizeFoto { get; set; }
-        public int NumbersOFFoto { get; set; }
+        public int NumbersOfFoto { get; set; }
+
+        public int Index { get; set; }
     }
 }

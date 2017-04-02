@@ -13,7 +13,6 @@ namespace FotoApp.ViewModels
     public class GetFotoViewModel :Conductor<object>, ISchellable
     {
         public SchellViewModel Schell { get; set; }
-
         public  FinalColection FotoCollection { get; set; }
         #region  Propertis
         
