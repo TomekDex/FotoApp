@@ -20,7 +20,7 @@ namespace FotoApp.ViewModels
 
         public string Name
         {
-            get { throw new NotImplementedException(); }
+            get { return  _name; }
             set
             {
                 _name = value;
@@ -29,7 +29,7 @@ namespace FotoApp.ViewModels
         }
         public string Phone
         {
-            get { throw new NotImplementedException(); }
+            get { return _phone; }
             set
             {
                 _phone = value;
@@ -38,7 +38,7 @@ namespace FotoApp.ViewModels
         }
         public string Mail
         {
-            get { throw new NotImplementedException(); }
+            get { return _mail; }
             set
             {
                 _mail = value;

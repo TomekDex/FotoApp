@@ -57,7 +57,6 @@ namespace FotoApp.ViewModels
         {
             Schell = schellViewModel;
             getFoto = getFotoViewModel;
-            getFoto.FotoCollection = new FinalColection();
 #if DEBUG
             Inicialice();
 #endif
@@ -156,6 +155,7 @@ namespace FotoApp.ViewModels
                 };
                 getFoto.FotoCollection.FotoColection.Add(foto);
 
+                // przekazuje do kopiowania
                 var copyFoto = new CopyFoto();
                 copyFoto.CopyFotoToLocal(uri);
             }
@@ -165,7 +165,7 @@ namespace FotoApp.ViewModels
                 getFoto.FotoCollection.FotoColection.Remove(removeTmp);
             }
 
-            // przekazuje do kopiowania
+           
             
         }
 

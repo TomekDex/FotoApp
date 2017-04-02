@@ -19,7 +19,7 @@ namespace FotoApp.ViewModels
         private string price;
         private string discount;
         private int count = 12;
-
+        private bool ClosingOrder;
         public string Price
         {
             get { return price; }
@@ -53,6 +53,7 @@ namespace FotoApp.ViewModels
         public GetFotoViewModel(SchellViewModel schell)
         {
             Schell = schell;
+            FotoCollection = new FinalColection();
 
 #if DEBUG
             discount = "kjsdhsdkjfhsdkfs";
@@ -65,22 +66,32 @@ namespace FotoApp.ViewModels
         public void Usb1()
         {
             ActivateItem(new ListFotoViewModel(Schell, this));
+            ClosingOrder = false;
         }
         public void Usb2()
         {
             ActivateItem(new ListFotoViewModel(Schell, this));
+            ClosingOrder = false;
         }
         public void Cd()
         {
             ActivateItem(new ListFotoViewModel(Schell, this));
+            ClosingOrder = false;
         }
         public void Cart()
         {
             ActivateItem(new ListFotoViewModel(Schell, this));
+            ClosingOrder = false;
         }
         public void Ok()
         {
-            ActivateItem(null); // wczytanie danych z do zatwierdzenia zlecenia 
+            if (!ClosingOrder)
+            {
+                ActivateItem(new ClosingOrderViewModel(Schell, this));
+                ClosingOrder = true;
+            }
+
+            // wczytanie danych z do zatwierdzenia zlecenia 
         }
         #endregion
 
@@ -101,11 +112,12 @@ namespace FotoApp.ViewModels
         {
             return true;
         }
+
         public bool CanOk()
         {
             return true;
         }
-        #endregion
 
+        #endregion
     }
 }
