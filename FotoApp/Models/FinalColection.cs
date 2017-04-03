@@ -11,7 +11,7 @@ namespace FotoApp.Models
         public List<FinalFoto> FotoColection { get; set; }
         public string CustomerName { get; set; }
         public string CustomerPhoneNumber { get; set; }
-        public string CustomerEMail { get; set; }
+        public string CustomerMail { get; set; }
 
         public FinalColection()
         {

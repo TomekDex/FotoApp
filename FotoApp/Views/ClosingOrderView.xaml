@@ -65,11 +65,6 @@
                      Text="{Binding Path=Mail, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                      VerticalAlignment="Bottom"
                      Width="221"/>
-            
-
-
         </Grid>
-
-
     </Grid>
 </UserControl>

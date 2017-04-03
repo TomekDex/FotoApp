@@ -12,8 +12,6 @@ namespace FotoApp.ViewModels
     public class StartViewModel : PropertyChangedBase, ISchellable
     {
         public SchellViewModel Schell { get; set; }
-        
-
 
         public StartViewModel(SchellViewModel schell)
         {

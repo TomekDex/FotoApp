@@ -16,8 +16,7 @@ namespace FotoApp.ViewModels
     {
        
         public SchellViewModel Schell { get; set; }
-        private GetFotoViewModel getFoto;
-
+        private readonly GetFotoViewModel _getFoto;
         #region Propertis;
         private BindableCollection<Data> _fotoData;
         public BindableCollection<Data> FotoData {
@@ -28,6 +27,8 @@ namespace FotoApp.ViewModels
                 NotifyOfPropertyChange(()=> FotoData );
             }
         }
+
+        private FinalColection _finalColections;
 
         private Paper _paper;
         private SizeFoto _sizeFoto;
@@ -53,10 +54,12 @@ namespace FotoApp.ViewModels
         #endregion
 
         #region Constractor
-        public ListFotoViewModel(SchellViewModel schellViewModel, GetFotoViewModel getFotoViewModel)
+        public ListFotoViewModel(SchellViewModel schellViewModel, GetFotoViewModel getFoto)
         {
             Schell = schellViewModel;
-            getFoto = getFotoViewModel;
+            this._getFoto = getFoto;
+            _finalColections = new FinalColection();
+            _getFoto.FinalColectionDelegat += GetFinalColection;
 #if DEBUG
             Inicialice();
 #endif
@@ -140,11 +143,9 @@ namespace FotoApp.ViewModels
         {
             var tmp = itemBox as Data;
 
-            Uri uri = null;
-
             if (tmp?.Chekerd == true)
             {
-                uri = tmp.bitmap.UriSource;
+                var uri = tmp.bitmap.UriSource;
                 var foto = new FinalFoto
                 {
                     NumbersOfFoto = 1,
@@ -153,22 +154,24 @@ namespace FotoApp.ViewModels
                     Paper = Paper,
                     SizeFoto = SizeFoto
                 };
-                getFoto.FotoCollection.FotoColection.Add(foto);
+                _finalColections.FotoColection.Add(foto);
 
                 // przekazuje do kopiowania
+
                 var copyFoto = new CopyFoto();
                 copyFoto.CopyFotoToLocal(uri);
             }
             else
             {
-                var removeTmp = getFoto.FotoCollection.FotoColection.FirstOrDefault(e => e.Index == tmp.Index);
-                getFoto.FotoCollection.FotoColection.Remove(removeTmp);
+                var removeTmp = _finalColections.FotoColection.FirstOrDefault(e => tmp != null && e.Index == tmp.Index);
+                _finalColections.FotoColection.Remove(removeTmp);
             }
-
-           
-            
         }
 
+        public FinalColection GetFinalColection()
+        {
+            return _finalColections;
+        }
 
         #endregion
 

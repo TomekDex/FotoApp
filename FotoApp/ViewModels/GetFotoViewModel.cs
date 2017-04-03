@@ -14,8 +14,22 @@ namespace FotoApp.ViewModels
     {
         public SchellViewModel Schell { get; set; }
         public  FinalColection FotoCollection { get; set; }
+
+        public delegate string ChangeName();
+
+        public delegate FinalColection FinalColectionDelegate();
+
+        public delegate string ChangePhone();
+
+        public delegate string ChangeMail();
+
+        public FinalColectionDelegate FinalColectionDelegat;
+        public ChangeMail ChangeMailDelegate;
+        public ChangeName ChangeNameDelegate;
+        public ChangePhone ChangePhoneDelegate;
+
         #region  Propertis
-        
+
         private string price;
         private string discount;
         private int count = 12;
@@ -88,7 +102,18 @@ namespace FotoApp.ViewModels
             if (!ClosingOrder)
             {
                 ActivateItem(new ClosingOrderViewModel(Schell, this));
+                FotoCollection = FinalColectionDelegat();
                 ClosingOrder = true;
+            }
+            else
+            {
+                FotoCollection.CustomerName = ChangeNameDelegate();
+                FotoCollection.CustomerMail = ChangeMailDelegate();
+                FotoCollection.CustomerPhoneNumber = ChangePhoneDelegate();
+                ClosingOrder = false;
+                // przesłanie zamuwieniea do bazy danych
+                ActivateItem(null);
+
             }
 
             // wczytanie danych z do zatwierdzenia zlecenia 

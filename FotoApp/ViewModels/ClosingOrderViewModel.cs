@@ -10,6 +10,8 @@ namespace FotoApp.ViewModels
 {
     public class ClosingOrderViewModel : PropertyChangedBase, ISchellable
     {
+       
+
         #region Propertis
         public SchellViewModel Schell { get; set; }
         public GetFotoViewModel GetFoto { get; set; }
@@ -54,11 +56,30 @@ namespace FotoApp.ViewModels
         {
             Schell = schell;
             GetFoto = getFoto;
+            getFoto.ChangeNameDelegate += GetName;
+            getFoto.ChangeMailDelegate += GetMail;
+            getFoto.ChangePhoneDelegate += GetPhone;
         }
+
 
         #endregion
 
+        #region Actions
+
+        public string GetName()
+        {
+            return _name;
+        }
+        public string GetMail()
+        {
+            return _mail;
+        }
+        public string GetPhone()
+        {
+            return _phone;
+        }
 
 
+        #endregion
     }
 }
