@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FotoApp", "FotoApp\FotoApp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FotoAppDB", "FotoAppDB\FotoAppDB.csproj", "{38E36ACA-5C3C-429E-BF25-6AA80BD6C780}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FotoAppDBTest", "FotoAppDBTest\FotoAppDBTest.csproj", "{A5CBDF44-60B2-41DA-BE10-B1C8BF294514}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{38E36ACA-5C3C-429E-BF25-6AA80BD6C780}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38E36ACA-5C3C-429E-BF25-6AA80BD6C780}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38E36ACA-5C3C-429E-BF25-6AA80BD6C780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5CBDF44-60B2-41DA-BE10-B1C8BF294514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5CBDF44-60B2-41DA-BE10-B1C8BF294514}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5CBDF44-60B2-41DA-BE10-B1C8BF294514}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5CBDF44-60B2-41DA-BE10-B1C8BF294514}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

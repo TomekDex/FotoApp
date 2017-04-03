@@ -51,12 +51,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBModel\Contacts.cs" />
+    <Compile Include="DBModel\IDBModel.cs" />
     <Compile Include="DBModel\Prices.cs" />
     <Compile Include="DBModel\Fotos.cs" />
     <Compile Include="DBModel\Languages.cs" />
     <Compile Include="DBModel\Orders.cs" />
     <Compile Include="DBModel\Papers.cs" />
     <Compile Include="DBModel\Sizes.cs" />
+    <Compile Include="Exception\NotExistInDataBaseException.cs" />
+    <Compile Include="Exception\OutOfMaxLengthException.cs" />
     <Compile Include="FotoAppDbContext.cs" />
     <Compile Include="Migrations\201703311903570_DB1.cs" />
     <Compile Include="Migrations\201703311903570_DB1.Designer.cs">
@@ -81,6 +84,18 @@
     <Compile Include="Migrations\201704030713347_DB6.cs" />
     <Compile Include="Migrations\201704030713347_DB6.Designer.cs">
       <DependentUpon>201704030713347_DB6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704031024499_DB7.cs" />
+    <Compile Include="Migrations\201704031024499_DB7.Designer.cs">
+      <DependentUpon>201704031024499_DB7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704031329282_DB8.cs" />
+    <Compile Include="Migrations\201704031329282_DB8.Designer.cs">
+      <DependentUpon>201704031329282_DB8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704031509528_DB9.cs" />
+    <Compile Include="Migrations\201704031509528_DB9.Designer.cs">
+      <DependentUpon>201704031509528_DB9.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,6 +123,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704030713347_DB6.resx">
       <DependentUpon>201704030713347_DB6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704031024499_DB7.resx">
+      <DependentUpon>201704031024499_DB7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704031329282_DB8.resx">
+      <DependentUpon>201704031329282_DB8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704031509528_DB9.resx">
+      <DependentUpon>201704031509528_DB9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
