@@ -44,9 +44,9 @@ namespace FotoAppDB.DBModel
             db.SaveChanges();
         }
        
-        public static Orders Get(FotoAppDbContext db, int order)
+        public static Orders Get(FotoAppDbContext db, int id)
         {
-            Orders o = db.Order.Find(order);
+            Orders o = db.Order.Find(id);
             if (o != null)
             {
                 return o;
@@ -63,9 +63,9 @@ namespace FotoAppDB.DBModel
             throw new NotImplementedException();
         }
 
-        public static bool Is(FotoAppDbContext db, int order)
+        public static bool Is(FotoAppDbContext db, int id)
         {
-            return db.Order.Find(order) != null;
+            return db.Order.Find(id) != null;
         }
         public bool Is(FotoAppDbContext db)
         {
