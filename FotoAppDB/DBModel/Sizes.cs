@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FotoAppDB.DBModel
 {
-    public class Sizes
+    public class Sizes : IDBModel
     {
         [Key, Column(Order = 1)]
         public int PaperID { get; set; }
@@ -18,5 +18,26 @@ namespace FotoAppDB.DBModel
         public string Size { get; set; }
         public virtual Papers Papers { get; set; }
         public virtual Languages Languages { get; set; }
+
+        public void Add(FotoAppDbContext db)
+        {
+            db.Size.Add(this);
+            db.SaveChanges();
+        }
+
+        public static bool Is(FotoAppDbContext db, int paperID, string language)
+        {
+            return db.Size.Find(paperID, language) != null;
+        }
+
+        public bool Is(FotoAppDbContext db)
+        {
+            return db.Size.Find(this.PaperID, this.Language) != null;
+        }
+
+        public void Remove(FotoAppDbContext db)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
