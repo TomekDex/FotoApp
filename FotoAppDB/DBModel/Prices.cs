@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FotoAppDB.DBModel
 {
-    public class Prices
+    public class Prices : IDBModel
     {
         [Key, Column(Order = 1), ForeignKey("Papers")]
         public int PaperID { get; set; }
@@ -19,5 +19,24 @@ namespace FotoAppDB.DBModel
         public double Price { get; set; }
         public Papers Papers { get; set; }
 
+        public void Add(FotoAppDbContext db)
+        {
+            db.Price.Add(this);
+            db.SaveChanges();
+        }
+
+        public static bool Is(FotoAppDbContext db, int paperID, int quantity)
+        {
+            return db.Price.Find(paperID,quantity) != null;
+        }
+        public bool Is(FotoAppDbContext db)
+        {
+            return db.Price.Find(this.PaperID, this.Quantity) != null;
+        }
+
+        public void Remove(FotoAppDbContext db)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

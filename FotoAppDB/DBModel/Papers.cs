@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FotoAppDB.DBModel
 {
-    public class Papers
+    public class Papers : IDBModel
     {
         public Papers()
         {
@@ -20,5 +20,25 @@ namespace FotoAppDB.DBModel
         public int PaperID { get; set; }
         public virtual ICollection<Sizes> Sizes { get; set; }
         public virtual ICollection<Types> Types { get; set; }
+
+        public void Add(FotoAppDbContext db)
+        {
+            db.Paper.Add(this);
+            db.SaveChanges();
+        }
+
+        public bool Is(FotoAppDbContext db)
+        {
+            return db.Paper.Find(this.PaperID) != null;
+        }
+        public static bool Is(FotoAppDbContext db, int id)
+        {
+            return db.Paper.Find(id) != null;
+        }
+
+        public void Remove(FotoAppDbContext db)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
