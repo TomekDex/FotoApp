@@ -9,13 +9,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FotoAppDB.DBModel
 {
-    public class Discounts
+    public class Prices
     {
         [Key, Column(Order = 1), ForeignKey("Papers")]
         public int PaperID { get; set; }
         [Key, Column(Order = 2)]
         public int Quantity { get; set; }
-        public double Discount { get; set; }
+        [Required]
+        public double Price { get; set; }
         public Papers Papers { get; set; }
 
     }
