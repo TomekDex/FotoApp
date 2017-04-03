@@ -17,6 +17,7 @@ namespace FotoAppDB.DBModel
         public int OrderID { get; set; }
         [ForeignKey("Papers")]
         public int PaperID { get; set; }
+        [Required]
         public int Quantity { get; set; }
         [MaxLength(50)]
         public string Path { get; set; }

@@ -18,8 +18,6 @@ namespace FotoAppDB.DBModel
         }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PaperID { get; set; }
-        [Required]
-        public double Cost { get; set; }
         public virtual ICollection<Sizes> Sizes { get; set; }
         public virtual ICollection<Types> Types { get; set; }
     }
