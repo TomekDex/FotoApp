@@ -46,5 +46,9 @@ namespace FotoAppDB.DBModel
             context.SaveChanges();
         }
 
+        public void Update(Papers FAobject)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

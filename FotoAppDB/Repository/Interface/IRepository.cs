@@ -11,6 +11,7 @@ namespace FotoAppDB.DBModel
         void Add(T FAobject);
         bool Is(T FAobject);
         void Save();
+        void Update(T FAobject);
     }
     public interface IRepository<T, ID> : IRepository<T>
     {

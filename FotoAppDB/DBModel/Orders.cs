@@ -12,16 +12,10 @@ namespace FotoAppDB.DBModel
 {
     public class Orders
     {
-        private Orders() { }
-        public Orders(string Description, DateTime Date)
-        {
-            this.Date = Date;
-            this.Description = Description;
-        }
         private string _description;
         public const int maxLengthDescription = 200;
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int OrderID { get; private set; }
+        public int OrderID { get; set; }
         [MaxLength(maxLengthDescription)]
         public string Description
         {
@@ -36,7 +30,7 @@ namespace FotoAppDB.DBModel
             }
         }
         [Required, Column(TypeName = "datetime2")]
-        public DateTime Date { get; private set; }
+        public DateTime Date { get; set; }
 
         
     }

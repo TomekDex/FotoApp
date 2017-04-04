@@ -46,5 +46,11 @@ namespace FotoAppDB.DBModel
         {
             context.SaveChanges();
         }
+
+
+        public void Update(Contacts FAobject)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
