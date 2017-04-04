@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Infrastructure;
+using FotoAppDB.Exception;
 
 namespace FotoAppDB.DBModel
 {
@@ -34,6 +35,19 @@ namespace FotoAppDB.DBModel
             }
             catch (DbUpdateException e)
             {//obsluga wyjatgu gdy już jest dany rekord
+            }
+        }
+
+        public static Fotos Get(FotoAppDbContext db, int id)
+        {
+            Fotos o = db.Foto.Find(id);
+            if (o != null)
+            {
+                return o;
+            }
+            else
+            {
+                throw new NotExistInDataBaseException("Brak zdjęcia!");
             }
         }
 

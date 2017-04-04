@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FotoAppDB.Exception;
 
 namespace FotoAppDB.DBModel
 {
@@ -25,6 +26,19 @@ namespace FotoAppDB.DBModel
         {
             db.Paper.Add(this);
             db.SaveChanges();
+        }
+
+        public static Papers Get(FotoAppDbContext db, int id)
+        {
+            Papers o = db.Paper.Find(id);
+            if (o != null)
+            {
+                return o;
+            }
+            else
+            {
+                throw new NotExistInDataBaseException("Brak informacji o rodzaju papieru!");
+            }
         }
 
         public bool Is(FotoAppDbContext db)

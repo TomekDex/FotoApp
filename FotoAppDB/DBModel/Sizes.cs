@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FotoAppDB.Exception;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,6 +24,19 @@ namespace FotoAppDB.DBModel
         {
             db.Size.Add(this);
             db.SaveChanges();
+        }
+
+        public static Sizes Get(FotoAppDbContext db, int id)
+        {
+            Sizes o = db.Size.Find(id);
+            if (o != null)
+            {
+                return o;
+            }
+            else
+            {
+                throw new NotExistInDataBaseException("Brak rozmiaru!");
+            }
         }
 
         public static bool Is(FotoAppDbContext db, int paperID, string language)
