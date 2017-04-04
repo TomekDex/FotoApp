@@ -45,5 +45,9 @@ namespace FotoAppDB.DBModel
             context.SaveChanges();
         }
 
+        public void Update(Languages FAobject)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

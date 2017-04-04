@@ -44,5 +44,10 @@ namespace FotoAppDB.DBModel
         {
             context.SaveChanges();
         }
+
+        public void Update(Sizes FAobject)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

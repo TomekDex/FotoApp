@@ -100,11 +100,21 @@
     <Compile Include="Migrations\201704041334270_DB10.Designer.cs">
       <DependentUpon>201704041334270_DB10.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704041716190_DB11.cs" />
+    <Compile Include="Migrations\201704041716190_DB11.Designer.cs">
+      <DependentUpon>201704041716190_DB11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704041756554_DB12.cs" />
+    <Compile Include="Migrations\201704041756554_DB12.Designer.cs">
+      <DependentUpon>201704041756554_DB12.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DBModel\Types.cs" />
     <Compile Include="Repository\ContactsR.cs" />
     <Compile Include="Repository\FotosR.cs" />
+    <Compile Include="Repository\Interface\IFotosR.cs" />
+    <Compile Include="Repository\Interface\IOrdersR.cs" />
     <Compile Include="Repository\Interface\IRepository.cs" />
     <Compile Include="Repository\LanguagesR.cs" />
     <Compile Include="Repository\OrdersR.cs" />
@@ -147,6 +157,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704041334270_DB10.resx">
       <DependentUpon>201704041334270_DB10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704041716190_DB11.resx">
+      <DependentUpon>201704041716190_DB11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704041756554_DB12.resx">
+      <DependentUpon>201704041756554_DB12.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -46,5 +46,10 @@ namespace FotoAppDB.DBModel
         {
             context.SaveChanges();
         }
+
+        public void Update(Prices FAobject)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

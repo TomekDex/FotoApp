@@ -8,10 +8,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Infrastructure;
 using FotoAppDB.Exception;
+using FotoAppDB.Repository.Interface;
 
 namespace FotoAppDB.DBModel
 {
-    public class FotosR : IRepository<Fotos, int>
+    public class FotosR : IRepository<Fotos, int>, IFotosR
     {
         private readonly FotoAppDbContext context;
         public FotosR(FotoAppDbContext context)
@@ -44,6 +45,17 @@ namespace FotoAppDB.DBModel
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public void Update(Fotos FAobject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Fotos foto)
+        {
+            context.Foto.Attach(foto);
+            context.Foto.Remove(foto);
         }
     }
 }
