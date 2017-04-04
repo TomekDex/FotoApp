@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Caliburn.Micro;
 using FotoApp.Enum;
+using FotoApp.Interface;
 using FotoApp.Models;
 using FotoApp.Schell;
 using FotoApp.ViewModels.Actions;

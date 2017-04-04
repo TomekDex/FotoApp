@@ -83,12 +83,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Controls\PasswordBoxGetPassword.cs" />
     <Compile Include="Enum\Paper.cs" />
     <Compile Include="Enum\SizeFoto.cs" />
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\FinalColection.cs" />
     <Compile Include="Models\FinalFoto.cs" />
-    <Compile Include="Schell\ISchellable.cs" />
+    <Compile Include="Interface\ISchellable.cs" />
     <Compile Include="Schell\SchellView.xaml.cs">
       <DependentUpon>SchellView.xaml</DependentUpon>
     </Compile>
@@ -189,9 +190,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interface\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
