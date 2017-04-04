@@ -51,6 +51,20 @@ namespace FotoAppDB.DBModel
             {//obsluga wyjatgu gdy już jest dany rekord
             }
         }
+
+        public static Languages Get(FotoAppDbContext db, int id)
+        {
+            Languages o = db.Language.Find(id);
+            if (o != null)
+            {
+                return o;
+            }
+            else
+            {
+                throw new NotExistInDataBaseException("Brak tłumaczenia!");
+            }
+        }
+
         public static bool Is(FotoAppDbContext db, string lang)
         {
             return db.Language.Find(lang) != null;

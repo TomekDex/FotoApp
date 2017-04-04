@@ -58,6 +58,19 @@ namespace FotoAppDB.DBModel
             }
         }
 
+        public static Contacts Get(FotoAppDbContext db, int id)
+        {
+            Contacts o = db.Contact.Find(id);
+            if (o != null)
+            {
+                return o;
+            }
+            else
+            {
+                throw new NotExistInDataBaseException("Nie zdefiniowano danych kontaktowych");
+            }
+        }
+
         public void Remove(FotoAppDbContext db)
         {
             throw new NotImplementedException();
