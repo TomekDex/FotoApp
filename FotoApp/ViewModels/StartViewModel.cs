@@ -24,12 +24,14 @@ namespace FotoApp.ViewModels
             {
                 _password = value;
                 NotifyOfPropertyChange(() => Password);
+                NotifyOfPropertyChange(()=> CanBtnLogIn);
             }
         }
 
         public StartViewModel(SchellViewModel schell)
         {
             Schell = schell;
+
         }
 
         public void BtnLogIn()
@@ -40,9 +42,12 @@ namespace FotoApp.ViewModels
             }
         }
 
-        public bool CanBtnLogIn()
+        public bool CanBtnLogIn
         {
-            return true;
+            get
+            {
+                return !string.IsNullOrEmpty(Password);
+            }
         }
     }
 }

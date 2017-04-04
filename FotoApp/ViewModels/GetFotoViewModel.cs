@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using FotoApp.Interface;
 using FotoApp.Models;
 using FotoApp.Schell;
@@ -43,6 +37,7 @@ namespace FotoApp.ViewModels
             {
                 _finalColection = value;
                 NotifyOfPropertyChange(() => FotoCollection);
+                NotifyOfPropertyChange(()=> CanCd);
             }
         }
         public string Price
@@ -72,6 +67,46 @@ namespace FotoApp.ViewModels
                 NotifyOfPropertyChange(() => Count);
             }
         }
+        #endregion
+
+        #region CanProportis
+        public bool CanUsb1
+        {
+            get
+            {
+                return true;
+            }
+        }
+        public bool CanUsb2
+        {
+            get
+            {
+                return true;
+            }
+        }
+        public bool CanCd
+        {
+            get
+            {
+                return true;
+            }
+        }
+        public bool CanCart
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public bool CanOk
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         #endregion
 
         #region Constractor
@@ -129,29 +164,5 @@ namespace FotoApp.ViewModels
         }
         #endregion
 
-        #region CanActions
-        public bool CanUsb1()
-        {
-            return true;
-        }
-        public bool CanUsb2()
-        {
-            return true;
-        }
-        public bool CanCd()
-        {
-            return true;
-        }
-        public bool CanCart()
-        {
-            return true;
-        }
-
-        public bool CanOk()
-        {
-            return true;
-        }
-
-        #endregion
     }
 }

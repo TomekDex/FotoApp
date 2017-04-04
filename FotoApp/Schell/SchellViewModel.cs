@@ -14,7 +14,10 @@ namespace FotoApp.Schell
         {
             ActivateItem(new StartViewModel(this));
             base.DisplayName = "FotoApp";
-            
+#if DEBUG
+            ActivateItem(new GetFotoViewModel(this));
+#endif
+
         }
 
         public sealed override void ActivateItem(object item)
