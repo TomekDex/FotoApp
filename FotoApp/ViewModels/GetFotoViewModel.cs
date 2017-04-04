@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using FotoApp.Interface;
 using FotoApp.Models;
 using FotoApp.Schell;
 
@@ -13,51 +14,61 @@ namespace FotoApp.ViewModels
     public class GetFotoViewModel :Conductor<object>, ISchellable
     {
         public SchellViewModel Schell { get; set; }
-        public  FinalColection FotoCollection { get; set; }
 
-        public delegate string ChangeName();
+        #region Delegate
 
         public delegate FinalColection FinalColectionDelegate();
-
+        public delegate string ChangeName();
         public delegate string ChangePhone();
-
         public delegate string ChangeMail();
 
-        public FinalColectionDelegate FinalColectionDelegat;
-        public ChangeMail ChangeMailDelegate;
-        public ChangeName ChangeNameDelegate;
-        public ChangePhone ChangePhoneDelegate;
+        public FinalColectionDelegate FinalColectionDelegat = null;
+        public ChangeMail ChangeMailDelegate = null;
+        public ChangeName ChangeNameDelegate = null;
+        public ChangePhone ChangePhoneDelegate = null;
+
+        #endregion
 
         #region  Propertis
 
-        private string price;
-        private string discount;
-        private int count = 12;
-        private bool ClosingOrder;
-        public string Price
+        private string _price;
+        private string _discount;
+        private int _count = 12;
+        private bool _closingOrder;
+        private FinalColection _finalColection;
+        public FinalColection FotoCollection
         {
-            get { return price; }
+            get { return _finalColection; }
             set
             {
-                price =  value;
+                _finalColection = value;
+                NotifyOfPropertyChange(() => FotoCollection);
+            }
+        }
+        public string Price
+        {
+            get { return _price; }
+            set
+            {
+                _price =  value;
                 NotifyOfPropertyChange(() => Price);
             }
         }
         public string Discount
         {
-            get { return discount; }
+            get { return _discount; }
             set
             {
-                discount =  value;
+                _discount =  value;
                 NotifyOfPropertyChange(() => Discount);
             }
         }
         public int Count
         {
-            get { return count; }
+            get { return _count; }
             set
             {
-                count = value;
+                _count = value;
                 NotifyOfPropertyChange(() => Count);
             }
         }
@@ -70,8 +81,8 @@ namespace FotoApp.ViewModels
             FotoCollection = new FinalColection();
 
 #if DEBUG
-            discount = "kjsdhsdkjfhsdkfs";
-            price = "klsdfjskdfhsdf";
+            _discount = "kjsdhsdkjfhsdkfs";
+            _price = "klsdfjskdfhsdf";
 #endif
         }
         #endregion
@@ -80,43 +91,41 @@ namespace FotoApp.ViewModels
         public void Usb1()
         {
             ActivateItem(new ListFotoViewModel(Schell, this));
-            ClosingOrder = false;
+            _closingOrder = false;
         }
         public void Usb2()
         {
             ActivateItem(new ListFotoViewModel(Schell, this));
-            ClosingOrder = false;
+            _closingOrder = false;
         }
         public void Cd()
         {
             ActivateItem(new ListFotoViewModel(Schell, this));
-            ClosingOrder = false;
+            _closingOrder = false;
         }
         public void Cart()
         {
             ActivateItem(new ListFotoViewModel(Schell, this));
-            ClosingOrder = false;
+            _closingOrder = false;
         }
         public void Ok()
         {
-            if (!ClosingOrder)
+            if (!_closingOrder)
             {
                 ActivateItem(new ClosingOrderViewModel(Schell, this));
                 FotoCollection = FinalColectionDelegat();
-                ClosingOrder = true;
+                _closingOrder = true;
             }
             else
-            {
+            {  // wczytanie danych z do zatwierdzenia zlecenia 
+
                 FotoCollection.CustomerName = ChangeNameDelegate();
                 FotoCollection.CustomerMail = ChangeMailDelegate();
                 FotoCollection.CustomerPhoneNumber = ChangePhoneDelegate();
-                ClosingOrder = false;
+                _closingOrder = false;
                 // przesłanie zamuwieniea do bazy danych
                 ActivateItem(null);
-
             }
-
-            // wczytanie danych z do zatwierdzenia zlecenia 
         }
         #endregion
 

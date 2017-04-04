@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Caliburn.Micro;
 using FotoApp.Enum;
+using FotoApp.Interface;
 using FotoApp.Models;
 using FotoApp.Schell;
 using FotoApp.ViewModels.Actions;
@@ -14,7 +15,7 @@ namespace FotoApp.ViewModels
 {
     public class ListFotoViewModel :PropertyChangedBase, ISchellable
     {
-       
+
         public SchellViewModel Schell { get; set; }
         private readonly GetFotoViewModel _getFoto;
         #region Propertis;
