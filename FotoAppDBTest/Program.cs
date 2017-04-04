@@ -43,20 +43,38 @@ namespace FotoAppDBTest
             OrdersR OR = new OrdersR(bf);
             FotosR FR = new FotosR(bf);
             PapersR PR = new PapersR(bf);
-            Papers p = new Papers();
-            PR.Add(p);
-            Fotos f = new Fotos() { OrderID = 4, Name = "a", PaperID = p.PaperID, Quantity = 1 };
-            FR.Add(f);
-            Orders ooo = new Orders() { Description = "zamiana", OrderID = 4, Date = DateTime.Today };
-            OR.Update(ooo);
-            OR.Save();
+            PricesR PrR = new PricesR(bf);
+            Console.WriteLine( OR.OrderValue(new Orders() { OrderID = 4 }).ToString());
+            //for (int i = 1; i<5; i++)
+            //{
+            //    for(int j =1;j<10; j++)
+            //    {
+            //        PrR.Add(new Prices() { Quantity = j * 100, PaperID = i, Price = j*50 });
+            //    }
+            //}
+            //for (int i = 1; i < 5; i++)
+            //{
+            //    for (int j = 1; j < 10; j++)
+            //    {
+            //        FR.Add(new Fotos() { OrderID = 4, PaperID = i, Quantity = j * 9, Name = "a" });
+            //    }
+            //}
+            //OR.Save();
+
+            //Papers p = new Papers();
+            //PR.Add(p);
+            //Fotos f = new Fotos() { OrderID = 4, Name = "a", PaperID = p.PaperID, Quantity = 1 };
+            //FR.Add(f);
+            //Orders ooo = new Orders() { Description = "zamiana", OrderID = 4, Date = DateTime.Today };
+            //OR.Update(ooo);
+            //OR.Save();
             // OR.Delete(new Orders() { OrderID = 2 });
             //for (int i = 0; i < 10; i++)
             //{
             //    OR.Add(new Orders(i.ToString(),DateTime.Today));
             //}
-           //.Delete(new Orders() {OrderID=3 });
-           // OR.Save();
+            //.Delete(new Orders() {OrderID=3 });
+            // OR.Save();
             Console.WriteLine("koniec");
             Console.ReadKey();
         }
