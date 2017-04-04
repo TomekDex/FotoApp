@@ -1,13 +1,14 @@
 ﻿<Application x:Class="FotoApp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:FotoApp"
-             >
+             xmlns:local="clr-namespace:FotoApp">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary  Source="Resourse/TextStyle.xaml"/>
+
                 <ResourceDictionary>
-                    <local:AppBootstrapper x:Key="bootstrapper" />
+                    <local:AppBootstrapper x:Key="Bootstrapper" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>            
         </ResourceDictionary>

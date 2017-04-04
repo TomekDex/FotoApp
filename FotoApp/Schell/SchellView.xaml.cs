@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FotoApp.Views
+namespace FotoApp.Schell
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for SchellView.xaml
     /// </summary>
-    public partial class MainView : Window
+    public partial class SchellView : Window
     {
-        public MainView()
+        public SchellView()
         {
             InitializeComponent();
         }

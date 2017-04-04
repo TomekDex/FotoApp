@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="FotoApp.Views.StartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cm="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             xmlns:local="clr-namespace:FotoApp.Views"
+             mc:Ignorable="d" 
+             Name="This"
+             Height="400" Width="600">
+    <Grid>
+
+        <Button  Content="OK" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" Width="75"
+               cm:Message.Attach="[Event Click] = [Action BtnLogIn(This)]" />
+        <PasswordBox x:Name="Password" HorizontalAlignment="Center" Margin="0,0,0,0"
+            VerticalAlignment="Center" Width="210" Height="23" />
+        <TextBlock Text="Hasło" HorizontalAlignment="Center" Margin="0,-50,0,0" 
+            VerticalAlignment="Center"  Height="26" Style="{StaticResource Text}"/>
+        <Label Content="Foto App" HorizontalAlignment="Center" Margin="0,-200,0,0" 
+            VerticalAlignment="Center" Style="{StaticResource Title}"/>
+    </Grid>
+</UserControl>
