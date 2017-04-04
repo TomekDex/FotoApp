@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace FotoAppDB.DBModel 
 {
 
-    public class Languages : IDBModel
+    public class Languages
     {
         public Languages()
         {
@@ -40,44 +40,6 @@ namespace FotoAppDB.DBModel
 
 
 
-        public void Add(FotoAppDbContext db)
-        {
-            try
-            {
-                db.Language.Add(this);
-                db.SaveChanges();
-            }
-            catch (DbUpdateException e)
-            {//obsluga wyjatgu gdy już jest dany rekord
-            }
-        }
-
-        public static Languages Get(FotoAppDbContext db, int id)
-        {
-            Languages o = db.Language.Find(id);
-            if (o != null)
-            {
-                return o;
-            }
-            else
-            {
-                throw new NotExistInDataBaseException("Brak tłumaczenia!");
-            }
-        }
-
-        public static bool Is(FotoAppDbContext db, string lang)
-        {
-            return db.Language.Find(lang) != null;
-        }
-
-        public void Remove(FotoAppDbContext db)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Is(FotoAppDbContext db)
-        {
-            return db.Language.Find(this.Language) != null;
-        }
+       
     }
 }
