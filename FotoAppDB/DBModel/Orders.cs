@@ -53,7 +53,7 @@ namespace FotoAppDB.DBModel
             }
             else
             {
-                throw new NotExistInDataBaseException();
+                throw new NotExistInDataBaseException("Nie znaleziono zamówienia!");
             }
         }
 
