@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace FotoAppDB.DBModel
 {
-    public class Contacts : IDBModel
+    public class Contacts 
     {
         public const int maxLengthMail = 255;
         private string _mail;
@@ -46,43 +46,6 @@ namespace FotoAppDB.DBModel
         }
         public Orders Orders { get; set; }
 
-        public void Add(FotoAppDbContext db)
-        {
-            try
-            {
-                db.Contact.Add(this);
-                db.SaveChanges();
-            }
-            catch (DbUpdateException e)
-            {//obsluga wyjatgu gdy już jest dany rekord
-            }
-        }
-
-        public static Contacts Get(FotoAppDbContext db, int id)
-        {
-            Contacts o = db.Contact.Find(id);
-            if (o != null)
-            {
-                return o;
-            }
-            else
-            {
-                throw new NotExistInDataBaseException("Nie zdefiniowano danych kontaktowych");
-            }
-        }
-
-        public void Remove(FotoAppDbContext db)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool Is(FotoAppDbContext db, int id)
-        {
-            return db.Contact.Find(id) != null;
-        }
-        public bool Is(FotoAppDbContext db)
-        {
-            return db.Contact.Find(this.OrderID) != null;
-        }
+        
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FotoAppDB.DBModel
 {
-    public class Types : IDBModel
+    public class Types
     {
         [Key, Column(Order = 1)]
         public int PaperID { get; set; }
@@ -20,37 +20,5 @@ namespace FotoAppDB.DBModel
         public virtual Papers Papers { get; set; }
         public virtual Languages Languages { get; set; }
 
-        public void Add(FotoAppDbContext db)
-        {
-            db.Type.Add(this);
-            db.SaveChanges();
-        }
-
-        public static Types Get(FotoAppDbContext db, int id)
-        {
-            Types o = db.Type.Find(id);
-            if (o != null)
-            {
-                return o;
-            }
-            else
-            {
-                throw new NotExistInDataBaseException();
-            }
-        }
-
-        public static bool Is(FotoAppDbContext db, int paperID, string language)
-        {
-            return db.Type.Find(paperID, language) != null;
-        }
-        public bool Is(FotoAppDbContext db)
-        {
-            return db.Type.Find(this.PaperID, this.Language) != null;
-        }
-
-        public void Remove(FotoAppDbContext db)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
