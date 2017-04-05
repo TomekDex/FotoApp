@@ -74,69 +74,158 @@ namespace FotoApp.ViewModels
             FotoData = new BindableCollection<Data>
             {
                 new Data
-                 {
-                     bitmap = 
+                {
+                    bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
-                                UriKind.Absolute)),
-                     Index = 1
-                 },
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
+                    Index = 1
+                },
                 new Data
                 {
                     bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
-                                UriKind.Absolute)),
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
                     Index = 2
                 },
                 new Data
                 {
                     bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
-                                UriKind.Absolute)),
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
                     Index = 3
                 },
                 new Data
                 {
                     bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
-                                UriKind.Absolute)),
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
+                    Index = 1
+                },
+                new Data
+                {
+                    bitmap =
+                        new BitmapImage(
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
+                    Index = 2
+                },
+                new Data
+                {
+                    bitmap =
+                        new BitmapImage(
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
+                    Index = 3
+                },
+                new Data
+                {
+                    bitmap =
+                        new BitmapImage(
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
+                    Index = 1
+                },
+                new Data
+                {
+                    bitmap =
+                        new BitmapImage(
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
+                    Index = 2
+                },
+                new Data
+                {
+                    bitmap =
+                        new BitmapImage(
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
+                    Index = 3
+                },
+                new Data
+                {
+                    bitmap =
+                        new BitmapImage(
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
                     Index = 4
                 },
                 new Data
                 {
                     bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
-                                UriKind.Absolute)),
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
                     Index = 5
                 },
                 new Data
                 {
                     bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
-                                UriKind.Absolute)),
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
                     Index = 6
                 },
                 new Data
                 {
                     bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
-                                UriKind.Absolute)),
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
                     Index = 7
                 },
                 new Data
                 {
                     bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
-                                UriKind.Absolute)),
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
+                    Index = 8
+                },
+                new Data
+                {
+                    bitmap =
+                        new BitmapImage(
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
+                    Index = 8
+                },new Data
+                {
+                    bitmap =
+                        new BitmapImage(
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
+                    Index = 8
+                },
+                new Data
+                {
+                    bitmap =
+                        new BitmapImage(
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
+                    Index = 8
+                },
+                new Data
+                {
+                    bitmap =
+                        new BitmapImage(
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
+                    Index = 8
+                },
+                new Data
+                {
+                    bitmap =
+                        new BitmapImage(
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
                     Index = 8
                 }
+
+
             };
         }
 #endif
