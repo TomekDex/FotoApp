@@ -1,0 +1,3 @@
+﻿Add-Migration DB3 -ProjectName FotoAppDB
+Add-Migration DB3 -ProjectName FotoAppDB -Force
+Update-Database -ProjectName FotoAppDB 
