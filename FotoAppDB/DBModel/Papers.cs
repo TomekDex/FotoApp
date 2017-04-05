@@ -6,18 +6,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FotoAppDB.Exception;
 
 namespace FotoAppDB.DBModel
 {
     public class Papers
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity), Required]
+        public Papers()
+        {
+            this.Sizes = new HashSet<Sizes>();
+            this.Types = new HashSet<Types>();
+        }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PaperID { get; set; }
-        [ForeignKey("Texts"), Required]
-        public int Size { get; set; }
-        [ForeignKey("Texts"), Required]
-        public int Paper { get; set; }
-        [Required]
-        public double Cost { get; set; }
+        public int? Availability { get; set; }
+        public virtual ICollection<Sizes> Sizes { get; set; }
+        public virtual ICollection<Types> Types { get; set; }
+
+        
     }
 }
