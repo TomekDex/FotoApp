@@ -11,5 +11,6 @@ namespace FotoAppDB.Repository.Interface
     {
         void Delete(Orders order);
         double? OrderValue(Orders order);
+        List<Fotos> OrderFotos(Orders order);
     }
 }

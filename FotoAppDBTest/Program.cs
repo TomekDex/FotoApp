@@ -39,12 +39,26 @@ namespace FotoAppDBTest
             //Console.WriteLine(lal.Language);
             ////  Console.WriteLine(i.ToString());
             ////IDBModel Orders = Orders.Add
-            
+
             OrdersR OR = new OrdersR(bf);
             FotosR FR = new FotosR(bf);
             PapersR PR = new PapersR(bf);
             PricesR PrR = new PricesR(bf);
-            Console.WriteLine( OR.OrderValue(new Orders() { OrderID = 1 }).ToString());
+            List<Fotos> f = OR.OrderFotos(new Orders() { OrderID = 4 });
+
+            Console.WriteLine(OR.OrderValue(new Orders() { OrderID = 4 }).ToString());
+
+            Console.WriteLine(f.Count.ToString());
+  
+            foreach (Fotos i in f)
+            {
+                Console.WriteLine(i.PaperID.ToString()+" " + i.Quantity.ToString());
+            }
+            f.Sort();
+            foreach (Fotos i in f)
+            {
+                Console.WriteLine(i.PaperID.ToString() + " " + i.Quantity.ToString());
+            }
             //for (int i = 1; i<5; i++)
             //{
             //    for(int j =1;j<10; j++)
