@@ -105,10 +105,14 @@ namespace FotoAppDB.DBModel
                  Column1 = (double?)g.Sum(p => p.Column1)
              }).Single();
             return d.Column1;
+        }
 
-
-
-
+        public List<Fotos> OrderFotos(Orders order)
+        {
+            return context
+                .Foto
+                .Where(o => o.OrderID == order.OrderID)
+                .ToList<Fotos>();
         }
     }
 }
