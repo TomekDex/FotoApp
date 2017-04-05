@@ -46,9 +46,10 @@ namespace FotoAppDB.DBModel
             context.SaveChanges();
         }
 
-        public void Update(Papers FAobject)
+        public void Update(Papers paper)
         {
-            throw new NotImplementedException();
+            context.Paper.Attach(paper);
+            context.Entry(paper).State = EntityState.Modified;
         }
     }
 }
