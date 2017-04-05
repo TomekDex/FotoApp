@@ -48,9 +48,10 @@ namespace FotoAppDB.DBModel
         }
 
 
-        public void Update(Contacts FAobject)
+        public void Update(Contacts contact)
         {
-            throw new NotImplementedException();
+            context.Contact.Attach(contact);
+            context.Entry(contact).State = EntityState.Modified;
         }
     }
 }

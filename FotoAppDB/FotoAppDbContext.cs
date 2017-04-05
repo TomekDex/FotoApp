@@ -20,7 +20,7 @@ namespace FotoAppDB
         public DbSet<Contacts> Contact { get; set; }
         public DbSet<Prices> Price { get; set; }
         public DbSet<Fotos> Foto { get; set; }
-        public DbSet<Orders> Order { get; set; }
+        public DbSet<Orders> Prices { get; set; }
         public DbSet<Papers> Paper { get; set; }
         public DbSet<Sizes> Size { get; set; }
         public DbSet<Types> Type { get; set; }
