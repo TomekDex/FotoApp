@@ -38,7 +38,7 @@ namespace FotoAppDB.DBModel
             }
             else
             {
-                throw new NotExistInDataBaseException("Brak zdjęcia!");
+                throw new NotExistInDataBaseException("Nie znaleziono tłumaczenia!");
             }
         }
         public void Save()
