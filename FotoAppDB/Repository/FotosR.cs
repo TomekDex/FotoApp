@@ -47,9 +47,10 @@ namespace FotoAppDB.DBModel
             context.SaveChanges();
         }
 
-        public void Update(Fotos FAobject)
+        public void Update(Fotos foto)
         {
-            throw new NotImplementedException();
+            context.Foto.Attach(foto);
+            context.Entry(foto).State = EntityState.Modified;
         }
 
         public void Delete(Fotos foto)

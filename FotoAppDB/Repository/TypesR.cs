@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,9 +46,10 @@ namespace FotoAppDB.DBModel
             context.SaveChanges();
         }
 
-        public void Update(Types FAobject)
+        public void Update(Types type)
         {
-            throw new NotImplementedException();
+            context.Type.Attach(type);
+            context.Entry(type).State = EntityState.Modified;
         }
     }
 }

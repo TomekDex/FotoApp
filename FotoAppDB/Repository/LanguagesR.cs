@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
@@ -45,9 +46,10 @@ namespace FotoAppDB.DBModel
             context.SaveChanges();
         }
 
-        public void Update(Languages FAobject)
+        public void Update(Languages lang)
         {
-            throw new NotImplementedException();
+            context.Language.Attach(lang);
+            context.Entry(lang).State = EntityState.Modified;
         }
     }
 }
