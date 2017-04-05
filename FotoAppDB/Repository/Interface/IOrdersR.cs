@@ -10,6 +10,6 @@ namespace FotoAppDB.Repository.Interface
     interface IOrdersR
     {
         void Delete(Orders order);
-        Double OrderValue(Orders order);
+        double? OrderValue(Orders order);
     }
 }
