@@ -21,17 +21,17 @@ namespace FotoAppDB.DBModel
 
         public void Add(Orders FAobject)
         {
-            context.Prices.Add(FAobject);
+            context.Order.Add(FAobject);
         }
 
         public bool Is(Orders FAobject)
         {
-            return context.Prices.Find(FAobject.OrderID) != null;
+            return context.Order.Find(FAobject.OrderID) != null;
         }
 
         public Orders Get(int id)
         {
-            Orders o = context.Prices.Find(id);
+            Orders o = context.Order.Find(id);
             if (o != null)
             {
                 return o;
@@ -48,15 +48,15 @@ namespace FotoAppDB.DBModel
 
         public void Update(Orders order)
         {
-            context.Prices.Attach(order);
+            context.Order.Attach(order);
             context.Entry(order).State = EntityState.Modified;
         }
 
         public void Delete(Orders order)
         {
 
-            context.Prices.Attach(order);
-            context.Prices.Remove(order);
+            context.Order.Attach(order);
+            context.Order.Remove(order);
         }
 
         public double? OrderValue(Orders order)
