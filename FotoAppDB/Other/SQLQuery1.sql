@@ -19,7 +19,7 @@ HAVING p.Quantity<=SUM(f.Quantity) AND MAX(p.Quantity)=p.Quantity
 
 
 
-(SELECT SUM(f.Quantity)AS sumQ, f.PaperID
+SELECT SUM(f.Quantity)AS sumQ, f.PaperID
 FROM dbo.Fotos AS f
 WHERE f.OrderID = 4
-GROUP BY f.PaperID) AS quant
+GROUP BY f.PaperID

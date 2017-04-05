@@ -44,7 +44,7 @@ namespace FotoAppDBTest
             FotosR FR = new FotosR(bf);
             PapersR PR = new PapersR(bf);
             PricesR PrR = new PricesR(bf);
-            Console.WriteLine( OR.OrderValue(new Orders() { OrderID = 4 }).ToString());
+            Console.WriteLine( OR.OrderValue(new Orders() { OrderID = 1 }).ToString());
             //for (int i = 1; i<5; i++)
             //{
             //    for(int j =1;j<10; j++)
