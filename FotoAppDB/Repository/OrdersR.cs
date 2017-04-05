@@ -38,7 +38,7 @@ namespace FotoAppDB.DBModel
             }
             else
             {
-                throw new NotExistInDataBaseException("Nie zaneliona zamowienia");
+                throw new NotExistInDataBaseException("Nie znaleziono zamowienia");
             }
         }
         public void Save()
