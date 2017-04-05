@@ -75,9 +75,9 @@ namespace FotoApp.ViewModels
             {
                 new Data
                  {
-                     bitmap =
+                     bitmap = 
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
+                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
                                 UriKind.Absolute)),
                      Index = 1
                  },
@@ -85,7 +85,7 @@ namespace FotoApp.ViewModels
                 {
                     bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
+                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
                                 UriKind.Absolute)),
                     Index = 2
                 },
@@ -93,7 +93,7 @@ namespace FotoApp.ViewModels
                 {
                     bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
+                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
                                 UriKind.Absolute)),
                     Index = 3
                 },
@@ -101,7 +101,7 @@ namespace FotoApp.ViewModels
                 {
                     bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
+                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
                                 UriKind.Absolute)),
                     Index = 4
                 },
@@ -109,7 +109,7 @@ namespace FotoApp.ViewModels
                 {
                     bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
+                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
                                 UriKind.Absolute)),
                     Index = 5
                 },
@@ -117,7 +117,7 @@ namespace FotoApp.ViewModels
                 {
                     bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
+                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
                                 UriKind.Absolute)),
                     Index = 6
                 },
@@ -125,7 +125,7 @@ namespace FotoApp.ViewModels
                 {
                     bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
+                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
                                 UriKind.Absolute)),
                     Index = 7
                 },
@@ -133,7 +133,7 @@ namespace FotoApp.ViewModels
                 {
                     bitmap =
                         new BitmapImage(
-                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\Project\Baza\Baza\Resources\IMG_8903.JPG",
+                            new Uri(@"C:\Users\Marcin Gajda\OneDrive\GitHub\FotoApp\FotoApp\FotoApp\Resources\brak.gif",
                                 UriKind.Absolute)),
                     Index = 8
                 }

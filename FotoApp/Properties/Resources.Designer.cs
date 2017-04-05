@@ -61,6 +61,16 @@ namespace FotoApp.Properties {
         }
         
         /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap brak {
+            get {
+                object obj = ResourceManager.GetObject("brak", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu 12345678.
         /// </summary>
         internal static string Password {
