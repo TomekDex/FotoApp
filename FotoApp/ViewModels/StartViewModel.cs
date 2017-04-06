@@ -9,12 +9,18 @@ using Caliburn.Micro;
 using FotoApp.Controls;
 using FotoApp.Interface;
 using FotoApp.Schell;
+using FotoApp.Schell.EventArgs;
 
 namespace FotoApp.ViewModels
 {
     public class StartViewModel : PropertyChangedBase, ISchellable
     {
         public SchellViewModel Schell { get; set; }
+
+        public delegate void OnCosingDelegate();
+
+        public event OnCosingDelegate onClosing = null;
+        #region Proportis
 
         private string _password;
         public string Password
@@ -28,20 +34,39 @@ namespace FotoApp.ViewModels
             }
         }
 
+        #endregion
+
+        #region Constractor
         public StartViewModel(SchellViewModel schell)
         {
             Schell = schell;
 
         }
+        #endregion
+
+        #region Actions
 
         public void BtnLogIn()
         {
-            if (Password == Properties.Resources.Password)
+            StartOrClose log = new StartOrClose();
+
+            if (null == onClosing)
             {
-                Schell.ActivateItem(new GetFotoViewModel(Schell));
+                LogInHendler hendler = new LogInHendler();
+                log.startOrCloseDelegate += hendler.StartOrClose;
+                log.OnStart(Schell, Password);
+            }
+            else
+            {
+                OnColseHendler hendler = new OnColseHendler();
+                log.startOrCloseDelegate += hendler.OnClosing;
+                log.OnStart(null,Password);
             }
         }
 
+        #endregion
+
+        #region CanActions
         public bool CanBtnLogIn
         {
             get
@@ -49,5 +74,7 @@ namespace FotoApp.ViewModels
                 return !string.IsNullOrEmpty(Password);
             }
         }
+        #endregion
+
     }
 }

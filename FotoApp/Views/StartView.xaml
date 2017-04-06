@@ -4,14 +4,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:cm="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
              xmlns:local="clr-namespace:FotoApp.Views"
              xmlns:control="clr-namespace:FotoApp.Controls"
              mc:Ignorable="d" 
              Height="400" Width="600">
     <Grid>
         <Button Content="OK" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" Width="100" Height="30"
-                cm:Message.Attach="[Event Click] = [Action BtnLogIn]" 
+                cal:Message.Attach="[Event Click] = [Action BtnLogIn]; [Event KeyDown] = [Action BtnLogIn]" 
+                     
+                
                 Style="{StaticResource FotoAppButton}" />
         <PasswordBox control:PasswordBoxGetPassword.BindPassword="True" 
                      control:PasswordBoxGetPassword.BoundPassword="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"

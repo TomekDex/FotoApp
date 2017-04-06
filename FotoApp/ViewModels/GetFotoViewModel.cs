@@ -16,10 +16,10 @@ namespace FotoApp.ViewModels
         public delegate string ChangePhone();
         public delegate string ChangeMail();
 
-        public FinalColectionDelegate FinalColectionDelegat = null;
-        public ChangeMail ChangeMailDelegate = null;
-        public ChangeName ChangeNameDelegate = null;
-        public ChangePhone ChangePhoneDelegate = null;
+        public event FinalColectionDelegate FinalColectionDelegat = null;
+        public event ChangeMail ChangeMailDelegate = null;
+        public event ChangeName ChangeNameDelegate = null;
+        public event ChangePhone ChangePhoneDelegate = null;
 
         #endregion
 
