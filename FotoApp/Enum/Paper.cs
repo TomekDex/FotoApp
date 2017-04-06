@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FotoApp.Schell
+namespace FotoApp.Enum
 {
-    interface ISchellable
+    public enum Paper
     {
-        SchellViewModel Schell { get; set; }
-
+        MatPaper,
+        GlossyPaper
     }
 }
