@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,17 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using FotoApp.Interface;
-
 
 namespace FotoApp.Views
 {
     /// <summary>
-    /// Interaction logic for StartView.xaml
+    /// Logika interakcji dla klasy ClosingOrderView.xaml
     /// </summary>
-    public partial class StartView : UserControl
+    public partial class ClosingOrderView : UserControl
     {
-        public StartView()
+        public ClosingOrderView()
         {
             InitializeComponent();
         }

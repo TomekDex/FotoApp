@@ -5,8 +5,12 @@
     <Application.Resources>
         <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary  Source="Resourse/TextStyle.xaml"/>
-
+                <ResourceDictionary Source="Resourse/TextStyle.xaml"/>
+                <ResourceDictionary Source="Resourse/ForoAppCheckBox.xaml"/>
+                <ResourceDictionary Source="Resourse/FotoAppButton.xaml"/>
+                <ResourceDictionary Source="Resourse/FotoAppRadioButton.xaml"/>
+                    <ResourceDictionary Source="Resourse/BrushColor.xaml"/>
+                    <ResourceDictionary Source="Resourse/FotoDataTemplate.xaml"/>
                 <ResourceDictionary>
                     <local:AppBootstrapper x:Key="Bootstrapper" />
                 </ResourceDictionary>
