@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Data.Entity;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using FotoAppDB.Exception;
+﻿using System.Collections.Generic;
 
 namespace FotoAppDB.DBModel
 {
@@ -14,15 +6,15 @@ namespace FotoAppDB.DBModel
     {
         public Papers()
         {
-            this.Sizes = new HashSet<Sizes>();
-            this.Types = new HashSet<Types>();
+            this.Prices = new HashSet<Prices>();
+            this.OrderFotos = new HashSet<OrderFotos>();
         }
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int PaperID { get; set; }
+        public int SizeID { get; set; }
+        public int TypeID { get; set; }
         public int? Availability { get; set; }
-        public virtual ICollection<Sizes> Sizes { get; set; }
-        public virtual ICollection<Types> Types { get; set; }
-
-        
+        public virtual Sizes Sizes { get; set; }
+        public virtual Types Types { get; set; }
+        public virtual ICollection<Prices> Prices { get; set; }
+        public virtual ICollection<OrderFotos> OrderFotos { get; set; }
     }
 }
