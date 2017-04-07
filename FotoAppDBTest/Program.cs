@@ -21,9 +21,11 @@ namespace FotoAppDBTest
 
         static void Main(string[] args)
         {
+           // Console.WriteLine(new SeachConnectionString().connectionString);
             var bf = new FotoAppDbContext(new SeachConnectionString().connectionString);
             bf.Type.Add(new Types());
             bf.SaveChanges();
+           // Console.WriteLine(bf.Database.Connection.ConnectionString);
             // SqlConnectionStringBuilder aaa = new SqlConnectionStringBuilder();
 
             // Console.WriteLine(bf.Database.Connection.ConnectionString);

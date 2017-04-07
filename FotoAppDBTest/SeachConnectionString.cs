@@ -20,6 +20,7 @@ namespace FotoAppDBTest
             do
             {
                 if (s[i].EndsWith("FotoAppDB\\DB")) aaa.Add("AttachDbFilename", Path.GetFullPath(s[i]) + "\\FotoApp.mdf");
+                i++;
             }
             while (s[i].EndsWith("FotoAppDB\\DB") && s.Count() > i);
             connectionString= aaa.ConnectionString;
