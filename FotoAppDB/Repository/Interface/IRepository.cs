@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FotoAppDB.DBModel
+﻿namespace FotoAppDB.Repository.Interface
 {
     public interface IRepository<T>
     {
@@ -12,13 +6,7 @@ namespace FotoAppDB.DBModel
         bool Is(T FAobject);
         void Save();
         void Update(T FAobject);
-    }
-    public interface IRepository<T, ID> : IRepository<T>
-    {
-        T Get(ID id);
-    }
-    public interface IRepository<T, ID1, ID2> : IRepository<T>
-    {
-        T Get(ID1 id1, ID2 id2);
+        void AddOrUpdate(T FAobject);
+        void Delete(T FAobject);
     }
 }
