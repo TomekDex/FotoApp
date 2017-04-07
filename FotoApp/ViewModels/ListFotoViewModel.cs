@@ -10,6 +10,7 @@ using FotoApp.Interface;
 using FotoApp.Models;
 using FotoApp.Schell;
 using FotoApp.ViewModels.Actions;
+using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
@@ -29,7 +30,7 @@ namespace FotoApp.ViewModels
             }
         }
 
-        private FinalColection _finalColections;
+        private FinalColection _finalColections ;
 
         private Paper _paper;
         private SizeFoto _sizeFoto;
@@ -258,9 +259,12 @@ namespace FotoApp.ViewModels
             }
         }
 
-        public FinalColection GetFinalColection()
+        public void GetFinalColection()
         {
-            return _finalColections;
+            var tmp = new GetFoto();
+            var hendler = new GetFotoHendler();
+            tmp.getFotoDelegate += hendler.GetGoto;
+            tmp.GetFotoColection(_getFoto, _finalColections);
         }
 
         #endregion

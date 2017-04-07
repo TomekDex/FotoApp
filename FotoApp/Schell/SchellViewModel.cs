@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Caliburn.Micro;
 using FotoApp.ViewModels;
 
@@ -19,11 +20,11 @@ namespace FotoApp.Schell
 #if DEBUG
            ActivateItem(new GetFotoViewModel(this));
 #endif
-
         }
 
         public void OnClose()
         {
+
         }
 
         public sealed override void ActivateItem(object item)
@@ -33,6 +34,9 @@ namespace FotoApp.Schell
 
         public void OnClosing()
         {
+#if DEBUG
+            Application.Current.Shutdown();
+#endif
             var start = new StartViewModel(this);
             _onClose = true;
             start.onClosing += OnClose;

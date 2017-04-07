@@ -40,7 +40,6 @@ namespace FotoApp.ViewModels
         public StartViewModel(SchellViewModel schell)
         {
             Schell = schell;
-
         }
         #endregion
 
@@ -48,17 +47,17 @@ namespace FotoApp.ViewModels
 
         public void BtnLogIn()
         {
-            StartOrClose log = new StartOrClose();
+            var log = new StartOrClose();
 
             if (null == onClosing)
             {
-                LogInHendler hendler = new LogInHendler();
+                var hendler = new LogInHendler();
                 log.startOrCloseDelegate += hendler.StartOrClose;
                 log.OnStart(Schell, Password);
             }
             else
             {
-                OnColseHendler hendler = new OnColseHendler();
+                var hendler = new OnColseHendler();
                 log.startOrCloseDelegate += hendler.OnClosing;
                 log.OnStart(null,Password);
             }

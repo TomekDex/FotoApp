@@ -11,13 +11,13 @@ namespace FotoApp.Schell.EventArgs
         public delegate void StartOrCloseDelegate(object sender, System.EventArgs e);
 
         public event StartOrCloseDelegate startOrCloseDelegate ;
-        public void OnStart(SchellViewModel schell, string password)
+        public void OnStart(object schell, string password)
         {
             PasswordArgs pass = new PasswordArgs(password);
             ReservationPassArgs(schell, pass);
         }
 
-        private void ReservationPassArgs(SchellViewModel schell, PasswordArgs e)
+        private void ReservationPassArgs(object schell, PasswordArgs e)
         {
             if (null != startOrCloseDelegate)
             {

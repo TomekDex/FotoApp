@@ -2,6 +2,7 @@
 using FotoApp.Interface;
 using FotoApp.Models;
 using FotoApp.Schell;
+using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
@@ -11,16 +12,10 @@ namespace FotoApp.ViewModels
 
         #region Delegate
 
-        public delegate FinalColection FinalColectionDelegate();
-        public delegate string ChangeName();
-        public delegate string ChangePhone();
-        public delegate string ChangeMail();
-
+        public delegate void FinalColectionDelegate();
+        
         public event FinalColectionDelegate FinalColectionDelegat = null;
-        public event ChangeMail ChangeMailDelegate = null;
-        public event ChangeName ChangeNameDelegate = null;
-        public event ChangePhone ChangePhoneDelegate = null;
-
+        
         #endregion
 
         #region  Propertis
@@ -147,18 +142,14 @@ namespace FotoApp.ViewModels
         {
             if (!_closingOrder)
             {
-                ActivateItem(new ClosingOrderViewModel(Schell, this));
-                FotoCollection = FinalColectionDelegat();
                 _closingOrder = true;
+                FinalColectionDelegat();
+                ActivateItem(new ClosingOrderViewModel(Schell, this));
             }
             else
-            {  // wczytanie danych z do zatwierdzenia zlecenia 
-
-                FotoCollection.CustomerName = ChangeNameDelegate();
-                FotoCollection.CustomerMail = ChangeMailDelegate();
-                FotoCollection.CustomerPhoneNumber = ChangePhoneDelegate();
+            {  
                 _closingOrder = false;
-                // przesłanie zamuwieniea do bazy danych
+                FinalColectionDelegat();
                 ActivateItem(null);
             }
         }

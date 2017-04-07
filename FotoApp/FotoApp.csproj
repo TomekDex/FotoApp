@@ -104,6 +104,15 @@
     <Compile Include="ViewModels\Actions\LoadFoto.cs" />
     <Compile Include="ViewModels\ClosingOrderViewModel.cs" />
     <Compile Include="ViewModels\Converter\RatioButtonToEnumConverter.cs" />
+    <Compile Include="ViewModels\EvenArgs\FinalOrder.cs" />
+    <Compile Include="ViewModels\EvenArgs\FinalOrderArgs.cs" />
+    <Compile Include="ViewModels\EvenArgs\FinalOrderHendler.cs" />
+    <Compile Include="ViewModels\EvenArgs\GetFoto.cs" />
+    <Compile Include="ViewModels\EvenArgs\GetFotoArgs.cs" />
+    <Compile Include="ViewModels\EvenArgs\GetFotoHendler.cs" />
+    <Compile Include="ViewModels\Exception\NullContactsOrderException.cs" />
+    <Compile Include="ViewModels\Exception\NullGetFotoException.cs" />
+    <Compile Include="ViewModels\Exception\NullListFotoException.cs" />
     <Compile Include="ViewModels\GetFotoViewModel.cs" />
     <Compile Include="ViewModels\ListFotoViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
@@ -201,6 +210,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
