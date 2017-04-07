@@ -11,6 +11,11 @@ namespace FotoAppDB
         // 
         // If you wish to target a different database and/or database provider, modify the 'FotoAppDbContext' 
         // connection string in the application configuration file.
+        public FotoAppDbContext(string nameOrConnectionString) 
+        : base( nameOrConnectionString )
+    {
+        }
+
         public FotoAppDbContext()
             : base("name=FotoAppDbContext")
         {

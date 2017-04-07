@@ -43,13 +43,5 @@ namespace FotoAppDB.DBModel
 
         public virtual Types Types { get; set; }
         public virtual Languages Languages { get; set; }
-        //public virtual ICollection<Sizes> Sizes { get; set; }
-        //public virtual ICollection<Types> Types { get; set; }
-        // public virtual Sizes Sizes { get; set; }
-        //  public virtual Types Types { get; set; }
-
-
-
-
     }
 }

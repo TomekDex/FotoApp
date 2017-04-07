@@ -4,6 +4,10 @@ using FotoAppDB.Repository;
 using FotoAppDB.Repository.Single;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,15 +15,73 @@ using System.Threading.Tasks;
 
 namespace FotoAppDBTest
 {
+   
     class Program
     {
+
         static void Main(string[] args)
         {
-            var bf = new FotoAppDbContext();
+            var bf = new FotoAppDbContext(new SeachConnectionString().connectionString);
+            bf.Type.Add(new Types());
+            bf.SaveChanges();
+            // SqlConnectionStringBuilder aaa = new SqlConnectionStringBuilder();
+
+            // Console.WriteLine(bf.Database.Connection.ConnectionString);
+
+            // aaa.ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework";
+            // string[] s = Directory.GetDirectories("../../../FotoAppDB");
+            // int i = 0;
+            // do
+            // {
+            //     if (s[i].EndsWith("FotoAppDB\\DB")) aaa.Add("AttachDbFilename", Path.GetFullPath(s[i]) + "\\FotoApp.mdf");
+            // }
+            // while (s[i].EndsWith("FotoAppDB\\DB") && s.Count() > i);
+            //             foreach (string i in Directory.GetDirectories("../../../FotoAppDB"))
+            // {
+            //     if (i.EndsWith("FotoAppDB\\DB")) aaa.Add("AttachDbFilename", Path.GetFullPath(i)+"\\FotoApp.mdf");
+            // }
+            // bf.Database.Connection.ConnectionString = aaa.ConnectionString;
+
+            // var aaaaaa = new FotoAppDbContext(aaa.ConnectionString);
+            // Console.WriteLine(bf.Database.Connection.ConnectionString);
+            // //ConfigurationManager.ConnectionStrings = bf.Database.Connection.ConnectionString;
+            //// AppSettings set
+            // aaaaaa.Type.Add(new Types());
+            // aaaaaa.SaveChanges();
+
+
+            // EntityConnectionStringBuilder aa = new EntityConnectionStringBuilder();
+            // ab.ConnectionString = bf.Database.Connection.ConnectionString;
+            // Console.WriteLine(aa);
+            // aa.Remove("AttachDbFilename");
+            // Console.WriteLine(aa);
+            //ab = bf.Database.Connection.ConnectionString;
+            //EntityConnectionStringBuilder.AppendKeyValuePair("AttachDbFilename");
+
+            //// bf.Type.Add(new Types());
+            //// bf.SaveChanges();
+            //// Console.WriteLine(bf.Database.Connection.ConnectionString);
+            //Console.WriteLine("");
+            //Console.WriteLine(Path.GetPathRoot(Directory.GetCurrentDirectory()));
+            //Console.WriteLine( "");
+            //foreach (string i in Directory.GetDirectories("../../../FotoAppDB"))
+            //{
+            //    if (i.EndsWith("FotoAppDB\\DB")) Console.WriteLine(Path.GetFullPath(i));
+
+            //    aaa.Add("AttachDbFilename", Path.GetFullPath(i));
+            //    Console.WriteLine("");
+            //}
+            //Console.WriteLine("");
+            //Console.WriteLine(aaa.ConnectionString);
+            //Console.WriteLine(aa);
+
+            // Console.WriteLine(Path.GetFullPath(i));
+            // var bf = new FotoAppDbContext();
             // bf.Type.Add(new Types());
             // bf.SaveChanges();
-            FotoAppR<FotoAppDbContext, Contacts> r = new ContactsR();
-           
+            // FotoAppR<FotoAppDbContext, Papers> r = new PapersR();
+            // Console.WriteLine(   r.Get(new Papers() { SizeID = 1, TypeID =1 }).Availability.ToString());
+
             //  Orders o = new Orders("kakaka", new DateTime(11, 11, 11));
             ////  o.Add(bf);
 
@@ -98,5 +160,7 @@ namespace FotoAppDBTest
             Console.WriteLine("koniec");
             Console.ReadKey();
         }
+
     }
+    
 }
