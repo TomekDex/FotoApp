@@ -26,13 +26,6 @@ namespace FotoAppDB.Repository.Single
             return Context.Order.Find(FAobject.OrderID) != null;
         }
 
-        public List<OrderFotos> AllFotosInOrder(Orders order)
-        {
-            return Context
-                .OrderFoto
-                .Where(o => o.OrderID == order.OrderID)
-                .ToList<OrderFotos>();
-        }
 
         public double? OrderValue(Orders order)
         {

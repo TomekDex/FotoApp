@@ -90,6 +90,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DBModel\Types.cs" />
+    <Compile Include="Repository\Interface\IOrderFotos.cs" />
     <Compile Include="Repository\Interface\ISizesR.cs" />
     <Compile Include="Repository\Interface\ITypesR.cs" />
     <Compile Include="Repository\Single\SettingsR.cs" />
