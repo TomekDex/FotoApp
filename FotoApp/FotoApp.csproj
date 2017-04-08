@@ -92,6 +92,7 @@
     <Compile Include="Models\FinalColection.cs" />
     <Compile Include="Models\FinalFoto.cs" />
     <Compile Include="Interface\ISchellable.cs" />
+    <Compile Include="papaers.cs" />
     <Compile Include="Schell\EventArgs\StartOrClose.cs" />
     <Compile Include="Schell\EventArgs\LogInHendler.cs" />
     <Compile Include="Schell\EventArgs\OnColseHendler.cs" />
