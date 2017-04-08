@@ -10,7 +10,6 @@ namespace FotoAppDB.Repository.Single
             Contacts o = Context.Contact.Find(FAobject.OrderID);
             if (o != null)
             {
-                FAobject = o;
                 return o;
             }
             else

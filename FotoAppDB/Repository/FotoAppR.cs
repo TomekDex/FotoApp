@@ -42,8 +42,8 @@ namespace FotoAppDB.Repository
 
         public void Update(T FAobject)
         {
-            _fa.Set<T>().Attach(FAobject);
-            _fa.Entry(FAobject).State = EntityState.Modified;
+            var o = this.Get(FAobject);
+            _fa.Entry(o).CurrentValues.SetValues(FAobject);
         }
     }
 }

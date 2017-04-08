@@ -13,8 +13,10 @@ namespace FotoAppDB.DBModel
         private string _text;
 
         [Key, Column(Order = 1)]
-        public int SizeID { get; set; }
-        [Key, Column(Order = 2), MaxLength(maxLengthLanguage)]
+        public int Height { get; set; }
+        [Key, Column(Order = 2)]
+        public int Length { get; set; }
+        [Key, Column(Order = 3), MaxLength(maxLengthLanguage)]
         public string Language
         {
             get

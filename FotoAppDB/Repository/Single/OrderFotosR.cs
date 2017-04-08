@@ -7,10 +7,9 @@ namespace FotoAppDB.Repository.Single
     {
         public override OrderFotos Get(OrderFotos FAobject)
         {
-            OrderFotos o = Context.OrderFoto.Find(FAobject.FotoID, FAobject.OrderID, FAobject.SizeID, FAobject.TypeID);
+            OrderFotos o = Context.OrderFoto.Find(FAobject.FotoID, FAobject.OrderID, FAobject.Height, FAobject.Length, FAobject.TypeID);
             if (o != null)
             {
-                FAobject = o;
                 return o;
             }
             else
@@ -21,7 +20,7 @@ namespace FotoAppDB.Repository.Single
 
         public override bool Is(OrderFotos FAobject)
         {
-            return Context.OrderFoto.Find(FAobject.FotoID, FAobject.OrderID, FAobject.SizeID, FAobject.TypeID) != null;
+            return Context.OrderFoto.Find(FAobject.FotoID, FAobject.OrderID, FAobject.Height, FAobject.Length, FAobject.TypeID) != null;
         }
     }
 }
