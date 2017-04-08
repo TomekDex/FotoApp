@@ -1,5 +1,7 @@
 ﻿using FotoAppDB.Repository.Interface;
 using System.Data.Entity;
+using System;
+using System.Linq;
 
 namespace FotoAppDB.Repository
 {
@@ -31,6 +33,11 @@ namespace FotoAppDB.Repository
         }
 
         public abstract T Get(T FAobject);
+
+        public IQueryable<T> GetAll()
+        {
+            return _fa.Set<T>();
+        }
 
         public abstract bool Is(T FAobject);
 

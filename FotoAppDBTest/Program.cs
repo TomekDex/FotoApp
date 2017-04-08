@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,63 +22,107 @@ namespace FotoAppDBTest
 
         static void Main(string[] args)
         {
-            // Console.WriteLine(new SeachConnectionString().connectionString);
             var bf = new FotoAppDbContext(new SeachConnectionString().connectionString);
             //bf.Type.AddOrUpdate(new Types());
             // bf.SaveChanges();
-            FotoAppRAll all = new FotoAppRAll();
-            Types t = new Types();
-            Console.WriteLine(t.TypeID.ToString()+" +1");
-            all.Types.Add(t);
-            Console.WriteLine(t.TypeID.ToString()+" +2");
-            all.Save();
-            Console.WriteLine(t.TypeID.ToString() + " +3");
-            Console.WriteLine(bf.Foto.Count());
-            // //all.Types.Context = bf;
-            // //all.Types.AddOrUpdate(new Types());
-            // Sizes[] s = new Sizes[8];
-            // s[0] = new Sizes() { Height = 900, Length = 1300 };
-            // s[1] = new Sizes() { Height = 1000, Length = 1500 };
-            // s[2] = new Sizes() { Height = 1300, Length = 1800 };
-            // s[3] = new Sizes() { Height = 1500, Length = 2100 };
-            // s[4] = new Sizes() { Height = 1800, Length = 2400 };
-            // s[5] = new Sizes() { Height = 2000, Length = 2500 };
-            // s[6] = new Sizes() { Height = 2100, Length = 3000 };
-            // s[7] = new Sizes() { Height = 2400, Length = 3000 };
+            FotoAppRAll all = new FotoAppRAll(new SeachConnectionString().connectionString);
+            //all.Sizes.
+            //var a = all.Types.GetAllTypes(true);
+            //foreach (Types aa in a) Console.WriteLine(aa.TypeID.ToString());
+            Console.WriteLine(all.Types.GetAllTypes(false).Count().ToString());
+            //Console.WriteLine(all.Types.GetAllTypes(false).Count().ToString());
+            //Console.WriteLine(all.Types.GetAllTypes(true).Count().ToString());
+            //Console.WriteLine(all.Types.GetAll().Count().ToString());
+            //Sizes s = new Sizes { Height = 900, Length = 1300 };
+            //Console.WriteLine(all.Types.GetTypesBySize(s).Count().ToString());
+            //Console.WriteLine(all.Types.GetTypesBySize(s,true).Count().ToString());
+            //Console.WriteLine(all.Types.GetTypesBySize(s, false).Count().ToString());
+            //Stopwatch stopWatch = new Stopwatch();
 
-            // //for (int i = 0; i < 8; i++)
-            // //{
-            // //    all.Sizes.AddOrUpdate(s[i]);
-            // //}
-            // all.Contacts.Save();
-            // Types[] t = new Types[4];
-            // t[0] = new Types() {TypeID =1 }; 
-            // t[1] = new Types() { TypeID = 2 }; 
-            // t[2] = new Types() { TypeID = 3 };
-            // t[3] = new Types() { TypeID = 4 };
-            // //all.Languages.AddOrUpdate(new Languages() { Language = "pl_PL" });
-            // //all.Languages.AddOrUpdate(new Languages() { Language = "en" });
-            // //all.Contacts.Save();
-            // //SizeTexts st1 = new SizeTexts() { Height = 900, Length = 1300, Language = "pl_PL", Text = "1" }; all.SizeTexts.AddOrUpdate(st1);
-            // //SizeTexts st2 = new SizeTexts() { Height = 1000, Length = 1500, Language = "pl_PL", Text = "2" }; all.SizeTexts.AddOrUpdate(st2);
-            // //SizeTexts st3 = new SizeTexts() { Height = 1300, Length = 1800, Language = "pl_PL", Text = "3" }; all.SizeTexts.AddOrUpdate(st3);
-            // //SizeTexts st4 = new SizeTexts() { Height = 1500, Length = 2100, Language = "pl_PL", Text = "4" }; all.SizeTexts.AddOrUpdate(st4);
-            // //SizeTexts st5 = new SizeTexts() { Height = 1800, Length = 2400, Language = "pl_PL", Text = "5" }; all.SizeTexts.AddOrUpdate(st5);
-            // //SizeTexts st6 = new SizeTexts() { Height = 2000, Length = 2500, Language = "pl_PL", Text = "6" }; all.SizeTexts.AddOrUpdate(st6);
-            // //SizeTexts st7 = new SizeTexts() { Height = 2100, Length = 3000, Language = "pl_PL", Text = "7" }; all.SizeTexts.AddOrUpdate(st7);
-            // //SizeTexts st8 = new SizeTexts() { Height = 2400, Length = 3000, Language = "pl_PL", Text = "8" }; all.SizeTexts.AddOrUpdate(st8);
-            // SizeTexts st9 = new SizeTexts() { Height = 900, Length = 1300, Language = "en", Text = "1e" }; all.SizeTexts.AddOrUpdate(st9);
-            // SizeTexts st10 = new SizeTexts() { Height = 1000, Length = 1500, Language = "en", Text = "2e" }; all.SizeTexts.AddOrUpdate(st10);
-            // all.Contacts.Save();
-            //// all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[0].TypeID, Text = "t1", Language = "pl_PL" });
-            //// all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[1].TypeID, Text = "t2", Language = "pl_PL" });
-            ////all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[2].TypeID, Text = "t3", Language = "pl_PL" });
-            //// all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[3].TypeID, Text = "t4", Language = "pl_PL" });
-            //// all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[1].TypeID, Text = "t1e", Language = "en" });
-            // Papers[] p = new Papers[20];
-            // for (int i = 0; i < 8; i++)
-            // {
-            //     p[i] = new Papers() { TypeID = t[0].TypeID, Height = s[i].Height, Length = s[i].Length, Availability = null };
+            //FotoAppR<FotoAppDbContext, Types> t = new TypesR();
+            //t.Context = new FotoAppDbContext(new SeachConnectionString().connectionString);
+
+
+            //Stopwatch stopWatch2 = new Stopwatch();
+            //stopWatch2.Start();
+            //for (int i = 0; i < 5000; i++)
+            //{
+            //    t.Add(new Types());
+            //    t.Save();
+            //}
+            //TimeSpan ts2 = stopWatch2.Elapsed;
+
+            //string elapsedTime2 = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            //                                   ts2.Hours, ts2.Minutes, ts2.Seconds,
+            //                                   ts2.Milliseconds / 10);
+            //Console.WriteLine("RunTime " + elapsedTime2);
+
+            //// Console.WriteLine(new SeachConnectionString().connectionString);
+            //var bf = new FotoAppDbContext(new SeachConnectionString().connectionString);
+            ////bf.Type.AddOrUpdate(new Types());
+            //// bf.SaveChanges();
+            //FotoAppRAll all = new FotoAppRAll();
+            //Stopwatch stopWatch = new Stopwatch();
+            //stopWatch.Start();
+            //for (int i = 0; i < 5000; i++)
+            //{
+            //    all.Types.Add(new Types());
+            //    all.Save();
+            //}
+            //TimeSpan ts = stopWatch.Elapsed;
+
+            //string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            //                                   ts.Hours, ts.Minutes, ts.Seconds,
+            //                                   ts.Milliseconds / 10);
+            //Console.WriteLine("RunTime " + elapsedTime);
+
+
+
+            //// //all.Types.Context = bf;
+            //// //all.Types.AddOrUpdate(new Types());
+            //// Sizes[] s = new Sizes[8];
+            //// s[0] = new Sizes() { Height = 900, Length = 1300 };
+            //// s[1] = new Sizes() { Height = 1000, Length = 1500 };
+            //// s[2] = new Sizes() { Height = 1300, Length = 1800 };
+            //// s[3] = new Sizes() { Height = 1500, Length = 2100 };
+            //// s[4] = new Sizes() { Height = 1800, Length = 2400 };
+            //// s[5] = new Sizes() { Height = 2000, Length = 2500 };
+            //// s[6] = new Sizes() { Height = 2100, Length = 3000 };
+            //// s[7] = new Sizes() { Height = 2400, Length = 3000 };
+
+            //// //for (int i = 0; i < 8; i++)
+            //// //{
+            //// //    all.Sizes.AddOrUpdate(s[i]);
+            //// //}
+            //// all.Contacts.Save();
+            //// Types[] t = new Types[4];
+            //// t[0] = new Types() {TypeID =1 }; 
+            //// t[1] = new Types() { TypeID = 2 }; 
+            //// t[2] = new Types() { TypeID = 3 };
+            //// t[3] = new Types() { TypeID = 4 };
+            //// //all.Languages.AddOrUpdate(new Languages() { Language = "pl_PL" });
+            //// //all.Languages.AddOrUpdate(new Languages() { Language = "en" });
+            //// //all.Contacts.Save();
+            //// //SizeTexts st1 = new SizeTexts() { Height = 900, Length = 1300, Language = "pl_PL", Text = "1" }; all.SizeTexts.AddOrUpdate(st1);
+            //// //SizeTexts st2 = new SizeTexts() { Height = 1000, Length = 1500, Language = "pl_PL", Text = "2" }; all.SizeTexts.AddOrUpdate(st2);
+            //// //SizeTexts st3 = new SizeTexts() { Height = 1300, Length = 1800, Language = "pl_PL", Text = "3" }; all.SizeTexts.AddOrUpdate(st3);
+            //// //SizeTexts st4 = new SizeTexts() { Height = 1500, Length = 2100, Language = "pl_PL", Text = "4" }; all.SizeTexts.AddOrUpdate(st4);
+            //// //SizeTexts st5 = new SizeTexts() { Height = 1800, Length = 2400, Language = "pl_PL", Text = "5" }; all.SizeTexts.AddOrUpdate(st5);
+            //// //SizeTexts st6 = new SizeTexts() { Height = 2000, Length = 2500, Language = "pl_PL", Text = "6" }; all.SizeTexts.AddOrUpdate(st6);
+            //// //SizeTexts st7 = new SizeTexts() { Height = 2100, Length = 3000, Language = "pl_PL", Text = "7" }; all.SizeTexts.AddOrUpdate(st7);
+            //// //SizeTexts st8 = new SizeTexts() { Height = 2400, Length = 3000, Language = "pl_PL", Text = "8" }; all.SizeTexts.AddOrUpdate(st8);
+            //// SizeTexts st9 = new SizeTexts() { Height = 900, Length = 1300, Language = "en", Text = "1e" }; all.SizeTexts.AddOrUpdate(st9);
+            //// SizeTexts st10 = new SizeTexts() { Height = 1000, Length = 1500, Language = "en", Text = "2e" }; all.SizeTexts.AddOrUpdate(st10);
+            //// all.Contacts.Save();
+            ////// all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[0].TypeID, Text = "t1", Language = "pl_PL" });
+            ////// all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[1].TypeID, Text = "t2", Language = "pl_PL" });
+            //////all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[2].TypeID, Text = "t3", Language = "pl_PL" });
+            ////// all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[3].TypeID, Text = "t4", Language = "pl_PL" });
+            ////// all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[1].TypeID, Text = "t1e", Language = "en" });
+            //// Papers[] p = new Papers[20];
+            //// for (int i = 0; i < 8; i++)
+            //// {
+            ////     p[i] = new Papers() { TypeID = t[0].TypeID, Height = s[i].Height, Length = s[i].Length, Availability = null };
             // }
             // for (int i = 8; i < 13; i++)
             // {
