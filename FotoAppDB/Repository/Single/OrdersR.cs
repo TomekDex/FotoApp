@@ -26,7 +26,7 @@ namespace FotoAppDB.Repository.Single
             return Context.Order.Find(FAobject.OrderID) != null;
         }
 
-        public List<OrderFotos> OrderFotos(Orders order)
+        public List<OrderFotos> AllFotosInOrder(Orders order)
         {
             return Context
                 .OrderFoto

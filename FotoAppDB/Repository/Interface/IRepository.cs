@@ -1,4 +1,6 @@
-﻿namespace FotoAppDB.Repository.Interface
+﻿using System.Linq;
+
+namespace FotoAppDB.Repository.Interface
 {
     public interface IRepository<T>
     {
@@ -8,5 +10,6 @@
         void Update(T FAobject);
         void AddOrUpdate(T FAobject);
         void Delete(T FAobject);
+        IQueryable<T> GetAll();
     }
 }
