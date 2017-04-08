@@ -22,7 +22,7 @@ namespace FotoAppDBTest
 
         static void Main(string[] args)
         {
-            var bf = new FotoAppDbContext(new SeachConnectionString().connectionString);
+           // var bf = new FotoAppDbContext(new SeachConnectionString().connectionString);
             //bf.Type.AddOrUpdate(new Types());
             // bf.SaveChanges();
             FotoAppRAll all = new FotoAppRAll(new SeachConnectionString().connectionString);
