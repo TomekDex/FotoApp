@@ -42,6 +42,10 @@ namespace FotoAppDBTest
         public FotoAppR<FotoAppDbContext, Types> Types = new TypesR();
         public FotoAppR<FotoAppDbContext, TypeTexts> TypeTexts = new TypeTextsR();
         public FotoAppR<FotoAppDbContext, Fotos> Fotos = new FotosR();
+        public void Save()
+        {
+            Sizes.Save();
+        }
 
     }
 }
