@@ -8,7 +8,8 @@ namespace FotoAppDB.DBModel
         public int FotoID { get; set; }
         [ForeignKey("Orders")]
         public int OrderID { get; set; }
-        public int SizeID { get; set; }
+        public int Height { get; set; }
+        public int Length { get; set; }
         public int TypeID { get; set; }
         [Required]
         public int Quantity { get; set; }

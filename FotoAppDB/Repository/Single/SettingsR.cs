@@ -10,7 +10,6 @@ namespace FotoAppDB.Repository.Single
             Settings o = Context.Setting.Find(FAobject.Area, FAobject.Target);
             if (o != null)
             {
-                FAobject = o;
                 return o;
             }
             else

@@ -10,7 +10,6 @@ namespace FotoAppDB.Repository.Single
             Types o = Context.Type.Find(FAobject.TypeID);
             if (o != null)
             {
-                FAobject = o;
                 return o;
             }
             else

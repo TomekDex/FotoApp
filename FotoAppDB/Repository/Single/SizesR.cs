@@ -7,10 +7,9 @@ namespace FotoAppDB.Repository.Single
     {
         public override Sizes Get(Sizes FAobject)
         {
-            Sizes o = Context.Size.Find(FAobject.SizeID);
+            Sizes o = Context.Size.Find(FAobject.Height, FAobject.Length);
             if (o != null)
             {
-                FAobject = o;
                 return o;
             }
             else
@@ -21,7 +20,7 @@ namespace FotoAppDB.Repository.Single
 
         public override bool Is(Sizes FAobject)
         {
-            return Context.Size.Find(FAobject.SizeID) != null;
+            return Context.Size.Find(FAobject.Height, FAobject.Length) != null;
         }
     }
 }

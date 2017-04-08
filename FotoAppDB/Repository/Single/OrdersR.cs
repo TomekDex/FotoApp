@@ -13,7 +13,6 @@ namespace FotoAppDB.Repository.Single
             Orders o = Context.Order.Find(FAobject.OrderID);
             if (o != null)
             {
-                FAobject = o;
                 return o;
             }
             else

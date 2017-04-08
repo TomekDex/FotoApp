@@ -11,7 +11,6 @@ namespace FotoAppDB.Repository.Single
             TypeTexts o = Context.TypeText.Find(FAobject.TypeID, FAobject.Language);
             if (o != null)
             {
-                FAobject = o;
                 return o;
             }
             else

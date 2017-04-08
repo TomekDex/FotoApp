@@ -9,7 +9,8 @@ namespace FotoAppDB.DBModel
             this.Prices = new HashSet<Prices>();
             this.OrderFotos = new HashSet<OrderFotos>();
         }
-        public int SizeID { get; set; }
+        public int Height { get; set; }
+        public int Length { get; set; }
         public int TypeID { get; set; }
         public int? Availability { get; set; }
         public virtual Sizes Sizes { get; set; }

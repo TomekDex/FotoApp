@@ -7,10 +7,9 @@ namespace FotoAppDB.Repository.Single
     {
         public override Papers Get(Papers FAobject)
         {
-            Papers o = Context.Paper.Find(FAobject.SizeID, FAobject.TypeID);
+            Papers o = Context.Paper.Find(FAobject.Height,FAobject.Length, FAobject.TypeID);
             if (o != null)
             {
-                FAobject = o;
                 return o;
             }
             else
@@ -21,7 +20,7 @@ namespace FotoAppDB.Repository.Single
 
         public override bool Is(Papers FAobject)
         {
-            return Context.Paper.Find(FAobject.SizeID, FAobject.TypeID) != null;
+            return Context.Paper.Find(FAobject.Height, FAobject.Length, FAobject.TypeID) != null;
         }
     }
 }

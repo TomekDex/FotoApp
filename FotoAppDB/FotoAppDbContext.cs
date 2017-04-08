@@ -36,23 +36,24 @@ namespace FotoAppDB
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Papers>().HasKey(p => new { p.SizeID, p.TypeID });
-            modelBuilder.Entity<Prices>().HasKey(p => new { p.SizeID, p.TypeID, p.Quantity });
-            modelBuilder.Entity<OrderFotos>().HasKey(f => new { f.FotoID, f.OrderID, f.SizeID, f.TypeID });
+            modelBuilder.Entity<Papers>().HasKey(p => new { p.Height, p.Length, p.TypeID });
+            modelBuilder.Entity<Prices>().HasKey(p => new { p.Height, p.Length, p.TypeID, p.Quantity });
+            modelBuilder.Entity<OrderFotos>().HasKey(f => new { f.FotoID, f.OrderID, f.Height, f.Length, f.TypeID });
+            modelBuilder.Entity<Sizes>().HasKey(s => new { s.Height, s.Length });
             modelBuilder.Entity<Papers>()
                 .HasMany(p => p.Prices)
                 .WithRequired(p => p.Papers)
-                .HasForeignKey(p => new { p.SizeID, p.TypeID })
+                .HasForeignKey(p => new { p.Height, p.Length, p.TypeID })
                 .WillCascadeOnDelete(false);
             modelBuilder.Entity<Papers>()
                 .HasMany(p => p.OrderFotos)
                 .WithRequired(p => p.Papers)
-                .HasForeignKey(p => new { p.SizeID, p.TypeID })
+                .HasForeignKey(p => new { p.Height, p.Length, p.TypeID })
                 .WillCascadeOnDelete(false);
             modelBuilder.Entity<Sizes>()
                 .HasMany(p => p.SizeTexts)
                 .WithRequired(s => s.Sizes)
-                .HasForeignKey(p => p.SizeID)
+                .HasForeignKey(p => new { p.Height, p.Length })
                 .WillCascadeOnDelete(false);
             modelBuilder.Entity<Types>()
                 .HasMany(p => p.TypeTexts)
@@ -62,7 +63,7 @@ namespace FotoAppDB
             modelBuilder.Entity<Sizes>()
                 .HasMany(t => t.Papers)
                 .WithRequired(s => s.Sizes)
-                .HasForeignKey(s => s.SizeID)
+                .HasForeignKey(s => new { s.Height, s.Length })
                 .WillCascadeOnDelete(false);
             modelBuilder.Entity<Types>()
                 .HasMany(t => t.Papers)

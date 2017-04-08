@@ -11,7 +11,6 @@ namespace FotoAppDB.Repository.Single
             Languages o = Context.Language.Find(FAobject.Language);
             if (o != null)
             {
-                FAobject = o;
                 return o;
             }
             else

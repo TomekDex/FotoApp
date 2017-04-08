@@ -8,10 +8,9 @@ namespace FotoAppDB.Repository.Single
     {
         public override SizeTexts Get(SizeTexts FAobject)
         {
-            SizeTexts o = Context.SizeText.Find(FAobject.SizeID, FAobject.Language);
+            SizeTexts o = Context.SizeText.Find(FAobject.Height, FAobject.Length, FAobject.Language);
             if (o != null)
             {
-                FAobject = o;
                 return o;
             }
             else
@@ -22,7 +21,7 @@ namespace FotoAppDB.Repository.Single
 
         public override bool Is(SizeTexts FAobject)
         {
-            return Context.SizeText.Find(FAobject.SizeID, FAobject.Language) != null;
+            return Context.SizeText.Find(FAobject.Height, FAobject.Length, FAobject.Language) != null;
         }
     }
 }

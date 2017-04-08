@@ -10,7 +10,6 @@ namespace FotoAppDB.Repository.Single
             Fotos o = Context.Foto.Find(FAobject.FotoID);
             if (o != null)
             {
-                FAobject = o;
                 return o;
             }
             else
