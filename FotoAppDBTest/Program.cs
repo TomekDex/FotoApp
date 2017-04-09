@@ -29,7 +29,26 @@ namespace FotoAppDBTest
             //all.Sizes.
             //var a = all.Types.GetAllTypes(true);
             //foreach (Types aa in a) Console.WriteLine(aa.TypeID.ToString());
-            Console.WriteLine(all.Types.GetAllTypes(false).Count().ToString());
+            //Console.WriteLine(all.SizeTexts.GetSizeTextBySizeALang(new Sizes() { Height = 1500, Length = 21000 }, new Languages() { Language = "en" }).Text);
+            //all.Settings.AddOrUpdate();
+            //Settings s = new Settings() { Area = "lang", Target = "pl_en", Value = "pl_PL" };
+            ////s.Value += "aaa";
+            //Console.WriteLine(s.Value);
+            //all.Settings.Add(s);
+            //s.Value += "error";
+            all.Settings.CheckLangSettings();
+            //Console.WriteLine(s.Value);
+
+            //all.Settings.Update(s);
+            //all.Save();
+
+            //Console.WriteLine(s.Value);
+           
+            
+            //all.Settings.CheckLangSettings();
+            //all.Save();
+            //all.Settings.CheckLangSettings();
+            // all.SizeTexts.GetSizeTextBySizeALang(new Sizes() { Height = 900, Length = 1300 }, new Languages() { Language = "pl" });
             //Console.WriteLine(all.Types.GetAllTypes(false).Count().ToString());
             //Console.WriteLine(all.Types.GetAllTypes(true).Count().ToString());
             //Console.WriteLine(all.Types.GetAll().Count().ToString());
