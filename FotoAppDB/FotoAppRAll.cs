@@ -13,9 +13,9 @@ using System.IO;
 
 namespace FotoAppDBTest
 {
-   public sealed class FotoAppRAll
+    public sealed class FotoAppRAll
     {
-        private static readonly FotoAppRAll mInstance = new FotoAppRAll();
+        private static FotoAppRAll mInstance = new FotoAppRAll();
         public static FotoAppRAll Ins
         {
             get
@@ -23,7 +23,7 @@ namespace FotoAppDBTest
                 return mInstance;
             }
         }
-        public FotoAppRAll()
+        private FotoAppRAll()
         {
             string connectionString = SeachConnectionString();
             FotoAppDbContext fotoAppDBContext = new FotoAppDbContext(connectionString);
