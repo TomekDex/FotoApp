@@ -1,9 +1,7 @@
 namespace FotoAppDB
 {
     using FotoAppDB.DBModel;
-    using System;
     using System.Data.Entity;
-    using System.Linq;
 
     public class FotoAppDbContext : DbContext
     {
@@ -13,47 +11,80 @@ namespace FotoAppDB
         // 
         // If you wish to target a different database and/or database provider, modify the 'FotoAppDbContext' 
         // connection string in the application configuration file.
+        public FotoAppDbContext(string nameOrConnectionString) 
+        : base( nameOrConnectionString )
+    {
+        }
+
         public FotoAppDbContext()
             : base("name=FotoAppDbContext")
         {
         }
         public DbSet<Contacts> Contact { get; set; }
         public DbSet<Prices> Price { get; set; }
-        public DbSet<Fotos> Foto { get; set; }
+        public DbSet<OrderFotos> OrderFoto { get; set; }
         public DbSet<Orders> Order { get; set; }
         public DbSet<Papers> Paper { get; set; }
         public DbSet<Sizes> Size { get; set; }
         public DbSet<Types> Type { get; set; }
+        public DbSet<TypeTexts> TypeText { get; set; }
+        public DbSet<SizeTexts> SizeText { get; set; }
         public DbSet<Languages> Language { get; set; }
+        public DbSet<Fotos> Foto { get; set; }
+        public DbSet<Settings> Setting { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
-
-
-            modelBuilder.Entity<Languages>()
-                .HasMany(s => s.Sizes)
-                .WithRequired(l => l.Languages)
-                .HasForeignKey(s => s.Language)
+            modelBuilder.Entity<Papers>().HasKey(p => new { p.Height, p.Length, p.TypeID });
+            modelBuilder.Entity<Prices>().HasKey(p => new { p.Height, p.Length, p.TypeID, p.Quantity });
+            modelBuilder.Entity<OrderFotos>().HasKey(f => new { f.FotoID, f.OrderID, f.Height, f.Length, f.TypeID });
+            modelBuilder.Entity<Sizes>().HasKey(s => new { s.Height, s.Length });
+            modelBuilder.Entity<Papers>()
+                .HasMany(p => p.Prices)
+                .WithRequired(p => p.Papers)
+                .HasForeignKey(p => new { p.Height, p.Length, p.TypeID })
                 .WillCascadeOnDelete(false);
             modelBuilder.Entity<Papers>()
-                .HasMany(s => s.Sizes)
+                .HasMany(p => p.OrderFotos)
                 .WithRequired(p => p.Papers)
-                .HasForeignKey(s => s.PaperID)
+                .HasForeignKey(p => new { p.Height, p.Length, p.TypeID })
                 .WillCascadeOnDelete(false);
-
+            modelBuilder.Entity<Sizes>()
+                .HasMany(p => p.SizeTexts)
+                .WithRequired(s => s.Sizes)
+                .HasForeignKey(p => new { p.Height, p.Length })
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Types>()
+                .HasMany(p => p.TypeTexts)
+                .WithRequired(s => s.Types)
+                .HasForeignKey(p => p.TypeID)
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Sizes>()
+                .HasMany(t => t.Papers)
+                .WithRequired(s => s.Sizes)
+                .HasForeignKey(s => new { s.Height, s.Length })
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Types>()
+                .HasMany(t => t.Papers)
+                .WithRequired(s => s.Types)
+                .HasForeignKey(s => s.TypeID)
+                .WillCascadeOnDelete(false);
             modelBuilder.Entity<Languages>()
-                .HasMany(t => t.Types)
-                .WithRequired(l => l.Languages)
-                .HasForeignKey(s => s.Language)
+                .HasMany(p => p.SizeTexts)
+                .WithRequired(s => s.Languages)
+                .HasForeignKey(p => p.Language)
                 .WillCascadeOnDelete(false);
-            modelBuilder.Entity<Papers>()
-                .HasMany(t => t.Types)
-                .WithRequired(p => p.Papers)
-                .HasForeignKey(s => s.PaperID)
+            modelBuilder.Entity<Languages>()
+                .HasMany(p => p.TypeTexts)
+                .WithRequired(s => s.Languages)
+                .HasForeignKey(p => p.Language)
                 .WillCascadeOnDelete(false);
-
+            modelBuilder.Entity<Fotos>()
+                .HasMany(o => o.OrderFotos)
+                .WithRequired(f => f.Fotos)
+                .HasForeignKey(o => o.FotoID)
+                .WillCascadeOnDelete(false);
         }
 
 

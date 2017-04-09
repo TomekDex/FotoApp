@@ -1,22 +1,15 @@
 ﻿using FotoAppDB.Exception;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace FotoAppDB.DBModel 
+namespace FotoAppDB.DBModel
 {
-
     public class Languages
     {
         public Languages()
         {
-            this.Sizes = new HashSet<Sizes>();
-            this.Types = new HashSet<Types>();
-
+            this.SizeTexts = new HashSet<SizeTexts>();
+            this.TypeTexts = new HashSet<TypeTexts>();
         }
 
         public const int maxLengthLanguage = 5;
@@ -35,11 +28,8 @@ namespace FotoAppDB.DBModel
                 else { _language = value; }
             }
         }
-        public virtual ICollection<Sizes> Sizes { get; set; }
-        public virtual ICollection<Types> Types { get; set; }
 
-
-
-       
+        public virtual ICollection<SizeTexts> SizeTexts { get; set; }
+        public virtual ICollection<TypeTexts> TypeTexts { get; set; }
     }
 }
