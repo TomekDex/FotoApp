@@ -17,7 +17,7 @@ namespace FotoApp.Schell.EventArgs
 
             if (pass != null && pass.Password == Properties.Resources.Password)
             {
-                schell?.ActivateItem(new GetFotoViewModel(schell));
+                //schell?.ActivateItem(new GetFotoViewModel(schell));
             }
         }
 

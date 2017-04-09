@@ -3,12 +3,15 @@ using FotoApp.Interface;
 using FotoApp.Models;
 using FotoApp.Schell;
 using FotoApp.ViewModels.EvenArgs;
+using FotoAppDBTest;
 
 namespace FotoApp.ViewModels
 {
-    public class GetFotoViewModel :Conductor<object>, ISchellable
+    public class GetFotoViewModel :Conductor<object>, IViewModelEventAggregator, IViewModel
     {
-        public SchellViewModel Schell { get; set; }
+        public IEventAggregator EventAggregator { get; set; }
+        public IViewModel MainPanel { get; set; }
+        public IViewModel ChangePapersAndSise { get; set; }
 
         #region Delegate
 
@@ -105,9 +108,10 @@ namespace FotoApp.ViewModels
         #endregion
 
         #region Constractor
-        public GetFotoViewModel(SchellViewModel schell)
+        public GetFotoViewModel(IEventAggregator eventAggregator)
         {
-            Schell = schell;
+            EventAggregator = eventAggregator;
+
             FotoCollection = new FinalColection();
 
 #if DEBUG
@@ -120,22 +124,23 @@ namespace FotoApp.ViewModels
         #region  Actions
         public void Usb1()
         {
-            ActivateItem(new ListFotoViewModel(Schell, this));
+            
+            MainPanel = new ListFotoViewModel(EventAggregator);
             _closingOrder = false;
         }
         public void Usb2()
         {
-            ActivateItem(new ListFotoViewModel(Schell, this));
+            MainPanel = new ListFotoViewModel(EventAggregator);
             _closingOrder = false;
         }
         public void Cd()
         {
-            ActivateItem(new ListFotoViewModel(Schell, this));
+            MainPanel = new ListFotoViewModel(EventAggregator);
             _closingOrder = false;
         }
         public void Cart()
         {
-            ActivateItem(new ListFotoViewModel(Schell, this));
+            MainPanel = new ListFotoViewModel(EventAggregator);
             _closingOrder = false;
         }
         public void Ok()
@@ -144,7 +149,7 @@ namespace FotoApp.ViewModels
             {
                 _closingOrder = true;
                 FinalColectionDelegat();
-                ActivateItem(new ClosingOrderViewModel(Schell, this));
+                MainPanel = new ClosingOrderViewModel(EventAggregator);
             }
             else
             {  

@@ -13,9 +13,11 @@ using FotoApp.Schell.EventArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class StartViewModel : PropertyChangedBase, ISchellable
+    public class StartViewModel : PropertyChangedBase, IViewModelEventAggregator, IViewModel
     {
-        public SchellViewModel Schell { get; set; }
+        public IEventAggregator EventAggregator { get; set; }
+        public IViewModel MainPanel { get; set; }
+
 
         public delegate void OnCosingDelegate();
 
@@ -37,9 +39,9 @@ namespace FotoApp.ViewModels
         #endregion
 
         #region Constractor
-        public StartViewModel(SchellViewModel schell)
+        public StartViewModel(IEventAggregator eventAggregator)
         {
-            Schell = schell;
+            EventAggregator = eventAggregator;
         }
         #endregion
 
@@ -53,7 +55,7 @@ namespace FotoApp.ViewModels
             {
                 var hendler = new LogInHendler();
                 log.startOrCloseDelegate += hendler.StartOrClose;
-                log.OnStart(Schell, Password);
+               // log.OnStart(Schell, Password);
             }
             else
             {

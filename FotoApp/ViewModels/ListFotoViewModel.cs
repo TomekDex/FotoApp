@@ -14,14 +14,17 @@ using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ListFotoViewModel :PropertyChangedBase, ISchellable
+    public class ListFotoViewModel :PropertyChangedBase, IViewModelEventAggregator, IViewModel
     {
 
-        public SchellViewModel Schell { get; set; }
-        private readonly GetFotoViewModel _getFoto;
+        public IEventAggregator EventAggregator { get; set; }
+        public IViewModel MainPanel { get; set; }
+    
+
         #region Propertis;
         private BindableCollection<Data> _fotoData;
-        public BindableCollection<Data> FotoData {
+        public BindableCollection<Data> FotoData
+        {
             get { return _fotoData; }
             set
             {
@@ -56,12 +59,10 @@ namespace FotoApp.ViewModels
         #endregion
 
         #region Constractor
-        public ListFotoViewModel(SchellViewModel schellViewModel, GetFotoViewModel getFoto)
+        public ListFotoViewModel(IEventAggregator eventAggregator)
         {
-            Schell = schellViewModel;
-            this._getFoto = getFoto;
+            EventAggregator = eventAggregator;
             _finalColections = new FinalColection();
-            _getFoto.FinalColectionDelegat += GetFinalColection;
 #if DEBUG
             Inicialice();
 #endif
@@ -264,10 +265,9 @@ namespace FotoApp.ViewModels
             var tmp = new GetFoto();
             var hendler = new GetFotoHendler();
             tmp.getFotoDelegate += hendler.GetGoto;
-            tmp.GetFotoColection(_getFoto, _finalColections);
+            //tmp.GetFotoColection(_getFoto, _finalColections);
         }
 
         #endregion
-
     }
 }

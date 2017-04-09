@@ -10,13 +10,12 @@ using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ClosingOrderViewModel : PropertyChangedBase, ISchellable
+    public class ClosingOrderViewModel : PropertyChangedBase, IViewModelEventAggregator, IViewModel
     {
-       
+        public IEventAggregator EventAggregator { get; set; }
+        public IViewModel MainPanel { get; set; }
 
         #region Propertis
-        public SchellViewModel Schell { get; set; }
-        private readonly GetFotoViewModel _getFoto;
 
         private string _name;
         private string _phone;
@@ -54,11 +53,9 @@ namespace FotoApp.ViewModels
 
         #region Constractor
 
-        public ClosingOrderViewModel(SchellViewModel schell, GetFotoViewModel getFoto)
+        public ClosingOrderViewModel(IEventAggregator eventAggregator)
         {
-            Schell = schell;
-            _getFoto = getFoto;
-            getFoto.FinalColectionDelegat += FinalOrder;
+            EventAggregator = eventAggregator;
         }
 
 
@@ -71,11 +68,12 @@ namespace FotoApp.ViewModels
             var tmp = new FinalOrder();
             var hendler = new FinalOrderHendler();
             tmp.finalOrderDelegate += hendler.FinalOrder;
-            tmp.GetFotoColection(_getFoto, Name, Phone, Mail);
+            //tmp.GetFotoColection(_getFoto, Name, Phone, Mail);
         }
         
 
 
         #endregion
+
     }
 }

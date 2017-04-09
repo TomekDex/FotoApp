@@ -6,88 +6,12 @@
              xmlns:converter="clr-namespace:FotoApp.ViewModels.Converter"
              xmlns:enum="clr-namespace:FotoApp.Enum"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="800 ">
-    
-    <UserControl.Resources>
-        <converter:RatioButtonToEnumConverter x:Key="ToEnumConverter"/>
-    </UserControl.Resources>
+             d:DesignHeight="600" d:DesignWidth="600 ">
     
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="220"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center"
-                   Grid.Row="0" Grid.Column="1"  Margin="10,10,10,10">
-            <RadioButton Content="Papier Matowy" Style="{StaticResource FotoAppRadioButton}"
-                         IsChecked="{Binding Path=Paper ,Mode=OneWayToSource, Converter={StaticResource ToEnumConverter}, ConverterParameter={x:Static enum:Paper.MatPaper}}"
-                         Height="50"  Width="150" 
-                         Margin="20,20,20,20" 
-                         GroupName="Paper"/>
-            <RadioButton Content="Papier Błyszczący" Style="{StaticResource FotoAppRadioButton}" 
-                         IsChecked="{Binding Path=Paper, Mode=OneWayToSource, Converter={StaticResource ToEnumConverter}, ConverterParameter={x:Static enum:Paper.GlossyPaper}}"
-                         Height="50"  Width="150"
-                         Margin="20,20,20,20" 
-                         GroupName="Paper"/>
-        </WrapPanel>
-        <WrapPanel  HorizontalAlignment="Left"  VerticalAlignment="Center"   
-                     Grid.Row="0" Grid.Column="0" Margin="10,10,10,10"   >
-
-            <RadioButton Content="9 x 13" Style="{StaticResource FotoAppRadioButton}" 
-                         IsChecked="{Binding Path=SizeFoto, Mode=OneWayToSource, Converter={StaticResource ToEnumConverter}, ConverterParameter={x:Static enum:SizeFoto.Size9X13}}"
-                         Height="50"  Width="150" 
-                         Margin="20,20,20,20" 
-                         GroupName="SizeFoto"/>
-            <RadioButton Content="10 x 15" Style="{StaticResource FotoAppRadioButton}" 
-                         IsChecked="{Binding Path=SizeFoto, Mode=OneWayToSource, Converter={StaticResource ToEnumConverter}, ConverterParameter={x:Static enum:SizeFoto.Size10X15}}"
-                         Height="50"  Width="150"
-                         Margin="20,20,20,20" 
-                         GroupName="SizeFoto"/>
-            <RadioButton Content="13 x 18" Style="{StaticResource FotoAppRadioButton}" 
-                         IsChecked="{Binding Path=SizeFoto, Mode=OneWayToSource, Converter={StaticResource ToEnumConverter}, ConverterParameter={x:Static enum:SizeFoto.Size13X18}}"
-                         Height="50"  Width="150" 
-                         Margin="20,20,20,20" 
-                         GroupName="SizeFoto"/>
-            <RadioButton Content="15 x 21" Style="{StaticResource FotoAppRadioButton}" 
-                         IsChecked="{Binding Path=SizeFoto, Mode=OneWayToSource, Converter={StaticResource ToEnumConverter}, ConverterParameter={x:Static enum:SizeFoto.Size15X21}}"
-                         Height="50"  Width="150" 
-                         Margin="20,20,20,20" 
-                         GroupName="SizeFoto"/>
-            <RadioButton Content="18 x 24" Style="{StaticResource FotoAppRadioButton}" 
-                         IsChecked="{Binding Path=SizeFoto, Mode=OneWayToSource, Converter={StaticResource ToEnumConverter}, ConverterParameter={x:Static enum:SizeFoto.Size18X24}}"
-                         Height="50"  Width="150" 
-                         Margin="20,20,20,20" 
-                         GroupName="SizeFoto"/>
-            <RadioButton Content="20 x 24" Style="{StaticResource FotoAppRadioButton}" 
-                         IsChecked="{Binding Path=SizeFoto, Mode=OneWayToSource, Converter={StaticResource ToEnumConverter}, ConverterParameter={x:Static enum:SizeFoto.Size20X24}}"
-                         Height="50"  Width="150" 
-                         Margin="20,20,20,20" 
-                         GroupName="SizeFoto"/>
-            <RadioButton Content="21 x 30" Style="{StaticResource FotoAppRadioButton}" 
-                         IsChecked="{Binding Path=SizeFoto, Mode=OneWayToSource, Converter={StaticResource ToEnumConverter}, ConverterParameter={x:Static enum:SizeFoto.Size21X30}}"
-                         Height="50"  Width="150" 
-                         Margin="20,20,20,20" 
-                         GroupName="SizeFoto"/>
-            <RadioButton Content="24 x 30" Style="{StaticResource FotoAppRadioButton}" 
-                         IsChecked="{Binding Path=SizeFoto, Mode=OneWayToSource, Converter={StaticResource ToEnumConverter}, ConverterParameter={x:Static enum:SizeFoto.Size24X30}}"
-                         Height="50"  Width="150"
-                         Margin="20,20,20,20"
-                         GroupName="SizeFoto"/>
-        </WrapPanel>
-       
-        <Rectangle Panel.ZIndex="-1" Fill="White"  Stroke="Blue"  StrokeThickness="2"
-                       Opacity=".1" RadiusX="8" RadiusY="8"
-                   Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" />
-        
-        <ItemsControl ItemsSource="{Binding FotoData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+       <ItemsControl ItemsSource="{Binding FotoData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                       ItemTemplate="{StaticResource ListCheckBox}"
                       ItemsPanel="{StaticResource ListPanel}"
-                      Margin="10,10,10,10"
-                       Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" />
+                      Margin="10,10,10,10" />
     </Grid>
 </UserControl>
