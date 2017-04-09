@@ -25,7 +25,7 @@ namespace FotoAppDBTest
            // var bf = new FotoAppDbContext(new SeachConnectionString().connectionString);
             //bf.Type.AddOrUpdate(new Types());
             // bf.SaveChanges();
-            FotoAppRAll all = new FotoAppRAll(new SeachConnectionString().connectionString);
+            
             //all.Sizes.
             //var a = all.Types.GetAllTypes(true);
             //foreach (Types aa in a) Console.WriteLine(aa.TypeID.ToString());
@@ -36,7 +36,7 @@ namespace FotoAppDBTest
             //Console.WriteLine(s.Value);
             //all.Settings.Add(s);
             //s.Value += "error";
-            all.Settings.CheckLangSettings();
+            FotoAppRAll.Ins.Settings.CheckLangSettings();
             //Console.WriteLine(s.Value);
 
             //all.Settings.Update(s);
