@@ -14,7 +14,7 @@ using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ListFotoViewModel :PropertyChangedBase, IViewModelEventAggregator, IViewModel, IHandle<IEnumerable<int>>
+    public class ListFotoViewModel :Screen, IViewModelEventAggregator, IViewModel, IHandle<IEnumerable<int>>
     {
 
         public IEventAggregator EventAggregator { get; set; }
@@ -46,6 +46,8 @@ namespace FotoApp.ViewModels
             EventAggregator = eventAggregator;
             EventAggregator.Subscribe(this);
             _finalColections = new FinalFotoColection();
+            _getFoto.FinalColectionDelegat += GetFinalColection;
+
 #if DEBUG
             Inicialice();
 #endif
@@ -226,12 +228,13 @@ namespace FotoApp.ViewModels
                 {
                     NumbersOfFoto = 1,
                     Index = tmp.Index,
+                    FullPathOfFoto = uri.ToString(),
                     NameOfFoto = fileName,
                     Type = _type,
                     Size = _sise
                 };
                 _finalColections.FotoColection.Add(foto);
-
+                EventAggregator.PublishOnCurrentThread(true);
                 // przekazuje do kopiowania
 
                 var copyFoto = new CopyFoto();
@@ -241,6 +244,7 @@ namespace FotoApp.ViewModels
             {
                 var removeTmp = _finalColections.FotoColection.FirstOrDefault(e => tmp != null && e.Index == tmp.Index);
                 _finalColections.FotoColection.Remove(removeTmp);
+                EventAggregator.PublishOnCurrentThread(_finalColections.FotoColection.Count !=0);
             }
         }
 

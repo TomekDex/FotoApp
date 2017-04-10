@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
 using Caliburn.Micro;
@@ -10,7 +11,7 @@ using FotoAppDBTest;
 
 namespace FotoApp.ViewModels
 {
-    public class GetFotoViewModel :Screen, IViewModelEventAggregator, IViewModel ,IHandle<FinalFotoColection>
+    public class GetFotoViewModel :Screen, IViewModelEventAggregator, IViewModel , IHandle<IEnumerable<int>>, IHandle<bool>
     {
         public IEventAggregator EventAggregator { get; set; }
         public IViewModel MainPanel { get; set; }
@@ -31,6 +32,9 @@ namespace FotoApp.ViewModels
         private int _count = 12;
         private bool _closingOrder;
         private FinalFotoColection _finalFotoColection;
+        private int? _type;
+        private int? _sise;
+        private bool? activ;
         private SchellViewModel schell;
 
         public FinalFotoColection FotoCollection
@@ -92,7 +96,7 @@ namespace FotoApp.ViewModels
 
         public bool CanOk
         {
-            get { return true; }
+            get { return _type != null && _sise != null && activ == true; }
         }
 
         #endregion
@@ -106,6 +110,7 @@ namespace FotoApp.ViewModels
             EventAggregator.Subscribe(this);
             ChangePapersAndSise = new ChangePapersAndSiseViewModel(EventAggregator);
             FotoCollection = new FinalFotoColection();
+            _type = _sise = null;
 #if DEBUG
             _discount = "kjsdhsdkjfhsdkfs";
             _price = "klsdfjskdfhsdf";
@@ -119,6 +124,7 @@ namespace FotoApp.ViewModels
             
             MainPanel = new ListFotoViewModel(this, EventAggregator);
             _closingOrder = false;
+            EventAggregator.PublishOnCurrentThread(GetTypes());
             NotifyOfPropertyChange(() => MainPanel);
         }
         public void Usb2()
@@ -143,27 +149,40 @@ namespace FotoApp.ViewModels
                 _closingOrder = true;
                 FinalColectionDelegat();
                 MainPanel = new ClosingOrderViewModel(this);
+                NotifyOfPropertyChange(() => MainPanel);
             }
             else
             {  
                 _closingOrder = false;
                 FinalColectionDelegat();
                 MainPanel = null;
-                Handle(null);
+                NotifyOfPropertyChange(() => MainPanel);
+                EventAggregator.PublishOnCurrentThread(FotoCollection);
             }
         }
         #endregion
 
-        public void Handle(FinalFotoColection message)
+        public void Handle(IEnumerable<int> message)
         {
-            EventAggregator.PublishOnCurrentThread(GetFinalColection());
+            var list = message.ToList();
+            if (list != null)
+            {
+                _type = list[0];
+                _sise = list[1];
+            }
+            NotifyOfPropertyChange(() => CanOk);
+        }
+        private IEnumerable<int> GetTypes()
+        {
+            yield return Convert.ToInt16(_type);
+            yield return Convert.ToInt32(_sise);
         }
 
-        private FinalFotoColection GetFinalColection()
+        public void Handle(bool message)
         {
-            return _finalFotoColection;
+            activ = message;
+            NotifyOfPropertyChange(()=> CanOk);
         }
-
-       
     }
+
 }

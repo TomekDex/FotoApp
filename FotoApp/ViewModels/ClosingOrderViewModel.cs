@@ -55,6 +55,7 @@ namespace FotoApp.ViewModels
         public ClosingOrderViewModel(GetFotoViewModel getFoto)
         {
             _getFoto = getFoto;
+            getFoto.FinalColectionDelegat += FinalOrder;
         }
         #endregion
 

@@ -10,7 +10,7 @@ using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ChangePapersAndSiseViewModel :Screen, IViewModelEventAggregator, IViewModel, IHandle<IEnumerable<int>>
+    public class ChangePapersAndSiseViewModel :Screen, IViewModelEventAggregator, IViewModel
     {
 #if DEBUG
         private void Inicialise()
@@ -28,10 +28,11 @@ namespace FotoApp.ViewModels
 #endif
         }
         #endregion
-        #region Proportis
+       
         public IEventAggregator EventAggregator { get; set; }
         public IViewModel MainPanel { get; set; }
 
+        #region Proportis
         private BindableCollection<Sizes> _siseList;
         private BindableCollection<Types> _typeList;
         private int _type;
@@ -74,21 +75,11 @@ namespace FotoApp.ViewModels
         {
             var tmp = o as Sizes;
             if (tmp != null) _sise = tmp.id;
-            Handle(null);
-
-        }
-        #endregion
-
-        public void Handle(IEnumerable<int> message)
-        {
             EventAggregator.PublishOnCurrentThread(GetType());
         }
-
-        private int GetSize()
-        {
-            return _sise;
-        }
-        private new IEnumerable<int> GetType()
+        #endregion
+       
+        private  IEnumerable<int> GetType()
         {
             yield return _type;
             yield return _sise;
