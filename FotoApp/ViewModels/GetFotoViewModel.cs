@@ -1,26 +1,28 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.NetworkInformation;
+using Caliburn.Micro;
 using FotoApp.Interface;
 using FotoApp.Models;
 using FotoApp.Schell;
+using FotoApp.ViewModels.EvenArgs;
+using FotoAppDBTest;
 
 namespace FotoApp.ViewModels
 {
-    public class GetFotoViewModel :Conductor<object>, ISchellable
+    public class GetFotoViewModel :Screen, IViewModelEventAggregator, IViewModel , IHandle<IEnumerable<int>>, IHandle<bool>
     {
-        public SchellViewModel Schell { get; set; }
+        public IEventAggregator EventAggregator { get; set; }
+        public IViewModel MainPanel { get; set; }
+        public IViewModel ChangePapersAndSise { get; set; }
 
         #region Delegate
 
-        public delegate FinalColection FinalColectionDelegate();
-        public delegate string ChangeName();
-        public delegate string ChangePhone();
-        public delegate string ChangeMail();
-
-        public FinalColectionDelegate FinalColectionDelegat = null;
-        public ChangeMail ChangeMailDelegate = null;
-        public ChangeName ChangeNameDelegate = null;
-        public ChangePhone ChangePhoneDelegate = null;
-
+        public delegate void FinalColectionDelegate();
+        
+        public event FinalColectionDelegate FinalColectionDelegat = null;
+        
         #endregion
 
         #region  Propertis
@@ -29,15 +31,20 @@ namespace FotoApp.ViewModels
         private string _discount;
         private int _count = 12;
         private bool _closingOrder;
-        private FinalColection _finalColection;
-        public FinalColection FotoCollection
+        private FinalFotoColection _finalFotoColection;
+        private int? _type;
+        private int? _sise;
+        private bool? activ;
+        private SchellViewModel schell;
+
+        public FinalFotoColection FotoCollection
         {
-            get { return _finalColection; }
+            get { return _finalFotoColection; }
             set
             {
-                _finalColection = value;
+                _finalFotoColection = value;
                 NotifyOfPropertyChange(() => FotoCollection);
-                NotifyOfPropertyChange(()=> CanCd);
+                NotifyOfPropertyChange(() => CanCd);
             }
         }
         public string Price
@@ -72,49 +79,38 @@ namespace FotoApp.ViewModels
         #region CanProportis
         public bool CanUsb1
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
         public bool CanUsb2
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
         public bool CanCd
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
         public bool CanCart
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
 
         public bool CanOk
         {
-            get
-            {
-                return true;
-            }
+            get { return _type != null && _sise != null && activ == true; }
         }
 
         #endregion
 
         #region Constractor
-        public GetFotoViewModel(SchellViewModel schell)
-        {
-            Schell = schell;
-            FotoCollection = new FinalColection();
 
+        public GetFotoViewModel(SchellViewModel schell, IEventAggregator eventAggregator)
+        {
+            this.schell = schell;
+            EventAggregator = eventAggregator;
+            EventAggregator.Subscribe(this);
+            ChangePapersAndSise = new ChangePapersAndSiseViewModel(EventAggregator);
+            FotoCollection = new FinalFotoColection();
+            _type = _sise = null;
 #if DEBUG
             _discount = "kjsdhsdkjfhsdkfs";
             _price = "klsdfjskdfhsdf";
@@ -125,44 +121,68 @@ namespace FotoApp.ViewModels
         #region  Actions
         public void Usb1()
         {
-            ActivateItem(new ListFotoViewModel(Schell, this));
+            
+            MainPanel = new ListFotoViewModel(this, EventAggregator);
             _closingOrder = false;
+            EventAggregator.PublishOnCurrentThread(GetTypes());
+            NotifyOfPropertyChange(() => MainPanel);
         }
         public void Usb2()
         {
-            ActivateItem(new ListFotoViewModel(Schell, this));
+            MainPanel = new ListFotoViewModel(this,  EventAggregator);
             _closingOrder = false;
         }
         public void Cd()
         {
-            ActivateItem(new ListFotoViewModel(Schell, this));
+            MainPanel = new ListFotoViewModel(this, EventAggregator);
             _closingOrder = false;
         }
         public void Cart()
         {
-            ActivateItem(new ListFotoViewModel(Schell, this));
+            MainPanel = new ListFotoViewModel(this, EventAggregator);
             _closingOrder = false;
         }
         public void Ok()
         {
             if (!_closingOrder)
             {
-                ActivateItem(new ClosingOrderViewModel(Schell, this));
-                FotoCollection = FinalColectionDelegat();
                 _closingOrder = true;
+                FinalColectionDelegat();
+                MainPanel = new ClosingOrderViewModel(this);
+                NotifyOfPropertyChange(() => MainPanel);
             }
             else
-            {  // wczytanie danych z do zatwierdzenia zlecenia 
-
-                FotoCollection.CustomerName = ChangeNameDelegate();
-                FotoCollection.CustomerMail = ChangeMailDelegate();
-                FotoCollection.CustomerPhoneNumber = ChangePhoneDelegate();
+            {  
                 _closingOrder = false;
-                // przesłanie zamuwieniea do bazy danych
-                ActivateItem(null);
+                FinalColectionDelegat();
+                MainPanel = null;
+                NotifyOfPropertyChange(() => MainPanel);
+                EventAggregator.PublishOnCurrentThread(FotoCollection);
             }
         }
         #endregion
 
+        public void Handle(IEnumerable<int> message)
+        {
+            var list = message.ToList();
+            if (list != null)
+            {
+                _type = list[0];
+                _sise = list[1];
+            }
+            NotifyOfPropertyChange(() => CanOk);
+        }
+        private IEnumerable<int> GetTypes()
+        {
+            yield return Convert.ToInt16(_type);
+            yield return Convert.ToInt32(_sise);
+        }
+
+        public void Handle(bool message)
+        {
+            activ = message;
+            NotifyOfPropertyChange(()=> CanOk);
+        }
     }
+
 }

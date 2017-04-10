@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using FotoApp.Interface;
 using FotoApp.Schell;
+using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ClosingOrderViewModel : PropertyChangedBase, ISchellable
+    public class ClosingOrderViewModel : Screen, IViewModel
     {
-       
-
+        public IViewModel MainPanel { get; set; }
+        private readonly GetFotoViewModel _getFoto;
         #region Propertis
-        public SchellViewModel Schell { get; set; }
-        public GetFotoViewModel GetFoto { get; set; }
 
         private string _name;
         private string _phone;
@@ -53,34 +52,26 @@ namespace FotoApp.ViewModels
 
         #region Constractor
 
-        public ClosingOrderViewModel(SchellViewModel schell, GetFotoViewModel getFoto)
+        public ClosingOrderViewModel(GetFotoViewModel getFoto)
         {
-            Schell = schell;
-            GetFoto = getFoto;
-            getFoto.ChangeNameDelegate += GetName;
-            getFoto.ChangeMailDelegate += GetMail;
-            getFoto.ChangePhoneDelegate += GetPhone;
+            _getFoto = getFoto;
+            getFoto.FinalColectionDelegat += FinalOrder;
         }
-
-
         #endregion
 
         #region Actions
 
-        public string GetName()
-        {
-            return _name;
+        public void FinalOrder()
+        { 
+            var tmp = new FinalOrder();
+            var hendler = new FinalOrderHendler();
+            tmp.finalOrderDelegate += hendler.FinalOrder;
+            tmp.GetFotoColection(_getFoto, Name, Phone, Mail);
         }
-        public string GetMail()
-        {
-            return _mail;
-        }
-        public string GetPhone()
-        {
-            return _phone;
-        }
+        
 
 
         #endregion
+
     }
 }
