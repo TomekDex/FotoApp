@@ -221,13 +221,13 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FotoAppDBTest\FotoAppDBTest.csproj">
-      <Project>{A5CBDF44-60B2-41DA-BE10-B1C8BF294514}</Project>
-      <Name>FotoAppDBTest</Name>
-    </ProjectReference>
+    <Folder Include="Resourse\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resourse\" />
+    <ProjectReference Include="..\FotoAppDB\FotoAppDB.csproj">
+      <Project>{38e36aca-5c3c-429e-bf25-6aa80bd6c780}</Project>
+      <Name>FotoAppDB</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
