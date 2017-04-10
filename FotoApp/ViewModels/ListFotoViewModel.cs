@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using Caliburn.Micro;
 using FotoApp.Interface;
 using FotoApp.Models;
+using FotoApp.Models.FotoColection;
 using FotoApp.Schell;
 using FotoApp.ViewModels.Actions;
 using FotoApp.ViewModels.EvenArgs;

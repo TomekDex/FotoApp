@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="Schell\SchellViewModel.cs" />
     <Compile Include="ViewModels\Actions\CopyFoto.cs" />
+    <Compile Include="ViewModels\Actions\GetPaper.cs" />
     <Compile Include="ViewModels\Actions\LoadFoto.cs" />
     <Compile Include="ViewModels\ChangePapersAndSiseViewModel.cs" />
     <Compile Include="ViewModels\ClosingOrderViewModel.cs" />
