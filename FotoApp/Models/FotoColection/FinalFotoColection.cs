@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace FotoApp.Models
 {
-    public class FinalColection
+    public class FinalFotoColection
     {
         public List<FinalFoto> FotoColection { get; set; }
         public string CustomerName { get; set; }
         public string CustomerPhoneNumber { get; set; }
         public string CustomerMail { get; set; }
 
-        public FinalColection()
+        public FinalFotoColection()
         {
                 FotoColection = new List<FinalFoto>();
         }

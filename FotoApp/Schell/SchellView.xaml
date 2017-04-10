@@ -26,6 +26,6 @@
             </common:ImputBindingTrigger>
         </i:Interaction.Triggers>
 
-        <ContentControl x:Name="MainPanel" />
+        <ContentControl x:Name="ActiveItem" />
     </Grid>
 </Window>

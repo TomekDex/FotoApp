@@ -1,4 +1,7 @@
-﻿using Caliburn.Micro;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net.NetworkInformation;
+using Caliburn.Micro;
 using FotoApp.Interface;
 using FotoApp.Models;
 using FotoApp.Schell;
@@ -7,7 +10,7 @@ using FotoAppDBTest;
 
 namespace FotoApp.ViewModels
 {
-    public class GetFotoViewModel :Conductor<object>, IViewModelEventAggregator, IViewModel
+    public class GetFotoViewModel :Screen, IViewModelEventAggregator, IViewModel ,IHandle<FinalFotoColection>
     {
         public IEventAggregator EventAggregator { get; set; }
         public IViewModel MainPanel { get; set; }
@@ -27,15 +30,17 @@ namespace FotoApp.ViewModels
         private string _discount;
         private int _count = 12;
         private bool _closingOrder;
-        private FinalColection _finalColection;
-        public FinalColection FotoCollection
+        private FinalFotoColection _finalFotoColection;
+        private SchellViewModel schell;
+
+        public FinalFotoColection FotoCollection
         {
-            get { return _finalColection; }
+            get { return _finalFotoColection; }
             set
             {
-                _finalColection = value;
+                _finalFotoColection = value;
                 NotifyOfPropertyChange(() => FotoCollection);
-                NotifyOfPropertyChange(()=> CanCd);
+                NotifyOfPropertyChange(() => CanCd);
             }
         }
         public string Price
@@ -70,50 +75,37 @@ namespace FotoApp.ViewModels
         #region CanProportis
         public bool CanUsb1
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
         public bool CanUsb2
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
         public bool CanCd
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
         public bool CanCart
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
 
         public bool CanOk
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
 
         #endregion
 
         #region Constractor
-        public GetFotoViewModel(IEventAggregator eventAggregator)
+
+        public GetFotoViewModel(SchellViewModel schell, IEventAggregator eventAggregator)
         {
+            this.schell = schell;
             EventAggregator = eventAggregator;
-
-            FotoCollection = new FinalColection();
-
+            EventAggregator.Subscribe(this);
+            ChangePapersAndSise = new ChangePapersAndSiseViewModel(EventAggregator);
+            FotoCollection = new FinalFotoColection();
 #if DEBUG
             _discount = "kjsdhsdkjfhsdkfs";
             _price = "klsdfjskdfhsdf";
@@ -125,22 +117,23 @@ namespace FotoApp.ViewModels
         public void Usb1()
         {
             
-            MainPanel = new ListFotoViewModel(EventAggregator);
+            MainPanel = new ListFotoViewModel(this, EventAggregator);
             _closingOrder = false;
+            NotifyOfPropertyChange(() => MainPanel);
         }
         public void Usb2()
         {
-            MainPanel = new ListFotoViewModel(EventAggregator);
+            MainPanel = new ListFotoViewModel(this,  EventAggregator);
             _closingOrder = false;
         }
         public void Cd()
         {
-            MainPanel = new ListFotoViewModel(EventAggregator);
+            MainPanel = new ListFotoViewModel(this, EventAggregator);
             _closingOrder = false;
         }
         public void Cart()
         {
-            MainPanel = new ListFotoViewModel(EventAggregator);
+            MainPanel = new ListFotoViewModel(this, EventAggregator);
             _closingOrder = false;
         }
         public void Ok()
@@ -149,16 +142,28 @@ namespace FotoApp.ViewModels
             {
                 _closingOrder = true;
                 FinalColectionDelegat();
-                MainPanel = new ClosingOrderViewModel(EventAggregator);
+                MainPanel = new ClosingOrderViewModel(this);
             }
             else
             {  
                 _closingOrder = false;
                 FinalColectionDelegat();
-                ActivateItem(null);
+                MainPanel = null;
+                Handle(null);
             }
         }
         #endregion
 
+        public void Handle(FinalFotoColection message)
+        {
+            EventAggregator.PublishOnCurrentThread(GetFinalColection());
+        }
+
+        private FinalFotoColection GetFinalColection()
+        {
+            return _finalFotoColection;
+        }
+
+       
     }
 }

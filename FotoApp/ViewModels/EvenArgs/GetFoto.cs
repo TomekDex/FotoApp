@@ -13,7 +13,7 @@ namespace FotoApp.ViewModels.EvenArgs
         public delegate void GetFotoDelegate(object sender, EventArgs e);
 
         public event GetFotoDelegate getFotoDelegate = null;
-        public void GetFotoColection(object getFoto, FinalColection finalColection)
+        public void GetFotoColection(object getFoto, FinalFotoColection finalColection)
         {
             var tmp = new GetFotoArgs(finalColection);
             ReservationGetFotoArgs(getFoto, tmp);

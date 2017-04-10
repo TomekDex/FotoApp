@@ -10,11 +10,10 @@ using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ClosingOrderViewModel : PropertyChangedBase, IViewModelEventAggregator, IViewModel
+    public class ClosingOrderViewModel : Screen, IViewModel
     {
-        public IEventAggregator EventAggregator { get; set; }
         public IViewModel MainPanel { get; set; }
-
+        private readonly GetFotoViewModel _getFoto;
         #region Propertis
 
         private string _name;
@@ -53,12 +52,10 @@ namespace FotoApp.ViewModels
 
         #region Constractor
 
-        public ClosingOrderViewModel(IEventAggregator eventAggregator)
+        public ClosingOrderViewModel(GetFotoViewModel getFoto)
         {
-            EventAggregator = eventAggregator;
+            _getFoto = getFoto;
         }
-
-
         #endregion
 
         #region Actions
@@ -68,7 +65,7 @@ namespace FotoApp.ViewModels
             var tmp = new FinalOrder();
             var hendler = new FinalOrderHendler();
             tmp.finalOrderDelegate += hendler.FinalOrder;
-            //tmp.GetFotoColection(_getFoto, Name, Phone, Mail);
+            tmp.GetFotoColection(_getFoto, Name, Phone, Mail);
         }
         
 

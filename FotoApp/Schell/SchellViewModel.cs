@@ -10,21 +10,25 @@ using FotoApp.ViewModels;
 
 namespace FotoApp.Schell
 {
-    public class SchellViewModel: Screen, IViewModelEventAggregator, IViewModel
+    public class SchellViewModel: Conductor<object>, IViewModelEventAggregator
     {
         private bool _onClose;
         public IEventAggregator EventAggregator { get; set; }
-        public IViewModel MainPanel { get; set; }
 
         public SchellViewModel()
         {
             EventAggregator = new EventAggregator();
             _onClose = false;
-           MainPanel = new StartViewModel(EventAggregator);
+            ActivateItem(new StartViewModel(this, EventAggregator));
             base.DisplayName = "FotoApp";
 #if DEBUG
-            MainPanel = new GetFotoViewModel(EventAggregator);
+            ActivateItem(new GetFotoViewModel(this, EventAggregator));
 #endif
+        }
+
+        public sealed override void ActivateItem(object item)
+        {
+            base.ActivateItem(item);
         }
 
         public void OnClose()
@@ -32,20 +36,15 @@ namespace FotoApp.Schell
 
         }
 
-        //public sealed override void ActivateItem(object item)
-        //{
-        //    //base.ActivateItem(item);
-        //}
-
         public void OnClosing()
         {
 #if DEBUG
             Application.Current.Shutdown();
 #endif
-            var start = new StartViewModel(EventAggregator);
+            var start = new StartViewModel(this,EventAggregator);
             _onClose = true;
             start.onClosing += OnClose;
-            //ActivateItem(start);
+            ActivateItem(start);
         }
 
     }

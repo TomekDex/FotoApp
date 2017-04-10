@@ -2,7 +2,7 @@
 
 namespace FotoApp.Models
 {
-    public class Data
+    public class Foto
     {
         public int Index { get; set; }
         public BitmapImage bitmap { get; set; }

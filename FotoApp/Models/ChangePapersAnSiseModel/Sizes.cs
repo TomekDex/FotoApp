@@ -8,7 +8,7 @@ namespace FotoApp.Models.ChangePapersAnSiseModel
 {
     public class Sizes
     {
-        public int id;
-        public string sises;
+        public int id { get; set; }
+        public string Sises { get; set; }
     }
 }

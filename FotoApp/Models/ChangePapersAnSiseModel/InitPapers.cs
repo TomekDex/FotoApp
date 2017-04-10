@@ -21,29 +21,29 @@ namespace FotoApp.Models.ChangePapersAnSiseModel
                 {
                     id = 1,
                     Type = "papers1",
-                    listSises = new List<Sizes>
+                    listSises = new BindableCollection<Sizes>()
                     {
                         new Sizes()
                         {
                             id = 1,
-                            sises = "sizes1",
+                            Sises = "sizes1",
                         },
 
                         new Sizes()
                         {
                             id = 3,
-                            sises = "sizes3",
+                            Sises = "sizes3",
                         },
                         new Sizes()
                         {
                             id = 5,
-                            sises = "5",
+                            Sises = "5",
                         },
 
                         new Sizes()
                         {
                             id = 3,
-                            sises = "sizes3",
+                            Sises = "sizes3",
                         }
                     }
                 },
@@ -51,29 +51,29 @@ namespace FotoApp.Models.ChangePapersAnSiseModel
                 {
                     id = 2,
                     Type = "papers 2",
-                    listSises = new List<Sizes>
+                    listSises = new BindableCollection<Sizes>()
                     {
                         new Sizes()
                         {
                             id = 1,
-                            sises = "sizes1",
+                            Sises = "sizes1",
                         },
 
                         new Sizes()
                         {
                             id = 3,
-                            sises = "sizes3",
+                            Sises = "sizes3",
                         },
                         new Sizes()
                         {
                             id = 2,
-                            sises = "sizes2",
+                            Sises = "sizes2",
                         },
 
                         new Sizes()
                         {
                             id = 3,
-                            sises = "sizes3",
+                            Sises = "sizes3",
                         }
 
 
