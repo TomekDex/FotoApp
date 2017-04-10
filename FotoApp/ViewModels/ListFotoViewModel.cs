@@ -1,26 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Caliburn.Micro;
-using FotoApp.Enum;
 using FotoApp.Interface;
 using FotoApp.Models;
 using FotoApp.Schell;
 using FotoApp.ViewModels.Actions;
+using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ListFotoViewModel :PropertyChangedBase, ISchellable
+    public class ListFotoViewModel :Screen, IViewModelEventAggregator, IViewModel, IHandle<IEnumerable<int>>
     {
 
-        public SchellViewModel Schell { get; set; }
+        public IEventAggregator EventAggregator { get; set; }
+        public IViewModel MainPanel { get; set; }
         private readonly GetFotoViewModel _getFoto;
+
         #region Propertis;
-        private BindableCollection<Data> _fotoData;
-        public BindableCollection<Data> FotoData {
+        private BindableCollection<Foto> _fotoData;
+        public BindableCollection<Foto> FotoData
+        {
             get { return _fotoData; }
             set
             {
@@ -29,38 +33,21 @@ namespace FotoApp.ViewModels
             }
         }
 
-        private FinalColection _finalColections;
+        private FinalFotoColection _finalColections ;
 
-        private Paper _paper;
-        private SizeFoto _sizeFoto;
-
-        public Paper Paper
-        {
-            get { return _paper; }
-            set
-            {
-                _paper = value;
-                NotifyOfPropertyChange(() => Paper);
-            }
-        }
-        public SizeFoto SizeFoto
-        {
-            get { return _sizeFoto; }
-            set
-            {
-                _sizeFoto = value;
-                NotifyOfPropertyChange(() => SizeFoto);
-            }
-        }
+        private int _type;
+        private int _sise;
         #endregion
 
         #region Constractor
-        public ListFotoViewModel(SchellViewModel schellViewModel, GetFotoViewModel getFoto)
+        public ListFotoViewModel(GetFotoViewModel getFoto,IEventAggregator eventAggregator)
         {
-            Schell = schellViewModel;
-            this._getFoto = getFoto;
-            _finalColections = new FinalColection();
+            _getFoto = getFoto;
+            EventAggregator = eventAggregator;
+            EventAggregator.Subscribe(this);
+            _finalColections = new FinalFotoColection();
             _getFoto.FinalColectionDelegat += GetFinalColection;
+
 #if DEBUG
             Inicialice();
 #endif
@@ -71,9 +58,9 @@ namespace FotoApp.ViewModels
 #if DEBUG
         private void Inicialice()
         {
-            FotoData = new BindableCollection<Data>
+            FotoData = new BindableCollection<Foto>
             {
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -81,7 +68,7 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 1
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -89,7 +76,7 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 2
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -97,7 +84,7 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 3
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -105,7 +92,7 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 1
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -113,7 +100,7 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 2
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -121,7 +108,7 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 3
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -129,7 +116,7 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 1
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -137,7 +124,7 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 2
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -145,7 +132,7 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 3
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -153,7 +140,7 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 4
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -161,7 +148,7 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 5
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -169,7 +156,7 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 6
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -177,7 +164,7 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 7
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -185,22 +172,14 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 8
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
                             new Uri(@"..\Resources\brak.gif",
                                 UriKind.Relative)),
                     Index = 8
-                },new Data
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 8
-                },
-                new Data
+                },new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -208,7 +187,7 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 8
                 },
-                new Data
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -216,7 +195,15 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 8
                 },
-                new Data
+                new Foto
+                {
+                    bitmap =
+                        new BitmapImage(
+                            new Uri(@"..\Resources\brak.gif",
+                                UriKind.Relative)),
+                    Index = 8
+                },
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -231,21 +218,23 @@ namespace FotoApp.ViewModels
 #endif
         public void ActiveChechBox(object itemBox)
         {
-            var tmp = itemBox as Data;
+            var tmp = itemBox as Foto;
 
             if (tmp?.Chekerd == true)
             {
                 var uri = tmp.bitmap.UriSource;
+                string fileName = Path.GetFileName(uri.ToString());
                 var foto = new FinalFoto
                 {
                     NumbersOfFoto = 1,
                     Index = tmp.Index,
-                    Urifoto = uri,
-                    Paper = Paper,
-                    SizeFoto = SizeFoto
+                    FullPathOfFoto = uri.ToString(),
+                    NameOfFoto = fileName,
+                    Type = _type,
+                    Size = _sise
                 };
                 _finalColections.FotoColection.Add(foto);
-
+                EventAggregator.PublishOnCurrentThread(true);
                 // przekazuje do kopiowania
 
                 var copyFoto = new CopyFoto();
@@ -255,15 +244,27 @@ namespace FotoApp.ViewModels
             {
                 var removeTmp = _finalColections.FotoColection.FirstOrDefault(e => tmp != null && e.Index == tmp.Index);
                 _finalColections.FotoColection.Remove(removeTmp);
+                EventAggregator.PublishOnCurrentThread(_finalColections.FotoColection.Count !=0);
             }
         }
 
-        public FinalColection GetFinalColection()
+        public void GetFinalColection()
         {
-            return _finalColections;
+            var tmp = new GetFoto();
+            var hendler = new GetFotoHendler();
+            tmp.getFotoDelegate += hendler.GetGoto;
+            tmp.GetFotoColection(_getFoto,_finalColections);
         }
 
+        public void Handle(IEnumerable<int> message)
+        {
+            var list = message.ToList();
+            if (list != null)
+            {
+                _type = list[0];
+                _sise = list[1];
+            }
+        }
         #endregion
-
     }
 }

@@ -4,11 +4,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FotoApp.Schell"
+        xmlns:common="clr-namespace:FotoApp.Controls"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:da="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d" Background="{StaticResource Background}"
        
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowState="Maximized" AllowDrop="True" WindowStyle="None">
+    <Window.Resources>
+       
+
+    </Window.Resources>
     
     <Grid>
+        <i:Interaction.Triggers>
+            <common:ImputBindingTrigger>
+                <common:ImputBindingTrigger.PropertyType>
+                    <KeyBinding Key="Q" Modifiers="Control+Shift"/>
+                </common:ImputBindingTrigger.PropertyType>
+                <cal:ActionMessage MethodName="OnClosing"></cal:ActionMessage>
+            </common:ImputBindingTrigger>
+        </i:Interaction.Triggers>
+
         <ContentControl x:Name="ActiveItem" />
     </Grid>
 </Window>
