@@ -1,5 +1,8 @@
 ﻿using FotoAppDB.Repository.Interface;
 using System.Data.Entity;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace FotoAppDB.Repository
 {
@@ -31,6 +34,11 @@ namespace FotoAppDB.Repository
         }
 
         public abstract T Get(T FAobject);
+
+        public List<T> GetAll()
+        {
+            return _fa.Set<T>().ToList();
+        }
 
         public abstract bool Is(T FAobject);
 

@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBModel\Contacts.cs" />
+    <Compile Include="FotoAppRAll.cs" />
     <Compile Include="DBModel\Languages.cs" />
     <Compile Include="DBModel\Fotos.cs" />
     <Compile Include="DBModel\Prices.cs" />
@@ -89,6 +90,12 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DBModel\Types.cs" />
+    <Compile Include="Repository\Interface\ISettingsR.cs" />
+    <Compile Include="Repository\Interface\ITypeTextsR.cs" />
+    <Compile Include="Repository\Interface\ISizeTextsR.cs" />
+    <Compile Include="Repository\Interface\IOrderFotosR.cs" />
+    <Compile Include="Repository\Interface\ISizesR.cs" />
+    <Compile Include="Repository\Interface\ITypesR.cs" />
     <Compile Include="Repository\Single\SettingsR.cs" />
     <Compile Include="Repository\Single\ContactsR.cs" />
     <Compile Include="Repository\FotoAppR.cs" />

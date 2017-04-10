@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace FotoAppDB.Repository.Interface
 {
-    interface IOrdersR
-    {
-        double? OrderValue(Orders order);
+    interface ITypeTextsR
+    {        
+        TypeTexts GetTypeTextByTypeALang(Types type, Languages lang);
     }
 }
