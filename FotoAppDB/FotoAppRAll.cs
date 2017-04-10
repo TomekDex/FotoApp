@@ -1,13 +1,6 @@
 ﻿using FotoAppDB;
-using FotoAppDB.DBModel;
-using FotoAppDB.Repository;
 using FotoAppDB.Repository.Single;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FotoAppDBTest;
 using System.Data.SqlClient;
 using System.IO;
 
@@ -56,17 +49,17 @@ namespace FotoAppDBTest
         public FotosR Fotos = new FotosR();
         private static string SeachConnectionString()
         {
-            SqlConnectionStringBuilder aaa = new SqlConnectionStringBuilder();
-            aaa.ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework";
+            SqlConnectionStringBuilder connectionStringBuilder = new SqlConnectionStringBuilder();
+            connectionStringBuilder.ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework";
             string[] s = Directory.GetDirectories("../../../FotoAppDB");
             int i = 0;
             do
             {
-                if (s[i].EndsWith("FotoAppDB\\DB")) aaa.Add("AttachDbFilename", Path.GetFullPath(s[i]) + "\\FotoApp.mdf");
+                if (s[i].EndsWith("FotoAppDB\\DB")) connectionStringBuilder.Add("AttachDbFilename", Path.GetFullPath(s[i]) + "\\FotoApp.mdf");
                 i++;
             }
             while (s[i].EndsWith("FotoAppDB\\DB") && s.Count() > i);
-            return aaa.ConnectionString;
+            return connectionStringBuilder.ConnectionString;
         }
         public void Save()
         {
