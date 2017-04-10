@@ -56,6 +56,7 @@
     <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="RibbonControlsLibrary, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -86,13 +87,13 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Controls\ImputBindingTrigger.cs" />
     <Compile Include="Controls\PasswordBoxGetPassword.cs" />
-    <Compile Include="Enum\Paper.cs" />
-    <Compile Include="Enum\SizeFoto.cs" />
-    <Compile Include="Models\Data.cs" />
-    <Compile Include="Models\FinalColection.cs" />
-    <Compile Include="Models\FinalFoto.cs" />
-    <Compile Include="Interface\ISchellable.cs" />
-    <Compile Include="papaers.cs" />
+    <Compile Include="Models\ChangePapersAnSiseModel\InitPapers.cs" />
+    <Compile Include="Models\ChangePapersAnSiseModel\Sizes.cs" />
+    <Compile Include="Models\FotoColection\Foto.cs" />
+    <Compile Include="Models\FotoColection\FinalFotoColection.cs" />
+    <Compile Include="Models\FotoColection\FinalFoto.cs" />
+    <Compile Include="Interface\IViewModelEventAggregator.cs" />
+    <Compile Include="Models\ChangePapersAnSiseModel\Types.cs" />
     <Compile Include="Schell\EventArgs\StartOrClose.cs" />
     <Compile Include="Schell\EventArgs\LogInHendler.cs" />
     <Compile Include="Schell\EventArgs\OnColseHendler.cs" />
@@ -103,8 +104,8 @@
     <Compile Include="Schell\SchellViewModel.cs" />
     <Compile Include="ViewModels\Actions\CopyFoto.cs" />
     <Compile Include="ViewModels\Actions\LoadFoto.cs" />
+    <Compile Include="ViewModels\ChangePapersAndSiseViewModel.cs" />
     <Compile Include="ViewModels\ClosingOrderViewModel.cs" />
-    <Compile Include="ViewModels\Converter\RatioButtonToEnumConverter.cs" />
     <Compile Include="ViewModels\EvenArgs\FinalOrder.cs" />
     <Compile Include="ViewModels\EvenArgs\FinalOrderArgs.cs" />
     <Compile Include="ViewModels\EvenArgs\FinalOrderHendler.cs" />
@@ -115,11 +116,15 @@
     <Compile Include="ViewModels\Exception\NullGetFotoException.cs" />
     <Compile Include="ViewModels\Exception\NullListFotoException.cs" />
     <Compile Include="ViewModels\GetFotoViewModel.cs" />
+    <Compile Include="Interface\IViewModel.cs" />
     <Compile Include="ViewModels\ListFotoViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ChangePapersAndSiseView.xaml.cs">
+      <DependentUpon>ChangePapersAndSiseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ClosingOrderView.xaml.cs">
       <DependentUpon>ClosingOrderView.xaml</DependentUpon>
@@ -133,31 +138,35 @@
     <Compile Include="Views\StartView.xaml.cs">
       <DependentUpon>StartView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Resourse\BrushColor.xaml">
+    <Page Include="Resources\BrushColor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resourse\ForoAppCheckBox.xaml">
+    <Page Include="Resources\ForoAppCheckBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resourse\FotoAppButton.xaml">
+    <Page Include="Resources\FotoAppButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resourse\FotoAppRadioButton.xaml">
+    <Page Include="Resources\FotoAppRadioButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resourse\FotoDataTemplate.xaml">
+    <Page Include="Resources\FotoDataTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resourse\TextStyle.xaml">
+    <Page Include="Resources\TextStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Schell\SchellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChangePapersAndSiseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -211,7 +220,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FotoAppDBTest\FotoAppDBTest.csproj">
+      <Project>{A5CBDF44-60B2-41DA-BE10-B1C8BF294514}</Project>
+      <Name>FotoAppDBTest</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resourse\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -9,9 +9,9 @@ namespace FotoApp.ViewModels.EvenArgs
 {
     public class GetFotoArgs : EventArgs
     {
-        public  FinalColection FinalColections { get; private set; }
+        public  FinalFotoColection FinalColections { get; private set; }
 
-        public GetFotoArgs(FinalColection finalColection)
+        public GetFotoArgs(FinalFotoColection finalColection)
         {
             FinalColections = finalColection;
         }

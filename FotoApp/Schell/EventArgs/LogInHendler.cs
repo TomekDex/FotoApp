@@ -9,15 +9,16 @@ namespace FotoApp.Schell.EventArgs
 {
     public class LogInHendler
     {
-        public void StartOrClose(object sender, System.EventArgs e)
+        public bool StartOrClose(object sender, System.EventArgs e)
         {
             PasswordArgs pass = e as PasswordArgs;
 
             var schell = sender as SchellViewModel;
 
-            if (pass != null && pass.Password == Properties.Resources.Password)
+            return pass.Password == Properties.Resources.Password;
             {
-                schell?.ActivateItem(new GetFotoViewModel(schell));
+                //schell.MainPanel = new GetFotoViewModel(schell, schell.EventAggregator);
+                
             }
         }
 

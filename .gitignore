@@ -208,9 +208,6 @@ Backup*/
 UpgradeLog*.XML
 UpgradeLog*.htm
 
-# SQL Server files
-*.mdf
-*.ldf
 
 # Business Intelligence projects
 *.rdl.data
@@ -250,3 +247,7 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# SQL Server files
+*.mdf
+*.ldf
