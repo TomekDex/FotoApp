@@ -22,7 +22,7 @@ namespace FotoApp.ViewModels.EvenArgs
         {
             if (sender == null) throw new NullGetFotoException("Brak widoku model");
 
-            if (e == null) throw new NullListFotoException("Brak zdiec do zamuwienia");
+            if (e == null) throw new NullListFotoException("Brak zdjęć do zamówienia");
 
             if (null != getFotoDelegate)
             {
