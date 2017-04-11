@@ -43,7 +43,6 @@ namespace FotoApp.ViewModels
             }
         }
 
-
         #endregion
 
         #region Constraktor
@@ -53,7 +52,7 @@ namespace FotoApp.ViewModels
             EventAggregator = eventAggregator;
 #if DEBUG
             _papers = new GetPapers();
-            _typeList = _papers.GetTypes();
+            TypeList = _papers.GetTypes();
             //Inicialise();
 #endif
         }
@@ -80,17 +79,33 @@ namespace FotoApp.ViewModels
             {
                 _sise = tmp;
             }
-
-            EventAggregator.PublishOnCurrentThread(GetType());
+            EventAggregator.PublishOnCurrentThread(SendPapers());
         }
 
         #endregion
 
-        private IEnumerable<object> GetType()
+        private IEnumerable<object> SendPapers()
         {
             
             yield return _type;
             yield return _sise;
+        }
+
+        public BindableCollection<Types> GetTypse()
+        {
+            return TypeList;
+        }
+
+        public BindableCollection<Sizes> GetSizesByTypes(object o)
+        {
+            _siseList = new BindableCollection<Sizes>();
+            object getSizes = null;
+            var tmp = o as Types;
+            if (tmp != null)
+            {
+                 getSizes = _papers.GetSizes(_papers.GetTypeByIndex(tmp.id));
+            }
+            return (BindableCollection<Sizes>) getSizes;
         }
 
 #if DEBUG
@@ -102,5 +117,6 @@ namespace FotoApp.ViewModels
         }
 
 #endif
+
     }
 }

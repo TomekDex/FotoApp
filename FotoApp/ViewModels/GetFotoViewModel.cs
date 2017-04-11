@@ -8,7 +8,6 @@ using FotoApp.Models;
 using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Schell;
 using FotoApp.ViewModels.EvenArgs;
-using FotoAppDBTest;
 
 namespace FotoApp.ViewModels
 {
@@ -146,14 +145,14 @@ namespace FotoApp.ViewModels
             if (!_closingOrder)
             {
                 _closingOrder = true;
-                FinalColectionDelegat();
+                FinalColectionDelegat?.Invoke();
                 MainPanel = new ClosingOrderViewModel(this);
                 NotifyOfPropertyChange(() => MainPanel);
             }
             else
             {
                 _closingOrder = false;
-                FinalColectionDelegat();
+                FinalColectionDelegat?.Invoke();
                 MainPanel = null;
                 NotifyOfPropertyChange(() => MainPanel);
                 EventAggregator.PublishOnCurrentThread(FotoCollection);
@@ -175,7 +174,7 @@ namespace FotoApp.ViewModels
 
         private IEnumerable<object> GetTypes()
         {
-            yield return Convert.ToInt16(_type);
+            yield return (int)_type;
             yield return _sise;
         }
 
