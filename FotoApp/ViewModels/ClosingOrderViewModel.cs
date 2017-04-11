@@ -14,6 +14,7 @@ namespace FotoApp.ViewModels
     {
         public IViewModel MainPanel { get; set; }
         private readonly GetFotoViewModel _getFoto;
+
         #region Propertis
 
         private string _name;
@@ -22,25 +23,27 @@ namespace FotoApp.ViewModels
 
         public string Name
         {
-            get { return  _name; }
+            get => _name;
             set
             {
                 _name = value;
-                NotifyOfPropertyChange(()=> Name);
+                NotifyOfPropertyChange(() => Name);
             }
         }
+
         public string Phone
         {
-            get { return _phone; }
+            get => _phone;
             set
             {
                 _phone = value;
                 NotifyOfPropertyChange(() => Phone);
             }
         }
+
         public string Mail
         {
-            get { return _mail; }
+            get => _mail;
             set
             {
                 _mail = value;
@@ -57,21 +60,19 @@ namespace FotoApp.ViewModels
             _getFoto = getFoto;
             getFoto.FinalColectionDelegat += FinalOrder;
         }
+
         #endregion
 
         #region Actions
 
         public void FinalOrder()
-        { 
+        {
             var tmp = new FinalOrder();
             var hendler = new FinalOrderHendler();
             tmp.finalOrderDelegate += hendler.FinalOrder;
             tmp.GetFotoColection(_getFoto, Name, Phone, Mail);
         }
-        
-
 
         #endregion
-
     }
 }

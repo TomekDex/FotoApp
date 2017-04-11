@@ -9,11 +9,14 @@ namespace FotoApp.Schell.EventArgs
 {
     public class OnColseHendler
     {
-        public bool  OnClosing(object sender, System.EventArgs e)
+        public void  OnClosing(object sender, System.EventArgs e)
         {
-            PasswordArgs pass = e as PasswordArgs;
+            var pass = e as PasswordArgs;
 
-            return pass.Password == Properties.Resources.Password;
+            if (pass != null && pass.Password == Properties.Resources.Password)
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }
