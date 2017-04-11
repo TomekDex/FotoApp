@@ -40,7 +40,8 @@ namespace FotoAppDB.DBModel
             }
             set
             {
-                if (value.Length > maxLengthLanguage) { throw new OutOfMaxLengthException(); }
+                if (value == null ) { _base = null; }
+                else if (value.Length > maxLengthLanguage) { throw new OutOfMaxLengthException(); }
                 else { _base = value; }
             }
         }
