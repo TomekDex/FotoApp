@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using Caliburn.Micro;
 using FotoApp.Interface;
 using FotoApp.Models;
+using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Models.FotoColection;
 using FotoApp.Schell;
 using FotoApp.ViewModels.Actions;
@@ -15,33 +16,36 @@ using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ListFotoViewModel :Screen, IViewModelEventAggregator, IViewModel, IHandle<IEnumerable<int>>
+    public class ListFotoViewModel : Screen, IViewModelEventAggregator, IViewModel, IHandle<IEnumerable<object>>
     {
-
         public IEventAggregator EventAggregator { get; set; }
         public IViewModel MainPanel { get; set; }
         private readonly GetFotoViewModel _getFoto;
 
         #region Propertis;
+
         private BindableCollection<Foto> _fotoData;
+
         public BindableCollection<Foto> FotoData
         {
-            get { return _fotoData; }
+            get => _fotoData;
             set
             {
                 _fotoData = value;
-                NotifyOfPropertyChange(()=> FotoData );
+                NotifyOfPropertyChange(() => FotoData);
             }
         }
 
-        private FinalFotoColection _finalColections ;
+        private readonly FinalFotoColection _finalColections;
 
         private int _type;
-        private int _sise;
+        private Sizes _sise;
+
         #endregion
 
         #region Constractor
-        public ListFotoViewModel(GetFotoViewModel getFoto,IEventAggregator eventAggregator)
+
+        public ListFotoViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator)
         {
             _getFoto = getFoto;
             EventAggregator = eventAggregator;
@@ -53,10 +57,13 @@ namespace FotoApp.ViewModels
             Inicialice();
 #endif
         }
+
         #endregion
 
         #region Action
+
 #if DEBUG
+
         private void Inicialice()
         {
             FotoData = new BindableCollection<Foto>
@@ -180,7 +187,8 @@ namespace FotoApp.ViewModels
                             new Uri(@"..\Resources\brak.gif",
                                 UriKind.Relative)),
                     Index = 8
-                },new Foto
+                },
+                new Foto
                 {
                     bitmap =
                         new BitmapImage(
@@ -212,11 +220,11 @@ namespace FotoApp.ViewModels
                                 UriKind.Relative)),
                     Index = 8
                 }
-
-
             };
         }
+
 #endif
+
         public void ActiveChechBox(object itemBox)
         {
             var tmp = itemBox as Foto;
@@ -224,7 +232,7 @@ namespace FotoApp.ViewModels
             if (tmp?.Chekerd == true)
             {
                 var uri = tmp.bitmap.UriSource;
-                string fileName = Path.GetFileName(uri.ToString());
+                var fileName = Path.GetFileName(uri.ToString());
                 var foto = new FinalFoto
                 {
                     NumbersOfFoto = 1,
@@ -245,7 +253,7 @@ namespace FotoApp.ViewModels
             {
                 var removeTmp = _finalColections.FotoColection.FirstOrDefault(e => tmp != null && e.Index == tmp.Index);
                 _finalColections.FotoColection.Remove(removeTmp);
-                EventAggregator.PublishOnCurrentThread(_finalColections.FotoColection.Count !=0);
+                EventAggregator.PublishOnCurrentThread(_finalColections.FotoColection.Count != 0);
             }
         }
 
@@ -254,16 +262,16 @@ namespace FotoApp.ViewModels
             var tmp = new GetFoto();
             var hendler = new GetFotoHendler();
             tmp.getFotoDelegate += hendler.GetGoto;
-            tmp.GetFotoColection(_getFoto,_finalColections);
+            tmp.GetFotoColection(_getFoto, _finalColections);
         }
 
-        public void Handle(IEnumerable<int> message)
+        public void Handle(IEnumerable<object> message)
         {
             var list = message.ToList();
             if (list != null)
             {
-                _type = list[0];
-                _sise = list[1];
+                _type = (int)list[0];
+                _sise = list[1] as Sizes;
             }
         }
         #endregion

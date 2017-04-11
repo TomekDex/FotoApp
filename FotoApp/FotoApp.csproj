@@ -221,9 +221,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resourse\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\FotoAppDB\FotoAppDB.csproj">
       <Project>{38e36aca-5c3c-429e-bf25-6aa80bd6c780}</Project>

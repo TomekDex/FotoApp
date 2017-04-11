@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FotoApp.Properties;
 using FotoApp.ViewModels;
 
 namespace FotoApp.Schell.EventArgs
 {
     public class LogInHendler
     {
-        public bool StartOrClose(object sender, System.EventArgs e)
+        public void StartOrClose(object sender, System.EventArgs e)
         {
-            PasswordArgs pass = e as PasswordArgs;
+            var pass = e as PasswordArgs;
 
             var schell = sender as SchellViewModel;
 
-            return pass.Password == Properties.Resources.Password;
+            if (pass != null && pass.Password == Resources.Password)
             {
-                //schell.MainPanel = new GetFotoViewModel(schell, schell.EventAggregator);
-                
+                schell?.ActivateItem(new GetFotoViewModel(schell, schell.EventAggregator));
             }
         }
-
     }
 }

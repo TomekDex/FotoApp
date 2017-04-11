@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using Caliburn.Micro;
 using FotoApp.Interface;
 using FotoApp.ViewModels;
@@ -43,7 +38,7 @@ namespace FotoApp.Schell
 #endif
             var start = new StartViewModel(this,EventAggregator);
             _onClose = true;
-            start.onClosing += OnClose;
+            start.OnClosing += OnClose;
             ActivateItem(start);
         }
 
