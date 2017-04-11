@@ -1,10 +1,9 @@
-﻿using FotoAppDB;
-using FotoAppDB.Repository.Single;
+﻿using FotoAppDB.Repository.Single;
 using System.Linq;
 using System.Data.SqlClient;
 using System.IO;
 
-namespace FotoAppDBTest
+namespace FotoAppDB
 {
     public sealed class FotoAppRAll
     {

@@ -9,6 +9,36 @@ namespace FotoAppDB.Repository.Single
 {
     public class TypesR : FotoAppR<FotoAppDbContext, Types>, ITypesR
     {
+        public void CheckAndFixConnect()
+        {
+            Logs log = new Logs() { Area = "Types", Type = "AutoChange", };
+            Console.WriteLine();
+            bool fix = false;
+            do
+            {
+                fix = false;
+                foreach (Types t in Context.Type)
+                {
+                    var next = Context.Type.Where(a => a.TypeID == t.Connect).Select(b => b.Connect).SingleOrDefault();
+                    if (t.TypeID == t.Connect)
+                    {
+                        FotoAppRAll.Ins.Logs.Add(new Logs() { Area = "Types", Type = "AutoChange", Date = DateTime.Now, Message = "In Type " + t.TypeID.ToString() + " Changed connect from " + t.Connect.ToString() + " to null" });
+                        fix = true;
+                        t.Connect = null;
+                        Update(t);
+                    }
+                    else if (next != null && t.Connect != next)
+                    {
+                        FotoAppRAll.Ins.Logs.Add(new Logs() { Area = "Types", Type = "AutoChange", Date = DateTime.Now, Message = "In Type " + t.TypeID.ToString() + " Changed connect from " + t.Connect.ToString() + " to " + next.ToString() });
+                        t.Connect = next;
+                        fix = true;
+                    }
+                }
+                Save();
+            }
+            while (fix);
+        }
+
         public override Types Get(Types FAobject)
         {
             Types o = Context.Type.Find(FAobject.TypeID);
