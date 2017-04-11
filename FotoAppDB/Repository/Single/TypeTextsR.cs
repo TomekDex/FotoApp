@@ -5,7 +5,7 @@ using FotoAppDB.Repository.Interface;
 
 namespace FotoAppDB.Repository.Single
 {
-
+    //AttachDbFilename=F:\FotoApp\FotoApp\FotoAppDB\DB\FotoApp.mdf
     public class TypeTextsR : FotoAppR<FotoAppDbContext, TypeTexts>,ITypeTextsR
     {
         public override TypeTexts Get(TypeTexts FAobject)

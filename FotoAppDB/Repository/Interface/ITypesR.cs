@@ -8,5 +8,6 @@ namespace FotoAppDB.Repository.Interface
         List<Types> GetAll(bool available);
         List<Types> GetTypesBySize(Sizes size);
         List<Types> GetTypesBySize(Sizes size, bool available);
+        void CheckAndFixConnect();
     }
 }

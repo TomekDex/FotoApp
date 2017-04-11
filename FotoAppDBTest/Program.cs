@@ -22,10 +22,30 @@ namespace FotoAppDBTest
 
         static void Main(string[] args)
         {
-           // var bf = new FotoAppDbContext(new SeachConnectionString().connectionString);
+            var bf = new FotoAppDbContext(new SeachConnectionString().connectionString);
+            //bf.Language.Add(new Languages() { Language = "eneea" });
+            //bf.SaveChanges();
+            var aa = bf.Language.First();
+            Console.WriteLine(aa.Language.ToString());
+            // bf.Language.First();
+
+            //string aaa = "eneee";
+
+            // aa = bf.Language.Find(aaa);
+            // Languages aaa = FotoAppRAll.Ins.Languages.Get(new Languages() { Language = "en" });
+
+
+
+            //Console.WriteLine(   FotoAppRAll.Ins.Languages.Is(new Languages() { Language = "en"}).ToString());
+            //Console.WriteLine(FotoAppRAll.Ins.Types.Is(new Types() { TypeID = 1 }).ToString());
+            // FotoAppRAll.Ins.Orders.Add(new Orders());
+            //FotoAppRAll.Ins.Save();
+            //FotoAppRAll.Ins.Languages.CheckAndFixBase();
+
+            // var bf = new FotoAppDbContext(new SeachConnectionString().connectionString);
             //bf.Type.AddOrUpdate(new Types());
             // bf.SaveChanges();
-            
+
             //all.Sizes.
             //var a = all.Types.GetAllTypes(true);
             //foreach (Types aa in a) Console.WriteLine(aa.TypeID.ToString());
@@ -36,15 +56,25 @@ namespace FotoAppDBTest
             //Console.WriteLine(s.Value);
             //all.Settings.Add(s);
             //s.Value += "error";
-            FotoAppRAll.Ins.Settings.CheckLangSettings();
+            //FotoAppRAll.Ins.Settings.CheckLangSettings();
+            //FotoAppRAll.Ins.Types.Update(new Types() { TypeID = 1, Connect = 1 });
+            //FotoAppRAll.Ins.Types.Update(new Types() { TypeID = 2, Connect = 7 });
+            //FotoAppRAll.Ins.Types.Update(new Types() { TypeID = 3, Connect = 2 });
+            //FotoAppRAll.Ins.Types.Update(new Types() { TypeID = 4, Connect = 3 });
+            //FotoAppRAll.Ins.Types.Update(new Types() { TypeID = 5, Connect = 4 });
+            //FotoAppRAll.Ins.Types.Update(new Types() { TypeID = 6, Connect = 5 });
+            //FotoAppRAll.Ins.Types.Update(new Types() { TypeID = 7, Connect = 2 });
+            //FotoAppRAll.Ins.Types.Update(new Types() { TypeID = 8, Connect = 9 });
+            //FotoAppRAll.Ins.Save();
+            //FotoAppRAll.Ins.Types.CheckAndFixConnect();
             //Console.WriteLine(s.Value);
 
             //all.Settings.Update(s);
             //all.Save();
 
             //Console.WriteLine(s.Value);
-           
-            
+
+
             //all.Settings.CheckLangSettings();
             //all.Save();
             //all.Settings.CheckLangSettings();

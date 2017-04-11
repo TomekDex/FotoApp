@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace FotoAppDB.Repository.Interface
 {
-    interface ISettingsR
+    interface ILanguagesR
     {
-        void CheckLangSettings();
+        void CheckAndFixBase();
     }
 }

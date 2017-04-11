@@ -44,7 +44,7 @@ namespace FotoAppDB.DBModel
         [Required, Column(TypeName = "datetime2")]
         public DateTime Date { get; set; }
         [Required, MaxLength(maxLengthMessage)]
-        public string Value
+        public string Message
         {
             get
             {
