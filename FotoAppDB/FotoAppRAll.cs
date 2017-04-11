@@ -33,6 +33,7 @@ namespace FotoAppDBTest
             Types.Context = fotoAppDBContext;
             TypeTexts.Context = fotoAppDBContext;
             Fotos.Context = fotoAppDBContext;
+            Logs.Context = fotoAppDBContext;
 
         }
         public ContactsR Contacts = new ContactsR();
@@ -47,6 +48,7 @@ namespace FotoAppDBTest
         public TypesR Types = new TypesR();
         public TypeTextsR TypeTexts = new TypeTextsR();
         public FotosR Fotos = new FotosR();
+        public LogsR Logs = new LogsR();
         private static string SeachConnectionString()
         {
             SqlConnectionStringBuilder connectionStringBuilder = new SqlConnectionStringBuilder();
