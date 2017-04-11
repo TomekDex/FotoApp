@@ -8,7 +8,7 @@ namespace FotoApp.Schell.EventArgs
 {
     public class StartOrClose
     {
-        public delegate bool StartOrCloseDelegate(object sender, System.EventArgs e);
+        public delegate void StartOrCloseDelegate(object sender, System.EventArgs e);
 
         public event StartOrCloseDelegate startOrCloseDelegate ;
         public void OnStart(object schell, string password)
@@ -19,10 +19,7 @@ namespace FotoApp.Schell.EventArgs
 
         private void ReservationPassArgs(object schell, PasswordArgs e)
         {
-            if (null != startOrCloseDelegate)
-            {
-                startOrCloseDelegate(schell, e);
-            }
+            startOrCloseDelegate?.Invoke(schell, e);
         }
 
         

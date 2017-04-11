@@ -26,24 +26,24 @@ namespace FotoApp.Models.ChangePapersAnSiseModel
                         new Sizes()
                         {
                             id = 1,
-                            Sises = "sizes1",
+                            SizeText = "jdsgkdjf",
                         },
 
                         new Sizes()
                         {
                             id = 3,
-                            Sises = "sizes3",
+                            SizeText = "sizes3",
                         },
                         new Sizes()
                         {
                             id = 5,
-                            Sises = "5",
+                            SizeText = "5",
                         },
 
                         new Sizes()
                         {
                             id = 3,
-                            Sises = "sizes3",
+                            SizeText = "sizes3",
                         }
                     }
                 },
@@ -56,24 +56,24 @@ namespace FotoApp.Models.ChangePapersAnSiseModel
                         new Sizes()
                         {
                             id = 1,
-                            Sises = "sizes1",
+                            SizeText = "sizes1",
                         },
 
                         new Sizes()
                         {
                             id = 3,
-                            Sises = "sizes3",
+                            SizeText = "sizes3",
                         },
                         new Sizes()
                         {
                             id = 2,
-                            Sises = "sizes2",
+                            SizeText = "sizes2",
                         },
 
                         new Sizes()
                         {
                             id = 3,
-                            Sises = "sizes3",
+                            SizeText = "sizes3",
                         }
 
 

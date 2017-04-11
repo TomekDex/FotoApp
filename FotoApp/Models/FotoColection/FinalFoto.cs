@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FotoApp.Models.ChangePapersAnSiseModel;
 
-namespace FotoApp.Models
+namespace FotoApp.Models.FotoColection
 {
     public class FinalFoto
     {
@@ -12,7 +8,7 @@ namespace FotoApp.Models
         public string DestinationOfFoto { get; set; }
         public string FullPathOfFoto { get; set; }
         public int Type { get; set; }
-        public int Size { get; set; }
+        public Sizes Size { get; set; }
         public int NumbersOfFoto { get; set; }
         public int Index { get; set; }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FotoApp.Schell.EventArgs
 {
-    class PasswordArgs : System.EventArgs
+    public class PasswordArgs : System.EventArgs
     {
         public string Password { get; private set; }
 
