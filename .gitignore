@@ -247,7 +247,3 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
-
-# SQL Server files
-*.mdf
-*.ldf

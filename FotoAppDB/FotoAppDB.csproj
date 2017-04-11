@@ -120,6 +120,7 @@
     </Content>
     <Content Include="DB\FotoApp_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>FotoApp.mdf</DependentUpon>
     </Content>
     <Content Include="Other\Entity Migracja.txt" />
   </ItemGroup>
