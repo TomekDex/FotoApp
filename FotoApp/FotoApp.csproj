@@ -118,12 +118,15 @@
     <Compile Include="ViewModels\Exception\NullListFotoException.cs" />
     <Compile Include="ViewModels\GetFotoViewModel.cs" />
     <Compile Include="Interface\IViewModel.cs" />
+    <Compile Include="Interface\IValidationExceptionHandler.cs" />
     <Compile Include="ViewModels\ListFotoViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\ViewModelBase\ValidateModelBase.cs" />
+    <Compile Include="ViewModels\ViewModelBase\ViewModelBase.cs" />
     <Compile Include="Views\ChangePapersAndSiseView.xaml.cs">
       <DependentUpon>ChangePapersAndSiseView.xaml</DependentUpon>
     </Compile>

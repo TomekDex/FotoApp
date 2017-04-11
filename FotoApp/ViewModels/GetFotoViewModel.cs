@@ -6,6 +6,7 @@ using Caliburn.Micro;
 using FotoApp.Interface;
 using FotoApp.Models;
 using FotoApp.Models.ChangePapersAnSiseModel;
+using FotoApp.Models.FotoColection;
 using FotoApp.Schell;
 using FotoApp.ViewModels.EvenArgs;
 
@@ -101,7 +102,7 @@ namespace FotoApp.ViewModels
             this.schell = schell;
             EventAggregator = eventAggregator;
             EventAggregator.Subscribe(this);
-            ChangePapersAndSise = new ChangePapersAndSiseViewModel(EventAggregator);
+            ChangePapersAndSise = new ChangePapersAndSiseViewModel(this, EventAggregator);
             FotoCollection = new FinalFotoColection();
             _type = null;
 #if DEBUG
@@ -146,7 +147,7 @@ namespace FotoApp.ViewModels
             {
                 _closingOrder = true;
                 FinalColectionDelegat?.Invoke();
-                MainPanel = new ClosingOrderViewModel(this);
+                MainPanel = new ClosingOrderViewModel(this, EventAggregator);
                 NotifyOfPropertyChange(() => MainPanel);
             }
             else

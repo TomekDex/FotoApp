@@ -11,11 +11,8 @@ using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ChangePapersAndSiseViewModel : Screen, IViewModelEventAggregator, IViewModel
+    public class ChangePapersAndSiseViewModel : ViewModelBase.ViewModelBase
     {
-        public IEventAggregator EventAggregator { get; set; }
-        public IViewModel MainPanel { get; set; }
-
         #region Proportis
 
         private BindableCollection<Sizes> _siseList;
@@ -47,7 +44,8 @@ namespace FotoApp.ViewModels
 
         #region Constraktor
 
-        public ChangePapersAndSiseViewModel(IEventAggregator eventAggregator)
+        public ChangePapersAndSiseViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator) 
+            :base(getFoto, eventAggregator)
         {
             EventAggregator = eventAggregator;
 #if DEBUG

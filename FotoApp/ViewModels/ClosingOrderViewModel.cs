@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,10 +11,8 @@ using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ClosingOrderViewModel : Screen, IViewModel
+    public class ClosingOrderViewModel : ViewModelBase.ViewModelBase
     {
-        public IViewModel MainPanel { get; set; }
-        private readonly GetFotoViewModel _getFoto;
 
         #region Propertis
 
@@ -21,6 +20,7 @@ namespace FotoApp.ViewModels
         private string _phone;
         private string _mail;
 
+        [Required(ErrorMessage = "Nie podano imienia")]
         public string Name
         {
             get => _name;
@@ -28,9 +28,11 @@ namespace FotoApp.ViewModels
             {
                 _name = value;
                 NotifyOfPropertyChange(() => Name);
+                EventAggregator.PublishOnCurrentThread( stringEmpty());
+
             }
         }
-
+        [Required(ErrorMessage = "Nie podano telefonu")]
         public string Phone
         {
             get => _phone;
@@ -38,9 +40,12 @@ namespace FotoApp.ViewModels
             {
                 _phone = value;
                 NotifyOfPropertyChange(() => Phone);
+                EventAggregator.PublishOnCurrentThread(stringEmpty());
+
             }
         }
 
+        [Required(ErrorMessage = "Nie podano Maila")]
         public string Mail
         {
             get => _mail;
@@ -48,6 +53,7 @@ namespace FotoApp.ViewModels
             {
                 _mail = value;
                 NotifyOfPropertyChange(() => Mail);
+                EventAggregator.PublishOnCurrentThread(stringEmpty());
             }
         }
 
@@ -55,10 +61,10 @@ namespace FotoApp.ViewModels
 
         #region Constractor
 
-        public ClosingOrderViewModel(GetFotoViewModel getFoto)
+        public ClosingOrderViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator) :base(getFoto, eventAggregator)
         {
-            _getFoto = getFoto;
             getFoto.FinalColectionDelegat += FinalOrder;
+            EventAggregator.PublishOnCurrentThread(stringEmpty());
         }
 
         #endregion
@@ -70,9 +76,13 @@ namespace FotoApp.ViewModels
             var tmp = new FinalOrder();
             var hendler = new FinalOrderHendler();
             tmp.finalOrderDelegate += hendler.FinalOrder;
-            tmp.GetFotoColection(_getFoto, Name, Phone, Mail);
+            tmp.GetFotoColection(base._getFoto, Name, Phone, Mail);
         }
 
+        private bool stringEmpty()
+        {
+            return string.IsNullOrEmpty(Name) && string.IsNullOrEmpty(Phone) && string.IsNullOrEmpty(Mail) && IsValid;
+        }
         #endregion
     }
 }

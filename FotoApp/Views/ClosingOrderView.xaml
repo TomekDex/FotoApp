@@ -5,9 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FotoApp.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="600">
+    <UserControl.Resources>
+        
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin"
+                    Value="4" />
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError"
+                         Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="400" Width="400">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="80"/>
@@ -27,43 +42,43 @@
                        Text="Imie Nazwisko" 
                        VerticalAlignment="Top" 
                        Grid.Row="1"
-                       Margin="10"
+                       Margin="11,56,311,0"
                        Style="{StaticResource Text}"/> 
             <TextBlock HorizontalAlignment="Center"
                        TextWrapping="Wrap" 
                        Text="Telefon" 
                        VerticalAlignment="Top" 
                        Grid.Row="2"
-                       Margin="10"
+                       Margin="10,56,351,0"
                        Style="{StaticResource Text}"/>
             <TextBlock HorizontalAlignment="Center"
                        TextWrapping="Wrap" 
                        Text="eMail" 
                        VerticalAlignment="Top" 
                        Grid.Row="3"
-                       Margin="10"
+                       Margin="1,56,370,0"
                        Style="{StaticResource Text}"/>
 
-            <TextBox HorizontalAlignment="Center" 
+            <TextBox HorizontalAlignment="Right" 
+                     VerticalAlignment="Top"
                      Height="40"  
                      Grid.Row="1" 
                      TextWrapping="Wrap"
-                     Text="{Binding Path=Name, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
-                     VerticalAlignment="Bottom"
+                     Text="{Binding Path=Name, Mode=OneWayToSource, ValidatesOnDataErrors=True, NotifyOnValidationError=False, UpdateSourceTrigger=PropertyChanged}" 
                      Width="221"/>
-            <TextBox HorizontalAlignment="Center" 
+            <TextBox HorizontalAlignment="Right" 
+                     VerticalAlignment="Top"
                      Height="40"  
                      Grid.Row="2" 
                      TextWrapping="Wrap"
-                     Text="{Binding Path=Phone, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                     VerticalAlignment="Bottom"
+                     Text="{Binding Path=Phone, Mode=OneWayToSource, ValidatesOnDataErrors=True, NotifyOnValidationError=False, UpdateSourceTrigger=PropertyChanged}"
                      Width="221"/>
-            <TextBox HorizontalAlignment="Center" 
+            <TextBox HorizontalAlignment="Right" 
+                     VerticalAlignment="Top"
                      Height="40"  
                      Grid.Row="3" 
                      TextWrapping="Wrap"
-                     Text="{Binding Path=Mail, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                     VerticalAlignment="Bottom"
+                     Text="{Binding Path=Mail, Mode=OneWayToSource, ValidatesOnDataErrors=True, NotifyOnValidationError=False, UpdateSourceTrigger=PropertyChanged}"
                      Width="221"/>
         </Grid>
     </Grid>

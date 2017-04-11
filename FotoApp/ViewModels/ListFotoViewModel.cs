@@ -16,10 +16,9 @@ using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ListFotoViewModel : Screen, IViewModelEventAggregator, IViewModel, IHandle<IEnumerable<object>>
+    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<IEnumerable<object>>
     {
-        public IEventAggregator EventAggregator { get; set; }
-        public IViewModel MainPanel { get; set; }
+        
         private readonly GetFotoViewModel _getFoto;
 
         #region Propertis;
@@ -46,6 +45,7 @@ namespace FotoApp.ViewModels
         #region Constractor
 
         public ListFotoViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator)
+            :base(getFoto, eventAggregator)
         {
             _getFoto = getFoto;
             EventAggregator = eventAggregator;
