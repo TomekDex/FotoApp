@@ -21,7 +21,7 @@ namespace FotoApp.ViewModels.EvenArgs
         {
             if (sender == null) throw new NullGetFotoException("Brak widoku model");
 
-            if (e == null) throw new NullListFotoException("Brk wybranego Papieru");
+            if (e == null) throw new NullListFotoException("brak danych kontaktowych");
 
             if (null != finalOrderDelegate)
             {

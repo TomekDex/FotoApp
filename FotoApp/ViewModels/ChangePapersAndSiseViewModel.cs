@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Caliburn.Micro;
+using FotoApp.Interface;
 using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.ViewModels.Actions;
 using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ChangePapersAndSiseViewModel : ViewModelBase.ViewModelBase, IHandle<ListFotoViewModel>
+    public class ChangePapersAndSiseViewModel : ViewModelBase.ViewModelBase
     {
-        private ListFotoViewModel _listFoto;
         #region Proportis
 
         private BindableCollection<Sizes> _siseList;
@@ -18,7 +22,7 @@ namespace FotoApp.ViewModels
         private GetPapers _papers;
         public BindableCollection<Sizes> SizeList
         {
-            get { return _siseList; }
+            get => _siseList;
             set
             {
                 _siseList = value;
@@ -28,7 +32,7 @@ namespace FotoApp.ViewModels
 
         public BindableCollection<Types> TypeList
         {
-            get {return _typeList;}
+            get => _typeList;
             set
             {
                 _typeList = value;
@@ -40,12 +44,10 @@ namespace FotoApp.ViewModels
 
         #region Constraktor
 
-        public ChangePapersAndSiseViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator, ListFotoViewModel listFoto) 
+        public ChangePapersAndSiseViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator) 
             :base(getFoto, eventAggregator)
         {
-            _listFoto = listFoto;
-            _listFoto.getPaperDelegete += GetPaper;
-
+            EventAggregator = eventAggregator;
 #if DEBUG
             _papers = new GetPapers();
             TypeList = _papers.GetTypes();
@@ -103,18 +105,6 @@ namespace FotoApp.ViewModels
             }
             return (BindableCollection<Sizes>) getSizes;
         }
-        public void GetPaper()
-        {
-            var tmp = new GetPaper();
-            var hendler = new GetPaperHendler();
-            tmp.getChoicePaper += hendler.GetPaper;
-            tmp.GetCoicePaper(_listFoto, _type, _sise);
-        }
-
-        public void Handle(ListFotoViewModel message)
-        {
-            _listFoto = message;
-        }
 
 #if DEBUG
 
@@ -123,6 +113,7 @@ namespace FotoApp.ViewModels
             var init = new InitPapers();
             TypeList = init.peperList;
         }
+
 #endif
 
     }

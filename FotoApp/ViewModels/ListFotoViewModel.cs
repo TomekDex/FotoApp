@@ -2,23 +2,24 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Caliburn.Micro;
+using FotoApp.Interface;
+using FotoApp.Models;
 using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Models.FotoColection;
+using FotoApp.Schell;
 using FotoApp.ViewModels.Actions;
 using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ListFotoViewModel : ViewModelBase.ViewModelBase//, IHandle<IEnumerable<object>>
+    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<IEnumerable<object>>
     {
         
         private readonly GetFotoViewModel _getFoto;
-
-        public delegate void GetPaperDelegate();
-
-        public event GetPaperDelegate getPaperDelegete = null;
 
         #region Propertis;
 
@@ -26,7 +27,7 @@ namespace FotoApp.ViewModels
 
         public BindableCollection<Foto> FotoData
         {
-            get{return _fotoData;}
+            get => _fotoData;
             set
             {
                 _fotoData = value;
@@ -34,17 +35,8 @@ namespace FotoApp.ViewModels
             }
         }
 
-        public int Type
-        {
-            get { return _type; }
-            set { _type = value; }
-        }
-        public Sizes Sise {
-            get { return _sise; }
-            set { _sise = value; }
-        }
+        private readonly FinalFotoColection _finalColections;
 
-        private FinalFotoColection _finalColections;
         private int _type;
         private Sizes _sise;
 
@@ -57,8 +49,7 @@ namespace FotoApp.ViewModels
         {
             _getFoto = getFoto;
             EventAggregator = eventAggregator;
-            //EventAggregator.Subscribe(this);
-            getPaperDelegete?.Invoke();
+            EventAggregator.Subscribe(this);
             _finalColections = new FinalFotoColection();
             _getFoto.FinalColectionDelegat += GetFinalColection;
 
@@ -248,8 +239,8 @@ namespace FotoApp.ViewModels
                     Index = tmp.Index,
                     FullPathOfFoto = uri.ToString(),
                     NameOfFoto = fileName,
-                    Type = Type,
-                    Size = Sise
+                    Type = _type,
+                    Size = _sise
                 };
                 _finalColections.FotoColection.Add(foto);
                 EventAggregator.PublishOnCurrentThread(true);
@@ -274,18 +265,15 @@ namespace FotoApp.ViewModels
             tmp.GetFotoColection(_getFoto, _finalColections);
         }
 
-        //public void Handle(IEnumerable<object> message)
-        //{
-        //    var list = message.ToList();
-        //    if (list != null)
-        //    {
-        //        Type = (int)list[0];
-        //        Sise = list[1] as Sizes;
-        //    }
-        //}
-
-        
-
+        public void Handle(IEnumerable<object> message)
+        {
+            var list = message.ToList();
+            if (list != null)
+            {
+                _type = (int)list[0];
+                _sise = list[1] as Sizes;
+            }
+        }
         #endregion
     }
 }

@@ -14,13 +14,13 @@ namespace FotoApp.ViewModels.EvenArgs
         public void GetGoto(object sender, EventArgs e)
         {
             var tmp = e as GetFotoArgs;
-            var tmpGetFoto = sender as GetFotoViewModel;
+            var getFoto = sender as GetFotoViewModel;
 
-            if (tmpGetFoto == null) throw new NullGetFotoException("Brak widoku model");
+            if (getFoto == null) throw new NullGetFotoException("Brak widoku model");
 
             if (tmp == null) throw new NullListFotoException("Brak zdiec do zamuwienia");
             
-            tmpGetFoto.FotoCollection = tmp.FinalColections;
+            getFoto.FotoCollection = tmp.FinalColections;
         }
     }
 }

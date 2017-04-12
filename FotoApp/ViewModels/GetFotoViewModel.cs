@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using Caliburn.Micro;
 using FotoApp.Interface;
+using FotoApp.Models;
 using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Models.FotoColection;
 using FotoApp.Schell;
+using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
@@ -13,8 +17,7 @@ namespace FotoApp.ViewModels
         public IEventAggregator EventAggregator { get; set; }
         public IViewModel MainPanel { get; set; }
         public IViewModel ChangePapersAndSise { get; set; }
-        private ListFotoViewModel List;
-        
+
         #region Delegate
 
         public delegate void FinalColectionDelegate();
@@ -32,12 +35,12 @@ namespace FotoApp.ViewModels
         private FinalFotoColection _finalFotoColection;
         private int? _type;
         private Sizes _sise;
-        private bool? activOkButton;
+        private bool? activ;
         private SchellViewModel schell;
 
         public FinalFotoColection FotoCollection
         {
-            get { return _finalFotoColection; }
+            get => _finalFotoColection;
             set
             {
                 _finalFotoColection = value;
@@ -48,7 +51,7 @@ namespace FotoApp.ViewModels
 
         public string Price
         {
-            get { return _price; }
+            get => _price;
             set
             {
                 _price = value;
@@ -58,7 +61,7 @@ namespace FotoApp.ViewModels
 
         public string Discount
         {
-            get { return _discount; }
+            get => _discount;
             set
             {
                 _discount = value;
@@ -68,7 +71,7 @@ namespace FotoApp.ViewModels
 
         public int Count
         {
-            get { return _count; }
+            get => _count;
             set
             {
                 _count = value;
@@ -88,7 +91,7 @@ namespace FotoApp.ViewModels
 
         public bool CanCart => true;
 
-        public bool CanOk => _type != null && _sise != null && activOkButton == true;
+        public bool CanOk => _type != null && _sise != null && activ == true;
 
         #endregion
 
@@ -99,8 +102,7 @@ namespace FotoApp.ViewModels
             this.schell = schell;
             EventAggregator = eventAggregator;
             EventAggregator.Subscribe(this);
-            List = new ListFotoViewModel(this, eventAggregator);
-            ChangePapersAndSise = new ChangePapersAndSiseViewModel(this, EventAggregator, List);
+            ChangePapersAndSise = new ChangePapersAndSiseViewModel(this, EventAggregator);
             FotoCollection = new FinalFotoColection();
             _type = null;
 #if DEBUG
@@ -115,7 +117,7 @@ namespace FotoApp.ViewModels
 
         public void Usb1()
         {
-            MainPanel = List;
+            MainPanel = new ListFotoViewModel(this, EventAggregator);
             _closingOrder = false;
             EventAggregator.PublishOnCurrentThread(GetTypes());
             NotifyOfPropertyChange(() => MainPanel);
@@ -151,14 +153,15 @@ namespace FotoApp.ViewModels
             else
             {
                 _closingOrder = false;
-                activOkButton = false;
                 FinalColectionDelegat?.Invoke();
-                NotifyOfPropertyChange(() => MainPanel);
-                NotifyOfPropertyChange(() => CanOk);
-                EventAggregator.PublishOnCurrentThread(FotoCollection);
                 MainPanel = null;
+                NotifyOfPropertyChange(() => MainPanel);
+                EventAggregator.PublishOnCurrentThread(FotoCollection);
             }
         }
+
+        #endregion
+
         public void Handle(IEnumerable<object> message)
         {
             var list = message.ToList();
@@ -172,15 +175,14 @@ namespace FotoApp.ViewModels
 
         private IEnumerable<object> GetTypes()
         {
-            if (_type != null) yield return (int)_type;
+            yield return (int)_type;
             yield return _sise;
         }
 
         public void Handle(bool message)
         {
-            activOkButton = message;
+            activ = message;
             NotifyOfPropertyChange(() => CanOk);
         }
-        #endregion
     }
 }
