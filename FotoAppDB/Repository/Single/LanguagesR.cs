@@ -10,32 +10,6 @@ namespace FotoAppDB.Repository.Single
 
     public class LanguagesR : FotoAppR<FotoAppDbContext, Languages>, ILanguagesR
     {
-        //private void CheckLangSettings(Settings langSetting, List<string> lang)
-        //{
-        //    lang.Add(langSetting.Target);
-        //    if (lang.Contains(langSetting.Value))
-        //    {
-        //        langSetting.Value += "error";
-        //        Update(langSetting);
-        //        //Save();                
-        //    }
-        //    else
-        //    {
-        //        //lang.Add(langSetting.Target);
-        //        var next = Context.Setting.Find("lang", langSetting.Value);
-        //        if (next != null) CheckLangSettings(next, lang);
-        //    }
-        //}
-        //public void CheckLangSettings()
-        //{
-        //    foreach (Settings s in Context.Setting.Where(a => a.Area == "lang"))
-        //    {
-        //        List<string> lang = new List<string>();
-        //        CheckLangSettings(s, lang);
-        //    }
-        //    Save();
-        //}
-
         public void CheckAndFixBase()
         {
             void CheckAndFixBase(Languages lang, List<string> list)
@@ -45,6 +19,7 @@ namespace FotoAppDB.Repository.Single
                 {
                     if (list.Contains(lang.Base))
                     {
+                        FotoAppRAll.Ins.Logs.Add(new Logs() { Area = "Lang", Type = "AutoChange", Date = DateTime.Now, Message = "In Language " + lang.Language + " Changed base from " + lang.Base + " to null" });
                         lang.Base = null;
                         Update(lang);
                     }
