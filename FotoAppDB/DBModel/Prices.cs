@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FotoAppDB.Exception;
 
 namespace FotoAppDB.DBModel
 {
@@ -23,6 +24,19 @@ namespace FotoAppDB.DBModel
         {
             db.Price.Add(this);
             db.SaveChanges();
+        }
+
+        public static Prices Get(FotoAppDbContext db, int id)
+        {
+            Prices o = db.Price.Find(id);
+            if (o != null)
+            {
+                return o;
+            }
+            else
+            {
+                throw new NotExistInDataBaseException("Brak ceny!");
+            }
         }
 
         public static bool Is(FotoAppDbContext db, int paperID, int quantity)
