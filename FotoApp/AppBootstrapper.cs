@@ -1,5 +1,7 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using Caliburn.Micro;
+using FotoApp.Controls;
 using FotoApp.Schell;
 using FotoApp.ViewModels;
 

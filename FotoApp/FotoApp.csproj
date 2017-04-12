@@ -53,9 +53,13 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="RibbonControlsLibrary, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.3.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -69,6 +73,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -79,24 +85,81 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
-    <Compile Include="Schell\ISchellable.cs" />
+    <Compile Include="Controls\ImputBindingTrigger.cs" />
+    <Compile Include="Controls\PasswordBoxGetPassword.cs" />
+    <Compile Include="Models\ChangePapersAnSiseModel\InitPapers.cs" />
+    <Compile Include="Models\ChangePapersAnSiseModel\Sizes.cs" />
+    <Compile Include="Models\FotoColection\Foto.cs" />
+    <Compile Include="Models\FotoColection\FinalFotoColection.cs" />
+    <Compile Include="Models\FotoColection\FinalFoto.cs" />
+    <Compile Include="Interface\IViewModelEventAggregator.cs" />
+    <Compile Include="Models\ChangePapersAnSiseModel\Types.cs" />
+    <Compile Include="Schell\EventArgs\StartOrClose.cs" />
+    <Compile Include="Schell\EventArgs\LogInHendler.cs" />
+    <Compile Include="Schell\EventArgs\OnColseHendler.cs" />
+    <Compile Include="Schell\EventArgs\PasswordArgs.cs" />
     <Compile Include="Schell\SchellView.xaml.cs">
       <DependentUpon>SchellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Schell\SchellViewModel.cs" />
+    <Compile Include="ViewModels\Actions\CopyFoto.cs" />
+    <Compile Include="ViewModels\Actions\GetPaper.cs" />
+    <Compile Include="ViewModels\Actions\LoadFoto.cs" />
+    <Compile Include="ViewModels\ChangePapersAndSiseViewModel.cs" />
+    <Compile Include="ViewModels\ClosingOrderViewModel.cs" />
+    <Compile Include="ViewModels\EvenArgs\FinalOrder.cs" />
+    <Compile Include="ViewModels\EvenArgs\FinalOrderArgs.cs" />
+    <Compile Include="ViewModels\EvenArgs\FinalOrderHendler.cs" />
+    <Compile Include="ViewModels\EvenArgs\GetFoto.cs" />
+    <Compile Include="ViewModels\EvenArgs\GetFotoArgs.cs" />
+    <Compile Include="ViewModels\EvenArgs\GetFotoHendler.cs" />
+    <Compile Include="ViewModels\Exception\NullContactsOrderException.cs" />
+    <Compile Include="ViewModels\Exception\NullGetFotoException.cs" />
+    <Compile Include="ViewModels\Exception\NullListFotoException.cs" />
     <Compile Include="ViewModels\GetFotoViewModel.cs" />
+    <Compile Include="Interface\IViewModel.cs" />
+    <Compile Include="ViewModels\ListFotoViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\ChangePapersAndSiseView.xaml.cs">
+      <DependentUpon>ChangePapersAndSiseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClosingOrderView.xaml.cs">
+      <DependentUpon>ClosingOrderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GetFotoView.xaml.cs">
       <DependentUpon>GetFotoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ListFotoView.xaml.cs">
+      <DependentUpon>ListFotoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StartView.xaml.cs">
       <DependentUpon>StartView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Resourse\TextStyle.xaml">
+    <Page Include="Resources\BrushColor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ForoAppCheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\FotoAppButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\FotoAppRadioButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\FotoDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\TextStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -104,7 +167,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ChangePapersAndSiseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ClosingOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GetFotoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ListFotoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -142,8 +217,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interface\" />
-    <Folder Include="Models\" />
+    <Resource Include="Resources\brak.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FotoAppDB\FotoAppDB.csproj">
+      <Project>{38e36aca-5c3c-429e-bf25-6aa80bd6c780}</Project>
+      <Name>FotoAppDB</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

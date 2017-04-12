@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:action="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+                    xmlns:check="clr-namespace:FotoApp.Models"
+                    xmlns:radio="clr-namespace:FotoApp.Models.ChangePapersAnSiseModel">
+    <DataTemplate   x:Key="ListCheckBox" DataType="check:Foto">
+        <CheckBox   HorizontalAlignment="Left" Width="300" 
+                        Style="{StaticResource FotoAppCheckBox}" 
+                        action:Message.Attach="[Event Click] = [Action ActiveChechBox($dataContext)]"
+                        IsChecked="{Binding Chekerd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <StackPanel>
+                <Image Source="{Binding bitmap}"
+                       Margin="10,10,10,10" />
+
+            </StackPanel>
+        </CheckBox>
+    </DataTemplate>
+    <DataTemplate x:Key="TapeListRadoButon" DataType="{x:Type radio:Types}">
+        <RadioButton Content="{Binding Type}" Style="{StaticResource FotoAppRadioButton}"
+                     action:Message.Attach="[Event Click] = [Action ChangeType($dataContext)]"
+                         
+                     Height="50"  Width="150" 
+                     Margin="10,10,10,10" 
+                     GroupName="Paper"/>
+    </DataTemplate>
+    <DataTemplate x:Key="SiseListRadoButon" DataType="{x:Type radio:Sizes}">
+        <RadioButton Content="{Binding SizeText}" Style="{StaticResource FotoAppRadioButton}"
+                     action:Message.Attach="[Event Click] = [Action ChangeSize($dataContext)]"
+                     Height="50"  Width="150" 
+                     Margin="10,10,10,10" 
+                     GroupName="Sises"/>
+    </DataTemplate>
+    <ItemsPanelTemplate x:Key="ListPanel" >
+        <WrapPanel Margin="10,10,10,10"/>
+    </ItemsPanelTemplate>
+</ResourceDictionary>
