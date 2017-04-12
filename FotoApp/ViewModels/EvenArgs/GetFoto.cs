@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FotoApp.Models;
+using FotoApp.Models.FotoColection;
 using FotoApp.ViewModels.Exception;
 
 namespace FotoApp.ViewModels.EvenArgs
