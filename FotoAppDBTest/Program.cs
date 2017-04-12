@@ -22,6 +22,23 @@ namespace FotoAppDBTest
 
         static void Main(string[] args)
         {
+            FotoAppRAll all = FotoAppRAll.Ins;
+            string a = "pl_PL";
+            string b = "pl";
+            string c = "pl2";
+            string d = "pl3";
+            string e = "pl4";
+            string f = "pl5";
+            all.Languages.AddOrUpdate(new Languages() { Language = a, Base = a });
+            all.Languages.AddOrUpdate(new Languages() { Language = b, Base = f });
+            all.Languages.AddOrUpdate(new Languages() { Language = c, Base = d });
+            all.Languages.AddOrUpdate(new Languages() { Language = d, Base = c });
+            all.Languages.AddOrUpdate(new Languages() { Language = e, Base = b });
+            all.Languages.AddOrUpdate(new Languages() { Language = f, Base = e });
+            all.Save();
+            all.Languages.CheckAndFixBase();
+
+
             //var bf = new FotoAppDbContext(new SeachConnectionString().connectionString);
             ////bf.Language.Add(new Languages() { Language = "eneea" });
             ////bf.SaveChanges();
@@ -126,9 +143,8 @@ namespace FotoAppDBTest
             //Console.WriteLine("RunTime " + elapsedTime);
 
 
-
+            #region Generator bazy danych
             //FotoAppRAll all = FotoAppRAll.Ins;
-            ////all.Types.AddOrUpdate(new Types());
             //Sizes[] s = new Sizes[8];
             //s[0] = new Sizes() { Height = 900, Length = 1300 };
             //s[1] = new Sizes() { Height = 1000, Length = 1500 };
@@ -260,7 +276,7 @@ namespace FotoAppDBTest
             //all.Settings.AddOrUpdate(new Settings() { Area = "lang", Target = "en", Value = "pl_PL" });
             //all.Settings.AddOrUpdate(new Settings() { Area = "acc", Target = "size", Value = "100" });
             //all.Contacts.Save();
-
+            #endregion
             Console.WriteLine("koniec");
             Console.ReadKey();
         }
