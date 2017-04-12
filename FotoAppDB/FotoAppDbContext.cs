@@ -11,9 +11,9 @@ namespace FotoAppDB
         // 
         // If you wish to target a different database and/or database provider, modify the 'FotoAppDbContext' 
         // connection string in the application configuration file.
-        public FotoAppDbContext(string nameOrConnectionString) 
-        : base( nameOrConnectionString )
-    {
+        public FotoAppDbContext(string nameOrConnectionString)
+        : base(nameOrConnectionString)
+        {
         }
 
         public FotoAppDbContext()
@@ -32,6 +32,7 @@ namespace FotoAppDB
         public DbSet<Languages> Language { get; set; }
         public DbSet<Fotos> Foto { get; set; }
         public DbSet<Settings> Setting { get; set; }
+        public DbSet<Logs> Log { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -84,6 +85,16 @@ namespace FotoAppDB
                 .HasMany(o => o.OrderFotos)
                 .WithRequired(f => f.Fotos)
                 .HasForeignKey(o => o.FotoID)
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Languages>()
+                .HasMany(l => l.Languages1)
+                .WithOptional(l => l.Languages2)
+                .HasForeignKey(l => l.Base)
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Types>()
+                .HasMany(l => l.Types1)
+                .WithOptional(l => l.Types2)
+                .HasForeignKey(l => l.Connect)
                 .WillCascadeOnDelete(false);
         }
 
