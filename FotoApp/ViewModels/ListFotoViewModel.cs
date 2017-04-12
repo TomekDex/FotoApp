@@ -11,9 +11,9 @@ using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ListFotoViewModel : ViewModelBase.ViewModelBase//, IHandle<IEnumerable<object>>
+    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<IEnumerable<object>>
     {
-        
+
         private readonly GetFotoViewModel _getFoto;
 
         public delegate void GetPaperDelegate();
@@ -26,7 +26,7 @@ namespace FotoApp.ViewModels
 
         public BindableCollection<Foto> FotoData
         {
-            get{return _fotoData;}
+            get { return _fotoData; }
             set
             {
                 _fotoData = value;
@@ -39,7 +39,9 @@ namespace FotoApp.ViewModels
             get { return _type; }
             set { _type = value; }
         }
-        public Sizes Sise {
+
+        public Sizes Sise
+        {
             get { return _sise; }
             set { _sise = value; }
         }
@@ -53,11 +55,11 @@ namespace FotoApp.ViewModels
         #region Constractor
 
         public ListFotoViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator)
-            :base(getFoto, eventAggregator)
+            : base(getFoto, eventAggregator)
         {
             _getFoto = getFoto;
             EventAggregator = eventAggregator;
-            //EventAggregator.Subscribe(this);
+            EventAggregator.Subscribe(this);
             getPaperDelegete?.Invoke();
             _finalColections = new FinalFotoColection();
             _getFoto.FinalColectionDelegat += GetFinalColection;
@@ -274,18 +276,15 @@ namespace FotoApp.ViewModels
             tmp.GetFotoColection(_getFoto, _finalColections);
         }
 
-        //public void Handle(IEnumerable<object> message)
-        //{
-        //    var list = message.ToList();
-        //    if (list != null)
-        //    {
-        //        Type = (int)list[0];
-        //        Sise = list[1] as Sizes;
-        //    }
-        //}
-
-        
-
+        public void Handle(IEnumerable<object> message)
+        {
+            var list = message.ToList();
+            if (list != null)
+            {
+                Type = (int) list[0];
+                Sise = list[1] as Sizes;
+            }
+        }
         #endregion
     }
 }

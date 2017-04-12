@@ -6,9 +6,8 @@ using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ChangePapersAndSiseViewModel : ViewModelBase.ViewModelBase, IHandle<ListFotoViewModel>
+    public class ChangePapersAndSiseViewModel : ViewModelBase.ViewModelBase
     {
-        private ListFotoViewModel _listFoto;
         #region Proportis
 
         private BindableCollection<Sizes> _siseList;
@@ -40,11 +39,9 @@ namespace FotoApp.ViewModels
 
         #region Constraktor
 
-        public ChangePapersAndSiseViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator, ListFotoViewModel listFoto) 
-            :base(getFoto, eventAggregator)
+        public ChangePapersAndSiseViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator)
+            : base(getFoto, eventAggregator)
         {
-            _listFoto = listFoto;
-            _listFoto.getPaperDelegete += GetPaper;
 
 #if DEBUG
             _papers = new GetPapers();
@@ -78,7 +75,6 @@ namespace FotoApp.ViewModels
             EventAggregator.PublishOnCurrentThread(SendPapers());
         }
 
-        #endregion
 
         private IEnumerable<object> SendPapers()
         {
@@ -103,18 +99,7 @@ namespace FotoApp.ViewModels
             }
             return (BindableCollection<Sizes>) getSizes;
         }
-        public void GetPaper()
-        {
-            var tmp = new GetPaper();
-            var hendler = new GetPaperHendler();
-            tmp.getChoicePaper += hendler.GetPaper;
-            tmp.GetCoicePaper(_listFoto, _type, _sise);
-        }
-
-        public void Handle(ListFotoViewModel message)
-        {
-            _listFoto = message;
-        }
+        #endregion
 
 #if DEBUG
 
