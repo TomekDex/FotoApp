@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 using Caliburn.Micro;
 using FotoApp.Interface;
-using FotoApp.Models;
 using FotoApp.Models.ChangePapersAnSiseModel;
+using FotoApp.Models.FotoColection;
 using FotoApp.Schell;
-using FotoApp.ViewModels.EvenArgs;
-using FotoAppDBTest;
 
 namespace FotoApp.ViewModels
 {
@@ -17,7 +13,8 @@ namespace FotoApp.ViewModels
         public IEventAggregator EventAggregator { get; set; }
         public IViewModel MainPanel { get; set; }
         public IViewModel ChangePapersAndSise { get; set; }
-
+        private ListFotoViewModel List;
+        
         #region Delegate
 
         public delegate void FinalColectionDelegate();
@@ -35,12 +32,12 @@ namespace FotoApp.ViewModels
         private FinalFotoColection _finalFotoColection;
         private int? _type;
         private Sizes _sise;
-        private bool? activ;
+        private bool? activOkButton;
         private SchellViewModel schell;
 
         public FinalFotoColection FotoCollection
         {
-            get => _finalFotoColection;
+            get { return _finalFotoColection; }
             set
             {
                 _finalFotoColection = value;
@@ -51,7 +48,7 @@ namespace FotoApp.ViewModels
 
         public string Price
         {
-            get => _price;
+            get { return _price; }
             set
             {
                 _price = value;
@@ -61,7 +58,7 @@ namespace FotoApp.ViewModels
 
         public string Discount
         {
-            get => _discount;
+            get { return _discount; }
             set
             {
                 _discount = value;
@@ -71,7 +68,7 @@ namespace FotoApp.ViewModels
 
         public int Count
         {
-            get => _count;
+            get { return _count; }
             set
             {
                 _count = value;
@@ -91,7 +88,7 @@ namespace FotoApp.ViewModels
 
         public bool CanCart => true;
 
-        public bool CanOk => _type != null && _sise != null && activ == true;
+        public bool CanOk => _type != null && _sise != null && activOkButton == true;
 
         #endregion
 
@@ -102,7 +99,8 @@ namespace FotoApp.ViewModels
             this.schell = schell;
             EventAggregator = eventAggregator;
             EventAggregator.Subscribe(this);
-            ChangePapersAndSise = new ChangePapersAndSiseViewModel(EventAggregator);
+            List = new ListFotoViewModel(this, eventAggregator);
+            ChangePapersAndSise = new ChangePapersAndSiseViewModel(this, EventAggregator, List);
             FotoCollection = new FinalFotoColection();
             _type = null;
 #if DEBUG
@@ -117,7 +115,7 @@ namespace FotoApp.ViewModels
 
         public void Usb1()
         {
-            MainPanel = new ListFotoViewModel(this, EventAggregator);
+            MainPanel = List;
             _closingOrder = false;
             EventAggregator.PublishOnCurrentThread(GetTypes());
             NotifyOfPropertyChange(() => MainPanel);
@@ -146,22 +144,21 @@ namespace FotoApp.ViewModels
             if (!_closingOrder)
             {
                 _closingOrder = true;
-                FinalColectionDelegat();
-                MainPanel = new ClosingOrderViewModel(this);
+                FinalColectionDelegat?.Invoke();
+                MainPanel = new ClosingOrderViewModel(this, EventAggregator);
                 NotifyOfPropertyChange(() => MainPanel);
             }
             else
             {
                 _closingOrder = false;
-                FinalColectionDelegat();
-                MainPanel = null;
+                activOkButton = false;
+                FinalColectionDelegat?.Invoke();
                 NotifyOfPropertyChange(() => MainPanel);
+                NotifyOfPropertyChange(() => CanOk);
                 EventAggregator.PublishOnCurrentThread(FotoCollection);
+                MainPanel = null;
             }
         }
-
-        #endregion
-
         public void Handle(IEnumerable<object> message)
         {
             var list = message.ToList();
@@ -175,14 +172,15 @@ namespace FotoApp.ViewModels
 
         private IEnumerable<object> GetTypes()
         {
-            yield return Convert.ToInt16(_type);
+            if (_type != null) yield return (int)_type;
             yield return _sise;
         }
 
         public void Handle(bool message)
         {
-            activ = message;
+            activOkButton = message;
             NotifyOfPropertyChange(() => CanOk);
         }
+        #endregion
     }
 }

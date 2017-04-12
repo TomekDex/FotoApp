@@ -2,8 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:action="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
                     xmlns:check="clr-namespace:FotoApp.Models"
-                    xmlns:radio="clr-namespace:FotoApp.Models.ChangePapersAnSiseModel">
-    <DataTemplate   x:Key="ListCheckBox" DataType="check:Foto">
+                    xmlns:radio="clr-namespace:FotoApp.Models.ChangePapersAnSiseModel"
+                    xmlns:fotoColection="clr-namespace:FotoApp.Models.FotoColection">
+    <DataTemplate   x:Key="ListCheckBox" DataType="fotoColection:Foto">
         <CheckBox   HorizontalAlignment="Left" Width="300" 
                         Style="{StaticResource FotoAppCheckBox}" 
                         action:Message.Attach="[Event Click] = [Action ActiveChechBox($dataContext)]"
