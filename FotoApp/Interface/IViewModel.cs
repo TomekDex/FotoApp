@@ -1,7 +1,6 @@
-﻿namespace FotoApp.ViewModels
+﻿namespace FotoApp.Interface
 {
     public  interface IViewModel
     {
-         IViewModel MainPanel { get; set; }
     }
 }

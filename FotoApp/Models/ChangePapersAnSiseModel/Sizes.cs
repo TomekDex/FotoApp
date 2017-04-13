@@ -9,10 +9,8 @@ namespace FotoApp.Models.ChangePapersAnSiseModel
     public class Sizes
     {
         public int id { get; set; }
-
         public int Height { get; set; }
         public int Length { get; set; }
-
         public string SizeText { get; set; }
     }
 }

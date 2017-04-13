@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media.Imaging;
 
-namespace FotoApp.Models
+namespace FotoApp.Models.FotoColection
 {
     public class Foto
     {

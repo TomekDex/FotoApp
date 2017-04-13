@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using Caliburn.Micro;
-using FotoApp.Interface;
-using FotoApp.Schell;
 using FotoApp.ViewModels.EvenArgs;
+using FotoApp.ViewModels.Validation;
 
 namespace FotoApp.ViewModels
 {
-    public class ClosingOrderViewModel : Screen, IViewModel
+    public class ClosingOrderViewModel : ViewModelBase.ViewModelBase
     {
-        public IViewModel MainPanel { get; set; }
-        private readonly GetFotoViewModel _getFoto;
 
         #region Propertis
 
@@ -21,33 +14,46 @@ namespace FotoApp.ViewModels
         private string _phone;
         private string _mail;
 
+        [Required(ErrorMessage = "Nie podano imienia")]
+        [ExekuteCharacter("!#$%^&*()", ErrorMessage = "Nieprawidłowe znaki")]
         public string Name
         {
-            get => _name;
+            get { return _name; }
             set
             {
                 _name = value;
                 NotifyOfPropertyChange(() => Name);
+                EventAggregator.PublishOnCurrentThread( StringEmpty());
+
             }
         }
-
+        [Required(ErrorMessage = "Nie podano telefonu")]
+        [ExekuteCharacter("!#$%^&*()", ErrorMessage = "Wprowadzono nieprawidłowe znaki")]
+        [Phone ( ErrorMessage =  "To nie jest umer telefonu")]
         public string Phone
         {
-            get => _phone;
+            get { return _phone; }
+
             set
             {
                 _phone = value;
                 NotifyOfPropertyChange(() => Phone);
+                EventAggregator.PublishOnCurrentThread(StringEmpty());
+
             }
         }
 
+        [Required(ErrorMessage = "Nie podano Maila")]
+        [EmailAddress(ErrorMessage = "Adres eMaili jest nie prawdłowy")]
         public string Mail
         {
-            get => _mail;
+            get { return _mail; }
+
             set
             {
                 _mail = value;
                 NotifyOfPropertyChange(() => Mail);
+                EventAggregator.PublishOnCurrentThread(StringEmpty());
             }
         }
 
@@ -55,10 +61,10 @@ namespace FotoApp.ViewModels
 
         #region Constractor
 
-        public ClosingOrderViewModel(GetFotoViewModel getFoto)
+        public ClosingOrderViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator) :base(getFoto, eventAggregator)
         {
-            _getFoto = getFoto;
             getFoto.FinalColectionDelegat += FinalOrder;
+            EventAggregator.PublishOnCurrentThread(StringEmpty());
         }
 
         #endregion
@@ -70,9 +76,16 @@ namespace FotoApp.ViewModels
             var tmp = new FinalOrder();
             var hendler = new FinalOrderHendler();
             tmp.finalOrderDelegate += hendler.FinalOrder;
-            tmp.GetFotoColection(_getFoto, Name, Phone, Mail);
+            tmp.GetFotoColection(base._getFoto, Name, Phone, Mail);
         }
 
+        private bool StringEmpty()
+        {
+            var o = !string.IsNullOrWhiteSpace(Name) 
+                && !(string.IsNullOrWhiteSpace(Phone) 
+                || string.IsNullOrWhiteSpace(Mail));
+            return o;
+        }
         #endregion
     }
 }
