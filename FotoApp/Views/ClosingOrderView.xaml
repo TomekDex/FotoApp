@@ -7,19 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600">
     <UserControl.Resources>
-
-        <Style TargetType="{x:Type TextBlock}">
-            <Setter Property="Margin"
-                    Value="4" />
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError"
-                         Value="true">
-                    <Setter Property="ToolTip"
-                            Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
-                </Trigger>
-            </Style.Triggers>
-
-        </Style>
+        
     </UserControl.Resources>
     <Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="400" Width="400">
