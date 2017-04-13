@@ -24,6 +24,15 @@ namespace FotoAppDBTest
         static void Main(string[] args)
         {
             FotoAppRAll all = FotoAppRAll.Ins;
+            Orders nowy = new Orders();
+            all.Orders.Add(nowy );
+            all.Save();
+            Console.WriteLine( nowy.OrderID.ToString());
+            nowy.Description = "jakis napis";
+            nowy.Date = DateTime.Now;
+all.Orders.Update(nowy);
+            all.Save();
+            Console.WriteLine(nowy.Date.ToString());
             //Stopwatch stopWatch = new Stopwatch();
             //stopWatch.Start();
             //for (int i = 0; i < 100; i++)
@@ -61,31 +70,31 @@ namespace FotoAppDBTest
             ////Console.WriteLine(all.Fotos.Context.Foto.First().FotoID.ToString());
             //Stopwatch stopWatch2 = new Stopwatch();
             //stopWatch2.Start();
-            //for (int i= 0; i<100;i++)
-            all.Types.Update(new Types() { TypeID = 1, Connect = 4 });
-            all.Save();
-            foreach (Orders o in all.Orders.Context.Order)
-            {
-                Console.WriteLine("zamownie nr " + o.OrderID.ToString());
-                foreach (OrderRaport q in all.Orders.OrderRaport(o))
-                {
-                    Console.WriteLine("rozmiar " + (q.Paper.Height / 100).ToString() + "x" + (q.Paper.Length / 100).ToString() + " typu " + q.Paper.TypeID.ToString() + " ilosc: " + q.Quantity.ToString() + " cena z typu: " +q.Connect.ToString()+ " koszt "+q.Price.ToString()+ " cena za sztuke " +(q.Price/q.Quantity).ToString());
-                }
-            }
-           //TimeSpan ts2 = stopWatch2.Elapsed;
+            ////for (int i= 0; i<100;i++)
+            //all.Types.Update(new Types() { TypeID = 1, Connect = 4 });
+            //all.Save();
+            //foreach (Orders o in all.Orders.Context.Order)
+            //{
+            //    Console.WriteLine("zamownie nr " + o.OrderID.ToString());
+            //    foreach (OrderRaport q in all.Orders.OrderRaport(o))
+            //    {
+            //        Console.WriteLine("rozmiar " + (q.Paper.Height / 100).ToString() + "x" + (q.Paper.Length / 100).ToString() + " typu " + q.Paper.TypeID.ToString() + " ilosc: " + q.Quantity.ToString() + " cena z typu: " +q.Connect.ToString()+ " koszt "+q.Price.ToString()+ " cena za sztuke " +(q.Price/q.Quantity).ToString());
+            //    }
+            //}
+            //TimeSpan ts2 = stopWatch2.Elapsed;
 
-           // string elapsedTime2 = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-           //                                    ts2.Hours, ts2.Minutes, ts2.Seconds,
-           //                                    ts2.Milliseconds / 10);
-           // Console.WriteLine("RunTime " + elapsedTime2);
-           
+            // string elapsedTime2 = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            //                                    ts2.Hours, ts2.Minutes, ts2.Seconds,
+            //                                    ts2.Milliseconds / 10);
+            // Console.WriteLine("RunTime " + elapsedTime2);
 
-           // Console.WriteLine(all.Sizes.Context
-           //        .OrderFoto
-           //        .Where(o => o.OrderID == 1)
-           //        .GroupBy(a => new { Height = a.Height, Length = a.Length, TypeID = a.TypeID })
-           //        .Join(all.Sizes.Context.Paper, s => new { s.Key.Height, s.Key.Length, s.Key.TypeID }, b => new { b.Height, b.Length, b.TypeID }, (s, b) => new { first = s, paper = b })
-           //        .Select(a => new PaperQuantity { Paper = a.paper, Quantity = a.first.Sum(z => z.Quantity) }));
+
+            // Console.WriteLine(all.Sizes.Context
+            //        .OrderFoto
+            //        .Where(o => o.OrderID == 1)
+            //        .GroupBy(a => new { Height = a.Height, Length = a.Length, TypeID = a.TypeID })
+            //        .Join(all.Sizes.Context.Paper, s => new { s.Key.Height, s.Key.Length, s.Key.TypeID }, b => new { b.Height, b.Length, b.TypeID }, (s, b) => new { first = s, paper = b })
+            //        .Select(a => new PaperQuantity { Paper = a.paper, Quantity = a.first.Sum(z => z.Quantity) }));
 
 
             //string a = "pl_PL";
