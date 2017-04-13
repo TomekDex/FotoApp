@@ -53,13 +53,13 @@ namespace FotoAppDB
             SqlConnectionStringBuilder connectionStringBuilder = new SqlConnectionStringBuilder();
             connectionStringBuilder.ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework";
             string[] s = Directory.GetDirectories("../../../FotoAppDB");
-            int i = 0;
+            int i = -1;
             do
             {
-                if (s[i].EndsWith("FotoAppDB\\DB")) connectionStringBuilder.Add("AttachDbFilename", Path.GetFullPath(s[i]) + "\\FotoApp.mdf");
                 i++;
+                if (s[i].EndsWith("FotoAppDB\\DB")) connectionStringBuilder.Add("AttachDbFilename", Path.GetFullPath(s[i]) + "\\FotoApp.mdf");
             }
-            while (s[i].EndsWith("FotoAppDB\\DB") && s.Count() > i);
+            while (!s[i].EndsWith("FotoAppDB\\DB") && s.Count() > i);
             return connectionStringBuilder.ConnectionString;
         }
         public void Save()

@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Casing\OrderRaport.cs" />
     <Compile Include="DBModel\Contacts.cs" />
     <Compile Include="DBModel\Logs.cs" />
     <Compile Include="FotoAppRAll.cs" />
