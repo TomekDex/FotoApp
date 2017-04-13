@@ -34,21 +34,11 @@ namespace FotoApp.ViewModels
             }
         }
 
-        public int Type
-        {
-            get { return _type; }
-            set { _type = value; }
-        }
+        public int Type { get; set; }
 
-        public Sizes Sise
-        {
-            get { return _sise; }
-            set { _sise = value; }
-        }
+        public Sizes Sise { get; set; }
 
         private FinalFotoColection _finalColections;
-        private int _type;
-        private Sizes _sise;
 
         #endregion
 
@@ -63,6 +53,7 @@ namespace FotoApp.ViewModels
             getPaperDelegete?.Invoke();
             _finalColections = new FinalFotoColection();
             _getFoto.FinalColectionDelegat += GetFinalColection;
+            Handle(new GetPapers().GetDefaultPaper());
 
 #if DEBUG
             Inicialice();
@@ -285,6 +276,8 @@ namespace FotoApp.ViewModels
                 Sise = list[1] as Sizes;
             }
         }
+
+
         #endregion
     }
 }
