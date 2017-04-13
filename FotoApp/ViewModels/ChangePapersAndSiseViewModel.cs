@@ -6,9 +6,8 @@ using FotoApp.ViewModels.EvenArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class ChangePapersAndSiseViewModel : ViewModelBase.ViewModelBase, IHandle<ListFotoViewModel>
+    public class ChangePapersAndSiseViewModel : ViewModelBase.ViewModelBase
     {
-        private ListFotoViewModel _listFoto;
         #region Proportis
 
         private BindableCollection<Sizes> _siseList;
@@ -40,11 +39,9 @@ namespace FotoApp.ViewModels
 
         #region Constraktor
 
-        public ChangePapersAndSiseViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator, ListFotoViewModel listFoto) 
-            :base(getFoto, eventAggregator)
+        public ChangePapersAndSiseViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator)
+            : base(getFoto, eventAggregator)
         {
-            _listFoto = listFoto;
-            _listFoto.getPaperDelegete += GetPaper;
 
 #if DEBUG
             _papers = new GetPapers();
@@ -63,7 +60,7 @@ namespace FotoApp.ViewModels
             var tmp = o as Types;
             if (tmp != null)
             {
-                SizeList = _papers.GetSizes(_papers.GetTypeByIndex(tmp.id));
+                SizeList = _papers.GetSizesByType(_papers.GetTypeByIndex(tmp.id));
             }
             NotifyOfPropertyChange(()=> SizeList);
         }
@@ -78,11 +75,8 @@ namespace FotoApp.ViewModels
             EventAggregator.PublishOnCurrentThread(SendPapers());
         }
 
-        #endregion
-
         private IEnumerable<object> SendPapers()
         {
-            
             yield return _type;
             yield return _sise;
         }
@@ -92,29 +86,18 @@ namespace FotoApp.ViewModels
             return TypeList;
         }
 
-        public BindableCollection<Sizes> GetSizesByTypes(object o)
-        {
-            _siseList = new BindableCollection<Sizes>();
-            object getSizes = null;
-            var tmp = o as Types;
-            if (tmp != null)
-            {
-                 getSizes = _papers.GetSizes(_papers.GetTypeByIndex(tmp.id));
-            }
-            return (BindableCollection<Sizes>) getSizes;
-        }
-        public void GetPaper()
-        {
-            var tmp = new GetPaper();
-            var hendler = new GetPaperHendler();
-            tmp.getChoicePaper += hendler.GetPaper;
-            tmp.GetCoicePaper(_listFoto, _type, _sise);
-        }
-
-        public void Handle(ListFotoViewModel message)
-        {
-            _listFoto = message;
-        }
+        //public BindableCollection<Sizes> GetSizesByTypes(object o)
+        //{
+        //    _siseList = new BindableCollection<Sizes>();
+        //    object getSizes = null;
+        //    var tmp = o as Types;
+        //    if (tmp != null)
+        //    {
+        //         getSizes = _papers.GetSizesByType(_papers.GetTypeByIndex(tmp.id));
+        //    }
+        //    return (BindableCollection<Sizes>) getSizes;
+        //}
+        #endregion
 
 #if DEBUG
 
@@ -124,6 +107,5 @@ namespace FotoApp.ViewModels
             TypeList = init.peperList;
         }
 #endif
-
     }
 }

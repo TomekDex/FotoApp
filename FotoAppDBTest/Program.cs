@@ -1,4 +1,5 @@
 ﻿using FotoAppDB;
+using FotoAppDB.Casing;
 using FotoAppDB.DBModel;
 using FotoAppDB.Repository;
 using FotoAppDB.Repository.Single;
@@ -22,6 +23,87 @@ namespace FotoAppDBTest
 
         static void Main(string[] args)
         {
+            FotoAppRAll all = FotoAppRAll.Ins;
+            //Stopwatch stopWatch = new Stopwatch();
+            //stopWatch.Start();
+            //for (int i = 0; i < 100; i++)
+            //    foreach (Orders o in all.Orders.Context.Order)
+            //    {
+            //        //Console.WriteLine("zamownie nr " + o.OrderID.ToString());
+            //        foreach (PaperQuantity q in all.Papers.SumPapersInOrder3(o))
+            //        {
+            //            //Console.WriteLine("rozmiar " + (q.Paper.Height / 100).ToString() + "x" + (q.Paper.Length / 100).ToString() + " typu " + q.Paper.TypeID.ToString() + " ilosc: " + q.Quantity.ToString());
+            //        }
+            //    }
+            //TimeSpan ts = stopWatch.Elapsed;
+            //string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            //                                   ts.Hours, ts.Minutes, ts.Seconds,
+            //                                   ts.Milliseconds / 10);
+            //Console.WriteLine("RunTime " + elapsedTime);
+            //Stopwatch stopWatch1 = new Stopwatch();
+            //stopWatch1.Start();
+            //for (int i = 0; i < 100; i++)
+            //    foreach (Orders o in all.Orders.Context.Order)
+            //    {
+            //        //Console.WriteLine("zamownie nr " + o.OrderID.ToString());
+            //        foreach (PaperQuantity q in all.Papers.SumPapersInOrder2(o))
+            //        {
+            //            //Console.WriteLine("rozmiar " + (q.Paper.Height / 100).ToString() + "x" + (q.Paper.Length / 100).ToString() + " typu " + q.Paper.TypeID.ToString() + " ilosc: " + q.Quantity.ToString());
+            //        }
+            //    }
+            //TimeSpan ts1 = stopWatch1.Elapsed;
+
+            //string elapsedTime1 = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            //                                   ts1.Hours, ts1.Minutes, ts1.Seconds,
+            //                                   ts1.Milliseconds / 10);
+            //Console.WriteLine("RunTime " + elapsedTime1);
+            ////Console.WriteLine(all.Contacts.Context.Database.Connection.ConnectionString);
+            ////Console.WriteLine(all.Fotos.Context.Foto.First().FotoID.ToString());
+            //Stopwatch stopWatch2 = new Stopwatch();
+            //stopWatch2.Start();
+            //for (int i= 0; i<100;i++)
+            all.Types.Update(new Types() { TypeID = 1, Connect = 4 });
+            all.Save();
+            foreach (Orders o in all.Orders.Context.Order)
+            {
+                Console.WriteLine("zamownie nr " + o.OrderID.ToString());
+                foreach (OrderRaport q in all.Orders.OrderRaport(o))
+                {
+                    Console.WriteLine("rozmiar " + (q.Paper.Height / 100).ToString() + "x" + (q.Paper.Length / 100).ToString() + " typu " + q.Paper.TypeID.ToString() + " ilosc: " + q.Quantity.ToString() + " cena z typu: " +q.Connect.ToString()+ " koszt "+q.Price.ToString()+ " cena za sztuke " +(q.Price/q.Quantity).ToString());
+                }
+            }
+           //TimeSpan ts2 = stopWatch2.Elapsed;
+
+           // string elapsedTime2 = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+           //                                    ts2.Hours, ts2.Minutes, ts2.Seconds,
+           //                                    ts2.Milliseconds / 10);
+           // Console.WriteLine("RunTime " + elapsedTime2);
+           
+
+           // Console.WriteLine(all.Sizes.Context
+           //        .OrderFoto
+           //        .Where(o => o.OrderID == 1)
+           //        .GroupBy(a => new { Height = a.Height, Length = a.Length, TypeID = a.TypeID })
+           //        .Join(all.Sizes.Context.Paper, s => new { s.Key.Height, s.Key.Length, s.Key.TypeID }, b => new { b.Height, b.Length, b.TypeID }, (s, b) => new { first = s, paper = b })
+           //        .Select(a => new PaperQuantity { Paper = a.paper, Quantity = a.first.Sum(z => z.Quantity) }));
+
+
+            //string a = "pl_PL";
+            //string b = "pl";
+            //string c = "pl2";
+            //string d = "pl3";
+            //string e = "pl4";
+            //string f = "pl5";
+            //all.Languages.AddOrUpdate(new Languages() { Language = a, Base = a });
+            //all.Languages.AddOrUpdate(new Languages() { Language = b, Base = f });
+            //all.Languages.AddOrUpdate(new Languages() { Language = c, Base = d });
+            //all.Languages.AddOrUpdate(new Languages() { Language = d, Base = c });
+            //all.Languages.AddOrUpdate(new Languages() { Language = e, Base = b });
+            //all.Languages.AddOrUpdate(new Languages() { Language = f, Base = e });
+            //all.Save();
+            //all.Languages.CheckAndFixBase();
+
+
             //var bf = new FotoAppDbContext(new SeachConnectionString().connectionString);
             ////bf.Language.Add(new Languages() { Language = "eneea" });
             ////bf.SaveChanges();
@@ -126,9 +208,8 @@ namespace FotoAppDBTest
             //Console.WriteLine("RunTime " + elapsedTime);
 
 
-
+            #region Generator bazy danych
             //FotoAppRAll all = FotoAppRAll.Ins;
-            ////all.Types.AddOrUpdate(new Types());
             //Sizes[] s = new Sizes[8];
             //s[0] = new Sizes() { Height = 900, Length = 1300 };
             //s[1] = new Sizes() { Height = 1000, Length = 1500 };
@@ -260,7 +341,7 @@ namespace FotoAppDBTest
             //all.Settings.AddOrUpdate(new Settings() { Area = "lang", Target = "en", Value = "pl_PL" });
             //all.Settings.AddOrUpdate(new Settings() { Area = "acc", Target = "size", Value = "100" });
             //all.Contacts.Save();
-
+            #endregion
             Console.WriteLine("koniec");
             Console.ReadKey();
         }
