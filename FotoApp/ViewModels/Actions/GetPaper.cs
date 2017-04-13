@@ -11,7 +11,7 @@ using Caliburn.Micro;
 using FotoApp;
 using FotoAppDB.DBModel;
 using FotoAppDB.Exception;
-using FotoAppDBTest;
+using FotoAppDB;
 
 namespace FotoApp.ViewModels.Actions
 {
@@ -85,7 +85,7 @@ namespace FotoApp.ViewModels.Actions
 
         public void GetSetings()
         {
-            _all.Settings.CheckLangSettings();
+            _all.Languages.CheckAndFixBase();
         }
 
     }
