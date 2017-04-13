@@ -60,7 +60,7 @@ namespace FotoApp.ViewModels
             var tmp = o as Types;
             if (tmp != null)
             {
-                SizeList = _papers.GetSizes(_papers.GetTypeByIndex(tmp.id));
+                SizeList = _papers.GetSizesByType(_papers.GetTypeByIndex(tmp.id));
             }
             NotifyOfPropertyChange(()=> SizeList);
         }
@@ -75,10 +75,8 @@ namespace FotoApp.ViewModels
             EventAggregator.PublishOnCurrentThread(SendPapers());
         }
 
-
         private IEnumerable<object> SendPapers()
         {
-            
             yield return _type;
             yield return _sise;
         }
@@ -88,17 +86,17 @@ namespace FotoApp.ViewModels
             return TypeList;
         }
 
-        public BindableCollection<Sizes> GetSizesByTypes(object o)
-        {
-            _siseList = new BindableCollection<Sizes>();
-            object getSizes = null;
-            var tmp = o as Types;
-            if (tmp != null)
-            {
-                 getSizes = _papers.GetSizes(_papers.GetTypeByIndex(tmp.id));
-            }
-            return (BindableCollection<Sizes>) getSizes;
-        }
+        //public BindableCollection<Sizes> GetSizesByTypes(object o)
+        //{
+        //    _siseList = new BindableCollection<Sizes>();
+        //    object getSizes = null;
+        //    var tmp = o as Types;
+        //    if (tmp != null)
+        //    {
+        //         getSizes = _papers.GetSizesByType(_papers.GetTypeByIndex(tmp.id));
+        //    }
+        //    return (BindableCollection<Sizes>) getSizes;
+        //}
         #endregion
 
 #if DEBUG
@@ -109,6 +107,5 @@ namespace FotoApp.ViewModels
             TypeList = init.peperList;
         }
 #endif
-
     }
 }
