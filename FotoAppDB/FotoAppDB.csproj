@@ -11,6 +11,21 @@
     <AssemblyName>FotoAppDB</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,7 +54,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -50,95 +64,84 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Casing\OrderRaport.cs" />
     <Compile Include="DBModel\Contacts.cs" />
-    <Compile Include="DBModel\IDBModel.cs" />
-    <Compile Include="DBModel\Prices.cs" />
-    <Compile Include="DBModel\Fotos.cs" />
+    <Compile Include="DBModel\Logs.cs" />
+    <Compile Include="FotoAppRAll.cs" />
     <Compile Include="DBModel\Languages.cs" />
+    <Compile Include="DBModel\Fotos.cs" />
+    <Compile Include="DBModel\Prices.cs" />
+    <Compile Include="DBModel\OrderFotos.cs" />
+    <Compile Include="DBModel\Settings.cs" />
+    <Compile Include="DBModel\SizeTexts.cs" />
+    <Compile Include="DBModel\TypeTexts.cs" />
     <Compile Include="DBModel\Orders.cs" />
     <Compile Include="DBModel\Papers.cs" />
     <Compile Include="DBModel\Sizes.cs" />
     <Compile Include="Exception\NotExistInDataBaseException.cs" />
     <Compile Include="Exception\OutOfMaxLengthException.cs" />
     <Compile Include="FotoAppDbContext.cs" />
-    <Compile Include="Migrations\201703311903570_DB1.cs" />
-    <Compile Include="Migrations\201703311903570_DB1.Designer.cs">
-      <DependentUpon>201703311903570_DB1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703311922348_DB2.cs" />
-    <Compile Include="Migrations\201703311922348_DB2.Designer.cs">
-      <DependentUpon>201703311922348_DB2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703311936110_DB3.cs" />
-    <Compile Include="Migrations\201703311936110_DB3.Designer.cs">
-      <DependentUpon>201703311936110_DB3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703312001560_DB4.cs" />
-    <Compile Include="Migrations\201703312001560_DB4.Designer.cs">
-      <DependentUpon>201703312001560_DB4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703312009025_DB5.cs" />
-    <Compile Include="Migrations\201703312009025_DB5.Designer.cs">
-      <DependentUpon>201703312009025_DB5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704030713347_DB6.cs" />
-    <Compile Include="Migrations\201704030713347_DB6.Designer.cs">
-      <DependentUpon>201704030713347_DB6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704031024499_DB7.cs" />
-    <Compile Include="Migrations\201704031024499_DB7.Designer.cs">
-      <DependentUpon>201704031024499_DB7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704031329282_DB8.cs" />
-    <Compile Include="Migrations\201704031329282_DB8.Designer.cs">
-      <DependentUpon>201704031329282_DB8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704031509528_DB9.cs" />
-    <Compile Include="Migrations\201704031509528_DB9.Designer.cs">
-      <DependentUpon>201704031509528_DB9.cs</DependentUpon>
+    <Compile Include="Migrations\201704112221456_DB1.cs" />
+    <Compile Include="Migrations\201704112221456_DB1.Designer.cs">
+      <DependentUpon>201704112221456_DB1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DBModel\Types.cs" />
+    <Compile Include="Repository\Interface\ILanguagesR.cs" />
+    <Compile Include="Repository\Interface\ITypeTextsR.cs" />
+    <Compile Include="Repository\Interface\ISizeTextsR.cs" />
+    <Compile Include="Repository\Interface\IOrderFotosR.cs" />
+    <Compile Include="Repository\Interface\ISizesR.cs" />
+    <Compile Include="Repository\Interface\ITypesR.cs" />
+    <Compile Include="Repository\Single\LogsR.cs" />
+    <Compile Include="Repository\Single\SettingsR.cs" />
+    <Compile Include="Repository\Single\ContactsR.cs" />
+    <Compile Include="Repository\FotoAppR.cs" />
+    <Compile Include="Repository\Single\FotosR.cs" />
+    <Compile Include="Repository\Interface\IOrdersR.cs" />
+    <Compile Include="Repository\Interface\IRepository.cs" />
+    <Compile Include="Repository\Single\OrderFotosR.cs" />
+    <Compile Include="Repository\Single\LanguagesR.cs" />
+    <Compile Include="Repository\Single\TypeTextsR.cs" />
+    <Compile Include="Repository\Single\SizeTextsR.cs" />
+    <Compile Include="Repository\Single\OrdersR.cs" />
+    <Compile Include="Repository\Single\PapersR.cs" />
+    <Compile Include="Repository\Single\PricesR.cs" />
+    <Compile Include="Repository\Single\SizesR.cs" />
+    <Compile Include="Repository\Single\TypesR.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703311903570_DB1.resx">
-      <DependentUpon>201703311903570_DB1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703311922348_DB2.resx">
-      <DependentUpon>201703311922348_DB2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703311936110_DB3.resx">
-      <DependentUpon>201703311936110_DB3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703312001560_DB4.resx">
-      <DependentUpon>201703312001560_DB4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703312009025_DB5.resx">
-      <DependentUpon>201703312009025_DB5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704030713347_DB6.resx">
-      <DependentUpon>201704030713347_DB6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704031024499_DB7.resx">
-      <DependentUpon>201704031024499_DB7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704031329282_DB8.resx">
-      <DependentUpon>201704031329282_DB8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704031509528_DB9.resx">
-      <DependentUpon>201704031509528_DB9.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="DB\FotoApp.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DB\FotoApp_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>FotoApp.mdf</DependentUpon>
+    </Content>
     <Content Include="Other\Entity Migracja.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DB\" />
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 i x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704112221456_DB1.resx">
+      <DependentUpon>201704112221456_DB1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,26 +1,22 @@
 ﻿using FotoAppDB.Exception;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FotoAppDB.DBModel 
+namespace FotoAppDB.DBModel
 {
-
-    public class Languages : IDBModel
+    public class Languages
     {
         public Languages()
         {
-            this.Sizes = new HashSet<Sizes>();
-            this.Types = new HashSet<Types>();
-
+            this.SizeTexts = new HashSet<SizeTexts>();
+            this.TypeTexts = new HashSet<TypeTexts>();
+            this.Languages1 = new HashSet<Languages>();
         }
 
         public const int maxLengthLanguage = 5;
         private string _language;
+        private string _base;
 
         [Key, MaxLength(maxLengthLanguage)]
         public string Language
@@ -35,49 +31,25 @@ namespace FotoAppDB.DBModel
                 else { _language = value; }
             }
         }
-        public virtual ICollection<Sizes> Sizes { get; set; }
-        public virtual ICollection<Types> Types { get; set; }
-
-
-
-        public void Add(FotoAppDbContext db)
+        [MaxLength(maxLengthLanguage)]
+        public string Base
         {
-            try
+            get
             {
-                db.Language.Add(this);
-                db.SaveChanges();
+                return _base;
             }
-            catch (DbUpdateException e)
-            {//obsluga wyjatgu gdy już jest dany rekord
-            }
-        }
-
-        public static Languages Get(FotoAppDbContext db, int id)
-        {
-            Languages o = db.Language.Find(id);
-            if (o != null)
+            set
             {
-                return o;
-            }
-            else
-            {
-                throw new NotExistInDataBaseException("Brak tłumaczenia!");
+                if (value == null ) { _base = null; }
+                else if (value.Length > maxLengthLanguage) { throw new OutOfMaxLengthException(); }
+                else { _base = value; }
             }
         }
 
-        public static bool Is(FotoAppDbContext db, string lang)
-        {
-            return db.Language.Find(lang) != null;
-        }
+        public virtual ICollection<SizeTexts> SizeTexts { get; set; }
+        public virtual ICollection<TypeTexts> TypeTexts { get; set; }
+        public virtual ICollection<Languages> Languages1 { get; set; }
+        public virtual Languages Languages2 { get; set; }
 
-        public void Remove(FotoAppDbContext db)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Is(FotoAppDbContext db)
-        {
-            return db.Language.Find(this.Language) != null;
-        }
     }
 }

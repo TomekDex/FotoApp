@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace FotoApp.Schell
 {
@@ -23,5 +24,19 @@ namespace FotoApp.Schell
         {
             InitializeComponent();
         }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Alt && e.SystemKey == Key.F4 ||
+                Keyboard.Modifiers == ModifierKeys.Control && e.SystemKey == Key.Escape)
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                base.OnPreviewKeyDown(e);
+            }
+        }
+       
     }
 }

@@ -1,68 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Data.Entity;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.Infrastructure;
 using FotoAppDB.Exception;
 
 namespace FotoAppDB.DBModel
 {
-    public class Fotos : IDBModel
+    public class Fotos
     {
+        public Fotos()
+        {
+            this.OrderFotos = new HashSet<OrderFotos>();
+        }
+        public const int maxLengthName = 50;
+        private string _name;
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int FotoID { get; private set; }
-        [ForeignKey("Orders")]
-        public int OrderID { get; set; }
-        [ForeignKey("Papers")]
-        public int PaperID { get; set; }
-        [Required]
-        public int Quantity { get; set; }
- //       [MaxLength(50)]
- //       public string Path { get; set; } //proponuje aby zdjecia zapisywaly sie w utawionym przez obsuge katalogu w pod katalogu z nr id zamuwienia i zdjecie o nazwie nr id zdjecia
-        public Orders Orders { get; set; }
-        public Papers Papers { get; set; }
-
-        public void Add(FotoAppDbContext db)
+        public int FotoID { get; set; }
+        [Required, MaxLength(maxLengthName)]
+        public string Name
         {
-            try
+            get
             {
-                db.Foto.Add(this);
-                db.SaveChanges();
+                return _name;
             }
-            catch (DbUpdateException e)
-            {//obsluga wyjatgu gdy już jest dany rekord
-            }
-        }
-
-        public static Fotos Get(FotoAppDbContext db, int id)
-        {
-            Fotos o = db.Foto.Find(id);
-            if (o != null)
+            set
             {
-                return o;
-            }
-            else
-            {
-                throw new NotExistInDataBaseException("Brak zdjęcia!");
+                if (value.Length > maxLengthName) { throw new OutOfMaxLengthException(); }
+                else { _name = value; }
             }
         }
 
-        public bool Is(FotoAppDbContext db)
-        {
-            return db.Foto.Find(this.FotoID) != null;
-        }
-
-        public static bool Is(FotoAppDbContext db, int id)
-        {
-            return db.Foto.Find(id) != null;
-        }
-        public void Remove(FotoAppDbContext db)
-        {
-            throw new NotImplementedException();
-        }
+        public virtual ICollection<OrderFotos> OrderFotos { get; set; }
     }
 }

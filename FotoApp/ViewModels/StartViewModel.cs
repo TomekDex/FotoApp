@@ -1,34 +1,85 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using Caliburn.Micro;
+using FotoApp.Interface;
 using FotoApp.Schell;
+using FotoApp.Schell.EventArgs;
 
 namespace FotoApp.ViewModels
 {
-    public class StartViewModel : PropertyChangedBase, ISchellable
+    public class StartViewModel : Screen, IViewModelEventAggregator, IViewModel
     {
-        public SchellViewModel Schell { get; set; }
-        
+        public IEventAggregator EventAggregator { get; set; }
+        private readonly SchellViewModel _schell;
 
-
-        public StartViewModel(SchellViewModel schell)
+        public IViewModel MainPanel
         {
-            Schell = schell;
+            get => MainPanel;
+            set
+            {
+                MainPanel = value ?? throw new ArgumentNullException(nameof(value));
+                NotifyOfPropertyChange(() => MainPanel);
+            }
         }
 
-        public void BtnLogIn(object secureString)
-        {
+        public delegate void OnCosingDelegate();
 
-           Schell.ActivateItem(new GetFotoViewModel(Schell));
+        public event OnCosingDelegate OnClosing;
+
+        #region Proportis
+
+        private string _password;
+
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                _password = value;
+                NotifyOfPropertyChange(() => Password);
+                NotifyOfPropertyChange(() => CanBtnLogIn);
+            }
         }
 
-        public bool CanBtnLogIn()
+        #endregion
+
+        #region Constractor
+
+        public StartViewModel(SchellViewModel schel, IEventAggregator eventAggregator)
         {
-            return true;
+            EventAggregator = eventAggregator;
+            _schell = schel;
         }
+
+        #endregion
+
+        #region Actions
+
+        public void BtnLogIn()
+        {
+            var log = new StartOrClose();
+
+            if (null == OnClosing)
+            {
+                var hendler = new LogInHendler();
+                log.startOrCloseDelegate += hendler.StartOrClose;
+                log.OnStart(_schell, Password);
+                NotifyOfPropertyChange(() => MainPanel);
+            }
+            else
+            {
+                var hendler = new OnColseHendler();
+                log.startOrCloseDelegate += hendler.OnClosing;
+                log.OnStart(null, Password);
+            }
+        }
+
+        #endregion
+
+        #region CanActions
+
+        public bool CanBtnLogIn => !string.IsNullOrEmpty(Password);
+
+        #endregion
+
     }
 }
