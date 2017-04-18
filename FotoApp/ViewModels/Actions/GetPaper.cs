@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Media.TextFormatting;
 using Caliburn.Micro;
 using FotoApp;
+using FotoAppDB;
 using FotoAppDB.DBModel;
 using FotoAppDB.Exception;
-using FotoAppDBTest;
 
 namespace FotoApp.ViewModels.Actions
 {
@@ -40,7 +40,7 @@ namespace FotoApp.ViewModels.Actions
                 }
                 catch (NotExistInDataBaseException)
                 {
-                    tmpType.Type = "jgdjdhfdjkgdkjsgk";
+                    tmpType.Type = "Tymczasowy text";
                 }
                 tmp.Add(tmpType);
             }
@@ -85,7 +85,7 @@ namespace FotoApp.ViewModels.Actions
 
         public void GetSetings()
         {
-            _all.Settings.CheckLangSettings();
+            //_all.Settings.CheckLangSettings();
         }
 
     }

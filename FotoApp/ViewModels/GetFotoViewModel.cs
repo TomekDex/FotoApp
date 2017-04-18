@@ -12,6 +12,7 @@ namespace FotoApp.ViewModels
     {
         public IEventAggregator EventAggregator { get; set; }
         public IViewModel MainPanel { get; set; }
+        public IViewModel ButtonPanel { get; set; }
         public IViewModel SelectPaperPanel { get; set; }
         
         #region Delegate
@@ -95,6 +96,7 @@ namespace FotoApp.ViewModels
         public GetFotoViewModel(SchellViewModel schell, IEventAggregator eventAggregator)
         {
             this.schell = schell;
+            ButtonPanel = new DriveTypeViewModel(this, EventAggregator);
             EventAggregator = eventAggregator;
             EventAggregator.Subscribe(this);
             FotoCollection = new FinalFotoColection();

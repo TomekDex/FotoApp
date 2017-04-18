@@ -98,10 +98,13 @@
     </Compile>
     <Compile Include="Schell\SchellViewModel.cs" />
     <Compile Include="ViewModels\Actions\CopyFoto.cs" />
+    <Compile Include="ViewModels\Actions\NewOrder.cs" />
+    <Compile Include="ViewModels\Actions\GetDriveType.cs" />
     <Compile Include="ViewModels\Actions\GetPaper.cs" />
     <Compile Include="ViewModels\Actions\LoadFoto.cs" />
     <Compile Include="ViewModels\ChangePapersAndSiseViewModel.cs" />
     <Compile Include="ViewModels\ClosingOrderViewModel.cs" />
+    <Compile Include="ViewModels\DriveTypeViewModel.cs" />
     <Compile Include="ViewModels\EvenArgs\FinalOrder.cs" />
     <Compile Include="ViewModels\EvenArgs\FinalOrderArgs.cs" />
     <Compile Include="ViewModels\EvenArgs\FinalOrderHendler.cs" />
@@ -132,6 +135,9 @@
     </Compile>
     <Compile Include="Views\ClosingOrderView.xaml.cs">
       <DependentUpon>ClosingOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DriveTypeView.xaml.cs">
+      <DependentUpon>DriveTypeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GetFotoView.xaml.cs">
       <DependentUpon>GetFotoView.xaml</DependentUpon>
@@ -178,13 +184,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DriveTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GetFotoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ListFotoView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\StartView.xaml">
       <SubType>Designer</SubType>
@@ -208,6 +218,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -217,7 +228,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\brak.gif">

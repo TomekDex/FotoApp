@@ -4,14 +4,16 @@ using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
 using Caliburn.Micro;
-using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Models.FotoColection;
 using FotoApp.ViewModels.Actions;
 using FotoApp.ViewModels.EvenArgs;
+using FotoAppDB;
+using FotoAppDB.DBModel;
+using Sizes = FotoApp.Models.ChangePapersAnSiseModel.Sizes;
 
 namespace FotoApp.ViewModels
 {
-    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<IEnumerable<object>>
+    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<IEnumerable<object>>, IHandle<DriveInfo>
     {
 
         private readonly GetFotoViewModel _getFoto;
@@ -227,12 +229,20 @@ namespace FotoApp.ViewModels
 
 #endif
 
+        public void ComboBox()
+        {
+            
+        }
         public void ActiveChechBox(object itemBox)
         {
+            FotoAppRAll all = FotoAppRAll.Ins;
             var tmp = itemBox as Foto;
-
+            var paper = new Papers();
+            
+            
             if (tmp?.Chekerd == true)
             {
+
                 var uri = tmp.bitmap.UriSource;
                 var fileName = Path.GetFileName(uri.ToString());
                 var foto = new FinalFoto
@@ -241,6 +251,7 @@ namespace FotoApp.ViewModels
                     Index = tmp.Index,
                     FullPathOfFoto = uri.ToString(),
                     NameOfFoto = fileName,
+                    
                     Type = Type,
                     Size = Sise
                 };
@@ -277,6 +288,10 @@ namespace FotoApp.ViewModels
             }
         }
 
+        public void Handle(DriveInfo message)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
     }
