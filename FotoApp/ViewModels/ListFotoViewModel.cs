@@ -227,6 +227,10 @@ namespace FotoApp.ViewModels
 
 #endif
 
+        public void ComboBox()
+        {
+            
+        }
         public void ActiveChechBox(object itemBox)
         {
             var tmp = itemBox as Foto;

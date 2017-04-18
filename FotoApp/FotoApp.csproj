@@ -183,8 +183,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ListFotoView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\StartView.xaml">
       <SubType>Designer</SubType>
@@ -217,7 +217,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\brak.gif">
