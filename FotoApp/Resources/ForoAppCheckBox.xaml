@@ -1,6 +1,64 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:FotoApp">
+    <Style x:Key="CheckBoxStyle2" TargetType="{x:Type CheckBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="OnMouseRightButtonDown1"/>
+                    </ControlTemplate.Resources>
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition From="Disabled" GeneratedDuration="0:0:0.1" To="Normal"/>
+                                    <VisualTransition From="Normal" GeneratedDuration="0:0:0.1" To="Disabled"/>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver"/>
+                                <VisualState x:Name="Pressed"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#FFCDCDCD"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="CheckStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition From="Checked" GeneratedDuration="0:0:0.2" To="Unchecked"/>
+                                    <VisualTransition From="Unchecked" GeneratedDuration="0:0:0.2" To="Checked"/>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#FF51FF00"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked"/>
+                                <VisualState x:Name="Indeterminate"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Rectangle x:Name="rectangle" Fill="White"/>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                          RecognizesAccessKey="True" 
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Margin="10,10,10,10"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="UIElement.MouseRightButtonDown">
+                            <BeginStoryboard Storyboard="{StaticResource OnMouseRightButtonDown1}"/>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="FotoAppCheckBox" TargetType="{x:Type CheckBox}">
         <Setter Property="Template">
             <Setter.Value>
@@ -64,4 +122,134 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="CheckBoxStyle1" TargetType="{x:Type CheckBox}">
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="{x:Type CheckBox}">
+                <ControlTemplate.Resources>
+                    <Storyboard x:Key="Storyboard1"/>
+                    <Storyboard x:Key="OnMouseRightButtonDown1">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="contentPresenter">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </ControlTemplate.Resources>
+
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CheckStates">
+                            <VisualStateGroup.Transitions>
+                                <VisualTransition From="Checked" GeneratedDuration="0:0:1" To="Unchecked">
+                                    <VisualTransition.GeneratedEasingFunction>
+                                        <CircleEase EasingMode="EaseIn"/>
+                                    </VisualTransition.GeneratedEasingFunction>
+                                </VisualTransition>
+                                <VisualTransition From="Unchecked" GeneratedDuration="0:0:1" To="Checked">
+                                    <VisualTransition.GeneratedEasingFunction>
+                                        <CircleEase EasingMode="EaseIn"/>
+                                    </VisualTransition.GeneratedEasingFunction>
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0.1" To="#FF2EFF00" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
+                                            <ColorAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseIn"/>
+                                            </ColorAnimation.EasingFunction>
+                                        </ColorAnimation>
+                                        <ColorAnimation Duration="0:0:0.1" To="#FF2EFF00" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle1">
+                                            <ColorAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseIn"/>
+                                            </ColorAnimation.EasingFunction>
+                                        </ColorAnimation>
+                                        <ColorAnimation Duration="0:0:0.1" To="#FF2EFF00" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle2">
+                                            <ColorAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseIn"/>
+                                            </ColorAnimation.EasingFunction>
+                                        </ColorAnimation>
+                                        <ColorAnimation Duration="0:0:0.1" To="#FF2EFF00" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle3">
+                                            <ColorAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseIn"/>
+                                            </ColorAnimation.EasingFunction>
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </VisualTransition>
+                            </VisualStateGroup.Transitions>
+                            <VisualState x:Name="Checked">
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill)" Storyboard.TargetName="rectangle">
+                                        <DiscreteObjectKeyFrame KeyTime="0">
+                                            <DiscreteObjectKeyFrame.Value>
+                                                <SolidColorBrush Color="#FF2EFF00"/>
+                                            </DiscreteObjectKeyFrame.Value>
+                                        </DiscreteObjectKeyFrame>
+                                    </ObjectAnimationUsingKeyFrames>
+                                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
+                                        <EasingColorKeyFrame KeyTime="0" Value="#FF2EFF00"/>
+                                    </ColorAnimationUsingKeyFrames>
+                                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle1">
+                                        <EasingColorKeyFrame KeyTime="0" Value="#FF2EFF00"/>
+                                    </ColorAnimationUsingKeyFrames>
+                                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle2">
+                                        <EasingColorKeyFrame KeyTime="0" Value="#FF2EFF00"/>
+                                    </ColorAnimationUsingKeyFrames>
+                                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle3">
+                                        <EasingColorKeyFrame KeyTime="0" Value="#FF2EFF00"/>
+                                    </ColorAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Unchecked"/>
+                            <VisualState x:Name="Indeterminate"/>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <Rectangle x:Name="rectangle3" Fill="White" Grid.ColumnSpan="1" Grid.RowSpan="3" Grid.Column="0" Margin="0,0,0,0.0" Opacity=".5"/>
+                    <Rectangle x:Name="rectangle1" Fill="White" Grid.ColumnSpan="1" Grid.RowSpan="3" Grid.Column="2" Margin="0,0,0,0.0" Opacity=".5"/>
+                    <Rectangle x:Name="rectangle2" Fill="White" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Column="1" Margin="0,0,0,0.0" Opacity=".5"/>
+                    <Rectangle x:Name="rectangle" Fill="White" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Column="1" Grid.Row="2" Margin="0,0,0,0.0" Opacity=".5"/>
+                    <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                              Grid.ColumnSpan="1" Grid.RowSpan="1"
+                                              Grid.Column="1" Grid.Row="1"/>
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <EventTrigger RoutedEvent="UIElement.MouseRightButtonDown"/>
+                    <Trigger Property="IsChecked" Value="False">
+                        <Trigger.ExitActions>
+                            <SkipStoryboardToFill BeginStoryboardName="Storyboard1_BeginStoryboard"/>
+                        </Trigger.ExitActions>
+                        <Trigger.EnterActions>
+                            <BeginStoryboard x:Name="Storyboard1_BeginStoryboard" Storyboard="{StaticResource Storyboard1}"/>
+                        </Trigger.EnterActions>
+                        <Setter Property="Visibility" TargetName="contentPresenter" Value="Visible"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+    </Style>
+    <Storyboard x:Key="OnMouseRightButtonDown1">
+        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="comboBox">
+            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+        </ObjectAnimationUsingKeyFrames>
+        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="comboBox1">
+            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+        </ObjectAnimationUsingKeyFrames>
+        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="textBlock">
+            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+        </ObjectAnimationUsingKeyFrames>
+        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="button">
+            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+        </ObjectAnimationUsingKeyFrames>
+    </Storyboard>
+
 </ResourceDictionary>
