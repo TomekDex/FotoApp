@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:action="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
                     xmlns:radio="clr-namespace:FotoApp.Models.ChangePapersAnSiseModel"
-                    xmlns:fotoColection="clr-namespace:FotoApp.Models.FotoColection">
+                    xmlns:fotoColection="clr-namespace:FotoApp.Models.FotoColection"
+                    xmlns:io="clr-namespace:System.IO;assembly=mscorlib">
     <Storyboard x:Key="OnMouseRightButtonDown1">
         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ComboBox">
             <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-160.0"/>

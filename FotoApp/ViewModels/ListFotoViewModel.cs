@@ -1,17 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Caliburn.Micro;
-using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Models.FotoColection;
 using FotoApp.ViewModels.Actions;
 using FotoApp.ViewModels.EvenArgs;
+using FotoAppDB;
+using FotoAppDB.DBModel;
+using FotoAppDBTest;
+using Action = System.Action;
+using Sizes = FotoApp.Models.ChangePapersAnSiseModel.Sizes;
 
 namespace FotoApp.ViewModels
 {
-    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<IEnumerable<object>>
+    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<IEnumerable<object>>, IHandle<string>
     {
 
         private readonly GetFotoViewModel _getFoto;
@@ -34,9 +44,18 @@ namespace FotoApp.ViewModels
             }
         }
 
+        private Foto SetFoto
+        {
+            set
+            {
+                FotoData.Add(value);
+            }
+        }
+
         public int Type { get; set; }
 
         public Sizes Sise { get; set; }
+       
 
         private FinalFotoColection _finalColections;
 
@@ -56,7 +75,7 @@ namespace FotoApp.ViewModels
             Handle(new GetPapers().GetDefaultPaper());
 
 #if DEBUG
-            Inicialice();
+            //Inicialice();
 #endif
         }
 
@@ -233,10 +252,22 @@ namespace FotoApp.ViewModels
         }
         public void ActiveChechBox(object itemBox)
         {
+            FotoAppRAll all = FotoAppRAll.Ins;
             var tmp = itemBox as Foto;
-
+            var paper = new Papers();
+            var size = new Sizes
+            {
+                Height = Sise.Height,
+                Length = Sise.Length
+            };
+            var type = new Types
+            {
+                TypeID = Type
+            };
+            
             if (tmp?.Chekerd == true)
             {
+
                 var uri = tmp.bitmap.UriSource;
                 var fileName = Path.GetFileName(uri.ToString());
                 var foto = new FinalFoto
@@ -245,6 +276,7 @@ namespace FotoApp.ViewModels
                     Index = tmp.Index,
                     FullPathOfFoto = uri.ToString(),
                     NameOfFoto = fileName,
+                    
                     Type = Type,
                     Size = Sise
                 };
@@ -280,8 +312,52 @@ namespace FotoApp.ViewModels
                 Sise = list[1] as Sizes;
             }
         }
+        private Foto f = new Foto();
+        public void Handle(string message)
+        {
+            FotoData = new BindableCollection<Foto>();
+
+            
+
+           // Thread t = new Thread(() =>
+           //  {
+                var d = Application.Current.Dispatcher;
+                //Foto f = new Foto();
+                  d.BeginInvoke (DispatcherPriority.Normal, new Action( () =>
+                {
+                    LoadFoto l = new LoadFoto("*.jpg");
+                    l.GetDirectoryType(message);
+
+                    var fotoData = new BindableCollection<Foto>();
 
 
+                    object i = new object();
+                    int index = 1;
+                    foreach (var tmp in l.ListFile)
+                    {
+                        var w = new Foto();
+                        var fs = File.Open(tmp, FileMode.Open);
+                        var img = new Bitmap(fs);
+                        var ms = new MemoryStream();
+                        var minImg = img.GetThumbnailImage(200, 200, () => false, IntPtr.Zero);
+                        minImg.Save(ms, ImageFormat.Jpeg);
+                        var bImg = new BitmapImage();
+                        bImg.BeginInit();
+                        bImg.StreamSource = new MemoryStream(ms.ToArray());
+                        bImg.EndInit();
+                        w.bitmap = bImg;
+                        w.Index = index++;
+                        FotoData.Add(w);
+                        fotoData.Add(w);
+                        NotifyOfPropertyChange(() => FotoData);
+                    }
+                }));
+           // });
+           // t.IsBackground = true;
+           // t.Start();
+
+
+        }
         #endregion
     }
 }

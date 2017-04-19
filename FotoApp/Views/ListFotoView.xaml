@@ -6,32 +6,21 @@
              xmlns:fotoColection="clr-namespace:FotoApp.Models.FotoColection"
              xmlns:control="clr-namespace:FotoApp.Controls"
              xmlns:cal="http://www.caliburnproject.org"
-             mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="600 "
-             >
-
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="600 ">
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="UIElement.MouseRightButtonDown">
-            <BeginStoryboard Storyboard="{StaticResource OnMouseRightButtonDown1}"/>
+            <BeginStoryboard Storyboard="{StaticResource OnMouseRightButtonDown1}" />
         </EventTrigger>
     </UserControl.Triggers>
-
     <Grid>
-
         <DockPanel>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl ItemsSource="{Binding Path=FotoData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                      ItemTemplate="{StaticResource ListCheckBox}"
-                      ItemsPanel="{StaticResource ListPanel}"
-                      >
-
-
-                </ItemsControl>
+                <ItemsControl ItemsSource="{Binding Path=FotoData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemTemplate="{StaticResource ListCheckBox}"
+                              ItemsPanel="{StaticResource ListPanel}" />
             </ScrollViewer>
-            
         </DockPanel>
-        
-
-       
     </Grid>
 </UserControl>
+
