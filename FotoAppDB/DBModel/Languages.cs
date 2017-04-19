@@ -1,6 +1,7 @@
 ﻿using FotoAppDB.Exception;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FotoAppDB.DBModel
 {
@@ -10,10 +11,12 @@ namespace FotoAppDB.DBModel
         {
             this.SizeTexts = new HashSet<SizeTexts>();
             this.TypeTexts = new HashSet<TypeTexts>();
+            this.Languages1 = new HashSet<Languages>();
         }
 
         public const int maxLengthLanguage = 5;
         private string _language;
+        private string _base;
 
         [Key, MaxLength(maxLengthLanguage)]
         public string Language
@@ -28,8 +31,25 @@ namespace FotoAppDB.DBModel
                 else { _language = value; }
             }
         }
+        [MaxLength(maxLengthLanguage)]
+        public string Base
+        {
+            get
+            {
+                return _base;
+            }
+            set
+            {
+                if (value == null ) { _base = null; }
+                else if (value.Length > maxLengthLanguage) { throw new OutOfMaxLengthException(); }
+                else { _base = value; }
+            }
+        }
 
         public virtual ICollection<SizeTexts> SizeTexts { get; set; }
         public virtual ICollection<TypeTexts> TypeTexts { get; set; }
+        public virtual ICollection<Languages> Languages1 { get; set; }
+        public virtual Languages Languages2 { get; set; }
+
     }
 }

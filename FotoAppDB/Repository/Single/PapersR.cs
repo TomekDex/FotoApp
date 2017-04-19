@@ -7,7 +7,7 @@ namespace FotoAppDB.Repository.Single
     {
         public override Papers Get(Papers FAobject)
         {
-            Papers o = Context.Paper.Find(FAobject.Height,FAobject.Length, FAobject.TypeID);
+            Papers o = Context.Paper.Find(FAobject.Height, FAobject.Length, FAobject.TypeID);
             if (o != null)
             {
                 return o;
@@ -16,7 +16,7 @@ namespace FotoAppDB.Repository.Single
             {
                 throw new NotExistInDataBaseException("Brak informacji o rodzaju papieru!");
             }
-        }
+        }        
 
         public override bool Is(Papers FAobject)
         {
