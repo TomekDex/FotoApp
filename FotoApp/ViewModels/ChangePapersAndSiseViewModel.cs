@@ -10,12 +10,12 @@ namespace FotoApp.ViewModels
     {
         #region Proportis
 
-        private BindableCollection<Sizes> _siseList;
+        private BindableCollection<SizeM> _siseList;
         private BindableCollection<Types> _typeList;
         private int _type;
-        private Sizes _sise;
+        private SizeM _sise;
         private GetPapers _papers;
-        public BindableCollection<Sizes> SizeList
+        public BindableCollection<SizeM> SizeList
         {
             get { return _siseList; }
             set
@@ -56,7 +56,7 @@ namespace FotoApp.ViewModels
 
         public void ChangeType(object o)
         {
-            _siseList = new BindableCollection<Sizes>();
+            _siseList = new BindableCollection<SizeM>();
             var tmp = o as Types;
             if (tmp != null)
             {
@@ -67,7 +67,7 @@ namespace FotoApp.ViewModels
 
         public void ChangeSize(object o)
         {
-            var tmp = o as Sizes;
+            var tmp = o as SizeM;
             if (tmp != null)
             {
                 _sise = tmp;
@@ -85,18 +85,6 @@ namespace FotoApp.ViewModels
         {
             return TypeList;
         }
-
-        //public BindableCollection<Sizes> GetSizesByTypes(object o)
-        //{
-        //    _siseList = new BindableCollection<Sizes>();
-        //    object getSizes = null;
-        //    var tmp = o as Types;
-        //    if (tmp != null)
-        //    {
-        //         getSizes = _papers.GetSizesByType(_papers.GetTypeByIndex(tmp.id));
-        //    }
-        //    return (BindableCollection<Sizes>) getSizes;
-        //}
         #endregion
 
 #if DEBUG
