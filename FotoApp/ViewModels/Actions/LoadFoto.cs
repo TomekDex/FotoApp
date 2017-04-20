@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,13 +12,13 @@ namespace FotoApp.ViewModels.Actions
 {
     public class LoadFoto
     {
-        private List<string> _listFile;
+        private ConcurrentQueue<string> _listFile;
         private readonly string _fileType1;
         private readonly string _fileType2;
         private readonly string _fileType3;
         private readonly string _fileType4;
 
-        public List<string> ListFile
+        public ConcurrentQueue<string> ListFile
         {
             get { return _listFile; }
         }
@@ -42,7 +43,7 @@ namespace FotoApp.ViewModels.Actions
 
         public LoadFoto(  string fileType1)
         {
-            _listFile = new List<string>();
+            _listFile = new ConcurrentQueue<string>();
              _fileType1 = fileType1;
         }
 
@@ -61,7 +62,7 @@ namespace FotoApp.ViewModels.Actions
                 var dir = Directory.GetDirectories(path, "*.*");
                 foreach (var dirName in dir)
                 {
-                   // GetDirectoryType(dirName);
+                    //GetDirectoryType(dirName);
                 }
             }
             catch (System.Exception)
@@ -75,7 +76,7 @@ namespace FotoApp.ViewModels.Actions
                 var files = System.IO.Directory.GetFiles(path, type);
                 foreach (string s in files)
                 {
-                    _listFile.Add(s);
+                    _listFile.Enqueue(s);
                 }
             }
             catch (System.Exception)
