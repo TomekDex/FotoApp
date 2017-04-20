@@ -15,7 +15,7 @@ namespace FotoApp.ViewModels.EvenArgs
 
         public event GetPaperDelegate getChoicePaper = null;
 
-        public void GetCoicePaper(object listFoto, int type, Sizes size)
+        public void GetCoicePaper(object listFoto, int type, SizeM size)
         {
             var tmp = new GetPaperArgs(type, size);
             ReservationGetFotoArgs(type, tmp);
