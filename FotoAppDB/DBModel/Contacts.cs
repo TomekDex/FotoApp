@@ -21,7 +21,8 @@ namespace FotoAppDB.DBModel
             }
             set
             {
-                if (value.Length > maxLengthMail) { throw new OutOfMaxLengthException(); }
+                if (value == null) { _mail = null; }
+                else if (value.Length > maxLengthMail) { throw new OutOfMaxLengthException(); }
                 else { _mail = value; }
             }
         }
@@ -33,7 +34,8 @@ namespace FotoAppDB.DBModel
             }
             set
             {
-                if (value.Length > maxLengthTele) { throw new OutOfMaxLengthException(); }
+                if (value == null) { _tele = null; }
+                else if (value.Length > maxLengthTele) { throw new OutOfMaxLengthException(); }
                 else { _tele = value; }
             }
         }
