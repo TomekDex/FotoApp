@@ -255,7 +255,7 @@ namespace FotoApp.ViewModels
             FotoAppRAll all = FotoAppRAll.Ins;
             var tmp = itemBox as Foto;
             var paper = new Papers();
-            var size = new SizeM
+            var size = new Sizes
             {
                 Height = Sise.Height,
                 Length = Sise.Length
@@ -264,28 +264,32 @@ namespace FotoApp.ViewModels
             {
                 TypeID = Type
             };
-            
+            paper.Types = type;
+            paper.Sizes = size;
+            paper.Height = Sise.Height;
+            paper.Length = Sise.Length;
+            paper.TypeID = Type;
+
             if (tmp?.Chekerd == true)
             {
 
-                var uri = tmp.bitmap.UriSource;
-                var fileName = Path.GetFileName(uri.ToString());
+                var path = tmp.path;
+                var fileName = Path.GetFileName(path);
                 var foto = new FinalFoto
                 {
                     NumbersOfFoto = 1,
                     Index = tmp.Index,
-                    FullPathOfFoto = uri.ToString(),
+                    FullPathOfFoto = path,
                     NameOfFoto = fileName,
-                    
-                    Type = Type,
-                    SizeM = Sise
+
+
                 };
                 _finalColections.FotoColection.Add(foto);
                 EventAggregator.PublishOnCurrentThread(true);
                 // przekazuje do kopiowania
 
                 var copyFoto = new CopyFoto();
-                copyFoto.CopyFotoToLocal(uri);
+                copyFoto.CopyFotoToLocal(path);
             }
             else
             {
