@@ -52,14 +52,14 @@ namespace FotoApp.ViewModels.Actions
         {
             return _listTypes[index - 1];
         }
-        public BindableCollection<Models.ChangePapersAnSiseModel.SizeM> GetSizesByType(Types type)
+        public BindableCollection<Models.ChangePapersAnSiseModel.Sizes> GetSizesByType(Types type)
         {
             
             _listSizes = _all.Sizes.GetSizesByType(type);
-            var tmp = new BindableCollection<Models.ChangePapersAnSiseModel.SizeM>();
+            var tmp = new BindableCollection<Models.ChangePapersAnSiseModel.Sizes>();
             foreach (var e in _listSizes)
             {
-                var tmpSizes = new Models.ChangePapersAnSiseModel.SizeM();
+                var tmpSizes = new Models.ChangePapersAnSiseModel.Sizes();
 
                 tmpSizes.Height = e.Height;
                 tmpSizes.Length = e.Length;
@@ -69,9 +69,9 @@ namespace FotoApp.ViewModels.Actions
             return tmp;
         }
 
-        private Models.ChangePapersAnSiseModel.SizeM GetSizes()
+        private Models.ChangePapersAnSiseModel.Sizes GetSizes()
         {
-            var defSize = new Models.ChangePapersAnSiseModel.SizeM();
+            var defSize = new Models.ChangePapersAnSiseModel.Sizes();
             var tmpSizes = GetSizesByType(GetTypeByIndex(1));
             defSize.Length = tmpSizes[0].Length;
             defSize.Height = tmpSizes[0].Height;

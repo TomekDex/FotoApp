@@ -18,7 +18,7 @@ namespace FotoApp.ViewModels
         private string _pathUsb1 = @"E:\";
         private string _pathUsb2;
         private string _pathCd;
-        private string _pathMemmory = @"F:\";
+        private string _pathMemmory;
 
 
         #region Delegate
@@ -136,38 +136,20 @@ namespace FotoApp.ViewModels
 
         public void Usb2()
         {
-            if (null == MainPanel)
-                MainPanel = new ListFotoViewModel(this, EventAggregator);
-            if (null == SelectPaperPanel)
-                SelectPaperPanel = new ChangePapersAndSiseViewModel(this, EventAggregator);
+            MainPanel = new ListFotoViewModel(this, EventAggregator);
             _closingOrder = false;
-            NotifyMainPanel();
-            NotifySelectPaperPanel();
-            EventAggregator.PublishOnCurrentThread(_pathUsb1);
         }
 
         public void Cd()
         {
-            if (null == MainPanel)
-                MainPanel = new ListFotoViewModel(this, EventAggregator);
-            if (null == SelectPaperPanel)
-                SelectPaperPanel = new ChangePapersAndSiseViewModel(this, EventAggregator);
+            MainPanel = new ListFotoViewModel(this, EventAggregator);
             _closingOrder = false;
-            NotifyMainPanel();
-            NotifySelectPaperPanel();
-            EventAggregator.PublishOnCurrentThread(_pathUsb1);
         }
 
         public void Cart()
         {
-            if (null == MainPanel)
-                MainPanel = new ListFotoViewModel(this, EventAggregator);
-            if (null == SelectPaperPanel)
-                SelectPaperPanel = new ChangePapersAndSiseViewModel(this, EventAggregator);
+            MainPanel = new ListFotoViewModel(this, EventAggregator);
             _closingOrder = false;
-            NotifyMainPanel();
-            NotifySelectPaperPanel();
-            EventAggregator.PublishOnCurrentThread(_pathMemmory);
         }
 
         public void Ok()
