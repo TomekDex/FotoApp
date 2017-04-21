@@ -26,15 +26,14 @@ namespace FotoAppDB.Repository.Single
         {
             SizeTexts sizeText = Context.SizeText.Find(size.Height, size.Length, lang.Language);
             if (sizeText == null)
-            {
-                Settings baseLang = Context.Setting.Find("lang", lang.Language);
-                if (baseLang == null || baseLang.Value.Length>Languages.maxLengthLanguage)
+            {                
+                if (lang.Base == null)
                 {
                     throw new NotExistInDataBaseException("Nie znaleziono tłumaczenia!");
                 }
                 else
                 {
-                    return GetSizeTextBySizeALang(size, new Languages() { Language = baseLang.Value });
+                    return GetSizeTextBySizeALang(size, new Languages() { Language = lang.Base });
                 }
             }
             else
