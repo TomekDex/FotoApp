@@ -21,26 +21,26 @@ namespace FotoApp.Models.ChangePapersAnSiseModel
                 {
                     id = 1,
                     Type = "papers1",
-                    listSises = new BindableCollection<Sizes>()
+                    listSises = new BindableCollection<SizeM>()
                     {
-                        new Sizes()
+                        new SizeM()
                         {
                             id = 1,
                             SizeText = "jdsgkdjf",
                         },
 
-                        new Sizes()
+                        new SizeM()
                         {
                             id = 3,
                             SizeText = "sizes3",
                         },
-                        new Sizes()
+                        new SizeM()
                         {
                             id = 5,
                             SizeText = "5",
                         },
 
-                        new Sizes()
+                        new SizeM()
                         {
                             id = 3,
                             SizeText = "sizes3",
@@ -51,26 +51,26 @@ namespace FotoApp.Models.ChangePapersAnSiseModel
                 {
                     id = 2,
                     Type = "papers 2",
-                    listSises = new BindableCollection<Sizes>()
+                    listSises = new BindableCollection<SizeM>()
                     {
-                        new Sizes()
+                        new SizeM()
                         {
                             id = 1,
                             SizeText = "sizes1",
                         },
 
-                        new Sizes()
+                        new SizeM()
                         {
                             id = 3,
                             SizeText = "sizes3",
                         },
-                        new Sizes()
+                        new SizeM()
                         {
                             id = 2,
                             SizeText = "sizes2",
                         },
 
-                        new Sizes()
+                        new SizeM()
                         {
                             id = 3,
                             SizeText = "sizes3",

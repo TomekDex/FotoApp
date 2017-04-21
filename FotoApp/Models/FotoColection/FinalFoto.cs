@@ -1,5 +1,5 @@
-﻿using FotoAppDB.DBModel;
-using Sizes = FotoApp.Models.ChangePapersAnSiseModel.Sizes;
+﻿using FotoApp.Models.ChangePapersAnSiseModel;
+using FotoAppDB.DBModel;
 
 namespace FotoApp.Models.FotoColection
 {
@@ -11,7 +11,7 @@ namespace FotoApp.Models.FotoColection
         public Papers Paper { get; set; }
 
         public int Type { get; set; }
-        public Sizes Size { get; set; }
+        public SizeM SizeM { get; set; }
 
         public int NumbersOfFoto { get; set; }
         public int Index { get; set; }

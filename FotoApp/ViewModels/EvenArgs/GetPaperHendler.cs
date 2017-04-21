@@ -18,7 +18,7 @@ namespace FotoApp.ViewModels.EvenArgs
             if (tmpArgs == null) throw  new NullGetPaperExceptin("Nie wybrana rodzaju papieru");
 
             tmpGetPaper.Type = tmpArgs._type;
-            tmpGetPaper.Sise = tmpArgs._sizes;
+            tmpGetPaper.Sise = tmpArgs.SizeM;
         }
     }
 }

@@ -22,9 +22,9 @@ namespace FotoAppTest
             var size = new Sizes();
             size.Height = 900;
             size.Length = 1300;
-            //var tmp = all.Sizes.Get(size);
+            //var tmp = all.SizeM.Get(sizeM);
             //    var cos1 = cont.Types.GetAll(true);
-            //    var cos2 = cont.Sizes.GetSizesByType(cos1[0], true);
+            //    var cos2 = cont.SizeM.GetSizesByType(cos1[0], true);
 
             //    //cont.Settings.CheckLangSettings();
 
@@ -50,7 +50,7 @@ namespace FotoAppTest
             //        Console.WriteLine(aa.TypeID.ToString());
             //        Console.WriteLine(aa.TypeTexts.ToString());
             //    }
-            //    Console.WriteLine(cont.SizeTexts.GetSizeTextBySizeALang(new Sizes() { Height = 900, Length = 1300 }, new Languages() { Language = "pl_PL" }).Text);
+            //    Console.WriteLine(cont.SizeTexts.GetSizeTextBySizeALang(new SizeM() { Height = 900, Length = 1300 }, new Languages() { Language = "pl_PL" }).Text);
 
             //    //cont.Settings.CheckLangSettings();
             //    var cos = cont.Settings.GetAll();

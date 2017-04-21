@@ -10,13 +10,14 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Caliburn.Micro;
+using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Models.FotoColection;
 using FotoApp.ViewModels.Actions;
 using FotoApp.ViewModels.EvenArgs;
 using FotoAppDB;
 using FotoAppDB.DBModel;
 using Action = System.Action;
-using Sizes = FotoApp.Models.ChangePapersAnSiseModel.Sizes;
+using Types = FotoAppDB.DBModel.Types;
 
 namespace FotoApp.ViewModels
 {
@@ -53,7 +54,7 @@ namespace FotoApp.ViewModels
 
         public int Type { get; set; }
 
-        public Sizes Sise { get; set; }
+        public SizeM Sise { get; set; }
        
 
         private FinalFotoColection _finalColections;
@@ -254,7 +255,7 @@ namespace FotoApp.ViewModels
             FotoAppRAll all = FotoAppRAll.Ins;
             var tmp = itemBox as Foto;
             var paper = new Papers();
-            var size = new Sizes
+            var size = new SizeM
             {
                 Height = Sise.Height,
                 Length = Sise.Length
@@ -277,7 +278,7 @@ namespace FotoApp.ViewModels
                     NameOfFoto = fileName,
                     
                     Type = Type,
-                    Size = Sise
+                    SizeM = Sise
                 };
                 _finalColections.FotoColection.Add(foto);
                 EventAggregator.PublishOnCurrentThread(true);
@@ -308,7 +309,7 @@ namespace FotoApp.ViewModels
             if (list != null)
             {
                 Type = (int) list[0];
-                Sise = list[1] as Sizes;
+                Sise = list[1] as SizeM;
             }
         }
         public void Handle(string message)

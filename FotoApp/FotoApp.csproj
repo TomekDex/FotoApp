@@ -84,7 +84,7 @@
     <Compile Include="Controls\ImputBindingTrigger.cs" />
     <Compile Include="Controls\PasswordBoxGetPassword.cs" />
     <Compile Include="Models\ChangePapersAnSiseModel\InitPapers.cs" />
-    <Compile Include="Models\ChangePapersAnSiseModel\Sizes.cs" />
+    <Compile Include="Models\ChangePapersAnSiseModel\SizeM.cs" />
     <Compile Include="Models\FotoColection\Foto.cs" />
     <Compile Include="Models\FotoColection\FinalFotoColection.cs" />
     <Compile Include="Models\FotoColection\FinalFoto.cs" />
