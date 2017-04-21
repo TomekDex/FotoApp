@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FotoApp.Models.ChangePapersAnSiseModel
 {
-    public class SizeM
+    public class Sizes
     {
         public int id { get; set; }
         public int Height { get; set; }

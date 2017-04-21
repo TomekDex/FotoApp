@@ -14,7 +14,7 @@ namespace FotoApp.ViewModels.Actions
                 
         }
 
-        public void CopyFotoToLocal(string fotoUri)
+        public void CopyFotoToLocal(Uri fotoUri)
         {
             //kopiowanie zdięc
         }

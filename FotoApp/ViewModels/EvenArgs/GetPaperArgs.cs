@@ -10,9 +10,9 @@ namespace FotoApp.ViewModels.EvenArgs
     public class GetPaperArgs :EventArgs
     {
         public int _type;
-        public SizeM _sizes;
+        public Sizes _sizes;
 
-        public GetPaperArgs(int type, SizeM sizes)
+        public GetPaperArgs(int type, Sizes sizes)
         {
             _type = type;
             _sizes = sizes;

@@ -23,14 +23,10 @@
         <CheckBox   HorizontalAlignment="Left" Width="290" 
                         Style="{StaticResource FotoAppCheckBox}" 
                         action:Message.Attach="[Event Click] = [Action ActiveChechBox($dataContext)]"
-                        IsChecked="{Binding Chekerd, UpdateSourceTrigger=Explicit}">
+                        IsChecked="{Binding Chekerd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <StackPanel>
-                <Image
-                    Margin="10,10,10,10">
-                    <Image.Source>
-                        <Binding Path="bitmap" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
-                    </Image.Source>
-                </Image>
+                <Image Source="{Binding bitmap}"
+                       Margin="10,10,10,10" />
 
             </StackPanel>
         </CheckBox>
@@ -43,7 +39,7 @@
                      Margin="10,10,10,10" 
                      GroupName="Paper"/>
     </DataTemplate>
-    <DataTemplate x:Key="SiseListRadoButon" DataType="{x:Type radio:SizeM}">
+    <DataTemplate x:Key="SiseListRadoButon" DataType="{x:Type radio:Sizes}">
         <RadioButton Content="{Binding SizeText}" Style="{StaticResource FotoAppRadioButton}"
                      action:Message.Attach="[Event Click] = [Action ChangeSize($dataContext)]"
                      Height="50"  Width="150" 
