@@ -22,17 +22,24 @@
         <Rectangle Panel.ZIndex="-1" Fill="White"  Stroke="Blue"  StrokeThickness="2"
                    Opacity=".1" RadiusX="8" RadiusY="8"
                    Grid.Row="1" Grid.Column="1" />
-
+        
         <ContentControl x:Name="MainPanel"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"
                         Margin="10"  Grid.Column="1" Grid.Row="1" />
 
-        <ContentControl x:Name="ButtonPanel"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"
-                        Margin="10,10,10,309"  Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" />
-
         <ContentControl x:Name="SelectPaperPanel"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"
-                        Margin="10" Grid.Row="0" Grid.Column="1" />
+                        Margin="10" Grid.Row="0" Grid.Column="1"/>
 
-       
+        <StackPanel  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"   Margin="0,0,0,331"
+                     Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+            <Button Name="Cart" Content="Cart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                    Height="50" Margin="20,20,20,20" Style="{StaticResource FotoAppButton}"/>
+            <Button Name="Cd" Content="CD" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
+                    Height="50" Margin="20,20,20,20" Style="{StaticResource FotoAppButton}"/>
+            <Button Name="Usb1" Content="USB 1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                    Height="50" Margin="20,20,20,20" Style="{StaticResource FotoAppButton}"/>
+            <Button Name="Usb2" Content="USB 2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                    Height="50" Margin="20,20,20,20" Style="{StaticResource FotoAppButton}"/>
+        </StackPanel>
 
         <Grid  Margin="18,0,22,21" VerticalAlignment="Bottom"
                Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
@@ -96,5 +103,5 @@
             Style="{StaticResource FotoAppButton}" />
 
     </Grid>
-
+   
 </UserControl>

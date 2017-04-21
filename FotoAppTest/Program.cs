@@ -17,12 +17,12 @@ namespace FotoAppTest
         static void Main(string[] args)
         {
 
-            Fo
+            
 
             var size = new Sizes();
             size.Height = 900;
             size.Length = 1300;
-            var tmp = all.Sizes.Get(size);
+            //var tmp = all.Sizes.Get(size);
             //    var cos1 = cont.Types.GetAll(true);
             //    var cos2 = cont.Sizes.GetSizesByType(cos1[0], true);
 

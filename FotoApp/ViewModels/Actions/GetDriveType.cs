@@ -23,9 +23,7 @@ namespace FotoApp.ViewModels.Actions
             foreach (var loadedDrive in loadedDrives)
             {
                 if (loadedDrive.IsReady == true &&
-                    (loadedDrive.DriveType == System.IO.DriveType.Removable ||
-                     loadedDrive.DriveType == System.IO.DriveType.CDRom)) 
-
+                    loadedDrive.DriveType == System.IO.DriveType.Removable)
                     d.Add(loadedDrive);
             }
             return d;

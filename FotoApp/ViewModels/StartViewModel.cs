@@ -13,10 +13,10 @@ namespace FotoApp.ViewModels
 
         public IViewModel MainPanel
         {
-            get => MainPanel;
+            get { return MainPanel; } 
             set
             {
-                MainPanel = value ?? throw new ArgumentNullException(nameof(value));
+                MainPanel = value;
                 NotifyOfPropertyChange(() => MainPanel);
             }
         }
@@ -31,7 +31,7 @@ namespace FotoApp.ViewModels
 
         public string Password
         {
-            get => _password;
+            get { return _password; }
             set
             {
                 _password = value;

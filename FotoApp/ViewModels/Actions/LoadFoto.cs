@@ -17,79 +17,69 @@ namespace FotoApp.ViewModels.Actions
         private readonly string _fileType3;
         private readonly string _fileType4;
 
-        public LoadFoto(string fileType1, string fileType2, string fileType3, string fileType4)
+        public List<string> ListFile
+        {
+            get { return _listFile; }
+        }
+
+        public LoadFoto( string fileType1, string fileType2, string fileType3, string fileType4)
             : this( fileType1, fileType2, fileType3)
         {
             _fileType4 = fileType4;
         }
 
-        public LoadFoto( string fileType1, string fileType2, string fileType3)
+        public LoadFoto(  string fileType1, string fileType2, string fileType3)
             : this( fileType1, fileType2)
         {
             _fileType3 = fileType3;
         }
 
-        public LoadFoto( string fileType1, string fileType2) : this( fileType1)
+        public LoadFoto(  string fileType1, string fileType2) 
+            : this( fileType1)
         {
             _fileType2 = fileType2;
         }
 
-        public LoadFoto( string fileType1)
+        public LoadFoto(  string fileType1)
         {
             _listFile = new List<string>();
-            _fileType1 = fileType1;
+             _fileType1 = fileType1;
         }
 
-        public List<string> ListFile { get; }
-        
-        public void GetDirectoryOfOneType(string path)
+        public void GetDirectoryType(string path)
         {
             GetFile(path, _fileType1);
-            var dir = Directory.GetDirectories(path, "*.*");
-            foreach (var dirName in dir)
+            if (! string.IsNullOrWhiteSpace(_fileType2))
+                GetFile(path, _fileType2);
+            if (!string.IsNullOrWhiteSpace(_fileType3))
+                GetFile(path, _fileType3);
+            if (!string.IsNullOrWhiteSpace(_fileType4))
+                GetFile(path, _fileType4);
+
+            try
             {
-                GetDirectoryOfOneType(dirName);
+                var dir = Directory.GetDirectories(path, "*.*");
+                foreach (var dirName in dir)
+                {
+                   // GetDirectoryType(dirName);
+                }
             }
-        }
-        public void GetDirectoryOfTwoType(string path)
-        {
-            GetFile(path, _fileType1);
-            GetFile(path, _fileType2);
-            var dir = Directory.GetDirectories(path, "*.*");
-            foreach (var dirName in dir)
+            catch (System.Exception)
             {
-                GetDirectoryOfTwoType(dirName);
-            }
-        }
-        public void GetDirectoryOfThreeType(string path)
-        {
-            GetFile(path, _fileType1);
-            GetFile(path, _fileType2);
-            GetFile(path, _fileType3);
-            var dir = Directory.GetDirectories(path, "*.*");
-            foreach (var dirName in dir)
-            {
-                GetDirectoryOfThreeType(dirName);
-            }
-        }
-        public void GetDirectoryOfForType(string path)
-        {
-            GetFile(path, _fileType1);
-            GetFile(path, _fileType2);
-            GetFile(path, _fileType3);
-            GetFile(path, _fileType4);
-            var dir = Directory.GetDirectories(path, "*.*");
-            foreach (var dirName in dir)
-            {
-                GetDirectoryOfForType(dirName);
             }
         }
         private void GetFile(string path, string type)
         {
-            var files = System.IO.Directory.GetFiles(path, type);
-            foreach (string s in files)
+            try
             {
-                _listFile.Add(s);
+                var files = System.IO.Directory.GetFiles(path, type);
+                foreach (string s in files)
+                {
+                    _listFile.Add(s);
+                }
+            }
+            catch (System.Exception)
+            {
             }
         }
     }

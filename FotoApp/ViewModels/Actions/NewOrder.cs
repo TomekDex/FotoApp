@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using FotoAppDB;
 using FotoAppDB.DBModel;
-using Path = System.Windows.Shapes.Path;
 
 namespace FotoApp.ViewModels.Actions
 {

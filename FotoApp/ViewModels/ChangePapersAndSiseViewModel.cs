@@ -85,18 +85,6 @@ namespace FotoApp.ViewModels
         {
             return TypeList;
         }
-
-        //public BindableCollection<Sizes> GetSizesByTypes(object o)
-        //{
-        //    _siseList = new BindableCollection<Sizes>();
-        //    object getSizes = null;
-        //    var tmp = o as Types;
-        //    if (tmp != null)
-        //    {
-        //         getSizes = _papers.GetSizesByType(_papers.GetTypeByIndex(tmp.id));
-        //    }
-        //    return (BindableCollection<Sizes>) getSizes;
-        //}
         #endregion
 
 #if DEBUG

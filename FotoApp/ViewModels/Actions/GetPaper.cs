@@ -12,6 +12,7 @@ using FotoApp;
 using FotoAppDB;
 using FotoAppDB.DBModel;
 using FotoAppDB.Exception;
+using FotoAppDB;
 
 namespace FotoApp.ViewModels.Actions
 {
@@ -85,7 +86,7 @@ namespace FotoApp.ViewModels.Actions
 
         public void GetSetings()
         {
-            //_all.Settings.CheckLangSettings();
+
         }
 
     }

@@ -1,19 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Caliburn.Micro;
 using FotoApp.Models.FotoColection;
 using FotoApp.ViewModels.Actions;
 using FotoApp.ViewModels.EvenArgs;
 using FotoAppDB;
 using FotoAppDB.DBModel;
+using Action = System.Action;
 using Sizes = FotoApp.Models.ChangePapersAnSiseModel.Sizes;
 
 namespace FotoApp.ViewModels
 {
-    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<IEnumerable<object>>, IHandle<DriveInfo>
+    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<IEnumerable<object>>, IHandle<string>
     {
 
         private readonly GetFotoViewModel _getFoto;
@@ -36,9 +43,18 @@ namespace FotoApp.ViewModels
             }
         }
 
+        private Foto SetFoto
+        {
+            set
+            {
+                FotoData.Add(value);
+            }
+        }
+
         public int Type { get; set; }
 
         public Sizes Sise { get; set; }
+       
 
         private FinalFotoColection _finalColections;
 
@@ -58,7 +74,7 @@ namespace FotoApp.ViewModels
             Handle(new GetPapers().GetDefaultPaper());
 
 #if DEBUG
-            Inicialice();
+            //Inicialice();
 #endif
         }
 
@@ -238,7 +254,15 @@ namespace FotoApp.ViewModels
             FotoAppRAll all = FotoAppRAll.Ins;
             var tmp = itemBox as Foto;
             var paper = new Papers();
-            
+            var size = new Sizes
+            {
+                Height = Sise.Height,
+                Length = Sise.Length
+            };
+            var type = new Types
+            {
+                TypeID = Type
+            };
             
             if (tmp?.Chekerd == true)
             {
@@ -287,10 +311,46 @@ namespace FotoApp.ViewModels
                 Sise = list[1] as Sizes;
             }
         }
-
-        public void Handle(DriveInfo message)
+        public void Handle(string message)
         {
-            throw new NotImplementedException();
+            FotoData = new BindableCollection<Foto>();
+            Foto f = new Foto();
+
+            var l = new LoadFoto("*.jpg");
+            l.GetDirectoryType(message);
+            var t = l.ListFile;
+            var i = new object();
+            var index = 1;
+            foreach (var tmp in t)
+            {
+                var w = new Foto
+                {
+                    Index = index++,
+                    path = tmp
+                };
+                FotoData.Add(w);
+
+                Task.Factory.StartNew(() => TaskMethod(tmp, w));
+
+                NotifyOfPropertyChange(() => FotoData);
+            }
+        }
+
+        private void TaskMethod(string tmp, Foto w)
+        {
+            var fs = File.Open(tmp, FileMode.Open);
+            var img = new Bitmap(fs);
+            var s = img.Height / 300;
+            if (s == 0)
+                s = 1;
+            var ms = new MemoryStream();
+            var minImg = (Image)new Bitmap(img, img.Width / s, img.Height / s);
+            minImg.Save(ms, ImageFormat.Jpeg);
+            var bImg = new BitmapImage();
+            bImg.BeginInit();
+            bImg.StreamSource = new MemoryStream(ms.ToArray());
+            bImg.EndInit();
+            w.bitmap = bImg;
         }
 
         #endregion

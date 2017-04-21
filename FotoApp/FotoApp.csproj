@@ -56,6 +56,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.3.0.3\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -136,9 +137,6 @@
     <Compile Include="Views\ClosingOrderView.xaml.cs">
       <DependentUpon>ClosingOrderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DriveTypeView.xaml.cs">
-      <DependentUpon>DriveTypeView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\GetFotoView.xaml.cs">
       <DependentUpon>GetFotoView.xaml</DependentUpon>
     </Compile>
@@ -181,10 +179,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ClosingOrderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\DriveTypeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
