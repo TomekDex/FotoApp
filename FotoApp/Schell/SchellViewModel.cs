@@ -13,6 +13,8 @@ namespace FotoApp.Schell
         public SchellViewModel()
         {
             EventAggregator = new EventAggregator();
+            var pref = Preference.Preference.Preferenc;
+
             _onClose = false;
             ActivateItem(new StartViewModel(this, EventAggregator));
             base.DisplayName = "FotoApp";
@@ -40,6 +42,11 @@ namespace FotoApp.Schell
             _onClose = true;
             start.OnClosing += OnClose;
             ActivateItem(start);
+        }
+
+        public void OnPreference()
+        {
+            ActivateItem(new PreferenceViewModel(this ,EventAggregator));
         }
 
     }
