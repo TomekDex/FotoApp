@@ -91,16 +91,30 @@
                        Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0" Grid.RowSpan="5" />
 
         </Grid>
+        <Grid Column="1" Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="600*"/>
+                <ColumnDefinition Width="200*"/>
+            </Grid.ColumnDefinitions>
+            <Button
+                Name="Ok"
+                Content="Zatwierdz"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Margin="20,20,20,20"
+                Style="{StaticResource FotoAppButton}" />
+            <Button
+                x:Name="Cancel"
+                Content="Rezygnacja"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Margin="20,20,28,20"
+                Grid.Column="1"
+                Style="{StaticResource FotoAppButton}" />
 
+        </Grid>
 
-        <Button
-            Name="Ok"
-            Content="Zatwierdz"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Margin="20,20,20,20"
-            Grid.Column="1" Grid.Row="2"
-            Style="{StaticResource FotoAppButton}" />
+       
 
     </Grid>
    

@@ -86,12 +86,13 @@
     <Compile Include="Controls\ImputBindingTrigger.cs" />
     <Compile Include="Controls\PasswordBoxGetPassword.cs" />
     <Compile Include="Models\ChangePapersAnSiseModel\InitPapers.cs" />
-    <Compile Include="Models\ChangePapersAnSiseModel\Sizes.cs" />
+    <Compile Include="Models\ChangePapersAnSiseModel\SizeM.cs" />
     <Compile Include="Models\FotoColection\Foto.cs" />
     <Compile Include="Models\FotoColection\FinalFotoColection.cs" />
     <Compile Include="Models\FotoColection\FinalFoto.cs" />
     <Compile Include="Interface\IViewModelEventAggregator.cs" />
     <Compile Include="Models\ChangePapersAnSiseModel\Types.cs" />
+    <Compile Include="Pref\Preference.cs" />
     <Compile Include="Schell\EventArgs\StartOrClose.cs" />
     <Compile Include="Schell\EventArgs\LogInHendler.cs" />
     <Compile Include="Schell\EventArgs\OnColseHendler.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Interface\IViewModel.cs" />
     <Compile Include="Interface\IValidationExceptionHandler.cs" />
     <Compile Include="ViewModels\ListFotoViewModel.cs" />
+    <Compile Include="ViewModels\PreferenceViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -188,6 +190,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ListFotoView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PreferenceView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

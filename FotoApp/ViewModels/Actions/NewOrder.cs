@@ -12,12 +12,34 @@ namespace FotoApp.ViewModels.Actions
     public class NewOrder
     {
         private string _directoryName;
-        private Orders _newOrders;
+        private string _finalPath;
+        private Orders _orders;
+        private static object _o = new object();
+        private static NewOrder _orderNew= null;
+        public string DirectoryName => _directoryName;
+        public string FinalPath => _finalPath;
+        public Orders Orders => _orders;
 
-        public string DirectoryName { get; private set; }
-        public Orders NewOrders { get; private set; }
-
-        public NewOrder()
+        public static  NewOrder New_Order
+        {
+            get
+            {
+                lock (_o)
+                {
+                    if (null == _orderNew)
+                    {
+                       _orderNew = new NewOrder(); 
+                    }
+                    return _orderNew;
+                }   
+            }
+            set
+            {
+                _orderNew = value;
+            }
+        }
+        
+        private NewOrder()
         {
             CreateNewOrders();
         }
@@ -25,42 +47,35 @@ namespace FotoApp.ViewModels.Actions
         public Orders GetNewOrders()
         {
             FotoAppRAll all = FotoAppRAll.Ins;
-            var n = all.Orders.Get(_newOrders);
+            var n = all.Orders.Get(_orders);
             return n;
         }
 
         public void CreateNewOrders()
         {
             FotoAppRAll all = FotoAppRAll.Ins;
-            _newOrders = new Orders ();
-
-            all.Orders.Add(_newOrders);
+            _orders = new Orders ();
+            _orders.Date = DateTime.Today;
+            all.Orders.Add(_orders);
             all.Save();
-#if DEBUG
-            Console.WriteLine(GetNewOrders().OrderID.ToString());
-            Console.WriteLine("stworzyłem");
-#endif
-
         }
         public void DeleteNewOrders()
         {
             FotoAppRAll all = FotoAppRAll.Ins;
-            all.Orders.Delete(_newOrders);
-#if DEBUG
-            Console.WriteLine("stworzyłem");
-#endif
+            all.Orders.Delete(_orders);
+            Directory.Delete(_finalPath, true);
         }
 
 
-        public string CreateDirectory(string defaultPath)
+        public void CreateDirectory(string defaultPath)
         {
-
+            _directoryName = string.Format("{0}/{1}", GetNewOrders().Date.ToString("Y"), GetNewOrders().OrderID);
             string orederPathDirectory = System.IO.Path.Combine(defaultPath, _directoryName);
             if (!Directory.Exists(orederPathDirectory))
             {
                 Directory.CreateDirectory(orederPathDirectory);
             }
-            return orederPathDirectory;
+            _finalPath = Path.GetFullPath(orederPathDirectory);
         }
     }
 }

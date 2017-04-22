@@ -6,6 +6,7 @@ using Caliburn.Micro;
 using FotoApp.Interface;
 using FotoApp.Models.FotoColection;
 using FotoApp.Schell;
+using FotoApp.ViewModels.Actions;
 
 namespace FotoApp.ViewModels
 {
@@ -15,10 +16,10 @@ namespace FotoApp.ViewModels
         public IViewModel MainPanel { get; set; }
         public IViewModel SelectPaperPanel { get; set; }
 
-        private string _pathUsb1 = @"E:\";
+        private string _pathUsb1 = @"f:\";
         private string _pathUsb2;
         private string _pathCd;
-        private string _pathMemmory;
+        private string _pathMemmory = @"F:\";
 
 
         #region Delegate
@@ -43,6 +44,7 @@ namespace FotoApp.ViewModels
         private bool? _activCd;
         private bool? _activMemmoryCard;
         private SchellViewModel schell;
+        private NewOrder _newOrder;
 
         public FinalFotoColection FotoCollection
         {
@@ -50,8 +52,6 @@ namespace FotoApp.ViewModels
             set
             {
                 _finalFotoColection = value;
-                NotifyOfPropertyChange(() => FotoCollection);
-                NotifyOfPropertyChange(() => CanCd);
             }
         }
 
@@ -136,20 +136,38 @@ namespace FotoApp.ViewModels
 
         public void Usb2()
         {
-            MainPanel = new ListFotoViewModel(this, EventAggregator);
+            if (null == MainPanel)
+                MainPanel = new ListFotoViewModel(this, EventAggregator);
+            if (null == SelectPaperPanel)
+                SelectPaperPanel = new ChangePapersAndSiseViewModel(this, EventAggregator);
             _closingOrder = false;
+            NotifyMainPanel();
+            NotifySelectPaperPanel();
+            EventAggregator.PublishOnCurrentThread(_pathUsb2);
         }
 
         public void Cd()
         {
-            MainPanel = new ListFotoViewModel(this, EventAggregator);
+            if (null == MainPanel)
+                MainPanel = new ListFotoViewModel(this, EventAggregator);
+            if (null == SelectPaperPanel)
+                SelectPaperPanel = new ChangePapersAndSiseViewModel(this, EventAggregator);
             _closingOrder = false;
+            NotifyMainPanel();
+            NotifySelectPaperPanel();
+            EventAggregator.PublishOnCurrentThread(_pathCd);
         }
 
         public void Cart()
         {
-            MainPanel = new ListFotoViewModel(this, EventAggregator);
+            if (null == MainPanel)
+                MainPanel = new ListFotoViewModel(this, EventAggregator);
+            if (null == SelectPaperPanel)
+                SelectPaperPanel = new ChangePapersAndSiseViewModel(this, EventAggregator);
             _closingOrder = false;
+            NotifyMainPanel();
+            NotifySelectPaperPanel();
+            EventAggregator.PublishOnCurrentThread(_pathMemmory);
         }
 
         public void Ok()
@@ -171,6 +189,17 @@ namespace FotoApp.ViewModels
                 NotifyMainPanel();
                 NotifyCanOk();
             }
+        }
+
+        public void Cancel()
+        {
+            MainPanel = null;
+            SelectPaperPanel = null;
+            FotoCollection = null;
+            _newOrder = null;
+            NotifyCanOk();
+            NotifyMainPanel();
+            NotifySelectPaperPanel();
         }
         private void NotifyMainPanel()
         {

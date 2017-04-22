@@ -4,19 +4,16 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 using Caliburn.Micro;
+using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Models.FotoColection;
 using FotoApp.ViewModels.Actions;
 using FotoApp.ViewModels.EvenArgs;
 using FotoAppDB;
 using FotoAppDB.DBModel;
-using Action = System.Action;
-using Sizes = FotoApp.Models.ChangePapersAnSiseModel.Sizes;
+using Types = FotoAppDB.DBModel.Types;
 
 namespace FotoApp.ViewModels
 {
@@ -26,8 +23,10 @@ namespace FotoApp.ViewModels
         private readonly GetFotoViewModel _getFoto;
 
         public delegate void GetPaperDelegate();
+        public delegate void RefreschView();
 
         public event GetPaperDelegate getPaperDelegete = null;
+        private event RefreschView refresch = null;
 
         #region Propertis;
 
@@ -43,20 +42,25 @@ namespace FotoApp.ViewModels
             }
         }
 
-        private Foto SetFoto
-        {
-            set
-            {
-                FotoData.Add(value);
-            }
-        }
-
         public int Type { get; set; }
 
-        public Sizes Sise { get; set; }
+        public SizeM Sise { get; set; }
        
 
         private FinalFotoColection _finalColections;
+        private List<string> _deleteFotoList;
+        private NewOrder _newOrder = NewOrder.New_Order;
+
+        public int referszView
+        {
+            get { return referszView;  }
+            set
+            {
+                if (value <= 0) throw new ArgumentOutOfRangeException(nameof(value));
+                referszView = value;
+                NotifyOfPropertyChange(() => FotoData);
+            }
+        }
 
         #endregion
 
@@ -70,6 +74,7 @@ namespace FotoApp.ViewModels
             EventAggregator.Subscribe(this);
             getPaperDelegete?.Invoke();
             _finalColections = new FinalFotoColection();
+            _deleteFotoList = new List<string>();
             _getFoto.FinalColectionDelegat += GetFinalColection;
             Handle(new GetPapers().GetDefaultPaper());
 
@@ -82,168 +87,6 @@ namespace FotoApp.ViewModels
 
         #region Action
 
-#if DEBUG
-
-        private void Inicialice()
-        {
-            FotoData = new BindableCollection<Foto>
-            {
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 1
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 2
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 3
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 1
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 2
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 3
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 1
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 2
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 3
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 4
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 5
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 6
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 7
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 8
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 8
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 8
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 8
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 8
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 8
-                }
-            };
-        }
-
-#endif
 
         public void ComboBox()
         {
@@ -263,17 +106,22 @@ namespace FotoApp.ViewModels
             {
                 TypeID = Type
             };
-            
+            paper.Types = type;
+            paper.Sizes = size;
+            paper.Height = Sise.Height;
+            paper.Length = Sise.Length;
+            paper.TypeID = Type;
+
             if (tmp?.Chekerd == true)
             {
 
-                var uri = tmp.bitmap.UriSource;
-                var fileName = Path.GetFileName(uri.ToString());
+                var path = tmp.path;
+                var fileName = Path.GetFileName(path);
                 var foto = new FinalFoto
                 {
                     NumbersOfFoto = 1,
                     Index = tmp.Index,
-                    FullPathOfFoto = uri.ToString(),
+                    FullPathOfFoto = path,
                     NameOfFoto = fileName,
                 };
                 _finalColections.FotoColection.Add(foto);
@@ -281,12 +129,15 @@ namespace FotoApp.ViewModels
                 // przekazuje do kopiowania
 
                 var copyFoto = new CopyFoto();
-                copyFoto.CopyFotoToLocal(uri);
+                copyFoto.CopyFotoToLocal(path);
+                _deleteFotoList.Remove(path);
             }
             else
             {
                 var removeTmp = _finalColections.FotoColection.FirstOrDefault(e => tmp != null && e.Index == tmp.Index);
                 _finalColections.FotoColection.Remove(removeTmp);
+                if ( 1 == _finalColections.FotoColection.Select(x => tmp != null && x.NameOfFoto == tmp.path).Count())
+                    _deleteFotoList.Add(tmp.path);
                 EventAggregator.PublishOnCurrentThread(_finalColections.FotoColection.Count != 0);
             }
         }
@@ -305,26 +156,27 @@ namespace FotoApp.ViewModels
             if (list != null)
             {
                 Type = (int) list[0];
-                Sise = list[1] as Sizes;
+                Sise = list[1] as SizeM;
             }
         }
-
         public void Handle(string message)
         {
             FotoData = new BindableCollection<Foto>();
             Foto f = new Foto();
 
-            
-
-           // Thread t = new Thread(() =>
-           //  {
-                var d = Application.Current.Dispatcher;
-                //Foto f = new Foto();
-                  d.BeginInvoke (DispatcherPriority.Normal, new Action( () =>
+            var l = new LoadFoto("*.jpg");
+            l.GetDirectoryType(message);
+            var t = l.ListFile;
+            var i = new object();
+            var index = 1;
+            foreach (var tmp in t)
+            {
+                var w = new Foto
                 {
-                    LoadFoto l = new LoadFoto("*.jpg");
-                    l.GetDirectoryType(message);
-
+                    Index = index++,
+                    path = tmp
+                };
+                FotoData.Add(w);
 
                 Task.Factory.StartNew(() => TaskMethod(tmp, w));
 
@@ -332,6 +184,10 @@ namespace FotoApp.ViewModels
             }
         }
 
+        private void refreschView()
+        {
+            NotifyOfPropertyChange(() => FotoData);
+        }
         private void TaskMethod(string tmp, Foto w)
         {
             var fs = File.Open(tmp, FileMode.Open);
@@ -347,36 +203,9 @@ namespace FotoApp.ViewModels
             bImg.StreamSource = new MemoryStream(ms.ToArray());
             bImg.EndInit();
             w.bitmap = bImg;
+            this.refresch += refreschView;
         }
-
-
-                    object i = new object();
-                    int index = 1;
-                    foreach (var tmp in l.ListFile)
-                    {
-                        var w = new Foto();
-                        var fs = File.Open(tmp, FileMode.Open);
-                        var img = new Bitmap(fs);
-                        var ms = new MemoryStream();
-                        var minImg = img.GetThumbnailImage(200, 200, () => false, IntPtr.Zero);
-                        minImg.Save(ms, ImageFormat.Jpeg);
-                        var bImg = new BitmapImage();
-                        bImg.BeginInit();
-                        bImg.StreamSource = new MemoryStream(ms.ToArray());
-                        bImg.EndInit();
-                        w.bitmap = bImg;
-                        w.Index = index++;
-                        FotoData.Add(w);
-                        fotoData.Add(w);
-                        NotifyOfPropertyChange(() => FotoData);
-                    }
-                }));
-           // });
-           // t.IsBackground = true;
-           // t.Start();
-
-
-        }
+        
         #endregion
     }
 }
