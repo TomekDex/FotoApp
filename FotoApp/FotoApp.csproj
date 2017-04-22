@@ -86,13 +86,12 @@
     <Compile Include="Controls\ImputBindingTrigger.cs" />
     <Compile Include="Controls\PasswordBoxGetPassword.cs" />
     <Compile Include="Models\ChangePapersAnSiseModel\InitPapers.cs" />
-    <Compile Include="Models\ChangePapersAnSiseModel\SizeM.cs" />
+    <Compile Include="Models\ChangePapersAnSiseModel\Sizes.cs" />
     <Compile Include="Models\FotoColection\Foto.cs" />
     <Compile Include="Models\FotoColection\FinalFotoColection.cs" />
     <Compile Include="Models\FotoColection\FinalFoto.cs" />
     <Compile Include="Interface\IViewModelEventAggregator.cs" />
     <Compile Include="Models\ChangePapersAnSiseModel\Types.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Schell\EventArgs\StartOrClose.cs" />
     <Compile Include="Schell\EventArgs\LogInHendler.cs" />
     <Compile Include="Schell\EventArgs\OnColseHendler.cs" />

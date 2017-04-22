@@ -45,7 +45,7 @@
                      Margin="10,10,10,10" 
                      GroupName="Paper"/>
     </DataTemplate>
-    <DataTemplate x:Key="SiseListRadoButon" DataType="{x:Type radio:SizeM}">
+    <DataTemplate x:Key="SiseListRadoButon" DataType="{x:Type radio:Sizes}">
         <RadioButton Content="{Binding SizeText}" Style="{StaticResource FotoAppRadioButton}"
                      action:Message.Attach="[Event Click] = [Action ChangeSizeM($dataContext)]"
                      Height="50"  Width="150" 

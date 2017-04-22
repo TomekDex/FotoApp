@@ -10,14 +10,13 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Caliburn.Micro;
-using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Models.FotoColection;
 using FotoApp.ViewModels.Actions;
 using FotoApp.ViewModels.EvenArgs;
 using FotoAppDB;
 using FotoAppDB.DBModel;
 using Action = System.Action;
-using Types = FotoAppDB.DBModel.Types;
+using Sizes = FotoApp.Models.ChangePapersAnSiseModel.Sizes;
 
 namespace FotoApp.ViewModels
 {
@@ -54,7 +53,7 @@ namespace FotoApp.ViewModels
 
         public int Type { get; set; }
 
-        public SizeM Sise { get; set; }
+        public Sizes Sise { get; set; }
        
 
         private FinalFotoColection _finalColections;
@@ -264,32 +263,25 @@ namespace FotoApp.ViewModels
             {
                 TypeID = Type
             };
-            paper.Types = type;
-            paper.Sizes = size;
-            paper.Height = Sise.Height;
-            paper.Length = Sise.Length;
-            paper.TypeID = Type;
-
+            
             if (tmp?.Chekerd == true)
             {
 
-                var path = tmp.path;
-                var fileName = Path.GetFileName(path);
+                var uri = tmp.bitmap.UriSource;
+                var fileName = Path.GetFileName(uri.ToString());
                 var foto = new FinalFoto
                 {
                     NumbersOfFoto = 1,
                     Index = tmp.Index,
-                    FullPathOfFoto = path,
+                    FullPathOfFoto = uri.ToString(),
                     NameOfFoto = fileName,
-
-
                 };
                 _finalColections.FotoColection.Add(foto);
                 EventAggregator.PublishOnCurrentThread(true);
                 // przekazuje do kopiowania
 
                 var copyFoto = new CopyFoto();
-                copyFoto.CopyFotoToLocal(path);
+                copyFoto.CopyFotoToLocal(uri);
             }
             else
             {
@@ -313,27 +305,26 @@ namespace FotoApp.ViewModels
             if (list != null)
             {
                 Type = (int) list[0];
-                Sise = list[1] as SizeM;
+                Sise = list[1] as Sizes;
             }
         }
+
         public void Handle(string message)
         {
             FotoData = new BindableCollection<Foto>();
             Foto f = new Foto();
 
-            var l = new LoadFoto("*.jpg");
-            l.GetDirectoryType(message);
-            var t = l.ListFile;
-            var i = new object();
-            var index = 1;
-            foreach (var tmp in t)
-            {
-                var w = new Foto
+            
+
+           // Thread t = new Thread(() =>
+           //  {
+                var d = Application.Current.Dispatcher;
+                //Foto f = new Foto();
+                  d.BeginInvoke (DispatcherPriority.Normal, new Action( () =>
                 {
-                    Index = index++,
-                    path = tmp
-                };
-                FotoData.Add(w);
+                    LoadFoto l = new LoadFoto("*.jpg");
+                    l.GetDirectoryType(message);
+
 
                 Task.Factory.StartNew(() => TaskMethod(tmp, w));
 
@@ -358,6 +349,34 @@ namespace FotoApp.ViewModels
             w.bitmap = bImg;
         }
 
+
+                    object i = new object();
+                    int index = 1;
+                    foreach (var tmp in l.ListFile)
+                    {
+                        var w = new Foto();
+                        var fs = File.Open(tmp, FileMode.Open);
+                        var img = new Bitmap(fs);
+                        var ms = new MemoryStream();
+                        var minImg = img.GetThumbnailImage(200, 200, () => false, IntPtr.Zero);
+                        minImg.Save(ms, ImageFormat.Jpeg);
+                        var bImg = new BitmapImage();
+                        bImg.BeginInit();
+                        bImg.StreamSource = new MemoryStream(ms.ToArray());
+                        bImg.EndInit();
+                        w.bitmap = bImg;
+                        w.Index = index++;
+                        FotoData.Add(w);
+                        fotoData.Add(w);
+                        NotifyOfPropertyChange(() => FotoData);
+                    }
+                }));
+           // });
+           // t.IsBackground = true;
+           // t.Start();
+
+
+        }
         #endregion
     }
 }
