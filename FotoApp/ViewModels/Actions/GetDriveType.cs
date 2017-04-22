@@ -16,15 +16,15 @@ namespace FotoApp.ViewModels.Actions
         }
 
        
-        public static List<string> GetDrive()
+        public static BindableCollection<DriveInfo> GetDrive()
         {
-            var d = new List<string>();
+            var d = new BindableCollection<DriveInfo>();
             var loadedDrives = DriveInfo.GetDrives();
             foreach (var loadedDrive in loadedDrives)
             {
                 if (loadedDrive.IsReady == true &&
                     loadedDrive.DriveType == System.IO.DriveType.Removable)
-                    d.Add(loadedDrive.Name);
+                    d.Add(loadedDrive);
             }
             return d;
         }

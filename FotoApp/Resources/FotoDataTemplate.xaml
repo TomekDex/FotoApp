@@ -18,6 +18,12 @@
             <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-160.0"/>
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
+    <DataTemplate x:Key="ButtonDriveType" DataType="io:DriveInfo">
+        <Button Content="{Binding Name}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                action:Message.Attach="[Event Click] = [Action DriveT($dataContext)]"
+                    Height="50" Width="150" Margin="20,20,20,20" Style="{StaticResource FotoAppButton}">
+        </Button>
+    </DataTemplate>
     
     <DataTemplate   x:Key="ListCheckBox" DataType="fotoColection:Foto">
         <CheckBox   HorizontalAlignment="Left" Width="290" 
@@ -41,7 +47,7 @@
     </DataTemplate>
     <DataTemplate x:Key="SiseListRadoButon" DataType="{x:Type radio:Sizes}">
         <RadioButton Content="{Binding SizeText}" Style="{StaticResource FotoAppRadioButton}"
-                     action:Message.Attach="[Event Click] = [Action ChangeSize($dataContext)]"
+                     action:Message.Attach="[Event Click] = [Action ChangeSizeM($dataContext)]"
                      Height="50"  Width="150" 
                      Margin="10,10,10,10" 
                      GroupName="Sises"/>

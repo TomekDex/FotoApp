@@ -15,7 +15,6 @@ using FotoApp.ViewModels.Actions;
 using FotoApp.ViewModels.EvenArgs;
 using FotoAppDB;
 using FotoAppDB.DBModel;
-using FotoAppDBTest;
 using Action = System.Action;
 using Sizes = FotoApp.Models.ChangePapersAnSiseModel.Sizes;
 
@@ -276,9 +275,6 @@ namespace FotoApp.ViewModels
                     Index = tmp.Index,
                     FullPathOfFoto = uri.ToString(),
                     NameOfFoto = fileName,
-                    
-                    Type = Type,
-                    Size = Sise
                 };
                 _finalColections.FotoColection.Add(foto);
                 EventAggregator.PublishOnCurrentThread(true);
@@ -312,10 +308,11 @@ namespace FotoApp.ViewModels
                 Sise = list[1] as Sizes;
             }
         }
-        private Foto f = new Foto();
+
         public void Handle(string message)
         {
             FotoData = new BindableCollection<Foto>();
+            Foto f = new Foto();
 
             
 
@@ -328,7 +325,29 @@ namespace FotoApp.ViewModels
                     LoadFoto l = new LoadFoto("*.jpg");
                     l.GetDirectoryType(message);
 
-                    var fotoData = new BindableCollection<Foto>();
+
+                Task.Factory.StartNew(() => TaskMethod(tmp, w));
+
+                NotifyOfPropertyChange(() => FotoData);
+            }
+        }
+
+        private void TaskMethod(string tmp, Foto w)
+        {
+            var fs = File.Open(tmp, FileMode.Open);
+            var img = new Bitmap(fs);
+            var s = img.Height / 300;
+            if (s == 0)
+                s = 1;
+            var ms = new MemoryStream();
+            var minImg = (Image)new Bitmap(img, img.Width / s, img.Height / s);
+            minImg.Save(ms, ImageFormat.Jpeg);
+            var bImg = new BitmapImage();
+            bImg.BeginInit();
+            bImg.StreamSource = new MemoryStream(ms.ToArray());
+            bImg.EndInit();
+            w.bitmap = bImg;
+        }
 
 
                     object i = new object();
