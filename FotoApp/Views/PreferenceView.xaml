@@ -5,19 +5,69 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FotoApp.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="600">
     <Grid>
+        <Grid Width="300" Height="300"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200*" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="100*"/>
+            </Grid.RowDefinitions>
 
-        <Button Name="OkPath" Content="OK" HorizontalAlignment="Left" Margin="183,108,0,0" VerticalAlignment="Top" Width="75" Style="{StaticResource FotoAppButton}"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="31,105,0,0" TextWrapping="Wrap" Text="{Binding Path=DefaultPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
+            <Button Name="OkPath" Content="OK" 
+                    HorizontalAlignment="Right"  
+                    VerticalAlignment="Top"
+                    Width="75" Height="30"
+                    Grid.Column="1" 
+                    Style="{StaticResource FotoAppButton}" />
+            <TextBox Grid.Row="0" Grid.Column="0"
+                     HorizontalAlignment="Stretch" 
+                     VerticalAlignment="Top" 
+                     Height="30" 
+                     TextWrapping="Wrap" 
+                     Text="{Binding Path=DefaultPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            <Button Name="OkType" Content="OK" 
+                    HorizontalAlignment="Right"  
+                    VerticalAlignment="Top"
+                    Width="75" Height="30"
+                    Grid.Column="1" Grid.Row="1" 
+                    Style="{StaticResource FotoAppButton}"/>
+            <TextBox Grid.Row="1" Grid.Column="0"
+                     HorizontalAlignment="Stretch" 
+                     VerticalAlignment="Top" 
+                     Height="30" 
+                     TextWrapping="Wrap" 
+                     Text="{Binding Path=TypeFoto, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            <Button Name="OkLang" Content="OK" 
+                    HorizontalAlignment="Right"  
+                    VerticalAlignment="Top"
+                    Width="75" Height="30"
+                    Grid.Row="2" Grid.Column="1" 
+                    Style="{StaticResource FotoAppButton}"/>
+            <TextBox Grid.Row="2" Grid.Column="0"
+                     HorizontalAlignment="Stretch" 
+                     VerticalAlignment="Top" 
+                     Height="30" 
+                     TextWrapping="Wrap" 
+                     Text="{Binding Path=Lang, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
-        <Button Name="OkType" Content="Ok" HorizontalAlignment="Left" Margin="183,187,0,0" VerticalAlignment="Top" Width="75" Style="{StaticResource ResourceKey=FotoAppButton}"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="31,184,0,0" TextWrapping="Wrap" Text="{Binding Path=Lang, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
+            <Button Name="Ok" Content="Ok"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top"
+                    Width="300" Height="30"
+                    Grid.Row="3" Grid.Column="0"
+                    Style="{StaticResource ResourceKey=FotoAppButton}" Grid.ColumnSpan="2" Margin="0,0,0,0"/>
+        </Grid>
 
-        <Button Name="OkLang" Content="Ok" HorizontalAlignment="Left" Margin="183,147,0,0" VerticalAlignment="Top" Width="75" Style="{StaticResource ResourceKey=FotoAppButton}"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="31,144,0,0" TextWrapping="Wrap" Text="{Binding Path=TypeFoto, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
-        
-        <Button Name="Ok" Content="Ok" HorizontalAlignment="Left" Margin="119,234,0,0" VerticalAlignment="Top" Width="75" Style="{StaticResource ResourceKey=FotoAppButton}"/>
+
+
 
     </Grid>
 </UserControl>

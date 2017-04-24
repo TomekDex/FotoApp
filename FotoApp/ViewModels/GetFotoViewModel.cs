@@ -16,7 +16,7 @@ namespace FotoApp.ViewModels
         public IViewModel MainPanel { get; set; }
         public IViewModel SelectPaperPanel { get; set; }
 
-        private string _pathUsb1 = @"f:\";
+        private string _pathUsb1 = @"e:\";
         private string _pathUsb2;
         private string _pathCd;
         private string _pathMemmory = @"F:\";
@@ -44,7 +44,6 @@ namespace FotoApp.ViewModels
         private bool? _activCd;
         private bool? _activMemmoryCard;
         private SchellViewModel schell;
-        private NewOrder _newOrder;
 
         public FinalFotoColection FotoCollection
         {
@@ -196,7 +195,8 @@ namespace FotoApp.ViewModels
             MainPanel = null;
             SelectPaperPanel = null;
             FotoCollection = null;
-            _newOrder = null;
+            var order = NewOrder.New_Order;
+            order.DeleteNewOrders();
             NotifyCanOk();
             NotifyMainPanel();
             NotifySelectPaperPanel();

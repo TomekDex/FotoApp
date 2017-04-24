@@ -17,10 +17,7 @@ namespace FotoApp.ViewModels.Actions
         private readonly string _fileType3;
         private readonly string _fileType4;
 
-        public List<string> ListFile
-        {
-            get { return _listFile; }
-        }
+        public List<string> ListFile => _listFile;
 
         public LoadFoto( string fileType1, string fileType2, string fileType3, string fileType4)
             : this( fileType1, fileType2, fileType3)
@@ -49,7 +46,7 @@ namespace FotoApp.ViewModels.Actions
         public void GetDirectoryType(string path)
         {
             GetFile(path, _fileType1);
-            if (! string.IsNullOrWhiteSpace(_fileType2))
+            if (!string.IsNullOrWhiteSpace(_fileType2))
                 GetFile(path, _fileType2);
             if (!string.IsNullOrWhiteSpace(_fileType3))
                 GetFile(path, _fileType3);
@@ -61,26 +58,31 @@ namespace FotoApp.ViewModels.Actions
                 var dir = Directory.GetDirectories(path, "*.*");
                 foreach (var dirName in dir)
                 {
-                   // GetDirectoryType(dirName);
+                    // GetDirectoryType(dirName);
                 }
             }
             catch (System.Exception)
             {
+                // ignored
             }
         }
+
         private void GetFile(string path, string type)
         {
-            try
-            {
-                var files = System.IO.Directory.GetFiles(path, type);
-                foreach (string s in files)
+            
+                try
                 {
-                    _listFile.Add(s);
+                    var files = Directory.GetFiles(path, type);
+                    foreach (var s in files)
+                    {
+                        _listFile.Add(s);
+                    }
                 }
-            }
-            catch (System.Exception)
-            {
-            }
+                catch (System.Exception)
+                {
+                    // ignored
+                }
+            
         }
     }
 }

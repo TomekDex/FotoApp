@@ -15,7 +15,7 @@ namespace FotoApp.ViewModels.Actions
         private string _finalPath;
         private Orders _orders;
         private static object _o = new object();
-        private static NewOrder _orderNew= null;
+        private static NewOrder _orderNew;
         public string DirectoryName => _directoryName;
         public string FinalPath => _finalPath;
         public Orders Orders => _orders;
@@ -33,10 +33,7 @@ namespace FotoApp.ViewModels.Actions
                     return _orderNew;
                 }   
             }
-            set
-            {
-                _orderNew = value;
-            }
+            
         }
         
         private NewOrder()

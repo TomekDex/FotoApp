@@ -93,10 +93,11 @@
     <Compile Include="Interface\IViewModelEventAggregator.cs" />
     <Compile Include="Models\ChangePapersAnSiseModel\Types.cs" />
     <Compile Include="Pref\Preference.cs" />
+    <Compile Include="Schell\EventArgs\Args\PasswordArgs.cs" />
+    <Compile Include="Schell\EventArgs\Hendler\LogInHendler.cs" />
+    <Compile Include="Schell\EventArgs\Hendler\OnColseHendler.cs" />
+    <Compile Include="Schell\EventArgs\Hendler\PreferenceHendler.cs" />
     <Compile Include="Schell\EventArgs\StartOrClose.cs" />
-    <Compile Include="Schell\EventArgs\LogInHendler.cs" />
-    <Compile Include="Schell\EventArgs\OnColseHendler.cs" />
-    <Compile Include="Schell\EventArgs\PasswordArgs.cs" />
     <Compile Include="Schell\SchellView.xaml.cs">
       <DependentUpon>SchellView.xaml</DependentUpon>
     </Compile>
@@ -121,9 +122,12 @@
     <Compile Include="ViewModels\Exception\NullGetFotoException.cs" />
     <Compile Include="ViewModels\Exception\NullGetPaperExceptin.cs" />
     <Compile Include="ViewModels\Exception\NullListFotoException.cs" />
+    <Compile Include="ViewModels\Exception\ToMutchTypesException.cs" />
     <Compile Include="ViewModels\GetFotoViewModel.cs" />
     <Compile Include="Interface\IViewModel.cs" />
     <Compile Include="Interface\IValidationExceptionHandler.cs" />
+    <Compile Include="ViewModels\Helpers\CopyFotoHelper.cs" />
+    <Compile Include="ViewModels\Helpers\LoadFotoHelper.cs" />
     <Compile Include="ViewModels\ListFotoViewModel.cs" />
     <Compile Include="ViewModels\PreferenceViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
@@ -145,6 +149,9 @@
     </Compile>
     <Compile Include="Views\ListFotoView.xaml.cs">
       <DependentUpon>ListFotoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PreferenceView.xaml.cs">
+      <DependentUpon>PreferenceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StartView.xaml.cs">
       <DependentUpon>StartView.xaml</DependentUpon>

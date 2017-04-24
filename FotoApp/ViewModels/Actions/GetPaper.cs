@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
+using FotoApp.Pref;
 using FotoAppDB;
 using FotoAppDB.DBModel;
 using FotoAppDB.Exception;
@@ -27,7 +28,7 @@ namespace FotoApp.ViewModels.Actions
                 tmpType.id = e.TypeID;
                 try
                 {
-                    tmpType.Type = _all.TypeTexts.GetTypeTextByTypeALang(e, new Languages {Language = Preference.Preference.Lang}).Text;
+                    tmpType.Type = _all.TypeTexts.GetTypeTextByTypeALang(e, new Languages {Language = Preference.Lang}).Text;
                 }
                 catch (NotExistInDataBaseException)
                 {
@@ -53,7 +54,7 @@ namespace FotoApp.ViewModels.Actions
                 {
                     Height = e.Height,
                     Length = e.Length,
-                    SizeText = _all.SizeTexts.GetSizeTextBySizeALang(e, new Languages {Language = "pl_Pl"}).Text
+                    SizeText = _all.SizeTexts.GetSizeTextBySizeALang(e, new Languages {Language = Preference.Lang}).Text
                 };
 
                 tmp.Add(tmpSizes);
