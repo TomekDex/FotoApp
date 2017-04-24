@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
 using FotoApp.Interface;
+using FotoApp.Pref;
 using FotoApp.Schell;
 
 namespace FotoApp.ViewModels
@@ -22,9 +23,9 @@ namespace FotoApp.ViewModels
         {
             this.schell = schell;
             EventAggregator = eventAggregator;
-            _typeFoto = Preference.Preference.TypeFoto;
-            _defaulPath = Preference.Preference.DefaultPath;
-            _lag = Preference.Preference.Lang;
+            _typeFoto = Preference.TypeFoto;
+            _defaulPath = Preference.DefaultPath;
+            _lag = Preference.Lang;
         }
         #endregion
 
@@ -84,15 +85,15 @@ namespace FotoApp.ViewModels
 
         public void OkPath()
         {
-            Preference.Preference.DefaultPath = DefaultPath;
+            Preference.DefaultPath = DefaultPath;
         }
         public void OkType()
         {
-            Preference.Preference.TypeFoto = TypeFoto;
+            Preference.TypeFoto = TypeFoto;
         }
         public void OkLang()
         {
-            Preference.Preference.Lang = Lang;
+            Preference.Lang = Lang;
         }
         public void Ok()
         {

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Caliburn.Micro;
 using FotoApp.Interface;
+using FotoApp.Pref;
 using FotoApp.ViewModels;
 
 namespace FotoApp.Schell
@@ -13,7 +14,7 @@ namespace FotoApp.Schell
         public SchellViewModel()
         {
             EventAggregator = new EventAggregator();
-            var pref = Preference.Preference.Preferenc;
+            var pref = Preference.Preferenc;
 
             _onClose = false;
             ActivateItem(new StartViewModel(this, EventAggregator));
@@ -30,7 +31,6 @@ namespace FotoApp.Schell
 
         public void OnClose()
         {
-
         }
 
         public void OnClosing()
@@ -46,7 +46,9 @@ namespace FotoApp.Schell
 
         public void OnPreference()
         {
-            ActivateItem(new PreferenceViewModel(this ,EventAggregator));
+            var start = new StartViewModel(this, EventAggregator);
+            start.OnPreference += OnClose;
+            ActivateItem(start);
         }
 
     }

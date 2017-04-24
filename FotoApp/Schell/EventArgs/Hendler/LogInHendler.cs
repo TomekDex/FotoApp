@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FotoApp.Properties;
+using FotoApp.Schell.EventArgs.Args;
 using FotoApp.ViewModels;
 
-namespace FotoApp.Schell.EventArgs
+namespace FotoApp.Schell.EventArgs.Hendler
 {
     public class LogInHendler
     {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Caliburn.Micro;
 
 namespace FotoApp.ViewModels.Actions
@@ -14,7 +9,6 @@ namespace FotoApp.ViewModels.Actions
         {
 
         }
-
        
         public static BindableCollection<DriveInfo> GetDrive()
         {

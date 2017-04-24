@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Caliburn.Micro;
 using FotoApp.ViewModels.EvenArgs;
+using FotoApp.ViewModels.EvenArgs.Hendler;
 using FotoApp.ViewModels.Validation;
 
 namespace FotoApp.ViewModels
