@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace FotoApp.ViewModels.EvenArgs
+namespace FotoApp.ViewModels.EvenArgs.Args
 {
     public class FinalOrderArgs : EventArgs
     {

@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FotoApp.Models;
-using FotoApp.Schell;
+using FotoApp.ViewModels.EvenArgs.Args;
 using FotoApp.ViewModels.Exception;
 
-namespace FotoApp.ViewModels.EvenArgs
+namespace FotoApp.ViewModels.EvenArgs.Hendler
 {
     public class GetFotoHendler
     {
