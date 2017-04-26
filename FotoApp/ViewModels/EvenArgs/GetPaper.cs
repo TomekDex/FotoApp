@@ -5,6 +5,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using FotoApp.Models.ChangePapersAnSiseModel;
+using FotoApp.ViewModels.EvenArgs.Args;
 using FotoApp.ViewModels.Exception;
 
 namespace FotoApp.ViewModels.EvenArgs
@@ -16,7 +17,6 @@ namespace FotoApp.ViewModels.EvenArgs
         public event GetPaperDelegate getChoicePaper = null;
 
         public void GetCoicePaper(object listFoto, int type, SizeM sizeM)
-
         {
             var tmp = new GetPaperArgs(type, sizeM);
             ReservationGetFotoArgs(type, tmp);
