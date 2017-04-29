@@ -14,7 +14,7 @@ namespace FotoApp.Schell.EventArgs.Hendler
 
             if (pass != null && pass.Password == Resources.Password)
             {
-                schell?.ActivateItem(new PreferenceViewModel(schell, schell.EventAggregator));
+                schell?.ActivateItem(new PreferenceViewModel());
             }
         }
     }

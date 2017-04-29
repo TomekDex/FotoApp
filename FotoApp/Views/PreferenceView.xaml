@@ -7,10 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600">
     <Grid>
-        <Grid Width="300" Height="300"
+        <Grid Width="400" Height="300"
               HorizontalAlignment="Center"
               VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="200*" />
                 <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
@@ -25,45 +26,75 @@
                     HorizontalAlignment="Right"  
                     VerticalAlignment="Top"
                     Width="75" Height="30"
-                    Grid.Column="1" 
+                    Grid.Column="2" 
                     Style="{StaticResource FotoAppButton}" />
-            <TextBox Grid.Row="0" Grid.Column="0"
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"
+                       Margin="0,0,0,0"
+                       TextWrapping="Wrap" Text="Domyśna ścierzka zapisu plików"
+                       VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Right"
+                       VerticalAlignment="Bottom"
+                       Grid.Row="0" Grid.Column="1"
+                       Style="{StaticResource TextBlocValidationTex}"
+                       Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=Path}" 
+                       Margin="0,0,4,24"/>
+            <TextBox Name="Path"
+                     Grid.Row="0" Grid.Column="1"
                      HorizontalAlignment="Stretch" 
                      VerticalAlignment="Top" 
                      Height="30" 
                      TextWrapping="Wrap" 
-                     Text="{Binding Path=DefaultPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                     Text="{Binding Path=DefaultPath,ValidatesOnDataErrors=True, NotifyOnValidationError=False, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
             <Button Name="OkType" Content="OK" 
                     HorizontalAlignment="Right"  
                     VerticalAlignment="Top"
                     Width="75" Height="30"
-                    Grid.Column="1" Grid.Row="1" 
+                    Grid.Column="2" Grid.Row="1" 
                     Style="{StaticResource FotoAppButton}"/>
-            <TextBox Grid.Row="1" Grid.Column="0"
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"
+                       Margin="0,0,0,0"
+                       TextWrapping="Wrap" Text="Typy plików do wydruku"
+                       VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Right"
+                       VerticalAlignment="Bottom"
+                       Grid.Row="0" Grid.Column="1"
+                       Style="{StaticResource TextBlocValidationTex}"
+                       Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=Type}" 
+                       Margin="0,0,4,24" />
+            <TextBox Name="Type" Grid.Row="1" Grid.Column="1"
                      HorizontalAlignment="Stretch" 
                      VerticalAlignment="Top" 
                      Height="30" 
                      TextWrapping="Wrap" 
-                     Text="{Binding Path=TypeFoto, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                     Text="{Binding Path=TypeFile, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=False, Mode=TwoWay}" />
             <Button Name="OkLang" Content="OK" 
                     HorizontalAlignment="Right"  
                     VerticalAlignment="Top"
                     Width="75" Height="30"
-                    Grid.Row="2" Grid.Column="1" 
+                    Grid.Row="2" Grid.Column="2" 
                     Style="{StaticResource FotoAppButton}"/>
-            <TextBox Grid.Row="2" Grid.Column="0"
+            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left"
+                       Margin="0,0,0,0"
+                       TextWrapping="Wrap" Text="Wersja językowa"
+                       VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Right"
+                       VerticalAlignment="Bottom"
+                       Grid.Row="2" Grid.Column="1"
+                       Margin="0,0,4,24"
+                       Style="{StaticResource TextBlocValidationTex}"
+                       Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=Lang}" />
+            <TextBox Name="Lang" Grid.Row="2" Grid.Column="1"
                      HorizontalAlignment="Stretch" 
                      VerticalAlignment="Top" 
                      Height="30" 
                      TextWrapping="Wrap" 
-                     Text="{Binding Path=Lang, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-
+                     Text="{Binding Path=Lang, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=False, Mode=TwoWay}" />
             <Button Name="Ok" Content="Ok"
-                    HorizontalAlignment="Left" 
+                    HorizontalAlignment="Stretch" 
                     VerticalAlignment="Top"
-                    Width="300" Height="30"
-                    Grid.Row="3" Grid.Column="0"
-                    Style="{StaticResource ResourceKey=FotoAppButton}" Grid.ColumnSpan="2" Margin="0,0,0,0"/>
+                    Height="30"
+                    Grid.Row="3" Grid.Column="1"
+                    Style="{StaticResource ResourceKey=FotoAppButton}"/>
         </Grid>
 
 

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Net.Http;
+using System.Windows;
 using Caliburn.Micro;
 using FotoApp.Interface;
 using FotoApp.Pref;
@@ -13,15 +15,34 @@ namespace FotoApp.Schell
 
         public SchellViewModel()
         {
-            EventAggregator = new EventAggregator();
+            var EA = EventAgg.Agregator;
+            EventAggregator = EA.EventAggregator;
             var pref = Preference.Preferenc;
-
+            FirstStartFotoApp();
             _onClose = false;
-            ActivateItem(new StartViewModel(this, EventAggregator));
             base.DisplayName = "FotoApp";
 #if DEBUG
             ActivateItem(new GetFotoViewModel(this, EventAggregator));
 #endif
+        }
+
+        private void FirstStartFotoApp()
+        {
+            if (Preference.DefaultPath == String.Empty ||
+                Preference.TypeFoto == String.Empty ||
+                Preference.Lang == String.Empty ||
+                Preference.DefaultPath == "?" ||
+                Preference.TypeFoto == "?" ||
+                Preference.Lang == "?")
+            {
+                var start = new StartViewModel(this, EventAggregator);
+                start.OnPreference += OnClose;
+                ActivateItem(start);
+            }
+            else
+            {
+                ActivateItem(new StartViewModel(this, EventAggregator));
+            }
         }
 
         public sealed override void ActivateItem(object item)
@@ -29,7 +50,7 @@ namespace FotoApp.Schell
             base.ActivateItem(item);
         }
 
-        public void OnClose()
+        private void OnClose()
         {
         }
 
@@ -44,7 +65,7 @@ namespace FotoApp.Schell
             ActivateItem(start);
         }
 
-        public void OnPreference()
+        public  void OnPreference()
         {
             var start = new StartViewModel(this, EventAggregator);
             start.OnPreference += OnClose;

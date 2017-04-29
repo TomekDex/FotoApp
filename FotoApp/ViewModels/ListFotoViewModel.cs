@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Caliburn.Micro;
@@ -26,16 +28,13 @@ namespace FotoApp.ViewModels
 
         public delegate void GetPaperDelegate();
 
-        public delegate void RefreschView();
-
         public event GetPaperDelegate getPaperDelegete = null;
-        private event RefreschView refresch = null;
 
         #region Propertis;
 
-        private BindableCollection<Foto> _fotoData;
+        private ObservableCollection<Foto> _fotoData;
 
-        public BindableCollection<Foto> FotoData
+        public ObservableCollection<Foto> FotoData 
         {
             get { return _fotoData; }
             set
@@ -146,7 +145,7 @@ namespace FotoApp.ViewModels
 
         public void Handle(string message)
         {
-            FotoData = new BindableCollection<Foto>();
+            FotoData = new ObservableCollection<Foto>();
             var f = new Foto();
             var l = new LoadFotoHelper(message);
 
@@ -161,21 +160,15 @@ namespace FotoApp.ViewModels
                     path = tmp
                 };
                 FotoData.Add(w);
-
-                Task.Factory.StartNew(() => TaskMethod(tmp, w));
-
-                NotifyOfPropertyChange(() => FotoData);
+                TaskMethod(tmp,w);
+                //Task.Factory.StartNew(() => TaskMethod(tmp, w));
+                NotifyOfPropertyChange("FotoData");
             }
-        }
-
-        private void refreschView()
-        {
-            NotifyOfPropertyChange(() => FotoData);
         }
 
         private void TaskMethod(string tmp, Foto w)
         {
-            using (var fs = new FileStream(tmp, FileMode.Open))
+            using (var fs = new FileStream(tmp, FileMode.Open, FileAccess.Read))
             {
                 var ms = new MemoryStream();
                 var img = new Bitmap(fs);
@@ -189,7 +182,6 @@ namespace FotoApp.ViewModels
                 bImg.StreamSource = new MemoryStream(ms.ToArray());
                 bImg.EndInit();
                 w.bitmap = bImg;
-                this.refresch += refreschView;
                 fs.Close();
                 ms.Close();
             }

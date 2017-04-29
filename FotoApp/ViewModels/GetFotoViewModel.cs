@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Management;
+using System.Threading;
 using Caliburn.Micro;
 using FotoApp.Interface;
 using FotoApp.Models.FotoColection;
@@ -19,7 +20,7 @@ namespace FotoApp.ViewModels
         private string _pathUsb1 = @"e:\";
         private string _pathUsb2;
         private string _pathCd;
-        private string _pathMemmory = @"F:\";
+        private string _pathMemmory = @"d:\";
 
 
         #region Delegate
@@ -125,10 +126,12 @@ namespace FotoApp.ViewModels
         {
             if (null == MainPanel)
                 MainPanel = new ListFotoViewModel(this, EventAggregator);
+            NotifyMainPanel();
+
             if (null == SelectPaperPanel)
                 SelectPaperPanel = new ChangePapersAndSiseViewModel(this, EventAggregator);
+            Thread.Sleep(5000);
             _closingOrder = false;
-            NotifyMainPanel();
             NotifySelectPaperPanel();
             EventAggregator.PublishOnCurrentThread(_pathUsb1);
         }
