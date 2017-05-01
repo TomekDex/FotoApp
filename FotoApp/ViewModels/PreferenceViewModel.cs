@@ -1,29 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using Caliburn.Micro;
-using FotoApp.Interface;
 using FotoApp.Pref;
+using FotoApp.Pref.Helpers;
 using FotoApp.Schell;
+using FotoApp.ViewModels.Validation;
 
 namespace FotoApp.ViewModels
 {
-    public class PreferenceViewModel: Screen, IViewModel, IViewModelEventAggregator
+    public class PreferenceViewModel: ViewModelBase.ViewModelBase
     {
-        public IEventAggregator EventAggregator { get; set; }
-        private SchellViewModel schell;
-
         #region Constractor
 
-        public PreferenceViewModel(SchellViewModel schell, IEventAggregator eventAggregator)
+        public PreferenceViewModel( ) : base(null)
         {
-            this.schell = schell;
-            EventAggregator = eventAggregator;
-            _typeFoto = Preference.TypeFoto;
+            _typeFile = Preference.TypeFoto;
             _defaulPath = Preference.DefaultPath;
             _lag = Preference.Lang;
         }
@@ -32,10 +23,14 @@ namespace FotoApp.ViewModels
         #region Proportis
         private  string _defaulPath;
         private  string _lag;
-        private  string _typeFoto;
+        private  string _typeFile;
+        private bool _change = true;
         private bool _boolPath = false;
         private bool _boolLang = false;
         private bool _boolType = false;
+
+        [Required (ErrorMessage = "Pole nie ma wartości")]
+        [CustomValidation(typeof(PathValidation), "IsValid")]
         public string DefaultPath
         {
             get { return _defaulPath; }
@@ -43,29 +38,39 @@ namespace FotoApp.ViewModels
             {
                 _defaulPath = value;
                 _boolPath = true;
+                _change = false;
                 NotifyOfPropertyChange(()=> DefaultPath);
                 NotifyOfPropertyChange(()=> CanOkPath);
+                NotifyOfPropertyChange((() => CanOk));
             }
         }
-
-        public  string Lang {
+        [Required(ErrorMessage = "Pole nie ma wartości")]
+        public string Lang
+        {
             get { return _lag; }
             set
             {
                 _lag= value;
                 _boolLang = true;
+                _change = false;
                 NotifyOfPropertyChange(() => Lang);
                 NotifyOfPropertyChange((() => CanOkLang));
+                NotifyOfPropertyChange((() => CanOk));
             }
         }
-        public  string TypeFoto {
-            get { return _typeFoto; }
+        [Required(ErrorMessage = "Pole nie ma wartości")]
+        [CustomValidation(typeof(TypeValidation), "IsValid")]
+        public string TypeFile
+        {
+            get { return _typeFile; }
             set
             {
-                _typeFoto = value;
+                _typeFile = value;
                 _boolType = true;
-                NotifyOfPropertyChange(() => TypeFoto);
+                _change = false;
+                NotifyOfPropertyChange(() => TypeFile);
                 NotifyOfPropertyChange((() => CanOkType));
+                NotifyOfPropertyChange((() => CanOk));
             }
         }
 
@@ -78,22 +83,27 @@ namespace FotoApp.ViewModels
         public bool CanOkType => _boolType == true;
 
         public bool CanOkLang => _boolLang == true;
+        public bool CanOk => _boolLang == true;
 
 
         #endregion
+
         #region Actions
 
         public void OkPath()
         {
-            Preference.DefaultPath = DefaultPath;
+            var tmp = new PreferenceHelper();
+            tmp.UpdateSetings("Path", DefaultPath);
         }
         public void OkType()
         {
-            Preference.TypeFoto = TypeFoto;
+            var tmp = new PreferenceHelper();
+            tmp.UpdateSetings("Type", TypeFile);
         }
         public void OkLang()
         {
-            Preference.Lang = Lang;
+            var tmp = new PreferenceHelper();
+            tmp.UpdateSetings("Lang", Lang);
         }
         public void Ok()
         {

@@ -62,7 +62,7 @@ namespace FotoApp.ViewModels
 
         #region Constractor
 
-        public ClosingOrderViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator) :base(getFoto, eventAggregator)
+        public ClosingOrderViewModel(GetFotoViewModel getFoto) :base(getFoto)
         {
             getFoto.FinalColectionDelegat += FinalOrder;
             EventAggregator.PublishOnCurrentThread(StringEmpty());

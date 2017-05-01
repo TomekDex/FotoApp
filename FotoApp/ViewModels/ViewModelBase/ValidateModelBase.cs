@@ -11,15 +11,17 @@ namespace FotoApp.ViewModels.ViewModelBase
 {
     public abstract class ValidateModelBase : Screen, IDataErrorInfo, IValidationExceptionHandler
     {
-        private readonly Dictionary<string, Func<ValidateModelBase, object>> properytyGet;
-        private readonly Dictionary<string, ValidationAttribute[]> validatorValues;
+        private readonly Dictionary<string, Func<ValidateModelBase, object>> _properytyGet;
+        private readonly Dictionary<string, ValidationAttribute[]> _validatorValues;
+        private int _validationExceptionCount;
+        public int TotalPropertiesWithValidationCount => _validatorValues.Count();
 
         public string this[string columnName]
         {
             get
             {
-                var properytyVal = properytyGet[columnName](this);
-                var errorMessage = validatorValues[columnName]
+                var properytyVal = _properytyGet[columnName](this);
+                var errorMessage = _validatorValues[columnName]
                     .Where(v => !v.IsValid(properytyVal))
                     .Select(v => v.ErrorMessage)
                     .ToArray();
@@ -31,9 +33,9 @@ namespace FotoApp.ViewModels.ViewModelBase
         {
             get
             {
-                var errors = validatorValues
+                var errors = _validatorValues
                     .SelectMany(v => v.Value, (v, a) => new {validator = v, attribute = a})
-                    .Where(t => !t.attribute.IsValid(properytyGet[t.validator.Key](this)))
+                    .Where(t => !t.attribute.IsValid(_properytyGet[t.validator.Key](this)))
                     .Select(t => t.attribute.ErrorMessage);
                 return string.Join(Environment.NewLine, errors.ToArray());
             }
@@ -43,25 +45,23 @@ namespace FotoApp.ViewModels.ViewModelBase
         {
             get
             {
-                var query = from validator in validatorValues
-                    where validator.Value.All(attribute => attribute.IsValid(properytyGet[validator.Key](this)))
+                var query = from validator in _validatorValues
+                    where validator.Value.All(attribute => attribute.IsValid(_properytyGet[validator.Key](this)))
                     select validator;
 
-                var count = query.Count() - validationExceptionCount;
+                var count = query.Count() - _validationExceptionCount;
                 return count;
             }
         }
 
-        public int TotalPropertiesWithValidationCount => validatorValues.Count();
-
-        public ValidateModelBase()
+        protected ValidateModelBase()
         {
-            validatorValues = GetType()
+            _validatorValues = GetType()
                 .GetProperties()
                 .Where(p => GetValidations(p).Length != 0)
                 .ToDictionary(p => p.Name, p => GetValidations(p));
 
-            properytyGet = GetType()
+            _properytyGet = GetType()
                 .GetProperties()
                 .Where(p => GetValidations(p).Length != 0)
                 .ToDictionary(p => p.Name, p => GetValueGetter(p));
@@ -77,13 +77,10 @@ namespace FotoApp.ViewModels.ViewModelBase
             return viewmodel => property.GetValue(viewmodel, null);
         }
 
-        private int validationExceptionCount;
-
         public void ValidationExceptionChanged(int index)
         {
-            validationExceptionCount = index;
-            NotifyOfPropertyChange("ValidPropertiesCount");
-            ;
+            _validationExceptionCount = index;
+            NotifyOfPropertyChange(() => ValidPropertiesCount);
         }
     }
 }

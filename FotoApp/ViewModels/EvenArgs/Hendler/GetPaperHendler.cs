@@ -14,8 +14,8 @@ namespace FotoApp.ViewModels.EvenArgs.Hendler
             if (tmpGetPaper == null) throw  new NullListFotoException("Brak vidoku model");
             if (tmpArgs == null) throw  new NullGetPaperExceptin("Nie wybrana rodzaju papieru");
 
-            tmpGetPaper.Type = tmpArgs._type;
-            tmpGetPaper.Sise = tmpArgs.SizeM;
+            //tmpGetPaper.Type = tmpArgs._type;
+            //tmpGetPaper.Sise = tmpArgs.SizeM;
         }
     }
 }

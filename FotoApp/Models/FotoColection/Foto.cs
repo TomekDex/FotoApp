@@ -7,7 +7,6 @@ namespace FotoApp.Models.FotoColection
     {
         public int Index { get; set; }
         public string path { get; set; }
-        public Image image { get; set; }
         public BitmapImage bitmap { get; set; }
         public bool Chekerd { get; set; }
     }

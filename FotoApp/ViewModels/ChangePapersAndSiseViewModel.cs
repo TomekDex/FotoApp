@@ -1,13 +1,18 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
+using FotoApp.Interface;
 using FotoApp.Models.ChangePapersAnSiseModel;
+using FotoApp.Schell;
 using FotoApp.ViewModels.Actions;
-using FotoApp.ViewModels.EvenArgs;
+using FotoAppDB.DBModel;
+using Types = FotoApp.Models.ChangePapersAnSiseModel.Types;
 
 namespace FotoApp.ViewModels
 {
-    public class ChangePapersAndSiseViewModel : ViewModelBase.ViewModelBase
+    public class ChangePapersAndSiseViewModel : Screen, IViewModel
     {
+        public delegate void ChangePapers();
+        public event ChangePapers changePapers;
         #region Proportis
 
         private BindableCollection<SizeM> _siseList;
@@ -15,6 +20,7 @@ namespace FotoApp.ViewModels
         private int _type;
         private SizeM _sise;
         private GetPapers _papers;
+        private Papers papers;
         public BindableCollection<SizeM> SizeList
         {
             get { return _siseList; }
@@ -39,15 +45,12 @@ namespace FotoApp.ViewModels
 
         #region Constraktor
 
-        public ChangePapersAndSiseViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator)
-            : base(getFoto, eventAggregator)
+        public ChangePapersAndSiseViewModel(GetFotoViewModel getFoto)
+            //: base(getFoto)
         {
-
-#if DEBUG
             _papers = new GetPapers();
+            papers = new Papers();
             TypeList = _papers.GetTypes();
-            //Inicialise();
-#endif
         }
 
         #endregion
@@ -63,37 +66,30 @@ namespace FotoApp.ViewModels
                 SizeList = _papers.GetSizesByType(_papers.GetTypeByIndex(tmp.id));
             }
             NotifyOfPropertyChange(()=> SizeList);
+            papers.TypeID = tmp.id;
         }
 
         public void ChangeSize(object o)
         {
-            var tmp = o as SizeM;
-            if (tmp != null)
+            if (changePapers !=null)
             {
-                _sise = tmp;
+                var tmp = o as SizeM;
+                if (tmp != null)
+                {
+                    _sise = tmp;
+                }
+                papers.Height = tmp.Height;
+                papers.Length = tmp.Length;
+                EventAgg.Agregator.EventAggregator.PublishOnCurrentThread(papers);
+                changePapers?.Invoke();
             }
-            EventAggregator.PublishOnCurrentThread(SendPapers());
+            
         }
 
-        private IEnumerable<object> SendPapers()
+        private void cos()
         {
-            yield return _type;
-            yield return _sise;
-        }
-
-        public BindableCollection<Types> GetTypse()
-        {
-            return TypeList;
+            
         }
         #endregion
-
-#if DEBUG
-
-        private void Inicialise()
-        {
-            var init = new InitPapers();
-            TypeList = init.peperList;
-        }
-#endif
     }
 }

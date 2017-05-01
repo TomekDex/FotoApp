@@ -41,14 +41,14 @@
         <RadioButton Content="{Binding Type}" Style="{StaticResource FotoAppRadioButton}"
                      action:Message.Attach="[Event Click] = [Action ChangeType($dataContext)]"
                          
-                     Height="50"  Width="150" 
+                     Height="25"  Width="75" 
                      Margin="10,10,10,10" 
                      GroupName="Paper"/>
     </DataTemplate>
     <DataTemplate x:Key="SiseListRadoButon" DataType="{x:Type radio:SizeM}">
         <RadioButton Content="{Binding SizeText}" Style="{StaticResource FotoAppRadioButton}"
                      action:Message.Attach="[Event Click] = [Action ChangeSize($dataContext)]"
-                     Height="50"  Width="150" 
+                     Height="25"  Width="75" 
                      Margin="10,10,10,10" 
                      GroupName="Sises"/>
     </DataTemplate>
