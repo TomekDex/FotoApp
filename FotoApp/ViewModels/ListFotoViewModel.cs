@@ -1,191 +1,150 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 using Caliburn.Micro;
-using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Models.FotoColection;
 using FotoApp.ViewModels.Actions;
-using FotoApp.ViewModels.EvenArgs;
-using FotoApp.ViewModels.EvenArgs.Hendler;
 using FotoApp.ViewModels.Helpers;
-using FotoAppDB;
 using FotoAppDB.DBModel;
-using Types = FotoAppDB.DBModel.Types;
 
 namespace FotoApp.ViewModels
 {
-    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<IEnumerable<object>>, IHandle<string>
+    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<string>, IHandle<Papers>
     {
 
         private readonly GetFotoViewModel _getFoto;
-
         public delegate void GetPaperDelegate();
-
-        public event GetPaperDelegate getPaperDelegete = null;
+        public delegate void ActivCheckBox();
+        public event ActivCheckBox activCheckBox;
+        public event GetPaperDelegate getPaperDelegete;
 
         #region Propertis;
 
-        private ObservableCollection<Foto> _fotoData;
+        private BindableCollection<Foto> _curentPage;
+        private BindableCollection<Foto> _beforePage;
+        private BindableCollection<Foto> _afterPage;
 
-        public ObservableCollection<Foto> FotoData 
+        private List<string> _listFoto;
+        private Papers _paper;
+        private int _page = 1;
+        private int _countPage;
+        public BindableCollection<Foto> CurentPage 
         {
-            get { return _fotoData; }
+            get => _curentPage;
             set
             {
-                _fotoData = value;
-                NotifyOfPropertyChange(() => FotoData);
+                _curentPage = value;
+                NotifyOfPropertyChange(() => CurentPage);
             }
         }
-
-        public int Type { get; set; }
-
-        public SizeM Sise { get; set; }
-
-
-        private FinalFotoColection _finalColections;
-        private List<string> _deleteFotoList;
-
-
+       
+        public int Page
+        {
+            get => _page;
+            set
+            {
+                if (value <= 1)
+                {
+                    _page = 1;
+                }
+                else if (value > CountPage)
+                {
+                    _page = CountPage;
+                }
+                else
+                {
+                    _page = value;
+                }
+                NotifyOfPropertyChange(()=> Page);
+            }
+        }
+        public int CountPage
+        {
+            get => _countPage;
+            set
+            {
+                _countPage = value; 
+                NotifyOfPropertyChange(()=>CountPage);
+            }
+        }
         #endregion
 
         #region Constractor
-
-        public ListFotoViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator)
-            : base(getFoto, eventAggregator)
+        public ListFotoViewModel(GetFotoViewModel getFoto)
+            : base(getFoto)
         {
             var newOrder = NewOrder.New_Order;
             newOrder.CreateDirectory(Pref.Preference.DefaultPath);
             _getFoto = getFoto;
-            EventAggregator = eventAggregator;
             EventAggregator.Subscribe(this);
             getPaperDelegete?.Invoke();
-            _finalColections = new FinalFotoColection();
-            _deleteFotoList = new List<string>();
-            _getFoto.FinalColectionDelegat += GetFinalColection;
-            Handle(new GetPapers().GetDefaultPaper());
         }
 
         #endregion
 
         #region Action
 
+        public void Up()
+        {
+            Page++;
+            _beforePage = _curentPage;
+            _curentPage = _afterPage;
+            NotifyOfPropertyChange((() => CurentPage));
+            var l = new LoadFotoHelper(null);
+            _afterPage = l.LoadPageFoto(Page + 1, _listFoto);
+        }
+
+        public void Down()
+        {
+            Page--;
+            _afterPage = _curentPage;
+            _curentPage = _beforePage;
+            NotifyOfPropertyChange((() => CurentPage));
+            var l = new LoadFotoHelper(null);
+            _afterPage = l.LoadPageFoto(Page - 1, _listFoto);
+        }
+
+       
+
         public void ActiveChechBox(object itemBox)
         {
-            FotoAppRAll all = FotoAppRAll.Ins;
+            activCheckBox?.Invoke();
             var tmp = itemBox as Foto;
-            var paper = new Papers();
-            var size = new Sizes
+            var path = tmp.path;
+            var fileName = Path.GetFileName(path);
+            var foto = new FotosHelper(fileName);
+            foto.AddFoto();
+            if (_paper == null)
             {
-                Height = Sise.Height,
-                Length = Sise.Length
-            };
-            var type = new Types
-            {
-                TypeID = Type
-            };
-            paper.Types = type;
-            paper.Sizes = size;
-            paper.Height = Sise.Height;
-            paper.Length = Sise.Length;
-            paper.TypeID = Type;
-
-            if (tmp?.Chekerd == true)
-            {
-
-                var path = tmp.path;
-                var fileName = Path.GetFileName(path);
-                var foto = new FinalFoto
-                {
-                    NumbersOfFoto = 1,
-                    Index = tmp.Index,
-                    FullPathOfFoto = path,
-                    NameOfFoto = fileName,
-                };
-                _finalColections.FotoColection.Add(foto);
-                EventAggregator.PublishOnCurrentThread(true);
-
-                var copyFoto = CopyFotoHelper.CopyFoto;
-                copyFoto.Add(path);
-                _deleteFotoList.Remove(path);
+                _paper = GetPapers.GetDefaultPaper();
             }
-            else
-            {
-                var removeTmp = _finalColections.FotoColection.FirstOrDefault(e => tmp != null && e.Index == tmp.Index);
-                _finalColections.FotoColection.Remove(removeTmp);
-                if (1 == _finalColections.FotoColection.Select(x => tmp != null && x.NameOfFoto == tmp.path).Count())
-                    _deleteFotoList.Add(tmp.path);
-                EventAggregator.PublishOnCurrentThread(_finalColections.FotoColection.Count != 0);
-            }
+            var orederFoto = new OrderFotoHelper(foto.Foto, _paper, 1);
+            orederFoto.AddOrderFoto();
+            var ord = new OrderFotoDisplayHelper(_paper,tmp.bitmap,1);
+            ord.Publish();
+            EventAggregator.PublishOnCurrentThread(true);
+            EventAggregator.PublishOnCurrentThread(tmp.bitmap);
+            EventAggregator.PublishOnCurrentThread(foto.Foto);
+            EventAggregator.PublishOnCurrentThread(_paper);
+            EventAggregator.Unsubscribe(this);
+            var copyFoto = CopyFotoHelper.CopyFoto;
+            copyFoto.Add(path);
         }
-
-        public void GetFinalColection()
-        {
-            var tmp = new GetFoto();
-            var hendler = new GetFotoHendler();
-            tmp.getFotoDelegate += hendler.GetGoto;
-            tmp.GetFotoColection(_getFoto, _finalColections);
-        }
-
-        public void Handle(IEnumerable<object> message)
-        {
-            var list = message.ToList();
-            if (list != null)
-            {
-                Type = (int) list[0];
-                Sise = list[1] as SizeM;
-            }
-        }
-
         public void Handle(string message)
         {
-            FotoData = new ObservableCollection<Foto>();
-            var f = new Foto();
+            CurentPage = new BindableCollection<Foto>();
             var l = new LoadFotoHelper(message);
-
-            var t = l.LoadFoto;
-            var i = new object();
-            var index = 1;
-            foreach (var tmp in t)
-            {
-                var w = new Foto
-                {
-                    Index = index++,
-                    path = tmp
-                };
-                FotoData.Add(w);
-                TaskMethod(tmp,w);
-                //Task.Factory.StartNew(() => TaskMethod(tmp, w));
-                NotifyOfPropertyChange("FotoData");
-            }
+            _listFoto = l.ActivLoadFoto();
+            CountPage = _listFoto.Count / 12 + 1;
+            _curentPage = l.LoadPageFoto(1, _listFoto);
+            NotifyOfPropertyChange(() => CurentPage);
+            _afterPage = l.LoadPageFoto(2, _listFoto);
         }
+       #endregion
 
-        private void TaskMethod(string tmp, Foto w)
+        public void Handle(Papers message)
         {
-            using (var fs = new FileStream(tmp, FileMode.Open, FileAccess.Read))
-            {
-                var ms = new MemoryStream();
-                var img = new Bitmap(fs);
-                var s = img.Height / 300;
-                if (s == 0)
-                    s = 1;
-                var minImg = (Image) new Bitmap(img, img.Width / s, img.Height / s);
-                minImg.Save(ms, ImageFormat.Jpeg);
-                var bImg = new BitmapImage();
-                bImg.BeginInit();
-                bImg.StreamSource = new MemoryStream(ms.ToArray());
-                bImg.EndInit();
-                w.bitmap = bImg;
-                fs.Close();
-                ms.Close();
-            }
+            _paper = message;
         }
-    #endregion
     }
 }

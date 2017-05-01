@@ -22,7 +22,7 @@ namespace FotoApp.Schell
             _onClose = false;
             base.DisplayName = "FotoApp";
 #if DEBUG
-            ActivateItem(new GetFotoViewModel(this, EventAggregator));
+            ActivateItem(new GetFotoViewModel(this));
 #endif
         }
 

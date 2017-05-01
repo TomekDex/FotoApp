@@ -15,9 +15,9 @@ namespace FotoApp.ViewModels.EvenArgs.Hendler
 
             if (tmp == null) throw new NullListFotoException("brak danych kontaktowych");
 
-            finalOreder.FotoCollection.CustomerName = tmp.Name;
+           /* finalOreder.FotoCollection.CustomerName = tmp.Name;
             finalOreder.FotoCollection.CustomerMail = tmp.Mail;
-            finalOreder.FotoCollection.CustomerPhoneNumber = tmp.Phone;
+            finalOreder.FotoCollection.CustomerPhoneNumber = tmp.Phone;*/
         }
     }
 }

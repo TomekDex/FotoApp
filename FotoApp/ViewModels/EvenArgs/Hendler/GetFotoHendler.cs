@@ -15,7 +15,7 @@ namespace FotoApp.ViewModels.EvenArgs.Hendler
 
             if (tmp == null) throw new NullListFotoException("Brak zdiec do zamuwienia");
             
-            tmpGetFoto.FotoCollection = tmp.FinalColections;
+            //*/tmpGetFoto.FotoCollection = tmp.FinalColections;
         }
     }
 }

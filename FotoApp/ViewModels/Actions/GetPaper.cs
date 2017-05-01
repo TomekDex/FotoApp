@@ -71,10 +71,13 @@ namespace FotoApp.ViewModels.Actions
             return defSize;
         }
 
-        public IEnumerable<object> GetDefaultPaper()
+        public static Papers GetDefaultPaper()
         {
-            yield return 1;
-            yield return GetSizes();
+            var papers = new Papers();
+            papers.TypeID = 1;
+            papers.Height = 900;
+            papers.Length = 1300;
+            return papers;
         }
     }
 }

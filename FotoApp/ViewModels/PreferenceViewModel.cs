@@ -12,7 +12,7 @@ namespace FotoApp.ViewModels
     {
         #region Constractor
 
-        public PreferenceViewModel( ) : base(null, null)
+        public PreferenceViewModel( ) : base(null)
         {
             _typeFile = Preference.TypeFoto;
             _defaulPath = Preference.DefaultPath;
