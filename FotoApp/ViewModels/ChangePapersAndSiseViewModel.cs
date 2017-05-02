@@ -9,7 +9,7 @@ using Types = FotoApp.Models.ChangePapersAnSiseModel.Types;
 
 namespace FotoApp.ViewModels
 {
-    public class ChangePapersAndSiseViewModel : Screen, IViewModel
+    public class ChangePapersAndSiseViewModel : ViewModelBase.ViewModelBase, IViewModel
     {
         public delegate void ChangePapers();
         public event ChangePapers changePapers;
@@ -46,7 +46,7 @@ namespace FotoApp.ViewModels
         #region Constraktor
 
         public ChangePapersAndSiseViewModel(GetFotoViewModel getFoto)
-            //: base(getFoto)
+            : base(getFoto)
         {
             _papers = new GetPapers();
             papers = new Papers();

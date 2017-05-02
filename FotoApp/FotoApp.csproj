@@ -115,13 +115,10 @@
     <Compile Include="ViewModels\ChangePapersAndSiseViewModel.cs" />
     <Compile Include="ViewModels\ClosingOrderViewModel.cs" />
     <Compile Include="ViewModels\EvenArgs\Args\FinalOrderArgs.cs" />
-    <Compile Include="ViewModels\EvenArgs\Args\GetFotoArgs.cs" />
     <Compile Include="ViewModels\EvenArgs\Args\GetPaperArgs.cs" />
     <Compile Include="ViewModels\EvenArgs\FinalOrder.cs" />
-    <Compile Include="ViewModels\EvenArgs\GetFoto.cs" />
     <Compile Include="ViewModels\EvenArgs\GetPaper.cs" />
     <Compile Include="ViewModels\EvenArgs\Hendler\FinalOrderHendler.cs" />
-    <Compile Include="ViewModels\EvenArgs\Hendler\GetFotoHendler.cs" />
     <Compile Include="ViewModels\EvenArgs\Hendler\GetPaperHendler.cs" />
     <Compile Include="ViewModels\Exception\NullContactsOrderException.cs" />
     <Compile Include="ViewModels\Exception\NullGetFotoException.cs" />

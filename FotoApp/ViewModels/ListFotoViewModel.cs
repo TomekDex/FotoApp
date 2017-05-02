@@ -120,7 +120,7 @@ namespace FotoApp.ViewModels
             }
             var orederFoto = new OrderFotoHelper(foto.Foto, _paper, 1);
             orederFoto.AddOrderFoto();
-            var ord = new OrderFotoDisplayHelper(_paper,tmp.bitmap,1);
+            var ord = new OrderFotoDisplayHelper(_paper,tmp.bitmap, foto.Foto,1);
             ord.Publish();
             EventAggregator.PublishOnCurrentThread(true);
             EventAggregator.PublishOnCurrentThread(tmp.bitmap);

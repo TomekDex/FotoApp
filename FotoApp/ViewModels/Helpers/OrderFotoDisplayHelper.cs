@@ -17,17 +17,19 @@ namespace FotoApp.ViewModels.Helpers
         private Papers _papers;
         private BitmapImage _image;
         private int _quantity;
+        private Fotos _foto;
         /// <summary>
         /// tworzy obraz w liscie zamówien
         /// </summary>
         /// <param name="papers">zdefinowaby apier</param>
         /// <param name="image">obraz</param>
         /// <param name="quantity">ilość</param>
-        public OrderFotoDisplayHelper(Papers papers, BitmapImage image, int quantity)
+        public OrderFotoDisplayHelper(Papers papers, BitmapImage image, Fotos foto, int quantity)
         {
             _papers = papers;
             _image = image;
             _quantity = quantity;
+            _foto = foto;
         }
 
         public OrderFotoDisplayHelper()
@@ -48,6 +50,7 @@ namespace FotoApp.ViewModels.Helpers
             or.Paper = _papers;
             or.Quantity = _quantity;
             or.Image = _image;
+            or.Foto = _foto;
             EventAgg.Agregator.EventAggregator.PublishOnCurrentThread(or);
         }
         /// <summary>

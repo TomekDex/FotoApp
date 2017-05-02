@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using FotoApp.Models.FotoColection;
+using FotoApp.ViewModels.Actions;
+using FotoApp.ViewModels.Helpers;
+using FotoAppDB.DBModel;
 
 namespace FotoApp.ViewModels
 {
@@ -22,15 +25,17 @@ namespace FotoApp.ViewModels
             }
         }
 
-        public OrderViewModel(GetFotoViewModel _getFoto) : base(_getFoto)
+        public OrderViewModel(GetFotoViewModel getFoto) : base(getFoto)
         {
             EventAggregator.Subscribe(this);
             _orderFotoColection = new BindableCollection<OrderFoto>();
         }
 
-        public void DelOrderFoto(object o)
+        public void Del(object o)
         {
-            
+            var tmp = o as OrderFoto;
+            var of = new OrderFotoHelper(tmp.Foto, tmp.Paper, tmp.Quantity);
+            of.DelOrderfoto();
         }
 
         public void Handle(OrderFoto message)

@@ -73,6 +73,11 @@ namespace FotoApp.ViewModels.Actions
         public void DeleteNewOrders()
         {
             FotoAppRAll all = FotoAppRAll.Ins;
+            /*var delFoto = all.OrderFotos.AllFotosInOrder(_orders);
+            foreach (var e in delFoto)
+            {
+                var foto = all.Fotos.Get(e);
+            }*/
             all.Orders.Delete(_orders);
             Directory.Delete(_finalPath, true);
         }
