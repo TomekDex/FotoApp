@@ -25,12 +25,7 @@ namespace FotoApp.ViewModels
 
 
         #region Delegate
-
-        public delegate void FinalColectionDelegate();
-
-        public event FinalColectionDelegate FinalColectionDelegat;
-         public delegate void ChangePapers();
-
+        public delegate void ChangePapers();
         public event ChangePapers changePapers;
         #endregion
 
@@ -197,7 +192,6 @@ namespace FotoApp.ViewModels
             if (!_closingOrder)
             {
                 _closingOrder = true;
-                FinalColectionDelegat?.Invoke();
                 MainPanel = new ClosingOrderViewModel(this);
                 NotifyPanel();
             }
@@ -205,7 +199,6 @@ namespace FotoApp.ViewModels
             {
                 _closingOrder = false;
                 _activOkButton = false;
-                FinalColectionDelegat?.Invoke();
                 MainPanel = null;
                 NotifyPanel();
                 NotifyCanOk();
@@ -215,6 +208,7 @@ namespace FotoApp.ViewModels
         public void Cancel()
         {
             MainPanel = null;
+            LeftPanel = null;
             RightPanel = null;
             var order = NewOrder.New_Order;
             order.DeleteNewOrders();

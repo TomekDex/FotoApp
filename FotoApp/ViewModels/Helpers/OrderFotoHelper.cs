@@ -70,5 +70,14 @@ namespace FotoApp.ViewModels.Helpers
             all.OrderFotos.AddOrUpdate(order);
             all.OrderFotos.Save();
         }
+
+        public void DelOrderfoto()
+        {
+            var all = FotoAppRAll.Ins;
+            CreateOrder(all);
+            var del = all.OrderFotos.Get(_orderFoto);
+            all.OrderFotos.Delete(del);
+            all.OrderFotos.Save();
+        }
     }
 }

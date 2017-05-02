@@ -64,7 +64,6 @@ namespace FotoApp.ViewModels
 
         public ClosingOrderViewModel(GetFotoViewModel getFoto) :base(getFoto)
         {
-            getFoto.FinalColectionDelegat += FinalOrder;
             EventAggregator.PublishOnCurrentThread(StringEmpty());
         }
 
