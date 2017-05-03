@@ -8,7 +8,7 @@ namespace FotoApp.Models.ChangePapersAnSiseModel
     {
         public int id { get; set; }
         public  string Type { get; set; }
-        public BindableCollection<Sizes> listSises { get; set; }
+        public BindableCollection<SizeM> listSises { get; set; }
 
     }
 }

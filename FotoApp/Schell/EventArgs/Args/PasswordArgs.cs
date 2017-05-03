@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FotoApp.Schell.EventArgs
+﻿namespace FotoApp.Schell.EventArgs.Args
 {
     public class PasswordArgs : System.EventArgs
     {

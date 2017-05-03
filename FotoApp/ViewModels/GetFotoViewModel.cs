@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Management;
+using System.Threading;
 using Caliburn.Micro;
 using FotoApp.Interface;
-using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Models.FotoColection;
 using FotoApp.Schell;
+using FotoApp.ViewModels.Actions;
 
 namespace FotoApp.ViewModels
 {
@@ -12,14 +15,18 @@ namespace FotoApp.ViewModels
     {
         public IEventAggregator EventAggregator { get; set; }
         public IViewModel MainPanel { get; set; }
-        public IViewModel SelectPaperPanel { get; set; }
-        
+        public IViewModel RightPanel { get; set; }
+        public IViewModel LeftPanel { get; set; }
+
+        private string _pathUsb1 = @"e:\";
+        private string _pathUsb2;
+        private string _pathCd;
+        private string _pathMemmory = @"d:\";
+
+
         #region Delegate
-
-        public delegate void FinalColectionDelegate();
-
-        public event FinalColectionDelegate FinalColectionDelegat;
-
+        public delegate void ChangePapers();
+        public event ChangePapers changePapers;
         #endregion
 
         #region  Propertis
@@ -28,21 +35,15 @@ namespace FotoApp.ViewModels
         private string _discount;
         private int _count = 12;
         private bool _closingOrder;
-        private FinalFotoColection _finalFotoColection;
         private int? _type;
-        private bool? activOkButton;
+        private bool? _activOkButton;
+        private bool? _activUsb1;
+        private bool? _activUsb2;
+        private bool? _activCd;
+        private bool? _activMemmoryCard;
         private SchellViewModel schell;
 
-        public FinalFotoColection FotoCollection
-        {
-            get { return _finalFotoColection; }
-            set
-            {
-                _finalFotoColection = value;
-                NotifyOfPropertyChange(() => FotoCollection);
-                NotifyOfPropertyChange(() => CanCd);
-            }
-        }
+       
 
         public string Price
         {
@@ -78,27 +79,29 @@ namespace FotoApp.ViewModels
 
         #region CanProportis
 
-        public bool CanUsb1 => true;
+        public bool CanUsb1 => _activUsb1 == true;
 
-        public bool CanUsb2 => true;
+        public bool CanUsb2 => _activUsb1 == true;
 
-        public bool CanCd => true;
+        public bool CanCd => _activCd == true;
 
-        public bool CanCart => true;
+        public bool CanCart => _activMemmoryCard == true;
 
-        public bool CanOk => _type != null &&  activOkButton == true;
+        public bool CanOk => _type != null &&  _activOkButton == true;
 
         #endregion
 
         #region Constractor
 
-        public GetFotoViewModel(SchellViewModel schell, IEventAggregator eventAggregator)
+        public GetFotoViewModel(SchellViewModel schell)
         {
             this.schell = schell;
-            EventAggregator = eventAggregator;
+            var EA = EventAgg.Agregator;
+            EventAggregator = EA.EventAggregator;
             EventAggregator.Subscribe(this);
-            FotoCollection = new FinalFotoColection();
+            EventAggregator.PublishOnCurrentThread(_pathUsb1);
             _type = null;
+            ActivWmiEvent();
 #if DEBUG
             _discount = "kjsdhsdkjfhsdkfs";
             _price = "klsdfjskdfhsdf";
@@ -111,58 +114,115 @@ namespace FotoApp.ViewModels
 
         public void Usb1()
         {
-            MainPanel = new ListFotoViewModel(this, EventAggregator);
-            SelectPaperPanel = new ChangePapersAndSiseViewModel(this, EventAggregator);
+            if (null == MainPanel)
+                MainPanel = new ListFotoViewModel(this);
+            if (null == RightPanel)
+                RightPanel = new ChangePapersAndSiseViewModel(this);
+            if (null == LeftPanel)
+                LeftPanel = new FotoInfoViewModel(this);
+            NotifyPanel();
             _closingOrder = false;
-            NotifyMainPanel();
-            NotifySelectPaperPanel();
+            EventAggregator.PublishOnCurrentThread(_pathUsb1);
         }
 
         public void Usb2()
         {
-            MainPanel = new ListFotoViewModel(this, EventAggregator);
+            if (null == MainPanel)
+                MainPanel = new ListFotoViewModel(this);
+            if (null == RightPanel)
+                RightPanel = new ChangePapersAndSiseViewModel(this);
+            if (null == LeftPanel)
+                LeftPanel = new FotoInfoViewModel(this);
             _closingOrder = false;
+            NotifyPanel();
+            EventAggregator.PublishOnCurrentThread(_pathUsb2);
         }
 
         public void Cd()
         {
-            MainPanel = new ListFotoViewModel(this, EventAggregator);
+            if (null == MainPanel)
+                MainPanel = new ListFotoViewModel(this);
+            if (null == RightPanel)
+                RightPanel = new ChangePapersAndSiseViewModel(this);
+            if (null == LeftPanel)
+                LeftPanel = new FotoInfoViewModel(this);
             _closingOrder = false;
+            NotifyPanel();
+            EventAggregator.PublishOnCurrentThread(_pathCd);
         }
 
         public void Cart()
         {
-            MainPanel = new ListFotoViewModel(this, EventAggregator);
+            var m = new ListFotoViewModel(this);
+            MainPanel = m;
+            m.activCheckBox += ActivLeftPanel;
+            m.activCheckBox += ActiveRightPanel;
+
+            var r = new ChangePapersAndSiseViewModel(this);
+            RightPanel = r;
+            r.changePapers += ActiveRightPanel;
+
             _closingOrder = false;
+            NotifyPanel();
+            EventAggregator.PublishOnCurrentThread(_pathMemmory);
         }
 
+        private void ActivLeftPanel()
+        {
+            LeftPanel = new FotoInfoViewModel(this);
+            var m = MainPanel as ListFotoViewModel;
+            m.activCheckBox -= ActivLeftPanel;
+
+            NotifyPanel();
+        }
+
+        private void ActiveRightPanel()
+        {
+            
+            var r =  RightPanel as ChangePapersAndSiseViewModel;
+            if (r != null)
+            {
+                r.changePapers -= ActiveRightPanel;
+                RightPanel = new OrderViewModel(this);
+                NotifyPanel();
+            }
+        }
         public void Ok()
         {
             if (!_closingOrder)
             {
                 _closingOrder = true;
-                FinalColectionDelegat?.Invoke();
-                MainPanel = new ClosingOrderViewModel(this, EventAggregator);
-                NotifyMainPanel();
+                MainPanel = new ClosingOrderViewModel(this);
+                NotifyPanel();
             }
             else
             {
                 _closingOrder = false;
-                activOkButton = false;
-                FinalColectionDelegat?.Invoke();
-                EventAggregator.PublishOnCurrentThread(FotoCollection);
+                _activOkButton = false;
                 MainPanel = null;
-                NotifyMainPanel();
+                NotifyPanel();
                 NotifyCanOk();
             }
         }
-        private void NotifyMainPanel()
+
+        public void Cancel()
+        {
+            MainPanel = null;
+            LeftPanel = null;
+            RightPanel = null;
+            var order = NewOrder.New_Order;
+            order.DeleteNewOrders();
+            NotifyCanOk();
+            NotifyPanel();
+        }
+        
+
+        
+        private void NotifyPanel()
         {
             NotifyOfPropertyChange(() => MainPanel);
-        }
-        private void NotifySelectPaperPanel()
-        {
-            NotifyOfPropertyChange(() => SelectPaperPanel);
+            NotifyOfPropertyChange(() => RightPanel);
+            NotifyOfPropertyChange(() => LeftPanel);
         }
         private void NotifyCanOk()
         {
@@ -180,9 +240,233 @@ namespace FotoApp.ViewModels
 
         public void Handle(bool message)
         {
-            activOkButton = message;
+            _activOkButton = message;
             NotifyOfPropertyChange(() => CanOk);
         }
         #endregion
+
+        #region WMIEvent
+        private void ActivWmiEvent()
+        {
+            AddInsertMemmoryCardHandler();
+            AddRemoveMemmoryCardHandler();
+            AddInsertUSBHandler();
+            AddRemoveUSBHandler();
+            AddRemoweInsertCdRomHandler();
+        }
+
+        #region Cdrom
+
+        public void AddRemoweInsertCdRomHandler()
+        {
+            ManagementEventWatcher w = null;
+            WqlEventQuery q;
+            var observer = new
+                ManagementOperationObserver();
+
+            // Bind to local machine
+            var opt = new ConnectionOptions();
+            opt.EnablePrivileges = true; //sets required privilege
+            var scope = new ManagementScope("root\\CIMV2", opt);
+
+            try
+            {
+                q = new WqlEventQuery();
+                q.EventClassName = "__InstanceModificationEvent";
+                q.WithinInterval = new TimeSpan(0, 0, 1);
+
+                // DriveType - 5: CDROM
+                q.Condition = @"TargetInstance ISA 'Win32_LogicalDisk' and TargetInstance.DriveType = 5";
+                w = new ManagementEventWatcher(scope, q);
+
+                // register async. event handler
+                w.EventArrived += CdrEventArrived;
+                w.Start();
+
+                // Do something usefull,block thread for testing
+                Console.ReadLine();
+            }
+            catch (System.Exception)
+            {
+            }
+            finally
+            {
+                w.Stop();
+            }
+        }
+
+        #endregion
+
+        #region USB
+
+        public void AddRemoveUSBHandler()
+        {
+            ManagementEventWatcher w = null;
+
+            WqlEventQuery q;
+            var opt = new ConnectionOptions();
+
+            var scope = new ManagementScope("root\\CIMV2");
+            scope.Options.EnablePrivileges = true;
+
+            try
+            {
+                q = new WqlEventQuery();
+                q.EventClassName = "__InstanceDeletionEvent";
+                q.WithinInterval = new TimeSpan(0, 0, 3);
+                q.Condition = "TargetInstance ISA 'Win32_USBControllerdevice'";
+                w = new ManagementEventWatcher(scope, q);
+                w.EventArrived += USBRemoved;
+
+                w.Start();
+            }
+            catch (System.Exception)
+            {
+                if (w != null)
+                    w.Stop();
+            }
+        }
+
+        public void AddInsertUSBHandler()
+        {
+            ManagementEventWatcher w = null;
+
+            var observer = new ManagementOperationObserver();
+
+            WqlEventQuery q;
+
+            var scope = new ManagementScope("root\\CIMV2");
+            scope.Options.EnablePrivileges = true;
+
+            try
+            {
+                q = new WqlEventQuery();
+                q.EventClassName = "__InstanceCreationEvent";
+                q.WithinInterval = new TimeSpan(0, 0, 3);
+                q.Condition = "TargetInstance ISA 'Win32_USBControllerdevice'";
+                w = new ManagementEventWatcher(scope, q);
+                w.EventArrived += USBInserted;
+
+                w.Start();
+            }
+            catch (System.Exception)
+            {
+                if (w != null)
+                    w.Stop();
+            }
+        }
+
+        #endregion
+
+        #region MemmoryCard
+
+        public void AddRemoveMemmoryCardHandler()
+        {
+            ManagementEventWatcher w = null;
+
+            WqlEventQuery q;
+            var opt = new ConnectionOptions();
+
+            var scope = new ManagementScope("root\\CIMV2");
+            scope.Options.EnablePrivileges = true;
+
+            try
+            {
+                q = new WqlEventQuery();
+                q.EventClassName = "__InstanceDeletionEvent";
+                q.WithinInterval = new TimeSpan(0, 0, 3);
+                q.Condition = "TargetInstance ISA 'Win32_PhysicalMedia'";
+                w = new ManagementEventWatcher(scope, q);
+                w.EventArrived += MemmoryCartRemoved;
+
+                w.Start();
+            }
+            catch (System.Exception)
+            {
+                if (w != null)
+                    w.Stop();
+            }
+        }
+
+        public void AddInsertMemmoryCardHandler()
+        {
+            ManagementEventWatcher w = null;
+
+            var observer = new ManagementOperationObserver();
+
+            WqlEventQuery q;
+            var opt = new ConnectionOptions();
+
+            var scope = new ManagementScope("root\\CIMV2", opt);
+            scope.Options.EnablePrivileges = true;
+
+            try
+            {
+                q = new WqlEventQuery();
+                q.EventClassName = "__InstanceCreationEvent";
+                q.WithinInterval = new TimeSpan(0, 0, 3);
+                q.Condition = "TargetInstance ISA 'Win32_PhysicalMedia'";
+                w = new ManagementEventWatcher(scope, q);
+                w.EventArrived += MemmoryCartInserted;
+
+                w.Start();
+            }
+            catch (System.Exception)
+            {
+                if (w != null)
+                    w.Stop();
+            }
+        }
+
+        #endregion
+
+        private void USBInserted(object sender, System.EventArgs e)
+        {
+            _activUsb1 = true;
+            _activUsb2 = true;
+            NotifyOfPropertyChange((() => CanUsb1));
+            NotifyOfPropertyChange((() => CanUsb2));
+        }
+
+        private void USBRemoved(object sender, System.EventArgs e)
+        {
+            _activUsb1 = false;
+            _activUsb2 = false;
+            NotifyOfPropertyChange((() => CanUsb1));
+            NotifyOfPropertyChange((() => CanUsb2));
+        }
+        private void MemmoryCartInserted(object sender, System.EventArgs e)
+        {
+            _activMemmoryCard = true;
+            NotifyOfPropertyChange((() => CanCart));
+        }
+
+        private void MemmoryCartRemoved(object sender, System.EventArgs e)
+        {
+            _activMemmoryCard = false;
+            NotifyOfPropertyChange((() => CanCart));
+        }
+
+        private void CdrEventArrived(object sender, EventArrivedEventArgs e)
+        {
+            var pd = e.NewEvent.Properties["TargetInstance"];
+
+            if (pd != null)
+            {
+                var mbo = pd.Value as ManagementBaseObject;
+                if (mbo.Properties["VolumeName"].Value != null)
+                {
+                    _activCd = true;
+                    NotifyOfPropertyChange((() => CanCd));
+                }
+            }
+            else
+            {
+                _activCd = false;
+                NotifyOfPropertyChange((() => CanCd));
+            }
+        }
+        #endregion
+
     }
 }

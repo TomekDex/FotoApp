@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using FotoApp.Interface;
+using FotoApp.Schell;
 
 namespace FotoApp.ViewModels.ViewModelBase
 {
@@ -7,7 +8,7 @@ namespace FotoApp.ViewModels.ViewModelBase
     {
         private bool _isValid;
         public IEventAggregator EventAggregator { get; set; }
-       protected readonly GetFotoViewModel _getFoto;
+        protected readonly GetFotoViewModel _getFoto;
 
 
         public bool IsValid
@@ -16,15 +17,16 @@ namespace FotoApp.ViewModels.ViewModelBase
             set
             {
                 _isValid = value;
-                NotifyOfPropertyChange(()=>IsValid);
+                NotifyOfPropertyChange(() => IsValid);
             }
         }
 
 
-       public ViewModelBase(GetFotoViewModel _getFoto, IEventAggregator eventAggregator )
-       {
-           this._getFoto = _getFoto;
-           EventAggregator = eventAggregator;
-       }
+        public ViewModelBase(GetFotoViewModel _getFoto)
+        {
+            this._getFoto = _getFoto;
+            var EA = EventAgg.Agregator;
+            EventAggregator = EA.EventAggregator;
+        }
     }
 }

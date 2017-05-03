@@ -1,8 +1,8 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using FotoApp.Interface;
 using FotoApp.Schell;
 using FotoApp.Schell.EventArgs;
+using FotoApp.Schell.EventArgs.Hendler;
 
 namespace FotoApp.ViewModels
 {
@@ -13,17 +13,19 @@ namespace FotoApp.ViewModels
 
         public IViewModel MainPanel
         {
-            get => MainPanel;
+            get { return MainPanel; } 
             set
             {
-                MainPanel = value ?? throw new ArgumentNullException(nameof(value));
+                MainPanel = value;
                 NotifyOfPropertyChange(() => MainPanel);
             }
         }
 
         public delegate void OnCosingDelegate();
 
+        public delegate void OnPreferenceDelegate();
         public event OnCosingDelegate OnClosing;
+        public event OnPreferenceDelegate OnPreference;
 
         #region Proportis
 
@@ -31,7 +33,7 @@ namespace FotoApp.ViewModels
 
         public string Password
         {
-            get => _password;
+            get { return _password; }
             set
             {
                 _password = value;
@@ -58,18 +60,25 @@ namespace FotoApp.ViewModels
         {
             var log = new StartOrClose();
 
-            if (null == OnClosing)
+            if (null != OnClosing)
             {
-                var hendler = new LogInHendler();
-                log.startOrCloseDelegate += hendler.StartOrClose;
+                var hendler = new OnColseHendler();
+                log.startOrCloseDelegate += hendler.OnClosing;
+                log.OnStart(null, Password);
+            }
+            else if (null != OnPreference)
+            {
+                var hendler = new PreferenceHendler();
+                log.startOrCloseDelegate += hendler.OnPreference;
                 log.OnStart(_schell, Password);
                 NotifyOfPropertyChange(() => MainPanel);
             }
             else
             {
-                var hendler = new OnColseHendler();
-                log.startOrCloseDelegate += hendler.OnClosing;
-                log.OnStart(null, Password);
+                var hendler = new LogInHendler();
+                log.startOrCloseDelegate += hendler.StartOrClose;
+                log.OnStart(_schell, Password);
+                NotifyOfPropertyChange(() => MainPanel);
             }
         }
 

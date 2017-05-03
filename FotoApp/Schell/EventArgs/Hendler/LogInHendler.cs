@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FotoApp.Properties;
+using FotoApp.Schell.EventArgs.Args;
 using FotoApp.ViewModels;
 
-namespace FotoApp.Schell.EventArgs
+namespace FotoApp.Schell.EventArgs.Hendler
 {
     public class LogInHendler
     {
@@ -18,7 +19,7 @@ namespace FotoApp.Schell.EventArgs
 
             if (pass != null && pass.Password == Resources.Password)
             {
-                schell?.ActivateItem(new GetFotoViewModel(schell, schell.EventAggregator));
+                schell?.ActivateItem(new GetFotoViewModel(schell));
             }
         }
     }

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FotoApp.ViewModels.EvenArgs.Args;
 using FotoApp.ViewModels.Exception;
 
-namespace FotoApp.ViewModels.EvenArgs
+namespace FotoApp.ViewModels.EvenArgs.Hendler
 {
     public class FinalOrderHendler
     {
@@ -18,9 +15,9 @@ namespace FotoApp.ViewModels.EvenArgs
 
             if (tmp == null) throw new NullListFotoException("brak danych kontaktowych");
 
-            finalOreder.FotoCollection.CustomerName = tmp.Name;
+           /* finalOreder.FotoCollection.CustomerName = tmp.Name;
             finalOreder.FotoCollection.CustomerMail = tmp.Mail;
-            finalOreder.FotoCollection.CustomerPhoneNumber = tmp.Phone;
+            finalOreder.FotoCollection.CustomerPhoneNumber = tmp.Phone;*/
         }
     }
 }

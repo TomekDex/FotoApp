@@ -15,17 +15,24 @@
        
 
     </Window.Resources>
-    
+   
     <Grid>
         <i:Interaction.Triggers>
             <common:ImputBindingTrigger>
                 <common:ImputBindingTrigger.PropertyType>
                     <KeyBinding Key="Q" Modifiers="Control+Shift"/>
                 </common:ImputBindingTrigger.PropertyType>
-                <cal:ActionMessage MethodName="OnClosing"></cal:ActionMessage>
+                <cal:ActionMessage MethodName="OnClosing"/>
+            </common:ImputBindingTrigger>
+            <common:ImputBindingTrigger>
+                <common:ImputBindingTrigger.PropertyType>
+                    <KeyBinding Key="P" Modifiers="Control+Shift"/>
+                </common:ImputBindingTrigger.PropertyType>
+                <cal:ActionMessage MethodName="OnPreference"/>
             </common:ImputBindingTrigger>
         </i:Interaction.Triggers>
-
+        
+       
         <ContentControl x:Name="ActiveItem" />
     </Grid>
 </Window>

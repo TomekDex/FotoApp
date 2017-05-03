@@ -1,283 +1,150 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Windows.Media.Imaging;
 using Caliburn.Micro;
-using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Models.FotoColection;
 using FotoApp.ViewModels.Actions;
-using FotoApp.ViewModels.EvenArgs;
+using FotoApp.ViewModels.Helpers;
+using FotoAppDB.DBModel;
 
 namespace FotoApp.ViewModels
 {
-    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<IEnumerable<object>>
+    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<string>, IHandle<Papers>
     {
 
         private readonly GetFotoViewModel _getFoto;
-
         public delegate void GetPaperDelegate();
-
-        public event GetPaperDelegate getPaperDelegete = null;
+        public delegate void ActivCheckBox();
+        public event ActivCheckBox activCheckBox;
+        public event GetPaperDelegate getPaperDelegete;
 
         #region Propertis;
 
-        private BindableCollection<Foto> _fotoData;
+        private BindableCollection<Foto> _curentPage;
+        private BindableCollection<Foto> _beforePage;
+        private BindableCollection<Foto> _afterPage;
 
-        public BindableCollection<Foto> FotoData
+        private List<string> _listFoto;
+        private Papers _paper;
+        private int _page = 1;
+        private int _countPage;
+        public BindableCollection<Foto> CurentPage 
         {
-            get { return _fotoData; }
+            get => _curentPage;
             set
             {
-                _fotoData = value;
-                NotifyOfPropertyChange(() => FotoData);
+                _curentPage = value;
+                NotifyOfPropertyChange(() => CurentPage);
             }
         }
-
-        public int Type { get; set; }
-
-        public Sizes Sise { get; set; }
-
-        private FinalFotoColection _finalColections;
-
+       
+        public int Page
+        {
+            get => _page;
+            set
+            {
+                if (value <= 1)
+                {
+                    _page = 1;
+                }
+                else if (value > CountPage)
+                {
+                    _page = CountPage;
+                }
+                else
+                {
+                    _page = value;
+                }
+                NotifyOfPropertyChange(()=> Page);
+            }
+        }
+        public int CountPage
+        {
+            get => _countPage;
+            set
+            {
+                _countPage = value; 
+                NotifyOfPropertyChange(()=>CountPage);
+            }
+        }
         #endregion
 
         #region Constractor
-
-        public ListFotoViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator)
-            : base(getFoto, eventAggregator)
+        public ListFotoViewModel(GetFotoViewModel getFoto)
+            : base(getFoto)
         {
+            var newOrder = NewOrder.New_Order;
+            newOrder.CreateDirectory(Pref.Preference.DefaultPath);
             _getFoto = getFoto;
-            EventAggregator = eventAggregator;
             EventAggregator.Subscribe(this);
             getPaperDelegete?.Invoke();
-            _finalColections = new FinalFotoColection();
-            _getFoto.FinalColectionDelegat += GetFinalColection;
-            Handle(new GetPapers().GetDefaultPaper());
-
-#if DEBUG
-            Inicialice();
-#endif
         }
 
         #endregion
 
         #region Action
 
-#if DEBUG
-
-        private void Inicialice()
+        public void Up()
         {
-            FotoData = new BindableCollection<Foto>
-            {
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 1
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 2
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 3
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 1
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 2
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 3
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 1
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 2
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 3
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 4
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 5
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 6
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 7
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 8
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 8
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 8
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 8
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 8
-                },
-                new Foto
-                {
-                    bitmap =
-                        new BitmapImage(
-                            new Uri(@"..\Resources\brak.gif",
-                                UriKind.Relative)),
-                    Index = 8
-                }
-            };
+            Page++;
+            _beforePage = _curentPage;
+            _curentPage = _afterPage;
+            NotifyOfPropertyChange((() => CurentPage));
+            var l = new LoadFotoHelper(null);
+            _afterPage = l.LoadPageFoto(Page + 1, _listFoto);
         }
 
-#endif
+        public void Down()
+        {
+            Page--;
+            _afterPage = _curentPage;
+            _curentPage = _beforePage;
+            NotifyOfPropertyChange((() => CurentPage));
+            var l = new LoadFotoHelper(null);
+            _afterPage = l.LoadPageFoto(Page - 1, _listFoto);
+        }
+
+       
 
         public void ActiveChechBox(object itemBox)
         {
+            activCheckBox?.Invoke();
             var tmp = itemBox as Foto;
-
-            if (tmp?.Chekerd == true)
+            var path = tmp.path;
+            var fileName = Path.GetFileName(path);
+            var foto = new FotosHelper(fileName);
+            foto.AddFoto();
+            if (_paper == null)
             {
-                var uri = tmp.bitmap.UriSource;
-                var fileName = Path.GetFileName(uri.ToString());
-                var foto = new FinalFoto
-                {
-                    NumbersOfFoto = 1,
-                    Index = tmp.Index,
-                    FullPathOfFoto = uri.ToString(),
-                    NameOfFoto = fileName,
-                    Type = Type,
-                    Size = Sise
-                };
-                _finalColections.FotoColection.Add(foto);
-                EventAggregator.PublishOnCurrentThread(true);
-                // przekazuje do kopiowania
-
-                var copyFoto = new CopyFoto();
-                copyFoto.CopyFotoToLocal(uri);
+                _paper = GetPapers.GetDefaultPaper();
             }
-            else
-            {
-                var removeTmp = _finalColections.FotoColection.FirstOrDefault(e => tmp != null && e.Index == tmp.Index);
-                _finalColections.FotoColection.Remove(removeTmp);
-                EventAggregator.PublishOnCurrentThread(_finalColections.FotoColection.Count != 0);
-            }
+            var orederFoto = new OrderFotoHelper(foto.Foto, _paper, 1);
+            orederFoto.AddOrderFoto();
+            var ord = new OrderFotoDisplayHelper(_paper,tmp.bitmap, foto.Foto,1);
+            ord.Publish();
+            EventAggregator.PublishOnCurrentThread(true);
+            EventAggregator.PublishOnCurrentThread(tmp.bitmap);
+            EventAggregator.PublishOnCurrentThread(foto.Foto);
+            EventAggregator.PublishOnCurrentThread(_paper);
+            EventAggregator.Unsubscribe(this);
+            var copyFoto = CopyFotoHelper.CopyFoto;
+            copyFoto.Add(path);
         }
-
-        public void GetFinalColection()
+        public void Handle(string message)
         {
-            var tmp = new GetFoto();
-            var hendler = new GetFotoHendler();
-            tmp.getFotoDelegate += hendler.GetGoto;
-            tmp.GetFotoColection(_getFoto, _finalColections);
+            CurentPage = new BindableCollection<Foto>();
+            var l = new LoadFotoHelper(message);
+            _listFoto = l.ActivLoadFoto();
+            CountPage = _listFoto.Count / 12 + 1;
+            _curentPage = l.LoadPageFoto(1, _listFoto);
+            NotifyOfPropertyChange(() => CurentPage);
+            _afterPage = l.LoadPageFoto(2, _listFoto);
         }
+       #endregion
 
-        public void Handle(IEnumerable<object> message)
+        public void Handle(Papers message)
         {
-            var list = message.ToList();
-            if (list != null)
-            {
-                Type = (int) list[0];
-                Sise = list[1] as Sizes;
-            }
+            _paper = message;
         }
-
-
-        #endregion
     }
 }

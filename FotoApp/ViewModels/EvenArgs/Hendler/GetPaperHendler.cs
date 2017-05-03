@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FotoApp.ViewModels.EvenArgs.Args;
 using FotoApp.ViewModels.Exception;
 
-namespace FotoApp.ViewModels.EvenArgs
+namespace FotoApp.ViewModels.EvenArgs.Hendler
 {
     public class GetPaperHendler
     {
@@ -17,8 +14,8 @@ namespace FotoApp.ViewModels.EvenArgs
             if (tmpGetPaper == null) throw  new NullListFotoException("Brak vidoku model");
             if (tmpArgs == null) throw  new NullGetPaperExceptin("Nie wybrana rodzaju papieru");
 
-            tmpGetPaper.Type = tmpArgs._type;
-            tmpGetPaper.Sise = tmpArgs._sizes;
+            //tmpGetPaper.Type = tmpArgs._type;
+            //tmpGetPaper.Sise = tmpArgs.SizeM;
         }
     }
 }

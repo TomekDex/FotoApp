@@ -50,14 +50,17 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Sundew, Version=1.15.3.1, Culture=neutral, PublicKeyToken=71c591ce273e6f01, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sundew.1.15.3.1\lib\net45\Sundew.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.3.0.3\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,51 +83,68 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Const\ConstStrings.cs" />
     <Compile Include="Controls\ImputBindingTrigger.cs" />
     <Compile Include="Controls\PasswordBoxGetPassword.cs" />
     <Compile Include="Models\ChangePapersAnSiseModel\InitPapers.cs" />
-    <Compile Include="Models\ChangePapersAnSiseModel\Sizes.cs" />
+    <Compile Include="Models\ChangePapersAnSiseModel\SizeM.cs" />
     <Compile Include="Models\FotoColection\Foto.cs" />
-    <Compile Include="Models\FotoColection\FinalFotoColection.cs" />
-    <Compile Include="Models\FotoColection\FinalFoto.cs" />
     <Compile Include="Interface\IViewModelEventAggregator.cs" />
     <Compile Include="Models\ChangePapersAnSiseModel\Types.cs" />
+    <Compile Include="Models\FotoColection\OrderFoto.cs" />
+    <Compile Include="Pref\Helpers\PreferenceHelper.cs" />
+    <Compile Include="Pref\Preference.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Schell\Actons\ActiveAltCtrlDel.cs" />
+    <Compile Include="Schell\Actons\DeActiveAltCtrlDel.cs" />
+    <Compile Include="Schell\EventAgg.cs" />
+    <Compile Include="Schell\EventArgs\Args\PasswordArgs.cs" />
+    <Compile Include="Schell\EventArgs\Hendler\LogInHendler.cs" />
+    <Compile Include="Schell\EventArgs\Hendler\OnColseHendler.cs" />
+    <Compile Include="Schell\EventArgs\Hendler\PreferenceHendler.cs" />
     <Compile Include="Schell\EventArgs\StartOrClose.cs" />
-    <Compile Include="Schell\EventArgs\LogInHendler.cs" />
-    <Compile Include="Schell\EventArgs\OnColseHendler.cs" />
-    <Compile Include="Schell\EventArgs\PasswordArgs.cs" />
     <Compile Include="Schell\SchellView.xaml.cs">
       <DependentUpon>SchellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Schell\SchellViewModel.cs" />
     <Compile Include="ViewModels\Actions\CopyFoto.cs" />
+    <Compile Include="ViewModels\Actions\GetDriveType.cs" />
     <Compile Include="ViewModels\Actions\GetPaper.cs" />
     <Compile Include="ViewModels\Actions\LoadFoto.cs" />
+    <Compile Include="ViewModels\Actions\NewOrder.cs" />
     <Compile Include="ViewModels\ChangePapersAndSiseViewModel.cs" />
     <Compile Include="ViewModels\ClosingOrderViewModel.cs" />
+    <Compile Include="ViewModels\EvenArgs\Args\FinalOrderArgs.cs" />
+    <Compile Include="ViewModels\EvenArgs\Args\GetPaperArgs.cs" />
     <Compile Include="ViewModels\EvenArgs\FinalOrder.cs" />
-    <Compile Include="ViewModels\EvenArgs\FinalOrderArgs.cs" />
-    <Compile Include="ViewModels\EvenArgs\FinalOrderHendler.cs" />
-    <Compile Include="ViewModels\EvenArgs\GetFoto.cs" />
-    <Compile Include="ViewModels\EvenArgs\GetFotoArgs.cs" />
-    <Compile Include="ViewModels\EvenArgs\GetFotoHendler.cs" />
     <Compile Include="ViewModels\EvenArgs\GetPaper.cs" />
-    <Compile Include="ViewModels\EvenArgs\GetPaperArgs.cs" />
-    <Compile Include="ViewModels\EvenArgs\GetPaperHendler.cs" />
+    <Compile Include="ViewModels\EvenArgs\Hendler\FinalOrderHendler.cs" />
+    <Compile Include="ViewModels\EvenArgs\Hendler\GetPaperHendler.cs" />
     <Compile Include="ViewModels\Exception\NullContactsOrderException.cs" />
     <Compile Include="ViewModels\Exception\NullGetFotoException.cs" />
     <Compile Include="ViewModels\Exception\NullGetPaperExceptin.cs" />
     <Compile Include="ViewModels\Exception\NullListFotoException.cs" />
+    <Compile Include="ViewModels\Exception\ToMutchTypesException.cs" />
+    <Compile Include="ViewModels\FotoInfoViewModel.cs" />
     <Compile Include="ViewModels\GetFotoViewModel.cs" />
     <Compile Include="Interface\IViewModel.cs" />
     <Compile Include="Interface\IValidationExceptionHandler.cs" />
+    <Compile Include="ViewModels\Helpers\CopyFotoHelper.cs" />
+    <Compile Include="ViewModels\Helpers\FotoHelper.cs" />
+    <Compile Include="ViewModels\Helpers\LoadFotoHelper.cs" />
+    <Compile Include="ViewModels\Helpers\OrderFotoDisplayHelper.cs" />
+    <Compile Include="ViewModels\Helpers\OrderFotoHelper.cs" />
     <Compile Include="ViewModels\ListFotoViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\PreferenceViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\Validation\ExekuteCharacter.cs" />
+    <Compile Include="ViewModels\Validation\PathValidation.cs" />
+    <Compile Include="ViewModels\Validation\TypeValidation.cs" />
     <Compile Include="ViewModels\ViewModelBase\ValidateModelBase.cs" />
     <Compile Include="ViewModels\ViewModelBase\ViewModelBase.cs" />
     <Compile Include="Views\ChangePapersAndSiseView.xaml.cs">
@@ -138,6 +158,9 @@
     </Compile>
     <Compile Include="Views\ListFotoView.xaml.cs">
       <DependentUpon>ListFotoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PreferenceView.xaml.cs">
+      <DependentUpon>PreferenceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StartView.xaml.cs">
       <DependentUpon>StartView.xaml</DependentUpon>
@@ -178,13 +201,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\FotoInfoView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\GetFotoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ListFotoView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OrderView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PreferenceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\StartView.xaml">
       <SubType>Designer</SubType>
@@ -217,7 +252,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\brak.gif">

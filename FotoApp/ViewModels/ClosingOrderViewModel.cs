@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Caliburn.Micro;
 using FotoApp.ViewModels.EvenArgs;
+using FotoApp.ViewModels.EvenArgs.Hendler;
 using FotoApp.ViewModels.Validation;
 
 namespace FotoApp.ViewModels
@@ -61,9 +62,8 @@ namespace FotoApp.ViewModels
 
         #region Constractor
 
-        public ClosingOrderViewModel(GetFotoViewModel getFoto, IEventAggregator eventAggregator) :base(getFoto, eventAggregator)
+        public ClosingOrderViewModel(GetFotoViewModel getFoto) :base(getFoto)
         {
-            getFoto.FinalColectionDelegat += FinalOrder;
             EventAggregator.PublishOnCurrentThread(StringEmpty());
         }
 

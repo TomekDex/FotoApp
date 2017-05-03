@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="FotoApp.Views.FotoInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FotoApp.Views"
+             xmlns:view="clr-namespace:FotoApp.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="150*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Image Name="FotoView" Source="{Binding Path=Image}" HorizontalAlignment="Stretch" Margin="5,5,5,5" VerticalAlignment="Stretch" Grid.ColumnSpan="2"/>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="Sub" Content="-" HorizontalAlignment="Stretch" Margin="3,3,3,3" Grid.Column="0" VerticalAlignment="Stretch"/>
+            <Button Name="Add" Content="+" HorizontalAlignment="Stretch" Margin="3,3,3,3" Grid.Column="2" VerticalAlignment="Stretch"/>
+            <TextBox HorizontalAlignment="Stretch"  Margin="3,3,3,3" Grid.Column="1" TextWrapping="Wrap" 
+                     Text="{Binding Path=CountFoto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     VerticalAlignment="Stretch" />
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ItemsControl Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                          ItemsSource="{Binding Path=TypeList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          ItemTemplate="{StaticResource TapeListRadoButon}"
+                          ItemsPanel="{StaticResource ListPanel}" >
+            </ItemsControl>
+
+            <ItemsControl Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"   
+                           ItemsSource="{Binding Path=SizeList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                           ItemTemplate="{StaticResource SiseListRadoButon}"
+                           ItemsPanel="{StaticResource ListPanel}" >
+            </ItemsControl>
+        </Grid>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="" TextWrapping="Wrap" Grid.Row="3"/>
+        <Button Name="Ok" Content="OK"  HorizontalAlignment="Stretch" Margin="3,3,3,3" Grid.Row="4" VerticalAlignment="Stretch" />
+        
+    </Grid>
+</UserControl>
