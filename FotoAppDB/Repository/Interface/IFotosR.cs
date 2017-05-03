@@ -4,9 +4,8 @@ using System.Collections.Generic;
 
 namespace FotoAppDB.Repository.Interface
 {
-    interface IOrdersR
+    interface IFotosR
     {
-        List<OrderRaport> OrderRaport(Orders order);
-        void DeleteAllFotoInOrder(Orders order);
+        int SumFoto(Fotos foto);
     }
 }

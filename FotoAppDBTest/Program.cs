@@ -24,15 +24,21 @@ namespace FotoAppDBTest
         static void Main(string[] args)
         {
             FotoAppRAll all = FotoAppRAll.Ins;
-            Orders nowy = new Orders();
-            all.Orders.Add(nowy );
-            all.Save();
-            Console.WriteLine( nowy.OrderID.ToString());
-            nowy.Description = "jakis napis";
-            nowy.Date = DateTime.Now;
-all.Orders.Update(nowy);
-            all.Save();
-            Console.WriteLine(nowy.Date.ToString());
+            all.Orders.DeleteAllFotoInOrder(new Orders() { OrderID = 2 });
+            Console.WriteLine("koniec");
+            //foreach (Fotos f in all.Fotos.GetAll())
+            //{
+            //    Console.WriteLine( all.Fotos.SumFoto(f)+ " " + f.FotoID.ToString());
+            //}
+//            Orders nowy = new Orders();
+//            all.Orders.Add(nowy );
+//            all.Save();
+//            Console.WriteLine( nowy.OrderID.ToString());
+//            nowy.Description = "jakis napis";
+//            nowy.Date = DateTime.Now;
+//all.Orders.Update(nowy);
+//            all.Save();
+//            Console.WriteLine(nowy.Date.ToString());
             //Stopwatch stopWatch = new Stopwatch();
             //stopWatch.Start();
             //for (int i = 0; i < 100; i++)
