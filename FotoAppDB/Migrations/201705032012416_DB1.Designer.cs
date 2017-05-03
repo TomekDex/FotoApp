@@ -13,7 +13,7 @@ namespace FotoAppDB.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201704112221456_DB1"; }
+            get { return "201705032012416_DB1"; }
         }
         
         string IMigrationMetadata.Source

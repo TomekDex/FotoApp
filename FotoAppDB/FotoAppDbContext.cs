@@ -37,40 +37,40 @@ namespace FotoAppDB
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Papers>().HasKey(p => new { p.Height, p.Length, p.TypeID });
-            modelBuilder.Entity<Prices>().HasKey(p => new { p.Height, p.Length, p.TypeID, p.Quantity });
-            modelBuilder.Entity<OrderFotos>().HasKey(f => new { f.FotoID, f.OrderID, f.Height, f.Length, f.TypeID });
-            modelBuilder.Entity<Sizes>().HasKey(s => new { s.Height, s.Length });
+            modelBuilder.Entity<Papers>().HasKey(p => new { p.Height, p.Width, p.TypeID });
+            modelBuilder.Entity<Prices>().HasKey(p => new { p.Height, p.Width, p.TypeID, p.Quantity });
+            modelBuilder.Entity<OrderFotos>().HasKey(f => new { f.FotoID, f.Height, f.Width, f.TypeID });
+            modelBuilder.Entity<Sizes>().HasKey(s => new { s.Height, s.Width });
             modelBuilder.Entity<Papers>()
                 .HasMany(p => p.Prices)
                 .WithRequired(p => p.Papers)
-                .HasForeignKey(p => new { p.Height, p.Length, p.TypeID })
+                .HasForeignKey(p => new { p.Height, p.Width, p.TypeID })
                 .WillCascadeOnDelete(false);
             modelBuilder.Entity<Papers>()
                 .HasMany(p => p.OrderFotos)
                 .WithRequired(p => p.Papers)
-                .HasForeignKey(p => new { p.Height, p.Length, p.TypeID })
+                .HasForeignKey(p => new { p.Height, p.Width, p.TypeID })
                 .WillCascadeOnDelete(false);
             modelBuilder.Entity<Sizes>()
                 .HasMany(p => p.SizeTexts)
                 .WithRequired(s => s.Sizes)
-                .HasForeignKey(p => new { p.Height, p.Length })
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(p => new { p.Height, p.Width })
+                .WillCascadeOnDelete(true);
             modelBuilder.Entity<Types>()
                 .HasMany(p => p.TypeTexts)
                 .WithRequired(s => s.Types)
                 .HasForeignKey(p => p.TypeID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
             modelBuilder.Entity<Sizes>()
                 .HasMany(t => t.Papers)
                 .WithRequired(s => s.Sizes)
-                .HasForeignKey(s => new { s.Height, s.Length })
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(s => new { s.Height, s.Width })
+                .WillCascadeOnDelete(true);
             modelBuilder.Entity<Types>()
                 .HasMany(t => t.Papers)
                 .WithRequired(s => s.Types)
                 .HasForeignKey(s => s.TypeID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
             modelBuilder.Entity<Languages>()
                 .HasMany(p => p.SizeTexts)
                 .WithRequired(s => s.Languages)
@@ -85,7 +85,7 @@ namespace FotoAppDB
                 .HasMany(o => o.OrderFotos)
                 .WithRequired(f => f.Fotos)
                 .HasForeignKey(o => o.FotoID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
             modelBuilder.Entity<Languages>()
                 .HasMany(l => l.Languages1)
                 .WithOptional(l => l.Languages2)

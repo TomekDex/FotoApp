@@ -93,9 +93,9 @@
     <Compile Include="Exception\NotExistInDataBaseException.cs" />
     <Compile Include="Exception\OutOfMaxLengthException.cs" />
     <Compile Include="FotoAppDbContext.cs" />
-    <Compile Include="Migrations\201704112221456_DB1.cs" />
-    <Compile Include="Migrations\201704112221456_DB1.Designer.cs">
-      <DependentUpon>201704112221456_DB1.cs</DependentUpon>
+    <Compile Include="Migrations\201705032012416_DB1.cs" />
+    <Compile Include="Migrations\201705032012416_DB1.Designer.cs">
+      <DependentUpon>201705032012416_DB1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -129,13 +129,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DB\FotoApp.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DB\FotoApp_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>FotoApp.mdf</DependentUpon>
-    </Content>
     <Content Include="Other\Entity Migracja.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -150,10 +143,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704112221456_DB1.resx">
-      <DependentUpon>201704112221456_DB1.cs</DependentUpon>
+    <Folder Include="DB\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201705032012416_DB1.resx">
+      <DependentUpon>201705032012416_DB1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

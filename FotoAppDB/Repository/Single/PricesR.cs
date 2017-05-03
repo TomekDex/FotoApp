@@ -7,7 +7,7 @@ namespace FotoAppDB.Repository.Single
     {
         public override Prices Get(Prices FAobject)
         {
-            Prices o = Context.Price.Find(FAobject.Height, FAobject.Length, FAobject.TypeID, FAobject.Quantity);
+            Prices o = Context.Price.Find(FAobject.Height, FAobject.Width, FAobject.TypeID, FAobject.Quantity);
             if (o != null)
             {
                 return o;
@@ -20,7 +20,7 @@ namespace FotoAppDB.Repository.Single
 
         public override bool Is(Prices FAobject)
         {
-            return Context.Price.Find(FAobject.Height, FAobject.Length, FAobject.TypeID, FAobject.Quantity) != null;
+            return Context.Price.Find(FAobject.Height, FAobject.Width, FAobject.TypeID, FAobject.Quantity) != null;
         }
     }
 }

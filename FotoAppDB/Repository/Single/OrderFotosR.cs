@@ -12,13 +12,13 @@ namespace FotoAppDB.Repository.Single
         {
             return Context
                 .OrderFoto
-                .Where(o => o.OrderID == order.OrderID)
+                .Where(a => a.Fotos.OrderID == order.OrderID)
                 .ToList();
         }
 
         public override OrderFotos Get(OrderFotos FAobject)
         {
-            OrderFotos o = Context.OrderFoto.Find(FAobject.FotoID, FAobject.OrderID, FAobject.Height, FAobject.Length, FAobject.TypeID);
+            OrderFotos o = Context.OrderFoto.Find(FAobject.FotoID, FAobject.Height, FAobject.Width, FAobject.TypeID);
             if (o != null)
             {
                 return o;
@@ -27,11 +27,12 @@ namespace FotoAppDB.Repository.Single
             {
                 throw new NotExistInDataBaseException("Nie znaleziono zamowienia");
             }
+            
         }
 
         public override bool Is(OrderFotos FAobject)
         {
-            return Context.OrderFoto.Find(FAobject.FotoID, FAobject.OrderID, FAobject.Height, FAobject.Length, FAobject.TypeID) != null;
+            return Context.OrderFoto.Find(FAobject.FotoID, FAobject.Height, FAobject.Width, FAobject.TypeID) != null;
         }
     }
 }

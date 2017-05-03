@@ -34,42 +34,42 @@ namespace FotoAppDB.Migrations
                 c => new
                     {
                         FotoID = c.Int(nullable: false, identity: true),
+                        OrderID = c.Int(nullable: false),
                         Name = c.String(nullable: false, maxLength: 50),
                     })
-                .PrimaryKey(t => t.FotoID);
+                .PrimaryKey(t => t.FotoID)
+                .ForeignKey("dbo.Orders", t => t.OrderID, cascadeDelete: true)
+                .Index(t => t.OrderID);
             
             CreateTable(
                 "dbo.OrderFotos",
                 c => new
                     {
                         FotoID = c.Int(nullable: false),
-                        OrderID = c.Int(nullable: false),
                         Height = c.Int(nullable: false),
-                        Length = c.Int(nullable: false),
+                        Width = c.Int(nullable: false),
                         TypeID = c.Int(nullable: false),
                         Quantity = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.FotoID, t.OrderID, t.Height, t.Length, t.TypeID })
-                .ForeignKey("dbo.Orders", t => t.OrderID, cascadeDelete: true)
-                .ForeignKey("dbo.Papers", t => new { t.Height, t.Length, t.TypeID })
-                .ForeignKey("dbo.Fotos", t => t.FotoID)
+                .PrimaryKey(t => new { t.FotoID, t.Height, t.Width, t.TypeID })
+                .ForeignKey("dbo.Papers", t => new { t.Height, t.Width, t.TypeID })
+                .ForeignKey("dbo.Fotos", t => t.FotoID, cascadeDelete: true)
                 .Index(t => t.FotoID)
-                .Index(t => t.OrderID)
-                .Index(t => new { t.Height, t.Length, t.TypeID });
+                .Index(t => new { t.Height, t.Width, t.TypeID });
             
             CreateTable(
                 "dbo.Papers",
                 c => new
                     {
                         Height = c.Int(nullable: false),
-                        Length = c.Int(nullable: false),
+                        Width = c.Int(nullable: false),
                         TypeID = c.Int(nullable: false),
                         Availability = c.Int(),
                     })
-                .PrimaryKey(t => new { t.Height, t.Length, t.TypeID })
-                .ForeignKey("dbo.Sizes", t => new { t.Height, t.Length })
-                .ForeignKey("dbo.Types", t => t.TypeID)
-                .Index(t => new { t.Height, t.Length })
+                .PrimaryKey(t => new { t.Height, t.Width, t.TypeID })
+                .ForeignKey("dbo.Sizes", t => new { t.Height, t.Width }, cascadeDelete: true)
+                .ForeignKey("dbo.Types", t => t.TypeID, cascadeDelete: true)
+                .Index(t => new { t.Height, t.Width })
                 .Index(t => t.TypeID);
             
             CreateTable(
@@ -77,37 +77,37 @@ namespace FotoAppDB.Migrations
                 c => new
                     {
                         Height = c.Int(nullable: false),
-                        Length = c.Int(nullable: false),
+                        Width = c.Int(nullable: false),
                         TypeID = c.Int(nullable: false),
                         Quantity = c.Int(nullable: false),
                         Price = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.Height, t.Length, t.TypeID, t.Quantity })
-                .ForeignKey("dbo.Papers", t => new { t.Height, t.Length, t.TypeID })
-                .Index(t => new { t.Height, t.Length, t.TypeID });
+                .PrimaryKey(t => new { t.Height, t.Width, t.TypeID, t.Quantity })
+                .ForeignKey("dbo.Papers", t => new { t.Height, t.Width, t.TypeID })
+                .Index(t => new { t.Height, t.Width, t.TypeID });
             
             CreateTable(
                 "dbo.Sizes",
                 c => new
                     {
                         Height = c.Int(nullable: false),
-                        Length = c.Int(nullable: false),
+                        Width = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.Height, t.Length });
+                .PrimaryKey(t => new { t.Height, t.Width });
             
             CreateTable(
                 "dbo.SizeTexts",
                 c => new
                     {
                         Height = c.Int(nullable: false),
-                        Length = c.Int(nullable: false),
+                        Width = c.Int(nullable: false),
                         Language = c.String(nullable: false, maxLength: 5),
                         Text = c.String(nullable: false, maxLength: 10),
                     })
-                .PrimaryKey(t => new { t.Height, t.Length, t.Language })
+                .PrimaryKey(t => new { t.Height, t.Width, t.Language })
                 .ForeignKey("dbo.Languages", t => t.Language)
-                .ForeignKey("dbo.Sizes", t => new { t.Height, t.Length })
-                .Index(t => new { t.Height, t.Length })
+                .ForeignKey("dbo.Sizes", t => new { t.Height, t.Width }, cascadeDelete: true)
+                .Index(t => new { t.Height, t.Width })
                 .Index(t => t.Language);
             
             CreateTable(
@@ -130,7 +130,7 @@ namespace FotoAppDB.Migrations
                         Text = c.String(nullable: false, maxLength: 20),
                     })
                 .PrimaryKey(t => new { t.TypeID, t.Language })
-                .ForeignKey("dbo.Types", t => t.TypeID)
+                .ForeignKey("dbo.Types", t => t.TypeID, cascadeDelete: true)
                 .ForeignKey("dbo.Languages", t => t.Language)
                 .Index(t => t.TypeID)
                 .Index(t => t.Language);
@@ -172,31 +172,31 @@ namespace FotoAppDB.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.Fotos", "OrderID", "dbo.Orders");
             DropForeignKey("dbo.OrderFotos", "FotoID", "dbo.Fotos");
-            DropForeignKey("dbo.SizeTexts", new[] { "Height", "Length" }, "dbo.Sizes");
+            DropForeignKey("dbo.SizeTexts", new[] { "Height", "Width" }, "dbo.Sizes");
             DropForeignKey("dbo.TypeTexts", "Language", "dbo.Languages");
             DropForeignKey("dbo.TypeTexts", "TypeID", "dbo.Types");
             DropForeignKey("dbo.Types", "Connect", "dbo.Types");
             DropForeignKey("dbo.Papers", "TypeID", "dbo.Types");
             DropForeignKey("dbo.SizeTexts", "Language", "dbo.Languages");
             DropForeignKey("dbo.Languages", "Base", "dbo.Languages");
-            DropForeignKey("dbo.Papers", new[] { "Height", "Length" }, "dbo.Sizes");
-            DropForeignKey("dbo.Prices", new[] { "Height", "Length", "TypeID" }, "dbo.Papers");
-            DropForeignKey("dbo.OrderFotos", new[] { "Height", "Length", "TypeID" }, "dbo.Papers");
-            DropForeignKey("dbo.OrderFotos", "OrderID", "dbo.Orders");
+            DropForeignKey("dbo.Papers", new[] { "Height", "Width" }, "dbo.Sizes");
+            DropForeignKey("dbo.Prices", new[] { "Height", "Width", "TypeID" }, "dbo.Papers");
+            DropForeignKey("dbo.OrderFotos", new[] { "Height", "Width", "TypeID" }, "dbo.Papers");
             DropForeignKey("dbo.Contacts", "OrderID", "dbo.Orders");
             DropIndex("dbo.Types", new[] { "Connect" });
             DropIndex("dbo.TypeTexts", new[] { "Language" });
             DropIndex("dbo.TypeTexts", new[] { "TypeID" });
             DropIndex("dbo.Languages", new[] { "Base" });
             DropIndex("dbo.SizeTexts", new[] { "Language" });
-            DropIndex("dbo.SizeTexts", new[] { "Height", "Length" });
-            DropIndex("dbo.Prices", new[] { "Height", "Length", "TypeID" });
+            DropIndex("dbo.SizeTexts", new[] { "Height", "Width" });
+            DropIndex("dbo.Prices", new[] { "Height", "Width", "TypeID" });
             DropIndex("dbo.Papers", new[] { "TypeID" });
-            DropIndex("dbo.Papers", new[] { "Height", "Length" });
-            DropIndex("dbo.OrderFotos", new[] { "Height", "Length", "TypeID" });
-            DropIndex("dbo.OrderFotos", new[] { "OrderID" });
+            DropIndex("dbo.Papers", new[] { "Height", "Width" });
+            DropIndex("dbo.OrderFotos", new[] { "Height", "Width", "TypeID" });
             DropIndex("dbo.OrderFotos", new[] { "FotoID" });
+            DropIndex("dbo.Fotos", new[] { "OrderID" });
             DropIndex("dbo.Contacts", new[] { "OrderID" });
             DropTable("dbo.Settings");
             DropTable("dbo.Logs");

@@ -53,7 +53,7 @@ namespace FotoApp.ViewModels.Actions
                 var tmpSizes = new Models.ChangePapersAnSiseModel.SizeM
                 {
                     Height = e.Height,
-                    Length = e.Length,
+                    Width = e.Width,
                     SizeText = _all.SizeTexts.GetSizeTextBySizeALang(e, new Languages {Language = Preference.Lang}).Text
                 };
 
@@ -66,7 +66,7 @@ namespace FotoApp.ViewModels.Actions
         {
             var defSize = new Models.ChangePapersAnSiseModel.SizeM();
             var tmpSizes = GetSizesByType(GetTypeByIndex(1));
-            defSize.Length = tmpSizes[0].Length;
+            defSize.Width = tmpSizes[0].Width;
             defSize.Height = tmpSizes[0].Height;
             return defSize;
         }
@@ -76,7 +76,7 @@ namespace FotoApp.ViewModels.Actions
             var papers = new Papers();
             papers.TypeID = 1;
             papers.Height = 900;
-            papers.Length = 1300;
+            papers.Width = 1300;
             return papers;
         }
     }
