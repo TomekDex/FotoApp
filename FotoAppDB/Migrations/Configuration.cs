@@ -5,6 +5,7 @@ namespace FotoAppDB.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using DBModel;
+    using System.Collections.Generic;
 
     internal sealed class Configuration : DbMigrationsConfiguration<FotoAppDB.FotoAppDbContext>
     {
@@ -15,7 +16,7 @@ namespace FotoAppDB.Migrations
 
         protected override void Seed(FotoAppDB.FotoAppDbContext context)
         {
-#region price list
+            #region price list
             context.Language.AddOrUpdate(a => a.Language, new Languages() { Language = "pl_PL", Base = null });
             var shiny = context.TypeText.Where(a => a.Text == "B³yszcz¹cy").SingleOrDefault();
             if (shiny == null) shiny = new TypeTexts() { Types = new Types(), Text = "B³yszcz¹cy", Language = "pl_PL" };
@@ -37,6 +38,7 @@ namespace FotoAppDB.Migrations
                 {
                     context.Paper.AddOrUpdate(new Papers() { Availability = null, Height = s.Height, TypeID = type.TypeID, Width = s.Width });
                 }
+            context.SaveChanges();
             var t = mat;
 
             context.Price.AddOrUpdate(new Prices() { Width = 900, Height = 1300, TypeID = t.TypeID, Quantity = 1, Price = 100 });
@@ -64,6 +66,14 @@ namespace FotoAppDB.Migrations
             context.Price.AddOrUpdate(new Prices() { Width = 1300, Height = 1800, TypeID = t.TypeID, Quantity = 301, Price = 120 });
             context.Price.AddOrUpdate(new Prices() { Width = 1300, Height = 1800, TypeID = t.TypeID, Quantity = 401, Price = 110 });
             context.Price.AddOrUpdate(new Prices() { Width = 1300, Height = 1800, TypeID = t.TypeID, Quantity = 501, Price = 100 });
+
+            context.Price.AddOrUpdate(new Prices() { Width = 1500, Height = 2100, TypeID = t.TypeID, Quantity = 1, Price = 200 });
+            context.Price.AddOrUpdate(new Prices() { Width = 1500, Height = 2100, TypeID = t.TypeID, Quantity = 51, Price = 180 });
+            context.Price.AddOrUpdate(new Prices() { Width = 1500, Height = 2100, TypeID = t.TypeID, Quantity = 101, Price = 160 });
+            context.Price.AddOrUpdate(new Prices() { Width = 1500, Height = 2100, TypeID = t.TypeID, Quantity = 201, Price = 150 });
+            context.Price.AddOrUpdate(new Prices() { Width = 1500, Height = 2100, TypeID = t.TypeID, Quantity = 301, Price = 140 });
+            context.Price.AddOrUpdate(new Prices() { Width = 1500, Height = 2100, TypeID = t.TypeID, Quantity = 401, Price = 130 });
+            context.Price.AddOrUpdate(new Prices() { Width = 1500, Height = 2100, TypeID = t.TypeID, Quantity = 501, Price = 120 });
 
             context.Price.AddOrUpdate(new Prices() { Width = 1800, Height = 2400, TypeID = t.TypeID, Quantity = 1, Price = 500 });
             context.Price.AddOrUpdate(new Prices() { Width = 2000, Height = 2500, TypeID = t.TypeID, Quantity = 1, Price = 600 });
@@ -97,11 +107,19 @@ namespace FotoAppDB.Migrations
             context.Price.AddOrUpdate(new Prices() { Width = 1300, Height = 1800, TypeID = t.TypeID, Quantity = 401, Price = 110 });
             context.Price.AddOrUpdate(new Prices() { Width = 1300, Height = 1800, TypeID = t.TypeID, Quantity = 501, Price = 100 });
 
+            context.Price.AddOrUpdate(new Prices() { Width = 1500, Height = 2100, TypeID = t.TypeID, Quantity = 1, Price = 200 });
+            context.Price.AddOrUpdate(new Prices() { Width = 1500, Height = 2100, TypeID = t.TypeID, Quantity = 51, Price = 180 });
+            context.Price.AddOrUpdate(new Prices() { Width = 1500, Height = 2100, TypeID = t.TypeID, Quantity = 101, Price = 160 });
+            context.Price.AddOrUpdate(new Prices() { Width = 1500, Height = 2100, TypeID = t.TypeID, Quantity = 201, Price = 150 });
+            context.Price.AddOrUpdate(new Prices() { Width = 1500, Height = 2100, TypeID = t.TypeID, Quantity = 301, Price = 140 });
+            context.Price.AddOrUpdate(new Prices() { Width = 1500, Height = 2100, TypeID = t.TypeID, Quantity = 401, Price = 130 });
+            context.Price.AddOrUpdate(new Prices() { Width = 1500, Height = 2100, TypeID = t.TypeID, Quantity = 501, Price = 120 });
+
             context.Price.AddOrUpdate(new Prices() { Width = 1800, Height = 2400, TypeID = t.TypeID, Quantity = 1, Price = 500 });
             context.Price.AddOrUpdate(new Prices() { Width = 2000, Height = 2500, TypeID = t.TypeID, Quantity = 1, Price = 600 });
             context.Price.AddOrUpdate(new Prices() { Width = 2100, Height = 3000, TypeID = t.TypeID, Quantity = 1, Price = 800 });
             context.Price.AddOrUpdate(new Prices() { Width = 2400, Height = 3000, TypeID = t.TypeID, Quantity = 1, Price = 1000 });
-#endregion
+            #endregion
             Orders[] order = new Orders[10];
             context.Order.RemoveRange(context.Order);
             for (int i = 0; i < 10; i++)
@@ -130,6 +148,64 @@ namespace FotoAppDB.Migrations
             }
             context.OrderFoto.AddOrUpdate(new OrderFotos() { Fotos = new Fotos() { Orders = new Orders() { Date = DateTime.Now }, Name = "test1" }, Height = 1800, Width = 1300, Quantity = 1, TypeID = mat.TypeID });
             context.OrderFoto.AddOrUpdate(new OrderFotos() { Fotos = new Fotos() { Orders = new Orders() { Date = DateTime.Now }, Name = "test1" }, Height = 1800, Width = 1300, Quantity = 100000, TypeID = mat.TypeID });
+
+            TypeTexts[] tt = new TypeTexts[5];
+            for (int i = 0; i < 5; i++)
+            {
+                tt[i] = context.TypeText.Where(a => a.Text == "test" + i.ToString()).SingleOrDefault();
+                if (tt[i] == null) tt[i] = new TypeTexts() { Types = new Types(), Text = "test" + i.ToString(), Language = "pl_PL" };
+
+            }
+            context.SaveChanges();
+            List<Papers> paper = new List<Papers>();
+            foreach (Sizes s in context.Size)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    if (rand.Next(0, 1) == 0)
+                    {
+                        var p = new Papers() { Availability = rand.Next(50, 2000), Sizes = s, Types = tt[i].Types };
+                        context.Paper.AddOrUpdate(p);
+                        paper.Add(p);
+                        
+
+                    }
+                }
+            }
+            context.SaveChanges();
+            foreach (Papers p in paper)
+                for (int j = 0; j < rand.Next(4, 8); j++)
+                {
+                    context.Price.AddOrUpdate(new Prices() { Height = p.Height, TypeID = p.TypeID, Width = p.Width, Price = 100 - j * 5, Quantity = j * 100 });
+                }
+            context.SaveChanges();
+
+            Orders[] ordert = new Orders[10];
+            for (int i = 0; i < 10; i++)
+            {
+                ordert[i] = new Orders() { Date = DateTime.Now };
+                context.Order.AddOrUpdate(ordert[i]);
+            }
+            context.SaveChanges();
+
+
+            Fotos[][] fotot = new Fotos[10][];
+            for (int i = 0; i < 10; i++) fotot[i] = new Fotos[5];
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    fotot[i][j] = new Fotos() { OrderID = ordert[i].OrderID, Name = ordert[i].ToString() + " " + j.ToString() };
+                    context.Foto.AddOrUpdate(fotot[i][j]);
+                    context.SaveChanges();
+                    foreach (Papers p in context.Paper)
+                        if (0 == rand.Next(0, 1))
+                        {
+                            context.OrderFoto.AddOrUpdate(new OrderFotos() { FotoID = fotot[i][j].FotoID, Height = p.Height, Width = p.Width, TypeID = p.TypeID, Quantity = rand.Next(1, 100) });
+                        }
+                }
+            }
+            context.SaveChanges();
         }
     }
 }

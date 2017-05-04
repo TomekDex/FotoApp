@@ -129,13 +129,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DB\FotoApp.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DB\FotoApp_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>FotoApp.mdf</DependentUpon>
-    </Content>
     <Content Include="Other\Entity Migracja.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -150,7 +143,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DB\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705032012416_DB1.resx">
       <DependentUpon>201705032012416_DB1.cs</DependentUpon>

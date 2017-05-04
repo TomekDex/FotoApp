@@ -5,6 +5,7 @@ namespace FotoAppDB.Repository.Interface
 {
     interface IOrderFotosR
     {        
-        List<OrderFotos> AllFotosInOrder(Orders order);
+        List<OrderFotos> GetAllFotosInOrder(Orders order);
+        List<OrderFotos> GetFotoInOrder(Fotos foto);
     }
 }
