@@ -97,6 +97,10 @@
     <Compile Include="Migrations\201705032012416_DB1.Designer.cs">
       <DependentUpon>201705032012416_DB1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705041627142_DB2.cs" />
+    <Compile Include="Migrations\201705041627142_DB2.Designer.cs">
+      <DependentUpon>201705041627142_DB2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DBModel\Types.cs" />
@@ -129,6 +133,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DB\FotoApp.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DB\FotoApp_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>FotoApp.mdf</DependentUpon>
+    </Content>
     <Content Include="Other\Entity Migracja.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -143,12 +154,13 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DB\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705032012416_DB1.resx">
       <DependentUpon>201705032012416_DB1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705041627142_DB2.resx">
+      <DependentUpon>201705041627142_DB2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

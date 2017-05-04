@@ -41,7 +41,9 @@ namespace FotoAppDB
             modelBuilder.Entity<Prices>().HasKey(p => new { p.Height, p.Width, p.TypeID, p.Quantity });
             modelBuilder.Entity<OrderFotos>().HasKey(f => new { f.FotoID, f.Height, f.Width, f.TypeID });
             modelBuilder.Entity<Sizes>().HasKey(s => new { s.Height, s.Width });
-            modelBuilder.Entity<Papers>()
+            //modelBuilder.Entity<Orders>().HasOptional(p=>p.).WithRequired(p=>p.)
+            modelBuilder.Entity<Contacts>().HasRequired(a => a.Orders).WithOptional(a => a.Contacts).WillCascadeOnDelete(true);
+           modelBuilder.Entity<Papers>()
                 .HasMany(p => p.Prices)
                 .WithRequired(p => p.Papers)
                 .HasForeignKey(p => new { p.Height, p.Width, p.TypeID })

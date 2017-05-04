@@ -10,7 +10,7 @@ namespace FotoAppDB.DBModel
         private string _mail;
         public const int maxLengthTele = 20;
         private string _tele;
-        [Key, ForeignKey("Orders")]
+        [Key]
         public int OrderID { get; set; }
         [MaxLength(maxLengthMail)]
         public string Mail
@@ -26,6 +26,7 @@ namespace FotoAppDB.DBModel
                 else { _mail = value; }
             }
         }
+        [MaxLength(maxLengthTele)]
         public string TelephoneNumber
         {
             get
