@@ -10,6 +10,16 @@ namespace FotoAppDB.Repository.Single
 {
     public class OrdersR : FotoAppR<FotoAppDbContext, Orders>, IOrdersR
     {
+        public void DeleteAllFotoInOrder(Orders order)
+        {            
+            var listFotos = Context
+                .OrderFoto
+                .Where(c => c.OrderID == order.OrderID)
+                .Join(Context.Foto, a => a.FotoID, b => b.FotoID, (a, b) => a.Fotos);
+            Context.Foto.RemoveRange(listFotos);
+            //Context.Foto.Join(Context.OrderFoto, a => a.FotoID, b => b.FotoID, (a, b) => b.Fotos );
+        }
+
         public override Orders Get(Orders FAobject)
         {
             Orders o = Context.Order.Find(FAobject.OrderID);
