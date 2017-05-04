@@ -91,7 +91,7 @@ namespace FotoAppDB.Repository.Single
         {
             var ids = Context
                 .Paper
-                .Where(p => p.Height == size.Height && p.Length == size.Length)
+                .Where(p => p.Height == size.Height && p.Width == size.Width)
                 .GroupBy(g => g.TypeID)
                 .Select(s => new { s.Key });
             return Context
@@ -107,7 +107,7 @@ namespace FotoAppDB.Repository.Single
             {
                 var ids = Context
                     .Paper
-                    .Where(p => (p.Height == size.Height && p.Length == size.Length) && (p.Availability == null || p.Availability > 0))
+                    .Where(p => (p.Height == size.Height && p.Width == size.Width) && (p.Availability == null || p.Availability > 0))
                     .GroupBy(g => g.TypeID)
                     .Select(s => new { s.Key });
                 return Context
@@ -120,12 +120,12 @@ namespace FotoAppDB.Repository.Single
             {
                 var hids = Context
                     .Paper
-                    .Where(p => (p.Height == size.Height && p.Length == size.Length) && (p.Availability == null || p.Availability > 0))
+                    .Where(p => (p.Height == size.Height && p.Width == size.Width) && (p.Availability == null || p.Availability > 0))
                     .GroupBy(g => g.TypeID)
                     .Select(s => s.Key);
                 var ids = Context
                    .Paper
-                   .Where(t => !hids.Contains(t.TypeID) && (t.Height == size.Height && t.Length == size.Length))
+                   .Where(t => !hids.Contains(t.TypeID) && (t.Height == size.Height && t.Width == size.Width))
                    .Select(a => new { a.TypeID });
                 return Context
                     .Type

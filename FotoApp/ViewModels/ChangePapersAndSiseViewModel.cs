@@ -79,7 +79,7 @@ namespace FotoApp.ViewModels
                     _sise = tmp;
                 }
                 papers.Height = tmp.Height;
-                papers.Length = tmp.Length;
+                papers.Width = tmp.Width;
                 EventAgg.Agregator.EventAggregator.PublishOnCurrentThread(papers);
                 changePapers?.Invoke();
             }

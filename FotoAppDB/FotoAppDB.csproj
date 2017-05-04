@@ -93,9 +93,13 @@
     <Compile Include="Exception\NotExistInDataBaseException.cs" />
     <Compile Include="Exception\OutOfMaxLengthException.cs" />
     <Compile Include="FotoAppDbContext.cs" />
-    <Compile Include="Migrations\201704112221456_DB1.cs" />
-    <Compile Include="Migrations\201704112221456_DB1.Designer.cs">
-      <DependentUpon>201704112221456_DB1.cs</DependentUpon>
+    <Compile Include="Migrations\201705032012416_DB1.cs" />
+    <Compile Include="Migrations\201705032012416_DB1.Designer.cs">
+      <DependentUpon>201705032012416_DB1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705041627142_DB2.cs" />
+    <Compile Include="Migrations\201705041627142_DB2.Designer.cs">
+      <DependentUpon>201705041627142_DB2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -152,8 +156,11 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704112221456_DB1.resx">
-      <DependentUpon>201704112221456_DB1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705032012416_DB1.resx">
+      <DependentUpon>201705032012416_DB1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705041627142_DB2.resx">
+      <DependentUpon>201705041627142_DB2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

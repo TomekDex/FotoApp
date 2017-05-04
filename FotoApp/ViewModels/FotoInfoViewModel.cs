@@ -142,7 +142,7 @@ namespace FotoApp.ViewModels
         {
             var tmp = o as SizeM;
             _paper.Height = tmp.Height;
-            _paper.Length = tmp.Length;
+            _paper.Width = tmp.Width;
             changePaper = true;
             NotifyOfPropertyChange(() => CanOk);
         }

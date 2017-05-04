@@ -11,7 +11,7 @@ namespace FotoAppDB.Repository.Single
     {
         public override SizeTexts Get(SizeTexts FAobject)
         {
-            SizeTexts o = Context.SizeText.Find(FAobject.Height, FAobject.Length, FAobject.Language);
+            SizeTexts o = Context.SizeText.Find(FAobject.Height, FAobject.Width, FAobject.Language);
             if (o != null)
             {
                 return o;
@@ -24,7 +24,7 @@ namespace FotoAppDB.Repository.Single
 
         public SizeTexts GetSizeTextBySizeALang(Sizes size, Languages lang)
         {
-            SizeTexts sizeText = Context.SizeText.Find(size.Height, size.Length, lang.Language);
+            SizeTexts sizeText = Context.SizeText.Find(size.Height, size.Width, lang.Language);
             if (sizeText == null)
             {                
                 if (lang.Base == null)
@@ -44,7 +44,7 @@ namespace FotoAppDB.Repository.Single
 
         public override bool Is(SizeTexts FAobject)
         {
-            return Context.SizeText.Find(FAobject.Height, FAobject.Length, FAobject.Language) != null;
+            return Context.SizeText.Find(FAobject.Height, FAobject.Width, FAobject.Language) != null;
         }
     }
 }

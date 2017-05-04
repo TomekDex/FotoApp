@@ -15,7 +15,7 @@ namespace FotoAppDB.DBModel
         private string _name;
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int FotoID { get; set; }
-        [Key, ForeignKey("Orders")]
+        [ForeignKey("Orders")]
         public int OrderID { get; set; }
         [Required, MaxLength(maxLengthName)]
         public string Name
@@ -32,5 +32,6 @@ namespace FotoAppDB.DBModel
         }
 
         public virtual ICollection<OrderFotos> OrderFotos { get; set; }
+        public Orders Orders { get; set; }
     }
 }
