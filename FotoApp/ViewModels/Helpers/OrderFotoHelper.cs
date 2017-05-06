@@ -47,12 +47,12 @@ namespace FotoApp.ViewModels.Helpers
             var o = NewOrder.New_Order;
             var order = o.GetNewOrders();
             _orderFoto = new OrderFotos();
-            _orderFoto.OrderID = order.OrderID;
+            //_orderFoto.Fotos.OrderID = order.OrderID;
             _orderFoto.FotoID = all.Fotos.Get(_foto).FotoID;
             _orderFoto.Quantity = _quantity;
             _orderFoto.TypeID = _paper.TypeID;
             _orderFoto.Height = _paper.Height;
-            _orderFoto.Length = _paper.Length;
+            _orderFoto.Width = _paper.Width;
         }
 
         public void ChangeOrderFoto(Papers paper, int quantity)
@@ -63,7 +63,7 @@ namespace FotoApp.ViewModels.Helpers
             if (null != paper)
             {
                 order.Height = paper.Height;
-                order.Length = paper.Length;
+                order.Width = paper.Width;
             }
             if (quantity != 1)
                 order.Quantity = quantity;

@@ -92,6 +92,7 @@
     <Compile Include="Interface\IViewModelEventAggregator.cs" />
     <Compile Include="Models\ChangePapersAnSiseModel\Types.cs" />
     <Compile Include="Models\FotoColection\OrderFoto.cs" />
+    <Compile Include="Pref\Helpers\KeySettings.cs" />
     <Compile Include="Pref\Helpers\PreferenceHelper.cs" />
     <Compile Include="Pref\Preference.cs" />
     <Compile Include="Properties\Annotations.cs" />

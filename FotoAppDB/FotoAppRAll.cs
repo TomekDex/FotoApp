@@ -17,6 +17,7 @@ namespace FotoAppDB
         }
         private FotoAppRAll()
         {
+#if DEBUG
             string connectionString = SeachConnectionString();
             FotoAppDbContext fotoAppDBContext = new FotoAppDbContext(connectionString);
             Types.Context = fotoAppDBContext;
@@ -33,7 +34,7 @@ namespace FotoAppDB
             TypeTexts.Context = fotoAppDBContext;
             Fotos.Context = fotoAppDBContext;
             Logs.Context = fotoAppDBContext;
-
+#endif
         }
         public ContactsR Contacts = new ContactsR();
         public LanguagesR Languages = new LanguagesR();
