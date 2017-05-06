@@ -9,7 +9,7 @@ using FotoAppDB.DBModel;
 
 namespace FotoApp.ViewModels
 {
-    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<string>, IHandle<Papers>
+    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<DriveInfo>, IHandle<Papers>
     {
 
         private readonly GetFotoViewModel _getFoto;
@@ -130,10 +130,11 @@ namespace FotoApp.ViewModels
             var copyFoto = CopyFotoHelper.CopyFoto;
             copyFoto.Add(path);
         }
-        public void Handle(string message)
+        public void Handle(DriveInfo message)
         {
+            
             CurentPage = new BindableCollection<Foto>();
-            var l = new LoadFotoHelper(message);
+            var l = new LoadFotoHelper(message.Name);
             _listFoto = l.ActivLoadFoto();
             CountPage = _listFoto.Count / 12 + 1;
             _curentPage = l.LoadPageFoto(1, _listFoto);

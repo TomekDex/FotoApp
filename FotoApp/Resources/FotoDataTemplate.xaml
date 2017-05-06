@@ -3,14 +3,16 @@
                     xmlns:action="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
                     xmlns:radio="clr-namespace:FotoApp.Models.ChangePapersAnSiseModel"
                     xmlns:fotoColection="clr-namespace:FotoApp.Models.FotoColection"
+                    xmlns:drive="clr-namespace:FotoApp.Models.Drive"
                     xmlns:io="clr-namespace:System.IO;assembly=mscorlib">
     
-    <DataTemplate x:Key="ButtonDriveType" DataType="io:DriveInfo">
-        <Button Content="{Binding Name}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                action:Message.Attach="[Event Click] = [Action DriveT($dataContext)]"
+    <DataTemplate x:Key="ButtonDriveType" DataType="drive:Drive">
+        <Button Content="{Binding Path=Content}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                action:Message.Attach="[Event Click] = [Action Flopy($dataContext)]"
                     Height="50" Width="150" Margin="20,20,20,20" Style="{StaticResource FotoAppButton}">
         </Button>
     </DataTemplate>
+   
     
     <DataTemplate   x:Key="ListCheckBox" DataType="fotoColection:Foto">
         <CheckBox   HorizontalAlignment="Left" Width="290" 
@@ -40,7 +42,11 @@
                      Margin="5,5,5,5" 
                      GroupName="Sises"/>
     </DataTemplate>
+    
     <ItemsPanelTemplate x:Key="ListPanel" >
         <WrapPanel Margin="10,10,10,10"/>
+    </ItemsPanelTemplate>
+    <ItemsPanelTemplate x:Key="DockPanel" >
+        <StackPanel />
     </ItemsPanelTemplate>
 </ResourceDictionary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Management;
 using System.Threading;
@@ -11,23 +12,12 @@ using FotoApp.ViewModels.Actions;
 
 namespace FotoApp.ViewModels
 {
-    public class GetFotoViewModel : Screen, IViewModelEventAggregator, IViewModel, IHandle<IEnumerable<object>>,  IHandle<bool>
+    public class GetFotoViewModel : Screen, IViewModelEventAggregator, IViewModel, IHandle<bool>
     {
         public IEventAggregator EventAggregator { get; set; }
         public IViewModel MainPanel { get; set; }
         public IViewModel RightPanel { get; set; }
         public IViewModel LeftPanel { get; set; }
-
-        private string _pathUsb1 = @"e:\";
-        private string _pathUsb2;
-        private string _pathCd;
-        private string _pathMemmory = @"d:\";
-
-
-        #region Delegate
-        public delegate void ChangePapers();
-        public event ChangePapers changePapers;
-        #endregion
 
         #region  Propertis
 
@@ -35,15 +25,9 @@ namespace FotoApp.ViewModels
         private string _discount;
         private int _count = 12;
         private bool _closingOrder;
-        private int? _type;
         private bool? _activOkButton;
-        private bool? _activUsb1;
-        private bool? _activUsb2;
-        private bool? _activCd;
-        private bool? _activMemmoryCard;
+        private DriveInfo drivoInfo;
         private SchellViewModel schell;
-
-       
 
         public string Price
         {
@@ -79,15 +63,7 @@ namespace FotoApp.ViewModels
 
         #region CanProportis
 
-        public bool CanUsb1 => _activUsb1 == true;
-
-        public bool CanUsb2 => _activUsb1 == true;
-
-        public bool CanCd => _activCd == true;
-
-        public bool CanCart => _activMemmoryCard == true;
-
-        public bool CanOk => _type != null &&  _activOkButton == true;
+        public bool CanOk => _activOkButton == true;
 
         #endregion
 
@@ -97,11 +73,9 @@ namespace FotoApp.ViewModels
         {
             this.schell = schell;
             var EA = EventAgg.Agregator;
+            MainPanel = new FlopyViewModel(this);
             EventAggregator = EA.EventAggregator;
             EventAggregator.Subscribe(this);
-            EventAggregator.PublishOnCurrentThread(_pathUsb1);
-            _type = null;
-            ActivWmiEvent();
 #if DEBUG
             _discount = "kjsdhsdkjfhsdkfs";
             _price = "klsdfjskdfhsdf";
@@ -112,46 +86,7 @@ namespace FotoApp.ViewModels
 
         #region  Actions
 
-        public void Usb1()
-        {
-            if (null == MainPanel)
-                MainPanel = new ListFotoViewModel(this);
-            if (null == RightPanel)
-                RightPanel = new ChangePapersAndSiseViewModel(this);
-            if (null == LeftPanel)
-                LeftPanel = new FotoInfoViewModel(this);
-            NotifyPanel();
-            _closingOrder = false;
-            EventAggregator.PublishOnCurrentThread(_pathUsb1);
-        }
-
-        public void Usb2()
-        {
-            if (null == MainPanel)
-                MainPanel = new ListFotoViewModel(this);
-            if (null == RightPanel)
-                RightPanel = new ChangePapersAndSiseViewModel(this);
-            if (null == LeftPanel)
-                LeftPanel = new FotoInfoViewModel(this);
-            _closingOrder = false;
-            NotifyPanel();
-            EventAggregator.PublishOnCurrentThread(_pathUsb2);
-        }
-
-        public void Cd()
-        {
-            if (null == MainPanel)
-                MainPanel = new ListFotoViewModel(this);
-            if (null == RightPanel)
-                RightPanel = new ChangePapersAndSiseViewModel(this);
-            if (null == LeftPanel)
-                LeftPanel = new FotoInfoViewModel(this);
-            _closingOrder = false;
-            NotifyPanel();
-            EventAggregator.PublishOnCurrentThread(_pathCd);
-        }
-
-        public void Cart()
+        public void ActivMainPanel(DriveInfo path)
         {
             var m = new ListFotoViewModel(this);
             MainPanel = m;
@@ -164,7 +99,7 @@ namespace FotoApp.ViewModels
 
             _closingOrder = false;
             NotifyPanel();
-            EventAggregator.PublishOnCurrentThread(_pathMemmory);
+            EventAggregator.PublishOnCurrentThread(path);
         }
 
         private void ActivLeftPanel()
@@ -178,15 +113,14 @@ namespace FotoApp.ViewModels
 
         private void ActiveRightPanel()
         {
-            
-            var r =  RightPanel as ChangePapersAndSiseViewModel;
-            if (r != null)
-            {
-                r.changePapers -= ActiveRightPanel;
-                RightPanel = new OrderViewModel(this);
-                NotifyPanel();
-            }
+
+            var r = RightPanel as ChangePapersAndSiseViewModel;
+            if (r == null) return;
+            r.changePapers -= ActiveRightPanel;
+            RightPanel = new OrderViewModel(this);
+            NotifyPanel();
         }
+
         public void Ok()
         {
             if (!_closingOrder)
@@ -215,26 +149,16 @@ namespace FotoApp.ViewModels
             NotifyCanOk();
             NotifyPanel();
         }
-        
 
-        
         private void NotifyPanel()
         {
             NotifyOfPropertyChange(() => MainPanel);
             NotifyOfPropertyChange(() => RightPanel);
             NotifyOfPropertyChange(() => LeftPanel);
         }
+
         private void NotifyCanOk()
         {
-            NotifyOfPropertyChange(() => CanOk);
-        }
-        public void Handle(IEnumerable<object> message)
-        {
-            var list = message.ToList();
-            if (true)
-            {
-                _type = (int)list[0];
-            }
             NotifyOfPropertyChange(() => CanOk);
         }
 
@@ -243,230 +167,10 @@ namespace FotoApp.ViewModels
             _activOkButton = message;
             NotifyOfPropertyChange(() => CanOk);
         }
-        #endregion
-
-        #region WMIEvent
-        private void ActivWmiEvent()
-        {
-            AddInsertMemmoryCardHandler();
-            AddRemoveMemmoryCardHandler();
-            AddInsertUSBHandler();
-            AddRemoveUSBHandler();
-            AddRemoweInsertCdRomHandler();
-        }
-
-        #region Cdrom
-
-        public void AddRemoweInsertCdRomHandler()
-        {
-            ManagementEventWatcher w = null;
-            WqlEventQuery q;
-            var observer = new
-                ManagementOperationObserver();
-
-            // Bind to local machine
-            var opt = new ConnectionOptions();
-            opt.EnablePrivileges = true; //sets required privilege
-            var scope = new ManagementScope("root\\CIMV2", opt);
-
-            try
-            {
-                q = new WqlEventQuery();
-                q.EventClassName = "__InstanceModificationEvent";
-                q.WithinInterval = new TimeSpan(0, 0, 1);
-
-                // DriveType - 5: CDROM
-                q.Condition = @"TargetInstance ISA 'Win32_LogicalDisk' and TargetInstance.DriveType = 5";
-                w = new ManagementEventWatcher(scope, q);
-
-                // register async. event handler
-                w.EventArrived += CdrEventArrived;
-                w.Start();
-
-                // Do something usefull,block thread for testing
-                Console.ReadLine();
-            }
-            catch (System.Exception)
-            {
-            }
-            finally
-            {
-                w.Stop();
-            }
-        }
 
         #endregion
 
-        #region USB
-
-        public void AddRemoveUSBHandler()
-        {
-            ManagementEventWatcher w = null;
-
-            WqlEventQuery q;
-            var opt = new ConnectionOptions();
-
-            var scope = new ManagementScope("root\\CIMV2");
-            scope.Options.EnablePrivileges = true;
-
-            try
-            {
-                q = new WqlEventQuery();
-                q.EventClassName = "__InstanceDeletionEvent";
-                q.WithinInterval = new TimeSpan(0, 0, 3);
-                q.Condition = "TargetInstance ISA 'Win32_USBControllerdevice'";
-                w = new ManagementEventWatcher(scope, q);
-                w.EventArrived += USBRemoved;
-
-                w.Start();
-            }
-            catch (System.Exception)
-            {
-                if (w != null)
-                    w.Stop();
-            }
-        }
-
-        public void AddInsertUSBHandler()
-        {
-            ManagementEventWatcher w = null;
-
-            var observer = new ManagementOperationObserver();
-
-            WqlEventQuery q;
-
-            var scope = new ManagementScope("root\\CIMV2");
-            scope.Options.EnablePrivileges = true;
-
-            try
-            {
-                q = new WqlEventQuery();
-                q.EventClassName = "__InstanceCreationEvent";
-                q.WithinInterval = new TimeSpan(0, 0, 3);
-                q.Condition = "TargetInstance ISA 'Win32_USBControllerdevice'";
-                w = new ManagementEventWatcher(scope, q);
-                w.EventArrived += USBInserted;
-
-                w.Start();
-            }
-            catch (System.Exception)
-            {
-                if (w != null)
-                    w.Stop();
-            }
-        }
-
-        #endregion
-
-        #region MemmoryCard
-
-        public void AddRemoveMemmoryCardHandler()
-        {
-            ManagementEventWatcher w = null;
-
-            WqlEventQuery q;
-            var opt = new ConnectionOptions();
-
-            var scope = new ManagementScope("root\\CIMV2");
-            scope.Options.EnablePrivileges = true;
-
-            try
-            {
-                q = new WqlEventQuery();
-                q.EventClassName = "__InstanceDeletionEvent";
-                q.WithinInterval = new TimeSpan(0, 0, 3);
-                q.Condition = "TargetInstance ISA 'Win32_PhysicalMedia'";
-                w = new ManagementEventWatcher(scope, q);
-                w.EventArrived += MemmoryCartRemoved;
-
-                w.Start();
-            }
-            catch (System.Exception)
-            {
-                if (w != null)
-                    w.Stop();
-            }
-        }
-
-        public void AddInsertMemmoryCardHandler()
-        {
-            ManagementEventWatcher w = null;
-
-            var observer = new ManagementOperationObserver();
-
-            WqlEventQuery q;
-            var opt = new ConnectionOptions();
-
-            var scope = new ManagementScope("root\\CIMV2", opt);
-            scope.Options.EnablePrivileges = true;
-
-            try
-            {
-                q = new WqlEventQuery();
-                q.EventClassName = "__InstanceCreationEvent";
-                q.WithinInterval = new TimeSpan(0, 0, 3);
-                q.Condition = "TargetInstance ISA 'Win32_PhysicalMedia'";
-                w = new ManagementEventWatcher(scope, q);
-                w.EventArrived += MemmoryCartInserted;
-
-                w.Start();
-            }
-            catch (System.Exception)
-            {
-                if (w != null)
-                    w.Stop();
-            }
-        }
-
-        #endregion
-
-        private void USBInserted(object sender, System.EventArgs e)
-        {
-            _activUsb1 = true;
-            _activUsb2 = true;
-            NotifyOfPropertyChange((() => CanUsb1));
-            NotifyOfPropertyChange((() => CanUsb2));
-        }
-
-        private void USBRemoved(object sender, System.EventArgs e)
-        {
-            _activUsb1 = false;
-            _activUsb2 = false;
-            NotifyOfPropertyChange((() => CanUsb1));
-            NotifyOfPropertyChange((() => CanUsb2));
-        }
-        private void MemmoryCartInserted(object sender, System.EventArgs e)
-        {
-            _activMemmoryCard = true;
-            NotifyOfPropertyChange((() => CanCart));
-        }
-
-        private void MemmoryCartRemoved(object sender, System.EventArgs e)
-        {
-            _activMemmoryCard = false;
-            NotifyOfPropertyChange((() => CanCart));
-        }
-
-        private void CdrEventArrived(object sender, EventArrivedEventArgs e)
-        {
-            var pd = e.NewEvent.Properties["TargetInstance"];
-
-            if (pd != null)
-            {
-                var mbo = pd.Value as ManagementBaseObject;
-                if (mbo.Properties["VolumeName"].Value != null)
-                {
-                    _activCd = true;
-                    NotifyOfPropertyChange((() => CanCd));
-                }
-            }
-            else
-            {
-                _activCd = false;
-                NotifyOfPropertyChange((() => CanCd));
-            }
-        }
-        #endregion
+       
 
     }
 }
