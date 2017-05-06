@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FotoApp.Pref.Helpers;
 
 
 namespace FotoAppDBTest
@@ -24,15 +25,265 @@ namespace FotoAppDBTest
         static void Main(string[] args)
         {
             FotoAppRAll all = FotoAppRAll.Ins;
-            Orders nowy = new Orders();
-            all.Orders.Add(nowy );
-            all.Save();
-            Console.WriteLine( nowy.OrderID.ToString());
-            nowy.Description = "jakis napis";
-            nowy.Date = DateTime.Now;
-all.Orders.Update(nowy);
-            all.Save();
-            Console.WriteLine(nowy.Date.ToString());
+            // foreach (OrderFotos o in all.OrderFotos.GetFotoInOrder(new Fotos() { FotoID = 2 })) Console.WriteLine(o.Quantity.ToString());
+            KeySettings s = new KeySettings();
+            //s._null = new byte[] { 0x00 };
+            s.BlockAll();
+            s.Delete();
+           // s.Delete();
+            
+            //foreach (OrderFotos o in all.OrderFotos.GetAllFotosInOrder(new Orders() { OrderID = 1 })) Console.WriteLine(o.FotoID.ToString());
+
+            //foreach (Orders o in all.Orders.GetAll()) foreach (OrderRaport or in all.Orders.OrderRaport(o))
+            //    {
+            //        Console.WriteLine(o.OrderID + " " + or.Paper.Height/100 + "x" + or.Paper.Width/100 + " " + or.Paper.TypeID + " price " + or.Price + " " + or.Quantity );
+            //    }
+
+            //Stopwatch stopWatch = new Stopwatch();
+            //stopWatch.Start();
+            //Int64? test = 0;
+            ////for (int i = 0;i<100; i++)
+            //foreach (Orders o in all.Orders.GetAll())
+            //    foreach (OrderRaport or in all.Orders.OrderRaport(o))
+            //    {
+            //         //test += or.Price;
+            //        Console.WriteLine(o.OrderID + " " + or.Paper.Height / 100 + "x" + or.Paper.Width / 100 + " " + or.Paper.TypeID + " price " + or.Price + " " + or.Quantity);
+
+            //    }
+
+            //TimeSpan ts = stopWatch.Elapsed;
+            //string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            //                                   ts.Hours, ts.Minutes, ts.Seconds,
+            //                                   ts.Milliseconds / 10);
+
+            //Console.WriteLine(elapsedTime);
+            //Console.WriteLine(test.ToString());
+
+            //Stopwatch stopWatch2 = new Stopwatch();
+            //stopWatch2.Start();
+            //Int64? test2 = 0;
+            //for (int i = 0; i < 100; i++) foreach (Orders o in all.Orders.GetAll())
+            //    foreach (OrderRaport or in all.Orders.OrderRaport2(o))
+            //    {
+            //        test2 += or.Price;
+            //        //Console.WriteLine(o.OrderID + " " + or.Paper.Height / 100 + "x" + or.Paper.Width / 100 + " " + or.Paper.TypeID + " price " + or.Price + " " + or.Quantity);
+
+            //    }
+            
+            //TimeSpan ts2 = stopWatch2.Elapsed;
+            //string elapsedTime2 = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            //                                   ts2.Hours, ts2.Minutes, ts2.Seconds,
+            //                                   ts2.Milliseconds / 10);
+            //Console.WriteLine(elapsedTime2);
+            //Console.WriteLine(test2.ToString());
+            // var o = new Orders() { OrderID = 2 };
+            //foreach (OrderRaport or in all.Orders.OrderRaport(o)) Console.WriteLine(o.OrderID + " " + or.Paper.Height/100 + "x" + or.Paper.Width/100 + " " + or.Paper.TypeID + " price " + or.Price + " " + or.Quantity );
+            //Console.WriteLine("----------------");
+            //foreach (OrderRaport or in all.Orders.OrderRaport2(o)) Console.WriteLine(o.OrderID + " " + or.Paper.Height / 100 + "x" + or.Paper.Width / 100 + " " + or.Paper.TypeID + " price " + or.Price + " " + or.Quantity);
+
+
+            //var order = all.Orders.Get(new Orders() { OrderID = 2 });
+            //Console.WriteLine(all.Sizes.Context
+            //    .OrderFoto
+            //    .Where(o => o.Fotos.OrderID == order.OrderID)
+            //    .Join(all.Sizes.Context.Type,
+            //        a => a.TypeID,
+            //        b => b.TypeID,
+            //        (a, b) => new
+            //        {
+            //            OrderID = a.Fotos.OrderID,
+            //            Height = a.Height,
+            //            Width = a.Width,
+            //            TypeID = a.TypeID,
+            //            Quantity = a.Quantity,
+            //            Connect = b.Connect
+            //        })
+            //    .GroupBy(a => new
+            //    {
+            //        OrderID = a.OrderID,
+            //        Height = a.Height,
+            //        Width = a.Width,
+            //        Connect = ((a.Connect == null) ? a.TypeID : a.Connect)
+            //    })
+            //    .Select(a => new
+            //    {
+            //        OrderID = a.Key.OrderID,
+            //        Height = a.Key.Height,
+            //        Width = a.Key.Width,
+            //        Connect = a.Key.Connect,
+            //        TypeID = a.Min(b => b.TypeID),
+            //        Sum = a.Sum(b => b.Quantity)
+            //    })
+            //    .Join(all.Sizes.Context.Price,
+            //        a => a.Height,
+            //        b => b.Height,
+            //        (a, b) => new
+            //        {
+            //            paper = a,
+            //            price = b
+            //        })
+            //    .Where(c =>
+            //        c.paper.Connect == c.price.TypeID &&
+            //        c.price.Height == c.paper.Height &&
+            //        c.paper.Width == c.price.Width &&
+            //        c.paper.Sum > c.price.Quantity)
+            //    .GroupBy(a => new
+            //    {
+            //        OrderID = a.paper.OrderID,
+            //        Height = a.paper.Height,
+            //        Width = a.paper.Width,
+            //        Sum = a.paper.Sum,
+            //        Connect = a.price.TypeID,
+            //        TypeID = a.paper.TypeID
+            //    })
+            //    .Select(a => new
+            //    {
+            //        OrderID = a.Key.OrderID,
+            //        Height = a.Key.Height,
+            //        Width = a.Key.Width,
+            //        Sum = a.Key.Sum,
+            //        Connect = a.Key.Connect,
+            //        TypeID = a.Key.TypeID,
+            //        Quantity = a.Max(b => b.price.Quantity)
+            //    })
+            //    .Join(all.Sizes.Context.Price,
+            //        a => a.Height,
+            //        b => b.Height,
+            //        (a, b) => new
+            //        {
+            //            paper = a,
+            //            price = b
+            //        })
+            //    .Where(c =>
+            //        c.paper.Connect == c.price.TypeID &&
+            //        c.price.Height == c.paper.Height &&
+            //        c.paper.Width == c.price.Width &&
+            //        c.paper.Quantity == c.price.Quantity)
+            //    .Select(a => new
+            //    {
+            //        OrderID = a.paper.OrderID,
+            //        TypeID = a.paper.TypeID,
+            //        Connect = a.paper.Connect,
+            //        Height = a.paper.Height,
+            //        Width = a.paper.Width,
+            //        Price = a.price.Price
+            //    })
+            //    .Join(all.Sizes.Context.OrderFoto,
+            //        a => a.OrderID,
+            //        b => b.Fotos.OrderID,
+            //        (a, b) => new
+            //        {
+            //            cost = a,
+            //            fotos = b
+            //        })
+            //    .Where(a =>
+            //        a.fotos.Fotos.OrderID == a.cost.OrderID &&
+            //        a.fotos.Height == a.cost.Height &&
+            //        a.fotos.Width == a.cost.Width &&
+            //        (a.cost.Connect == a.fotos.TypeID ||
+            //        a.cost.TypeID == a.fotos.TypeID))
+            //    .GroupBy(a => new
+            //    {
+            //        Height = a.fotos.Height,
+            //        Width = a.fotos.Width,
+            //        TypeID = a.fotos.TypeID,
+            //        Price = a.cost.Price,
+            //        Connect = a.cost.Connect
+            //    })
+            //    .Select(a => new
+            //    {
+            //        Height = a.Key.Height,
+            //        Width = a.Key.Width,
+            //        TypeID = a.Key.TypeID,
+            //        Price = (Int64)a.Sum(z => z.fotos.Quantity) * (Int64)a.Key.Price,
+            //        Connect = a.Key.Connect,
+            //        Quantity = a.Sum(z => z.fotos.Quantity)
+            //    }).ToString());
+            //Console.WriteLine("-------------------------------------");
+            //Console.WriteLine("-------------------------------------");
+            //Console.WriteLine("-------------------------------------");
+            //Console.WriteLine("-------------------------------------");
+            //Console.WriteLine("-------------------------------------");
+            //Console.WriteLine(all.Sizes.Context.OrderFoto.Where(o => o.Fotos.OrderID == order.OrderID).Select(a => new
+            //{
+            //    OrderID = order.OrderID,
+            //    Height = a.Height,
+            //    Width = a.Width,
+            //    TypeID = a.TypeID,
+            //    Quantity = a.Quantity,
+            //    Connect = (a.Papers.Types.Connect == null) ? a.TypeID : a.Papers.Types.Connect,
+
+            //}).GroupBy(a => new
+            //{
+            //    OrderID = a.OrderID,
+            //    Height = a.Height,
+            //    Width = a.Width,
+            //    TypeID = a.TypeID,
+            //    Connect = a.Connect,
+            //    // SPrice = a.SPrice
+            //}
+            //    ).Select(a => new
+            //    {
+            //        OrderID = a.Key.OrderID,
+            //        Height = a.Key.Height,
+            //        Width = a.Key.Width,
+            //        Connect = a.Key.Connect,
+            //        TypeID = a.Key.TypeID,
+            //        SumSingle = a.Sum(b => b.Quantity),
+            //        // SPrice = a.Key.SPrice,
+
+            //        //Price = a.Key.
+            //    }).GroupBy(a => new
+            //    {
+            //        OrderID = a.OrderID,
+            //        Height = a.Height,
+            //        Width = a.Width,
+            //        //TypeID = a.TypeID,
+            //        Connect = a.Connect,
+            //        //SPrice = a.SPrice
+            //    }).Select(a => new
+            //    {
+            //        OrderID = a.Key.OrderID,
+            //        Height = a.Key.Height,
+            //        Width = a.Key.Width,
+            //        Connect = a.Key.Connect,
+            //        TypeID = a.Min(b => b.TypeID),
+            //        SumSingle = a.Min(b => b.SumSingle),
+            //        //Sum = a.Sum(b => b.SumSingle),   
+            //        Cost = (Int64)a.Min(b => b.SumSingle) * (Int64)(all.Sizes.Context.Price.Where(d => d.Height == a.Key.Height && d.Width == a.Key.Width && d.TypeID == a.Key.Connect && d.Quantity >= a.Min(b => b.SumSingle)).OrderBy(g=>g.Quantity).FirstOrDefault().Price)
+            //    })
+            //.ToString());
+
+
+
+
+
+
+
+
+
+
+
+
+            //foreach(OrderFotos o in all.OrderFotos.AllFotosInOrder(new Orders() {OrderID = 1 }))
+            //Console.WriteLine(o.Quantity.ToString());
+
+            //System.Console.WriteLine(all.Sizes.Context.OrderFoto.Where(a => a.Fotos.OrderID == 1));
+
+
+            //foreach (Fotos f in all.Fotos.GetAll())
+            //{
+            //    Console.WriteLine( all.Fotos.SumFoto(f)+ " " + f.FotoID.ToString());
+            //}
+            //            Orders nowy = new Orders();
+            //            all.Orders.Add(nowy );
+            //            all.Save();
+            //            Console.WriteLine( nowy.OrderID.ToString());
+            //            nowy.Description = "jakis napis";
+            //            nowy.Date = DateTime.Now;
+            //all.Orders.Update(nowy);
+            //            all.Save();
+            //            Console.WriteLine(nowy.Date.ToString());
             //Stopwatch stopWatch = new Stopwatch();
             //stopWatch.Start();
             //for (int i = 0; i < 100; i++)
@@ -41,7 +292,7 @@ all.Orders.Update(nowy);
             //        //Console.WriteLine("zamownie nr " + o.OrderID.ToString());
             //        foreach (PaperQuantity q in all.Papers.SumPapersInOrder3(o))
             //        {
-            //            //Console.WriteLine("rozmiar " + (q.Paper.Height / 100).ToString() + "x" + (q.Paper.Length / 100).ToString() + " typu " + q.Paper.TypeID.ToString() + " ilosc: " + q.Quantity.ToString());
+            //            //Console.WriteLine("rozmiar " + (q.Paper.Height / 100).ToString() + "x" + (q.Paper.Width / 100).ToString() + " typu " + q.Paper.TypeID.ToString() + " ilosc: " + q.Quantity.ToString());
             //        }
             //    }
             //TimeSpan ts = stopWatch.Elapsed;
@@ -57,7 +308,7 @@ all.Orders.Update(nowy);
             //        //Console.WriteLine("zamownie nr " + o.OrderID.ToString());
             //        foreach (PaperQuantity q in all.Papers.SumPapersInOrder2(o))
             //        {
-            //            //Console.WriteLine("rozmiar " + (q.Paper.Height / 100).ToString() + "x" + (q.Paper.Length / 100).ToString() + " typu " + q.Paper.TypeID.ToString() + " ilosc: " + q.Quantity.ToString());
+            //            //Console.WriteLine("rozmiar " + (q.Paper.Height / 100).ToString() + "x" + (q.Paper.Width / 100).ToString() + " typu " + q.Paper.TypeID.ToString() + " ilosc: " + q.Quantity.ToString());
             //        }
             //    }
             //TimeSpan ts1 = stopWatch1.Elapsed;
@@ -78,7 +329,7 @@ all.Orders.Update(nowy);
             //    Console.WriteLine("zamownie nr " + o.OrderID.ToString());
             //    foreach (OrderRaport q in all.Orders.OrderRaport(o))
             //    {
-            //        Console.WriteLine("rozmiar " + (q.Paper.Height / 100).ToString() + "x" + (q.Paper.Length / 100).ToString() + " typu " + q.Paper.TypeID.ToString() + " ilosc: " + q.Quantity.ToString() + " cena z typu: " +q.Connect.ToString()+ " koszt "+q.Price.ToString()+ " cena za sztuke " +(q.Price/q.Quantity).ToString());
+            //        Console.WriteLine("rozmiar " + (q.Paper.Height / 100).ToString() + "x" + (q.Paper.Width / 100).ToString() + " typu " + q.Paper.TypeID.ToString() + " ilosc: " + q.Quantity.ToString() + " cena z typu: " +q.Connect.ToString()+ " koszt "+q.Price.ToString()+ " cena za sztuke " +(q.Price/q.Quantity).ToString());
             //    }
             //}
             //TimeSpan ts2 = stopWatch2.Elapsed;
@@ -92,8 +343,8 @@ all.Orders.Update(nowy);
             // Console.WriteLine(all.Sizes.Context
             //        .OrderFoto
             //        .Where(o => o.OrderID == 1)
-            //        .GroupBy(a => new { Height = a.Height, Length = a.Length, TypeID = a.TypeID })
-            //        .Join(all.Sizes.Context.Paper, s => new { s.Key.Height, s.Key.Length, s.Key.TypeID }, b => new { b.Height, b.Length, b.TypeID }, (s, b) => new { first = s, paper = b })
+            //        .GroupBy(a => new { Height = a.Height, Width = a.Width, TypeID = a.TypeID })
+            //        .Join(all.Sizes.Context.Paper, s => new { s.Key.Height, s.Key.Width, s.Key.TypeID }, b => new { b.Height, b.Width, b.TypeID }, (s, b) => new { first = s, paper = b })
             //        .Select(a => new PaperQuantity { Paper = a.paper, Quantity = a.first.Sum(z => z.Quantity) }));
 
 
@@ -140,7 +391,7 @@ all.Orders.Update(nowy);
             //all.Sizes.
             //var a = all.Types.GetAllTypes(true);
             //foreach (Types aa in a) Console.WriteLine(aa.TypeID.ToString());
-            //Console.WriteLine(all.SizeTexts.GetSizeTextBySizeALang(new Sizes() { Height = 1500, Length = 21000 }, new Languages() { Language = "en" }).Text);
+            //Console.WriteLine(all.SizeTexts.GetSizeTextBySizeALang(new Sizes() { Height = 1500, Width = 21000 }, new Languages() { Language = "en" }).Text);
             //all.Settings.AddOrUpdate();
             //Settings s = new Settings() { Area = "lang", Target = "pl_en", Value = "pl_PL" };
             ////s.Value += "aaa";
@@ -169,11 +420,11 @@ all.Orders.Update(nowy);
             //all.Settings.CheckLangSettings();
             //all.Save();
             //all.Settings.CheckLangSettings();
-            // all.SizeTexts.GetSizeTextBySizeALang(new Sizes() { Height = 900, Length = 1300 }, new Languages() { Language = "pl" });
+            // all.SizeTexts.GetSizeTextBySizeALang(new Sizes() { Height = 900, Width = 1300 }, new Languages() { Language = "pl" });
             //Console.WriteLine(all.Types.GetAllTypes(false).Count().ToString());
             //Console.WriteLine(all.Types.GetAllTypes(true).Count().ToString());
             //Console.WriteLine(all.Types.GetAll().Count().ToString());
-            //Sizes s = new Sizes { Height = 900, Length = 1300 };
+            //Sizes s = new Sizes { Height = 900, Width = 1300 };
             //Console.WriteLine(all.Types.GetTypesBySize(s).Count().ToString());
             //Console.WriteLine(all.Types.GetTypesBySize(s,true).Count().ToString());
             //Console.WriteLine(all.Types.GetTypesBySize(s, false).Count().ToString());
@@ -217,140 +468,7 @@ all.Orders.Update(nowy);
             //Console.WriteLine("RunTime " + elapsedTime);
 
 
-            #region Generator bazy danych
-            //FotoAppRAll all = FotoAppRAll.Ins;
-            //Sizes[] s = new Sizes[8];
-            //s[0] = new Sizes() { Height = 900, Length = 1300 };
-            //s[1] = new Sizes() { Height = 1000, Length = 1500 };
-            //s[2] = new Sizes() { Height = 1300, Length = 1800 };
-            //s[3] = new Sizes() { Height = 1500, Length = 2100 };
-            //s[4] = new Sizes() { Height = 1800, Length = 2400 };
-            //s[5] = new Sizes() { Height = 2000, Length = 2500 };
-            //s[6] = new Sizes() { Height = 2100, Length = 3000 };
-            //s[7] = new Sizes() { Height = 2400, Length = 3000 };
 
-            //for (int i = 0; i < 8; i++)
-            //{
-            //    all.Sizes.AddOrUpdate(s[i]);
-            //}
-            //all.Contacts.Save();
-            //Types[] t = new Types[4];
-
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    t[i] = new Types();
-            //    all.Types.AddOrUpdate(t[i]);
-            //    all.Contacts.Save();
-            //    t[i] = new Types() {TypeID = i+1 };
-            //}
-
-
-            //all.Languages.AddOrUpdate(new Languages() { Language = "pl_PL" });
-            //all.Languages.AddOrUpdate(new Languages() { Language = "en_EN" });
-            //all.Contacts.Save();
-            //SizeTexts st1 = new SizeTexts() { Height = 900, Length = 1300, Language = "pl_PL", Text = "1" }; all.SizeTexts.AddOrUpdate(st1);
-            //SizeTexts st2 = new SizeTexts() { Height = 1000, Length = 1500, Language = "pl_PL", Text = "2" }; all.SizeTexts.AddOrUpdate(st2);
-            //SizeTexts st3 = new SizeTexts() { Height = 1300, Length = 1800, Language = "pl_PL", Text = "3" }; all.SizeTexts.AddOrUpdate(st3);
-            //SizeTexts st4 = new SizeTexts() { Height = 1500, Length = 2100, Language = "pl_PL", Text = "4" }; all.SizeTexts.AddOrUpdate(st4);
-            //SizeTexts st5 = new SizeTexts() { Height = 1800, Length = 2400, Language = "pl_PL", Text = "5" }; all.SizeTexts.AddOrUpdate(st5);
-            //SizeTexts st6 = new SizeTexts() { Height = 2000, Length = 2500, Language = "pl_PL", Text = "6" }; all.SizeTexts.AddOrUpdate(st6);
-            //SizeTexts st7 = new SizeTexts() { Height = 2100, Length = 3000, Language = "pl_PL", Text = "7" }; all.SizeTexts.AddOrUpdate(st7);
-            //SizeTexts st8 = new SizeTexts() { Height = 2400, Length = 3000, Language = "pl_PL", Text = "8" }; all.SizeTexts.AddOrUpdate(st8);
-            //SizeTexts st9 = new SizeTexts() { Height = 900, Length = 1300, Language = "en_EN", Text = "1e" }; all.SizeTexts.AddOrUpdate(st9);
-            //SizeTexts st10 = new SizeTexts() { Height = 1000, Length = 1500, Language = "en_EN", Text = "2e" }; all.SizeTexts.AddOrUpdate(st10);
-            //all.Contacts.Save();
-            //all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[0].TypeID, Text = "t1", Language = "pl_PL" });
-            //all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[1].TypeID, Text = "t2", Language = "pl_PL" });
-            //all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[2].TypeID, Text = "t3", Language = "pl_PL" });
-            //all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[3].TypeID, Text = "t4", Language = "pl_PL" });
-            //all.TypeTexts.AddOrUpdate(new TypeTexts() { TypeID = t[1].TypeID, Text = "t1e", Language = "en_EN" });
-            //Papers[] p = new Papers[20];
-            //for (int i = 0; i < 8; i++)
-            //{
-            //    p[i] = new Papers() { TypeID = t[0].TypeID, Height = s[i].Height, Length = s[i].Length, Availability = null };
-            //}
-            //for (int i = 8; i < 13; i++)
-            //{
-            //    p[i] = new Papers() { TypeID = t[1].TypeID, Height = s[i - 8].Height, Length = s[i - 8].Length, Availability = i };
-            //}
-            //for (int i = 13; i < 14; i++)
-            //{
-            //    p[i] = new Papers() { TypeID = t[2].TypeID, Height = s[i - 13].Height, Length = s[i - 13].Length, Availability = i * 100 };
-            //}
-            //for (int i = 14; i < 20; i++)
-            //{
-            //    p[i] = new Papers() { TypeID = t[3].TypeID, Height = s[i - 14].Height, Length = s[i - 14].Length, Availability = i * 10000 };
-            //}
-            //all.Contacts.Save();
-            //for (int i = 0; i < 20; i++) all.Papers.AddOrUpdate(p[i]);
-            //for (int i = 0; i < 8; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 1, Price = 80 * i });
-            //for (int i = 8; i < 13; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 1, Price = 100 * i });
-            //for (int i = 13; i < 14; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 1, Price = 60 * i });
-            //for (int i = 14; i < 20; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 1, Price = 40 * i });
-            //all.Contacts.Save();
-            //for (int i = 0; i < 8; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 11, Price = 70 * i });
-            //for (int i = 8; i < 13; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 11, Price = 90 * i });
-            //for (int i = 13; i < 14; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 11, Price = 50 * i });
-            //for (int i = 14; i < 20; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 11, Price = 35 * i });
-            //all.Contacts.Save();
-            //for (int i = 0; i < 8; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 51, Price = 60 * i });
-            //for (int i = 8; i < 13; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 51, Price = 80 * i });
-            //for (int i = 13; i < 14; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 51, Price = 40 * i });
-            //for (int i = 14; i < 20; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 51, Price = 30 * i });
-            //all.Contacts.Save();
-            //for (int j = 0; j < 5; j++)
-            //{
-            //    for (int i = 0; i < 8; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 101 + 100 * j, Price = 80 * i - 5 * j });
-            //    for (int i = 8; i < 13; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 101 + 100 * j, Price = 75 * i - 5 * j });
-            //    for (int i = 13; i < 14; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 101 + 100 * j, Price = 70 * i - 5 * j });
-            //    for (int i = 14; i < 20; i++) all.Prices.AddOrUpdate(new Prices() { Height = p[i].Height, Length = p[i].Length, TypeID = p[i].TypeID, Quantity = 101 + 100 * j, Price = 50 * i - 4 * j });
-            //    all.Contacts.Save();
-            //}
-            //Fotos[] f = new Fotos[30];
-            //for (int i = 0; i < 30; i++)
-            //{
-            //    f[i] = new Fotos() { Name = "a" + i.ToString() };
-            //    all.Fotos.Add(f[i]);
-            //    all.Save();
-            //    f[i] = new Fotos() { FotoID = i + 2 };
-
-            //}
-            //all.Contacts.Save();
-            //Orders[] o = new Orders[8];
-            //for (int i = 0; i < 8; i++)
-            //{
-            //    o[i] = new Orders() { OrderID = i + 2, Description = i.ToString(), Date = DateTime.Now };
-            //    all.Contacts.Save();
-            //    all.Orders.AddOrUpdate(o[i]);
-            //    all.Contacts.AddOrUpdate(new Contacts() { OrderID = o[i].OrderID, Mail = i.ToString() + "@FotoApp.pl", TelephoneNumber = "12" + i.ToString() + i.ToString() + i.ToString() });
-            //}
-            //all.Contacts.Save();
-
-
-            //Random rnd = new Random();
-            //for (int i = 0; i < 20; i++)
-            //{
-            //    for (int j = 0; j < 30; j++)
-            //    {
-            //        for (int z = 0; z < 8; z++)
-            //        {
-            //            all.OrderFotos.AddOrUpdate(new OrderFotos()
-            //            {
-            //                FotoID = f[j].FotoID,
-            //                OrderID = o[z].OrderID,
-            //                Height = p[i].Height,
-            //                Length = p[i].Length,
-            //                TypeID = p[i].TypeID,
-            //                Quantity = rnd.Next(1, 11)
-            //            });
-            //        }
-            //        all.Contacts.Save();
-            //    }
-            //}
-            //all.Settings.AddOrUpdate(new Settings() { Area = "lang", Target = "en", Value = "pl_PL" });
-            //all.Settings.AddOrUpdate(new Settings() { Area = "acc", Target = "size", Value = "100" });
-            //all.Contacts.Save();
-            #endregion
             Console.WriteLine("koniec");
             Console.ReadKey();
         }

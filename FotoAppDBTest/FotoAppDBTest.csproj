@@ -77,6 +77,10 @@
       <Project>{38E36ACA-5C3C-429E-BF25-6AA80BD6C780}</Project>
       <Name>FotoAppDB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FotoApp\FotoApp.csproj">
+      <Project>{ad620c7a-a0fb-41ae-888a-5fb7a11213f3}</Project>
+      <Name>FotoApp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

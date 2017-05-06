@@ -45,7 +45,7 @@ namespace FotoApp.ViewModels.Helpers
             or.Type = all.TypeTexts
                 .GetTypeTextByTypeALang( new Types {TypeID = _papers.TypeID}, new Languages {Language = Pref.Preference.Lang}).Text;
             or.Size = all.SizeTexts
-                .GetSizeTextBySizeALang(new Sizes {Height = _papers.Height, Length = _papers.Length},
+                .GetSizeTextBySizeALang(new Sizes {Height = _papers.Height, Width = _papers.Width},
                     new Languages {Language = Pref.Preference.Lang}).Text;
             or.Paper = _papers;
             or.Quantity = _quantity;
@@ -65,7 +65,7 @@ namespace FotoApp.ViewModels.Helpers
             o.Type = all.TypeTexts
                 .GetTypeTextByTypeALang(new Types { TypeID = p.TypeID }, new Languages { Language = Pref.Preference.Lang }).Text;
             o.Size = all.SizeTexts
-                .GetSizeTextBySizeALang(new Sizes { Height = p.Height, Length = p.Length },
+                .GetSizeTextBySizeALang(new Sizes { Height = p.Height, Width = p.Width },
                     new Languages { Language = Pref.Preference.Lang }).Text;
             o.Paper = p;
             o.Quantity = quantity;

@@ -6,6 +6,6 @@ namespace FotoAppDB.Repository.Interface
 {
     interface IOrdersR
     {
-        List<OrderRaport> OrderRaport(Orders order);
+        List<OrderRaport> OrderRaport(Orders order);        
     }
 }

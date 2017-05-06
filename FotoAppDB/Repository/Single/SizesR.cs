@@ -11,7 +11,7 @@ namespace FotoAppDB.Repository.Single
     {
         public override Sizes Get(Sizes FAobject)
         {
-            Sizes o = Context.Size.Find(FAobject.Height, FAobject.Length);
+            Sizes o = Context.Size.Find(FAobject.Height, FAobject.Width);
             if (o != null)
             {
                 return o;
@@ -29,11 +29,11 @@ namespace FotoAppDB.Repository.Single
                 var ids = Context
                 .Paper
                 .Where(t => t.Availability == null || t.Availability > 0)
-                .GroupBy(t => new { t.Height, t.Length })
-                .Select(a => new { a.Key.Height, a.Key.Length });
+                .GroupBy(t => new { t.Height, t.Width })
+                .Select(a => new { a.Key.Height, a.Key.Width });
                 return Context
                     .Size
-                    .Join(ids, s => new { s.Height, s.Length }, b => new { b.Height, b.Length }, (s, b) => new { Sizes = s, Sizes2 = b })
+                    .Join(ids, s => new { s.Height, s.Width }, b => new { b.Height, b.Width }, (s, b) => new { Sizes = s, Sizes2 = b })
                     .Select(x => x.Sizes)
                     .ToList();
             }
@@ -42,15 +42,15 @@ namespace FotoAppDB.Repository.Single
                 var hids = Context
                 .Paper
                 .Where(t => t.Availability == null || t.Availability > 0)
-                .GroupBy(t => new { t.Height, t.Length })
-                .Select(a => new { a.Key.Height, a.Key.Length });
+                .GroupBy(t => new { t.Height, t.Width })
+                .Select(a => new { a.Key.Height, a.Key.Width });
                 var ids = Context
                    .Size
-                   .Where(t => !hids.Contains(new { t.Height, t.Length }))
-                   .Select(a => new { a.Height, a.Length });
+                   .Where(t => !hids.Contains(new { t.Height, t.Width }))
+                   .Select(a => new { a.Height, a.Width });
                 return Context
                     .Size
-                    .Join(ids, s => new { s.Height, s.Length }, b => new { b.Height, b.Length }, (s, b) => new { Sizes = s, Sizes2 = b })
+                    .Join(ids, s => new { s.Height, s.Width }, b => new { b.Height, b.Width }, (s, b) => new { Sizes = s, Sizes2 = b })
                     .Select(x => x.Sizes)
                     .ToList();
             }
@@ -61,11 +61,11 @@ namespace FotoAppDB.Repository.Single
             var ids = Context
                 .Paper
                 .Where(p => p.TypeID == type.TypeID)
-                .GroupBy(t => new { t.Height, t.Length })
-                .Select(a => new { a.Key.Height, a.Key.Length });
+                .GroupBy(t => new { t.Height, t.Width })
+                .Select(a => new { a.Key.Height, a.Key.Width });
             return Context
                     .Size
-                    .Join(ids, s => new { s.Height, s.Length }, b => new { b.Height, b.Length }, (s, b) => new { Sizes = s, Sizes2 = b })
+                    .Join(ids, s => new { s.Height, s.Width }, b => new { b.Height, b.Width }, (s, b) => new { Sizes = s, Sizes2 = b })
                     .Select(x => x.Sizes)
                     .ToList();
         }
@@ -77,11 +77,11 @@ namespace FotoAppDB.Repository.Single
                 var ids = Context
                     .Paper
                     .Where(p => p.TypeID == type.TypeID && (p.Availability == null || p.Availability > 0))
-                    .GroupBy(t => new { t.Height, t.Length })
-                    .Select(a => new { a.Key.Height, a.Key.Length });
+                    .GroupBy(t => new { t.Height, t.Width })
+                    .Select(a => new { a.Key.Height, a.Key.Width });
                 return Context
                     .Size
-                    .Join(ids, s => new { s.Height, s.Length }, b => new { b.Height, b.Length }, (s, b) => new { Sizes = s, Sizes2 = b })
+                    .Join(ids, s => new { s.Height, s.Width }, b => new { b.Height, b.Width }, (s, b) => new { Sizes = s, Sizes2 = b })
                     .Select(x => x.Sizes)
                     .ToList();
             }
@@ -90,15 +90,15 @@ namespace FotoAppDB.Repository.Single
                 var hids = Context
                     .Paper
                     .Where(p => p.TypeID == type.TypeID && (p.Availability == null || p.Availability > 0))
-                    .GroupBy(t => new { t.Height, t.Length })
-                    .Select(a => new { a.Key.Height, a.Key.Length });
+                    .GroupBy(t => new { t.Height, t.Width })
+                    .Select(a => new { a.Key.Height, a.Key.Width });
                 var ids = Context
                    .Paper
-                   .Where(t => !hids.Contains(new { t.Height, t.Length }) && t.TypeID == type.TypeID)
-                   .Select(a => new { a.Height, a.Length });
+                   .Where(t => !hids.Contains(new { t.Height, t.Width }) && t.TypeID == type.TypeID)
+                   .Select(a => new { a.Height, a.Width });
                 return Context
                     .Size
-                    .Join(ids, s => new { s.Height, s.Length }, b => new { b.Height, b.Length }, (s, b) => new { Sizes = s, Sizes2 = b })
+                    .Join(ids, s => new { s.Height, s.Width }, b => new { b.Height, b.Width }, (s, b) => new { Sizes = s, Sizes2 = b })
                     .Select(x => x.Sizes)
                     .ToList();
             }
@@ -106,7 +106,7 @@ namespace FotoAppDB.Repository.Single
 
         public override bool Is(Sizes FAobject)
         {
-            return Context.Size.Find(FAobject.Height, FAobject.Length) != null;
+            return Context.Size.Find(FAobject.Height, FAobject.Width) != null;
         }
     }
 }

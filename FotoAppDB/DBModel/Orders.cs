@@ -28,6 +28,7 @@ namespace FotoAppDB.DBModel
         [Required, Column(TypeName = "datetime2")]
         public DateTime Date { get; set; }
 
+        public Contacts Contacts { get; set; }
 
     }
 }

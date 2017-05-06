@@ -15,7 +15,7 @@ namespace FotoAppDB.DBModel
         [Key, Column(Order = 1)]
         public int Height { get; set; }
         [Key, Column(Order = 2)]
-        public int Length { get; set; }
+        public int Width { get; set; }
         [Key, Column(Order = 3), MaxLength(maxLengthLanguage)]
         public string Language
         {
