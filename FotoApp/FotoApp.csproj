@@ -84,10 +84,12 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Const\ConstStrings.cs" />
+    <Compile Include="Const\DriveStrings.cs" />
     <Compile Include="Controls\ImputBindingTrigger.cs" />
     <Compile Include="Controls\PasswordBoxGetPassword.cs" />
     <Compile Include="Models\ChangePapersAnSiseModel\InitPapers.cs" />
     <Compile Include="Models\ChangePapersAnSiseModel\SizeM.cs" />
+    <Compile Include="Models\Drive\Drive.cs" />
     <Compile Include="Models\FotoColection\Foto.cs" />
     <Compile Include="Interface\IViewModelEventAggregator.cs" />
     <Compile Include="Models\ChangePapersAnSiseModel\Types.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Pref\Helpers\PreferenceHelper.cs" />
     <Compile Include="Pref\Preference.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Schell\Actons\ActDeActDrive.cs" />
     <Compile Include="Schell\Actons\ActiveAltCtrlDel.cs" />
     <Compile Include="Schell\Actons\DeActiveAltCtrlDel.cs" />
     <Compile Include="Schell\EventAgg.cs" />
@@ -115,6 +118,7 @@
     <Compile Include="ViewModels\Actions\NewOrder.cs" />
     <Compile Include="ViewModels\ChangePapersAndSiseViewModel.cs" />
     <Compile Include="ViewModels\ClosingOrderViewModel.cs" />
+    <Compile Include="ViewModels\DispatherService.cs" />
     <Compile Include="ViewModels\EvenArgs\Args\FinalOrderArgs.cs" />
     <Compile Include="ViewModels\EvenArgs\Args\GetPaperArgs.cs" />
     <Compile Include="ViewModels\EvenArgs\FinalOrder.cs" />
@@ -126,11 +130,13 @@
     <Compile Include="ViewModels\Exception\NullGetPaperExceptin.cs" />
     <Compile Include="ViewModels\Exception\NullListFotoException.cs" />
     <Compile Include="ViewModels\Exception\ToMutchTypesException.cs" />
+    <Compile Include="ViewModels\FlopyViewModel.cs" />
     <Compile Include="ViewModels\FotoInfoViewModel.cs" />
     <Compile Include="ViewModels\GetFotoViewModel.cs" />
     <Compile Include="Interface\IViewModel.cs" />
     <Compile Include="Interface\IValidationExceptionHandler.cs" />
     <Compile Include="ViewModels\Helpers\CopyFotoHelper.cs" />
+    <Compile Include="ViewModels\Helpers\DriveHelper.cs" />
     <Compile Include="ViewModels\Helpers\FotoHelper.cs" />
     <Compile Include="ViewModels\Helpers\LoadFotoHelper.cs" />
     <Compile Include="ViewModels\Helpers\OrderFotoDisplayHelper.cs" />
@@ -201,6 +207,10 @@
     <Page Include="Views\ClosingOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FlopyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FotoInfoView.xaml">
       <Generator>MSBuild:Compile</Generator>

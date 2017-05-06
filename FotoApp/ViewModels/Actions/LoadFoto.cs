@@ -58,7 +58,7 @@ namespace FotoApp.ViewModels.Actions
                 var dir = Directory.GetDirectories(path, "*.*");
                 foreach (var dirName in dir)
                 {
-                    //GetDirectoryType(dirName);
+                    GetDirectoryType(dirName);
                 }
             }
             catch (System.Exception)
