@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FotoApp.Pref.Helpers;
 
 
 namespace FotoAppDBTest
@@ -24,7 +25,13 @@ namespace FotoAppDBTest
         static void Main(string[] args)
         {
             FotoAppRAll all = FotoAppRAll.Ins;
-            foreach (OrderFotos o in all.OrderFotos.GetFotoInOrder(new Fotos() { FotoID = 2 })) Console.WriteLine(o.Quantity.ToString());
+            // foreach (OrderFotos o in all.OrderFotos.GetFotoInOrder(new Fotos() { FotoID = 2 })) Console.WriteLine(o.Quantity.ToString());
+            KeySettings s = new KeySettings();
+            //s._null = new byte[] { 0x00 };
+            s.BlockAll();
+            s.Delete();
+           // s.Delete();
+            
             //foreach (OrderFotos o in all.OrderFotos.GetAllFotosInOrder(new Orders() { OrderID = 1 })) Console.WriteLine(o.FotoID.ToString());
 
             //foreach (Orders o in all.Orders.GetAll()) foreach (OrderRaport or in all.Orders.OrderRaport(o))
