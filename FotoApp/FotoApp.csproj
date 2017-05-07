@@ -119,6 +119,7 @@
     <Compile Include="ViewModels\ChangePapersAndSiseViewModel.cs" />
     <Compile Include="ViewModels\ClosingOrderViewModel.cs" />
     <Compile Include="ViewModels\DispatherService.cs" />
+    <Compile Include="ViewModels\EndOrderViewModel.cs" />
     <Compile Include="ViewModels\EvenArgs\Args\FinalOrderArgs.cs" />
     <Compile Include="ViewModels\EvenArgs\Args\GetPaperArgs.cs" />
     <Compile Include="ViewModels\EvenArgs\FinalOrder.cs" />
@@ -159,6 +160,9 @@
     </Compile>
     <Compile Include="Views\ClosingOrderView.xaml.cs">
       <DependentUpon>ClosingOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EndOrderView.xaml.cs">
+      <DependentUpon>EndOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GetFotoView.xaml.cs">
       <DependentUpon>GetFotoView.xaml</DependentUpon>
@@ -207,6 +211,10 @@
     <Page Include="Views\ClosingOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EndOrderView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FlopyView.xaml">
       <Generator>MSBuild:Compile</Generator>

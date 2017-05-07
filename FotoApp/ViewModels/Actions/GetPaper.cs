@@ -75,8 +75,8 @@ namespace FotoApp.ViewModels.Actions
         {
             var papers = new Papers();
             papers.TypeID = 1;
-            papers.Height = 900;
-            papers.Width = 1300;
+            papers.Height = 1300;
+            papers.Width = 900;
             return papers;
         }
     }

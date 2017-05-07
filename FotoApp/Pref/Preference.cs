@@ -17,7 +17,7 @@ namespace FotoApp.Pref
             _lag = tmp.GetSetings("Lang");
 #if DEBUG
             _defaulPath = @"C:\";
-            _lag = "pl_Pl";
+            _lag = "pl_PL";
            _typeFoto = "jpg/tif/raw/psd";
 #endif
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FotoApp.ViewModels.Actions;
 using FotoAppDB;
 using FotoAppDB.DBModel;
 
@@ -23,6 +24,7 @@ namespace FotoApp.ViewModels.Helpers
         {
             _foto = new Fotos();
             _foto.Name = _nameFoto;
+            _foto.OrderID = NewOrder.New_Order.GetNewOrders().OrderID;
             FotoAppRAll all = FotoAppRAll.Ins;
             all.Fotos.Add(_foto);
             all.Fotos.Save();
