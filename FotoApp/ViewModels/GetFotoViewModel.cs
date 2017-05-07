@@ -133,9 +133,14 @@ namespace FotoApp.ViewModels
             {
                 _closingOrder = false;
                 _activOkButton = false;
-                MainPanel = null;
+                MainPanel = new EndOrderViewModel(null); ;
+                LeftPanel = null;
+                RightPanel = null;
                 NotifyPanel();
                 NotifyCanOk();
+                Thread.Sleep(6000);
+                MainPanel = null;
+                NotifyPanel();
             }
         }
 
@@ -147,6 +152,9 @@ namespace FotoApp.ViewModels
             var order = NewOrder.New_Order;
             order.DeleteNewOrders();
             NotifyCanOk();
+            NotifyPanel();
+            Thread.Sleep(2000);
+            MainPanel = null;
             NotifyPanel();
         }
 

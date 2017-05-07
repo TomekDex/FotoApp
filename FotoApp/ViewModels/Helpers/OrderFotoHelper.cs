@@ -41,20 +41,26 @@ namespace FotoApp.ViewModels.Helpers
             all.OrderFotos.Add(_orderFoto);
             all.OrderFotos.Save();
         }
-
+        /// <summary>
+        /// tworzy nowe orderfotos
+        /// </summary>
+        /// <param name="all"></param>
         private void CreateOrder(FotoAppRAll all)
         {
             var o = NewOrder.New_Order;
             var order = o.GetNewOrders();
             _orderFoto = new OrderFotos();
-            //_orderFoto.Fotos.OrderID = order.OrderID;
             _orderFoto.FotoID = all.Fotos.Get(_foto).FotoID;
             _orderFoto.Quantity = _quantity;
             _orderFoto.TypeID = _paper.TypeID;
             _orderFoto.Height = _paper.Height;
             _orderFoto.Width = _paper.Width;
         }
-
+        /// <summary>
+        /// Zmienia parametry zdięcia w bazie 
+        /// </summary>
+        /// <param name="paper"></param>
+        /// <param name="quantity"></param>
         public void ChangeOrderFoto(Papers paper, int quantity)
         {
             var all = FotoAppRAll.Ins;
@@ -70,14 +76,30 @@ namespace FotoApp.ViewModels.Helpers
             all.OrderFotos.AddOrUpdate(order);
             all.OrderFotos.Save();
         }
-
+        /// <summary>
+        /// Usuwa wpis z tabeli orderfotos oraz sprawdza czy są jeszcze wpisy z takim samym zdięciem jesli nie usuwa również to zdiecie z tabeli fotos
+        /// </summary>
         public void DelOrderfoto()
         {
             var all = FotoAppRAll.Ins;
             CreateOrder(all);
-            var del = all.OrderFotos.Get(_orderFoto);
-            all.OrderFotos.Delete(del);
+            var orderDel = all.OrderFotos.Get(_orderFoto);
+            var fId= _orderFoto.FotoID;
+            var foto = new Fotos
+            {
+                FotoID = fId,
+                OrderID = NewOrder.New_Order.GetNewOrders().OrderID
+            };
+            var fotoDel = all.Fotos.Get(foto);
+            all.OrderFotos.Delete(orderDel);
             all.OrderFotos.Save();
+
+            var countOrderByFoto = all.OrderFotos.GetFotoInOrder(fotoDel).Count;
+            if (countOrderByFoto == 0)
+            {
+                all.Fotos.Delete(fotoDel);
+                all.Fotos.Save();
+            }
         }
     }
 }
