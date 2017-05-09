@@ -53,7 +53,11 @@ namespace FotoApp.ViewModels
         public void Flopy(object o)
         {
             var drive = o as Drive;
-            if (drive.DriveInfo == null) MessageBox.Show("dysk jest nie aktywny");
+            if (drive.DriveInfo == null)
+            {
+                MessageBox.Show("dysk jest nie aktywny");
+                return;
+            }
             _getFoto.ActivMainPanel(drive.DriveInfo);
         }
 
@@ -81,8 +85,8 @@ namespace FotoApp.ViewModels
             _drive.Add(Usb1Drive = new Drive());
             _drive.Add(Usb2Drive = new Drive());
             _drive.Add(Usb3Drive = new Drive());
-            _drive.Add(Card2Drive = new Drive());
             _drive.Add(Card1Drive = new Drive());
+            _drive.Add(Card2Drive = new Drive());
             _drive.Add(Card3Drive = new Drive());
             _drive.Add(Card4Drive = new Drive());
             _drive.Add(CdDrive = new Drive());

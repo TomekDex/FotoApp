@@ -7,7 +7,7 @@
              xmlns:control="clr-namespace:FotoApp.Controls"
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300 ">
+             d:DesignHeight="600" d:DesignWidth="600 ">
     
     <Grid>
         <Grid.RowDefinitions>
@@ -21,20 +21,34 @@
                               ItemsPanel="{StaticResource ListPanel}" />
             </ScrollViewer>
         </DockPanel>
-        <Grid Grid.Row="1" Width="300" HorizontalAlignment="Left">
+        <Grid Grid.Row="1" Width="600" HorizontalAlignment="Left">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40"/>
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Name="Down"  Grid.Column="0" Content="-" HorizontalAlignment="Stretch" Margin="3,3,2,3"  VerticalAlignment="Stretch" />
             <Button Name="Up" Grid.Column="2" Content="+" HorizontalAlignment="Stretch" Margin="3,3,3,3" VerticalAlignment="Stretch"/>
-            <TextBox Grid.Column="1" HorizontalAlignment="Stretch"  Margin="3,3,3,3" TextWrapping="Wrap"
-                     Text="{Binding Path=Page, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     VerticalAlignment="Stretch" />
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap"
+                       Text="{Binding Path=Page, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                       VerticalAlignment="Center"/>
             <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap"
                        Text="{Binding Path=CountPage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="4" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap"
+                       Text="Zajęte: " VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="5" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap"
+                       Text="{Binding Path=Occupied, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="6" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap"
+                       Text="Total: " VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="7" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap"
+                       Text="{Binding Path=Total, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                        VerticalAlignment="Center"/>
 
         </Grid>

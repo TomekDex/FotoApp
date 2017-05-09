@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using Caliburn.Micro;
+using FotoApp.Extension;
 using FotoApp.Models.FotoColection;
 using FotoApp.ViewModels.Actions;
 using FotoApp.ViewModels.Helpers;
@@ -9,14 +9,15 @@ using FotoAppDB.DBModel;
 
 namespace FotoApp.ViewModels
 {
-    public class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<DriveInfo>, IHandle<Papers>
+    public sealed class ListFotoViewModel : ViewModelBase.ViewModelBase, IHandle<DriveInfo>, IHandle<Papers>
     {
 
         private readonly GetFotoViewModel _getFoto;
-        public delegate void GetPaperDelegate();
         public delegate void ActivCheckBox();
+        public delegate void ChangeOrder();
+
+        public event ChangeOrder changeOrder;
         public event ActivCheckBox activCheckBox;
-        public event GetPaperDelegate getPaperDelegete;
 
         #region Propertis;
 
@@ -28,6 +29,27 @@ namespace FotoApp.ViewModels
         private Papers _paper;
         private int _page = 1;
         private int _countPage;
+        private string _total;
+        private string _occupied;
+
+        public string Total
+        {
+            get => _total;
+            set
+            {
+                _total = value;
+                NotifyOfPropertyChange(()=> Total);
+            }
+        }
+        public string Occupied
+        {
+            get => _occupied;
+            set
+            {
+                _occupied = value;
+                NotifyOfPropertyChange(()=> Occupied);
+            }
+        }
         public BindableCollection<Foto> CurentPage 
         {
             get => _curentPage;
@@ -37,7 +59,6 @@ namespace FotoApp.ViewModels
                 NotifyOfPropertyChange(() => CurentPage);
             }
         }
-       
         public int Page
         {
             get => _page;
@@ -47,9 +68,9 @@ namespace FotoApp.ViewModels
                 {
                     _page = 1;
                 }
-                else if (value > CountPage)
+                else if (value > _countPage)
                 {
-                    _page = CountPage;
+                    _page = _countPage;
                 }
                 else
                 {
@@ -77,7 +98,6 @@ namespace FotoApp.ViewModels
             newOrder.CreateDirectory(Pref.Preference.DefaultPath);
             _getFoto = getFoto;
             EventAggregator.Subscribe(this);
-            getPaperDelegete?.Invoke();
         }
 
         #endregion
@@ -86,29 +106,29 @@ namespace FotoApp.ViewModels
 
         public void Up()
         {
-            Page++;
+            _page++;
             _beforePage = _curentPage;
             _curentPage = _afterPage;
             NotifyOfPropertyChange((() => CurentPage));
             var l = new LoadFotoHelper(null);
-            _afterPage = l.LoadPageFoto(Page + 1, _listFoto);
+            _afterPage = l.LoadPageFoto(_page + 1, _listFoto);
         }
 
         public void Down()
         {
-            Page--;
+            _page--;
             _afterPage = _curentPage;
             _curentPage = _beforePage;
             NotifyOfPropertyChange((() => CurentPage));
             var l = new LoadFotoHelper(null);
-            _afterPage = l.LoadPageFoto(Page - 1, _listFoto);
+            _afterPage = l.LoadPageFoto(_page - 1, _listFoto);
         }
 
        
 
         public void ActiveChechBox(object itemBox)
         {
-            activCheckBox?.Invoke();
+            OnActivCheckBox();
             var tmp = itemBox as Foto;
             var path = tmp.path;
             var fileName = Path.GetFileName(path);
@@ -120,32 +140,49 @@ namespace FotoApp.ViewModels
             }
             var orederFoto = new OrderFotoHelper(foto.Foto, _paper, 1);
             orederFoto.AddOrderFoto();
-            var ord = new OrderFotoDisplayHelper(_paper,tmp.bitmap, foto.Foto,1);
+            var ord = new OrderFotoDisplayHelper(_paper, tmp.bitmap, foto.Foto, 1);
             ord.Publish();
+            EventPublish(tmp, foto);
+            var copyFoto = CopyFotoHelper.CopyFoto;
+            copyFoto.Add(path);
+            OnChangeOrder();
+        }
+
+        private void EventPublish(Foto tmp, FotosHelper foto)
+        {
             EventAggregator.PublishOnCurrentThread(true);
             EventAggregator.PublishOnCurrentThread(tmp.bitmap);
             EventAggregator.PublishOnCurrentThread(foto.Foto);
             EventAggregator.PublishOnCurrentThread(_paper);
             EventAggregator.Unsubscribe(this);
-            var copyFoto = CopyFotoHelper.CopyFoto;
-            copyFoto.Add(path);
         }
+
         public void Handle(DriveInfo message)
         {
-            
-            CurentPage = new BindableCollection<Foto>();
+            _curentPage = new BindableCollection<Foto>();
             var l = new LoadFotoHelper(message.Name);
+            _total = message.TotalSize.ByteToMbFotmat();
+            _occupied = message.AvailableFreeSpace.ByteToMbFotmat();
             _listFoto = l.ActivLoadFoto();
-            CountPage = _listFoto.Count / 12 + 1;
+            _countPage = _listFoto.Count / 12 + 1;
             _curentPage = l.LoadPageFoto(1, _listFoto);
-            NotifyOfPropertyChange(() => CurentPage);
+            //NotifyOfPropertyChange(() => CurentPage);
             _afterPage = l.LoadPageFoto(2, _listFoto);
         }
-       #endregion
-
         public void Handle(Papers message)
         {
             _paper = message;
         }
+
+        private void OnActivCheckBox()
+        {
+            activCheckBox?.Invoke();
+        }
+
+        private void OnChangeOrder()
+        {
+            changeOrder?.Invoke();
+        }
+        #endregion
     }
 }

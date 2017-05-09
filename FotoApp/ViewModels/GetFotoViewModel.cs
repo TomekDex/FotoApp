@@ -4,60 +4,33 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Threading;
+using System.Threading.Tasks;
 using Caliburn.Micro;
 using FotoApp.Interface;
 using FotoApp.Models.FotoColection;
 using FotoApp.Schell;
 using FotoApp.ViewModels.Actions;
+using Sundew.Core.Messaging;
 
 namespace FotoApp.ViewModels
 {
-    public class GetFotoViewModel : Screen, IViewModelEventAggregator, IViewModel, IHandle<bool>
+    public sealed class GetFotoViewModel : Screen, IViewModelEventAggregator, IViewModel, IHandle<bool>
     {
+        public delegate void Raports();
+
+        public event Raports raport;
         public IEventAggregator EventAggregator { get; set; }
         public IViewModel MainPanel { get; set; }
         public IViewModel RightPanel { get; set; }
         public IViewModel LeftPanel { get; set; }
+        public IViewModel RaportPanel { get; set; }
 
         #region  Propertis
 
-        private string _price;
-        private string _discount;
-        private int _count = 12;
         private bool _closingOrder;
         private bool? _activOkButton;
         private DriveInfo drivoInfo;
         private SchellViewModel schell;
-
-        public string Price
-        {
-            get { return _price; }
-            set
-            {
-                _price = value;
-                NotifyOfPropertyChange(() => Price);
-            }
-        }
-
-        public string Discount
-        {
-            get { return _discount; }
-            set
-            {
-                _discount = value;
-                NotifyOfPropertyChange(() => Discount);
-            }
-        }
-
-        public int Count
-        {
-            get { return _count; }
-            set
-            {
-                _count = value;
-                NotifyOfPropertyChange(() => Count);
-            }
-        }
 
         #endregion
 
@@ -76,10 +49,6 @@ namespace FotoApp.ViewModels
             MainPanel = new FlopyViewModel(this);
             EventAggregator = EA.EventAggregator;
             EventAggregator.Subscribe(this);
-#if DEBUG
-            _discount = "kjsdhsdkjfhsdkfs";
-            _price = "klsdfjskdfhsdf";
-#endif
         }
 
         #endregion
@@ -92,6 +61,7 @@ namespace FotoApp.ViewModels
             MainPanel = m;
             m.activCheckBox += ActivLeftPanel;
             m.activCheckBox += ActiveRightPanel;
+            m.changeOrder += Raport;
 
             var r = new ChangePapersAndSiseViewModel(this);
             RightPanel = r;
@@ -102,12 +72,20 @@ namespace FotoApp.ViewModels
             EventAggregator.PublishOnCurrentThread(path);
         }
 
+        private void Raport()
+        {
+            OnRaport();
+        }
+
         private void ActivLeftPanel()
         {
-            LeftPanel = new FotoInfoViewModel(this);
+            var f = new FotoInfoViewModel(this);
+            LeftPanel = f;
+            var r = new RaportViewModel(this);
+            RaportPanel = r;
+            f.changeOrder += Raport;
             var m = MainPanel as ListFotoViewModel;
             m.activCheckBox -= ActivLeftPanel;
-
             NotifyPanel();
         }
 
@@ -117,7 +95,9 @@ namespace FotoApp.ViewModels
             var r = RightPanel as ChangePapersAndSiseViewModel;
             if (r == null) return;
             r.changePapers -= ActiveRightPanel;
-            RightPanel = new OrderViewModel(this);
+            var o = new OrderViewModel(this);
+            RightPanel = o;
+            o.changeOrder += Raport;
             NotifyPanel();
         }
 
@@ -133,15 +113,23 @@ namespace FotoApp.ViewModels
             {
                 _closingOrder = false;
                 _activOkButton = false;
-                MainPanel = new EndOrderViewModel(null); ;
+                var main = new AndOrderViewModel(null);
+                MainPanel = main;
+                main.andOrder += AndOrder;
                 LeftPanel = null;
                 RightPanel = null;
                 NotifyPanel();
                 NotifyCanOk();
-                Thread.Sleep(6000);
-                MainPanel = null;
-                NotifyPanel();
+                var task = new Task(action: AndOrder);
+                task.Start();
             }
+        }
+
+        private void AndOrder()
+        {
+            Thread.Sleep(new TimeSpan(0,0,10));
+            MainPanel = null;
+            NotifyPanel();
         }
 
         public void Cancel()
@@ -153,9 +141,6 @@ namespace FotoApp.ViewModels
             order.DeleteNewOrders();
             NotifyCanOk();
             NotifyPanel();
-            Thread.Sleep(2000);
-            MainPanel = null;
-            NotifyPanel();
         }
 
         private void NotifyPanel()
@@ -163,6 +148,7 @@ namespace FotoApp.ViewModels
             NotifyOfPropertyChange(() => MainPanel);
             NotifyOfPropertyChange(() => RightPanel);
             NotifyOfPropertyChange(() => LeftPanel);
+            NotifyOfPropertyChange(()=> RaportPanel);
         }
 
         private void NotifyCanOk()
@@ -176,9 +162,10 @@ namespace FotoApp.ViewModels
             NotifyOfPropertyChange(() => CanOk);
         }
 
+        private void OnRaport()
+        {
+            raport?.Invoke();
+        }
         #endregion
-
-       
-
     }
 }
