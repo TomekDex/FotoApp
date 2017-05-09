@@ -71,7 +71,7 @@ namespace FotoApp.ViewModels.Helpers
                 order.Height = paper.Height;
                 order.Width = paper.Width;
             }
-            if (quantity != 1)
+            if (quantity <= 1)
                 order.Quantity = quantity;
             all.OrderFotos.AddOrUpdate(order);
             all.OrderFotos.Save();

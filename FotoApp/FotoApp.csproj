@@ -87,13 +87,14 @@
     <Compile Include="Const\DriveStrings.cs" />
     <Compile Include="Controls\ImputBindingTrigger.cs" />
     <Compile Include="Controls\PasswordBoxGetPassword.cs" />
-    <Compile Include="Models\ChangePapersAnSiseModel\InitPapers.cs" />
+    <Compile Include="Extencion\LongExtension.cs" />
     <Compile Include="Models\ChangePapersAnSiseModel\SizeM.cs" />
     <Compile Include="Models\Drive\Drive.cs" />
     <Compile Include="Models\FotoColection\Foto.cs" />
     <Compile Include="Interface\IViewModelEventAggregator.cs" />
     <Compile Include="Models\ChangePapersAnSiseModel\Types.cs" />
     <Compile Include="Models\FotoColection\OrderFoto.cs" />
+    <Compile Include="Models\Raport\Raport.cs" />
     <Compile Include="Pref\Helpers\KeySettings.cs" />
     <Compile Include="Pref\Helpers\PreferenceHelper.cs" />
     <Compile Include="Pref\Preference.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="ViewModels\Actions\GetPaper.cs" />
     <Compile Include="ViewModels\Actions\LoadFoto.cs" />
     <Compile Include="ViewModels\Actions\NewOrder.cs" />
+    <Compile Include="ViewModels\AndOrderViewModel.cs" />
     <Compile Include="ViewModels\ChangePapersAndSiseViewModel.cs" />
     <Compile Include="ViewModels\ClosingOrderViewModel.cs" />
     <Compile Include="ViewModels\DispatherService.cs" />
@@ -142,9 +144,11 @@
     <Compile Include="ViewModels\Helpers\LoadFotoHelper.cs" />
     <Compile Include="ViewModels\Helpers\OrderFotoDisplayHelper.cs" />
     <Compile Include="ViewModels\Helpers\OrderFotoHelper.cs" />
+    <Compile Include="ViewModels\Helpers\RaportHelper.cs" />
     <Compile Include="ViewModels\ListFotoViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\PreferenceViewModel.cs" />
+    <Compile Include="ViewModels\RaportViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -155,6 +159,7 @@
     <Compile Include="ViewModels\Validation\TypeValidation.cs" />
     <Compile Include="ViewModels\ViewModelBase\ValidateModelBase.cs" />
     <Compile Include="ViewModels\ViewModelBase\ViewModelBase.cs" />
+    <Compile Include="Views\AndOrderView.xaml.cs" />
     <Compile Include="Views\ChangePapersAndSiseView.xaml.cs">
       <DependentUpon>ChangePapersAndSiseView.xaml</DependentUpon>
     </Compile>
@@ -173,6 +178,7 @@
     <Compile Include="Views\PreferenceView.xaml.cs">
       <DependentUpon>PreferenceView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RaportView.xaml.cs" />
     <Compile Include="Views\StartView.xaml.cs">
       <DependentUpon>StartView.xaml</DependentUpon>
     </Compile>
@@ -203,6 +209,10 @@
     <Page Include="Schell\SchellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AndOrderView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ChangePapersAndSiseView.xaml">
       <SubType>Designer</SubType>
@@ -237,6 +247,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PreferenceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RaportView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

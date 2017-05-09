@@ -11,8 +11,13 @@ using FotoAppDB.DBModel;
 
 namespace FotoApp.ViewModels
 {
-    public class OrderViewModel: ViewModelBase.ViewModelBase, IHandle<OrderFoto>
+    public sealed class OrderViewModel: ViewModelBase.ViewModelBase, IHandle<OrderFoto>
     {
+        public delegate void ChangeOrder();
+        public event ChangeOrder changeOrder;
+
+        #region Proportis
+
         private BindableCollection<OrderFoto> _orderFotoColection;
 
         public BindableCollection<OrderFoto> OrderFotoColection
@@ -25,22 +30,41 @@ namespace FotoApp.ViewModels
             }
         }
 
+        #endregion
+
+        #region Constractor
+
         public OrderViewModel(GetFotoViewModel getFoto) : base(getFoto)
         {
             EventAggregator.Subscribe(this);
             _orderFotoColection = new BindableCollection<OrderFoto>();
         }
 
+        #endregion
+
+        #region Actios
+
         public void Del(object o)
         {
             var tmp = o as OrderFoto;
             var of = new OrderFotoHelper(tmp.Foto, tmp.Paper, tmp.Quantity);
             of.DelOrderfoto();
+            OrderFotoColection.Remove(tmp);
+            NotifyOfPropertyChange(() => OrderFotoColection);
+            OnChangeOrder();
         }
 
         public void Handle(OrderFoto message)
         {
             _orderFotoColection.Add(message);
         }
+
+        private void OnChangeOrder()
+        {
+            changeOrder?.Invoke();
+        }
+        #endregion
+
+
     }
 }

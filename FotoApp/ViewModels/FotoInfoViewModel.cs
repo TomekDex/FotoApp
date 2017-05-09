@@ -1,6 +1,5 @@
 ﻿using System.Windows.Media.Imaging;
 using Caliburn.Micro;
-using FotoApp.Interface;
 using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Models.FotoColection;
 using FotoApp.ViewModels.Actions;
@@ -10,8 +9,11 @@ using Types = FotoApp.Models.ChangePapersAnSiseModel.Types;
 
 namespace FotoApp.ViewModels
 {
-    public class FotoInfoViewModel :ViewModelBase.ViewModelBase, IHandle<BitmapImage>, IHandle<Fotos>, IHandle<Papers>, IHandle<OrderFoto>
+    public sealed class FotoInfoViewModel :ViewModelBase.ViewModelBase, IHandle<BitmapImage>, IHandle<Fotos>, IHandle<Papers>, IHandle<OrderFoto>
     {
+        public delegate void ChangeOrder();
+        public event ChangeOrder changeOrder;
+
         #region Proportis
         private const int MinCount = 1;
         private int _countFoto;
@@ -20,6 +22,7 @@ namespace FotoApp.ViewModels
         private BitmapImage _image;
         private GetPapers _papers;
         private Fotos _Foto;
+        private Papers _defPaper;
         private Papers _paper;
         private OrderFoto _orderFoto;
         private bool change = true;
@@ -106,15 +109,16 @@ namespace FotoApp.ViewModels
         {
             if (change)
             {
-                var l = new OrderFotoHelper(_Foto, _paper, _countFoto);
-                l.ChangeOrderFoto(_paper, _countFoto);
+                var tmp = !changePaper || changeCountFoto ? _defPaper:  _paper;
+                var l = new OrderFotoHelper(_Foto, _defPaper, _countFoto);
+                l.ChangeOrderFoto(tmp, _countFoto);
                 var ofd = new OrderFotoDisplayHelper();
-                ofd.ModifOrderFoto(_orderFoto, _paper, CountFoto);
+                ofd.ModifOrderFoto(_orderFoto, tmp, CountFoto);
                 change = false;
                 changePaper = false;
-                CountFoto = 1;
+                CountFoto = MinCount;
                 NotifyOfPropertyChange(() => CanOk);
-
+                OnChangeOrder();
             }
             else
             {
@@ -122,17 +126,24 @@ namespace FotoApp.ViewModels
                 l.AddOrderFoto();
                 var ofd = new OrderFotoDisplayHelper(_paper, Image, _Foto, _countFoto);
                 ofd.Publish();
+                changePaper = false;
+                CountFoto = MinCount;
+                NotifyOfPropertyChange(() => CanOk);
+                OnChangeOrder();
+
             }
         }
         public void ChangeType(object o)
         {
             _siseList = new BindableCollection<SizeM>();
+            _paper = new Papers();
             var tmp = o as Types;
             if (tmp != null)
             {
                 SizeList = _papers.GetSizesByType(_papers.GetTypeByIndex(tmp.id));
             }
             NotifyOfPropertyChange(() => SizeList);
+
             _paper.TypeID = tmp.id;
             changePaper = false;
             NotifyOfPropertyChange(() => CanOk);
@@ -143,13 +154,14 @@ namespace FotoApp.ViewModels
             var tmp = o as SizeM;
             _paper.Height = tmp.Height;
             _paper.Width = tmp.Width;
+            changeCountFoto = true;
             changePaper = true;
             NotifyOfPropertyChange(() => CanOk);
         }
 
         public void Handle(Papers message)
         {
-            _paper = message;
+            _defPaper = message;
         }
 
         public void Handle(BitmapImage message)
@@ -161,13 +173,20 @@ namespace FotoApp.ViewModels
         public void Handle(Fotos message)
         {
             _countFoto = MinCount;
+            change = false;
             _Foto = message;
             NotifyOfPropertyChange(() => CountFoto);
+            NotifyOfPropertyChange(() => CanOk);
         }
 
         public void Handle(OrderFoto message)
         {
             _orderFoto = message;
+        }
+
+        private void OnChangeOrder()
+        {
+            changeOrder?.Invoke();
         }
     }
     #endregion

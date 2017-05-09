@@ -6,7 +6,7 @@ using FotoApp.Annotations;
 
 namespace FotoApp.Models.FotoColection
 {
-    public class Foto : INotifyPropertyChanged
+    public sealed class Foto : INotifyPropertyChanged
     {
         private BitmapImage _bitmap;
         public int Index { get; set; }
@@ -20,10 +20,10 @@ namespace FotoApp.Models.FotoColection
                 OnPropertyChanged(nameof(bitmap));
             } }
         public bool Chekerd { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

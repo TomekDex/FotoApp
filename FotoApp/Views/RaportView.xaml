@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="FotoApp.Views.RaportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:raport="clr-namespace:FotoApp.Models.Raport"
+             xmlns:local="clr-namespace:FotoApp.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="280" d:DesignWidth="280">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="70*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock  HorizontalAlignment="Left" TextWrapping="NoWrap" Text="Papier" Grid.Column="0" Margin="5,0,0,0"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="NoWrap" Text="Rozmiar" Grid.Row="0" Grid.Column="1" Margin="5,0,0,0"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="NoWrap" Text="Ilość" Grid.Row="0" Grid.Column="2" Margin="5,0,0,0"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="NoWrap" Text="Cena" Grid.Row="0" Grid.Column="3" Margin="5,0,0,0"/>
+        <ListBox  ItemsSource="{Binding Path=Raport, Mode=OneWay, UpdateSourceTrigger=LostFocus}" Grid.Row="1" Grid.ColumnSpan="4" Grid.Column="0">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="raport:Raport">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="65"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock  TextWrapping="NoWrap" Text="{Binding Path=Type, Mode=OneWay, UpdateSourceTrigger=LostFocus}" Grid.Column="0"/>
+                        <TextBlock  TextWrapping="NoWrap" Text="{Binding Path=Size, Mode=OneWay, UpdateSourceTrigger=LostFocus}" Grid.Column="1"/>
+                        <TextBlock  TextWrapping="NoWrap" Text="{Binding Path=Quantity, Mode=OneWay, UpdateSourceTrigger=LostFocus}" Grid.Column="2"/>
+                        <TextBlock  TextWrapping="NoWrap" Text="{Binding Path=Price, Mode=OneWay, UpdateSourceTrigger=LostFocus}" Grid.Column="3"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock HorizontalAlignment="Left"  VerticalAlignment="Center" TextWrapping="NoWrap" Text="Całość :" Grid.Row="2" Grid.Column="2"/>
+        <TextBox Grid.Column="3" HorizontalAlignment="Stretch"  Grid.Row="2" TextWrapping="Wrap" Text="{Binding Path=TotalPrice}" VerticalAlignment="Stretch" />
+    </Grid>
+</UserControl>

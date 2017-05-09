@@ -1,24 +1,19 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Media.Imaging;
-using FotoApp.Annotations;
-using FotoAppDB.DBModel;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace FotoApp.Models.FotoColection
+namespace FotoApp.Models.Raport
 {
-    public sealed class OrderFoto: INotifyPropertyChanged
+    public sealed class Raport : INotifyPropertyChanged
     {
-        private string _size;
         private string _type;
+        private string _size;
         private int _quantity;
-        public Fotos Foto { get; set; }
-        public string Size {
-            get => _size;
-            set
-            {
-                _size = value;
-                OnPropertyChanged(nameof(Size));
-            } }
+        private string _price;
 
         public string Type
         {
@@ -27,6 +22,16 @@ namespace FotoApp.Models.FotoColection
             {
                 _type = value;
                 OnPropertyChanged(nameof(Type));
+            }
+        }
+
+        public string Size
+        {
+            get => _size;
+            set
+            {
+                _size = value;
+                OnPropertyChanged(nameof(Size));
             }
         }
 
@@ -40,8 +45,16 @@ namespace FotoApp.Models.FotoColection
             }
         }
 
-        public BitmapImage Image { get; set; }
-        public Papers Paper { get; set; }
+        public string Price
+        {
+            get => _price;
+            set
+            {
+                _price = value;
+                OnPropertyChanged(nameof(Price));
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
