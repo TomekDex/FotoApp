@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Caliburn.Micro;
-using FotoApp.ViewModels.EvenArgs;
+﻿using Caliburn.Micro;
 
 namespace FotoApp.Models.ChangePapersAnSiseModel
 {

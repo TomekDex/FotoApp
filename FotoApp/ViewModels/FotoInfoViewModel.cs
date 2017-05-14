@@ -1,4 +1,6 @@
-﻿using System.Windows.Media.Imaging;
+﻿using System;
+using System.Windows;
+using System.Windows.Media.Imaging;
 using Caliburn.Micro;
 using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Models.FotoColection;
@@ -78,14 +80,15 @@ namespace FotoApp.ViewModels
         public FotoInfoViewModel(GetFotoViewModel _getFoto) : base(_getFoto)
         {
             _papers = new GetPapers();
-            TypeList = _papers.GetTypes();
-            SizeList = _papers.GetSizesByType(_papers.GetTypeByIndex(1));
+            _siseList = _papers.GetSizes();
+            _typeList = _papers.GetTypesBySize(_papers.GetSizeByIndex(1));
             EventAggregator.Subscribe(this);
         }
 
         #endregion
 
-        public bool CanOk => ((change && changePaper && changeCountFoto) ||( changeCountFoto && changePaper));
+        public bool CanOk => ((change && changePaper && changeCountFoto) 
+            ||( changeCountFoto && changePaper));
         #region Acrion
 
         public void Add()
@@ -107,14 +110,23 @@ namespace FotoApp.ViewModels
 
         public void Ok()
         {
-            if (change)
+            if (!change)
             {
                 var tmp = !changePaper || changeCountFoto ? _defPaper:  _paper;
-                var l = new OrderFotoHelper(_Foto, _defPaper, _countFoto);
-                l.ChangeOrderFoto(tmp, _countFoto);
+                var l = new OrderFotoHelper(_Foto, tmp, _countFoto);
+                if (!changePaper)
+                {
+                    l.ChangeOrderFoto(tmp, _countFoto);
+                }
+                else
+                {
+                    l.DelOrderfoto();
+                    l = new OrderFotoHelper(_Foto, tmp, _countFoto);
+                    l.AddOrderFoto();
+                }
                 var ofd = new OrderFotoDisplayHelper();
                 ofd.ModifOrderFoto(_orderFoto, tmp, CountFoto);
-                change = false;
+                change = true;
                 changePaper = false;
                 CountFoto = MinCount;
                 NotifyOfPropertyChange(() => CanOk);
@@ -122,40 +134,57 @@ namespace FotoApp.ViewModels
             }
             else
             {
-                var l = new OrderFotoHelper(_Foto, _paper, _countFoto);
-                l.AddOrderFoto();
+                try
+                {
+                    var l = new OrderFotoHelper(_Foto, _paper, _countFoto);
+                    l.AddOrderFoto();
+                }
+                catch (System.Exception)
+                {
+                    MessageBox.Show("Zdięcie juz jest w bazie danych");
+                    return;
+                }
                 var ofd = new OrderFotoDisplayHelper(_paper, Image, _Foto, _countFoto);
                 ofd.Publish();
                 changePaper = false;
                 CountFoto = MinCount;
                 NotifyOfPropertyChange(() => CanOk);
                 OnChangeOrder();
-
             }
         }
         public void ChangeType(object o)
         {
-            _siseList = new BindableCollection<SizeM>();
-            _paper = new Papers();
             var tmp = o as Types;
+            if (_paper == null)
+                _paper = new Papers();
             if (tmp != null)
             {
-                SizeList = _papers.GetSizesByType(_papers.GetTypeByIndex(tmp.id));
+                _paper.TypeID = tmp.id;
             }
-            NotifyOfPropertyChange(() => SizeList);
-
             _paper.TypeID = tmp.id;
-            changePaper = false;
+            changePaper = true;
             NotifyOfPropertyChange(() => CanOk);
         }
 
         public void ChangeSize(object o)
         {
             var tmp = o as SizeM;
+            if (_paper == null)
+                _paper = new Papers();
+            var tmpSizes = new Sizes
+            {
+                Height = tmp.Height,
+                Width = tmp.Width
+            };
+            if (tmp != null)
+            {
+                TypeList = _papers.GetTypesBySize(tmpSizes);
+            }
             _paper.Height = tmp.Height;
             _paper.Width = tmp.Width;
             changeCountFoto = true;
             changePaper = true;
+            NotifyOfPropertyChange(() => TypeList);
             NotifyOfPropertyChange(() => CanOk);
         }
 

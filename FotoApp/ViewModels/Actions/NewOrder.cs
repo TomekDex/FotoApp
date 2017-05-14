@@ -47,12 +47,24 @@ namespace FotoApp.ViewModels.Actions
             CreateNewOrders();
         }
         /// <summary>
+        /// dodaje opis do zamówienia
+        /// </summary>
+        /// <param name="discription"></param>
+        public void AddDiscripionOrder(string discription)
+        {
+            var all = FotoAppRAll.Ins;
+            var order = GetNewOrders();
+            order.Description = discription;
+            all.Orders.AddOrUpdate(order);
+            all.Orders.Save();
+        }
+        /// <summary>
         /// Pobiera nowe zlecenie z bazie danych
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Zwraca zamowienie</returns>
         public Orders GetNewOrders()
         {
-            FotoAppRAll all = FotoAppRAll.Ins;
+            var all = FotoAppRAll.Ins;
             var n = all.Orders.Get(_orders);
             return n;
         }
@@ -84,7 +96,7 @@ namespace FotoApp.ViewModels.Actions
         /// <param name="defaultPath"></param>
         public void CreateDirectory(string defaultPath)
         {
-            _directoryName = string.Format("{0}/{1}", GetNewOrders().Date.ToString("Y"), GetNewOrders().OrderID);
+            _directoryName = $"{GetNewOrders().Date:Y}/{GetNewOrders().OrderID}";
             string orederPathDirectory = Path.Combine(defaultPath, _directoryName);
             if (!Directory.Exists(orederPathDirectory))
             {

@@ -12,7 +12,7 @@ namespace FotoApp.ViewModels
     public class RaportViewModel : ViewModelBase.ViewModelBase
     {
         private BindableCollection<Raport> _raport;
-        private int _totalPrice;
+        private string _totalPrice;
 
         public BindableCollection<Raport> Raport
         {
@@ -24,7 +24,7 @@ namespace FotoApp.ViewModels
             }
         }
 
-        public int TotalPrice
+        public string TotalPrice
         {
             get => _totalPrice;
             set
@@ -48,6 +48,7 @@ namespace FotoApp.ViewModels
             _raport = r.Raport;
             _totalPrice = r.TotalPrice;
             NotifyOfPropertyChange(()=> Raport);
+            NotifyOfPropertyChange(()=> TotalPrice);
         }
 
         #endregion

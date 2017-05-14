@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using FotoApp.Schell.EventArgs.Args;
+using FotoApp.ViewModels.Actions;
 
 namespace FotoApp.Schell.EventArgs.Hendler
 {
@@ -11,6 +12,8 @@ namespace FotoApp.Schell.EventArgs.Hendler
 
             if (pass != null && pass.Password == Properties.Resources.Password)
             {
+                var order = NewOrder.New_Order;
+                order.DeleteNewOrders();
                 Application.Current.Shutdown();
             }
         }

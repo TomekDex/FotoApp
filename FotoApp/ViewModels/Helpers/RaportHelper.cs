@@ -18,7 +18,12 @@ namespace FotoApp.ViewModels.Helpers
         {
             get => _raport;
         }
-        public int TotalPrice { get; private set; }
+
+        private int _totalPrice;
+        /// <summary>
+        /// Pobiera całkowity koszt zamowienia
+        /// </summary>
+        public string TotalPrice => $"{_totalPrice / 100:c}";
 
         public RaportHelper()
         {
@@ -44,15 +49,14 @@ namespace FotoApp.ViewModels.Helpers
                 {
                     var itemRaport = new Raport
                     {
-                        Price = string.Format("{0:c}", r.Price/100),
+                        Price = $"{r.Price / 100:c}",
                         Quantity = (int) r.Quantity,
                         Type =  all.TypeTexts.GetTypeTextByTypeALang(t, l).Text,
                         Size =  all.SizeTexts.GetSizeTextBySizeALang(s,l).Text
                     };
                     _raport.Add(itemRaport);
                 }
-                
-                TotalPrice += Convert.ToInt32(r.Price);
+                _totalPrice += Convert.ToInt32(r.Price);
             }
         }
     }
