@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Caliburn.Micro;
-using FotoApp.ViewModels.EvenArgs;
-using FotoApp.ViewModels.EvenArgs.Hendler;
+using FotoApp.ViewModels.Actions;
 using FotoApp.ViewModels.Validation;
 
 namespace FotoApp.ViewModels
@@ -11,49 +10,18 @@ namespace FotoApp.ViewModels
 
         #region Propertis
 
-        private string _name;
-        private string _phone;
-        private string _mail;
+        private string _discriptionOrder;
+       
 
         [Required(ErrorMessage = "Nie podano imienia")]
         [ExekuteCharacter("!#$%^&*()", ErrorMessage = "Nieprawidłowe znaki")]
-        public string Name
+        public string DiscriptionOrder
         {
-            get { return _name; }
+            get => _discriptionOrder;
             set
             {
-                _name = value;
-                NotifyOfPropertyChange(() => Name);
-                EventAggregator.PublishOnCurrentThread( StringEmpty());
-
-            }
-        }
-        [Required(ErrorMessage = "Nie podano telefonu")]
-        [ExekuteCharacter("!#$%^&*()", ErrorMessage = "Wprowadzono nieprawidłowe znaki")]
-        [Phone ( ErrorMessage =  "To nie jest umer telefonu")]
-        public string Phone
-        {
-            get { return _phone; }
-
-            set
-            {
-                _phone = value;
-                NotifyOfPropertyChange(() => Phone);
-                EventAggregator.PublishOnCurrentThread(StringEmpty());
-
-            }
-        }
-
-        [Required(ErrorMessage = "Nie podano Maila")]
-        [EmailAddress(ErrorMessage = "Adres eMaili jest nie prawdłowy")]
-        public string Mail
-        {
-            get { return _mail; }
-
-            set
-            {
-                _mail = value;
-                NotifyOfPropertyChange(() => Mail);
+                _discriptionOrder = value;
+                NotifyOfPropertyChange(() => DiscriptionOrder);
                 EventAggregator.PublishOnCurrentThread(StringEmpty());
             }
         }
@@ -65,25 +33,25 @@ namespace FotoApp.ViewModels
         public ClosingOrderViewModel(GetFotoViewModel getFoto) :base(getFoto)
         {
             EventAggregator.PublishOnCurrentThread(StringEmpty());
+            getFoto.raport += FinalOrder;
         }
 
         #endregion
 
         #region Actions
 
-        public void FinalOrder()
+        private void FinalOrder()
         {
-            var tmp = new FinalOrder();
-            var hendler = new FinalOrderHendler();
-            tmp.finalOrderDelegate += hendler.FinalOrder;
-            tmp.GetFotoColection(base._getFoto, Name, Phone, Mail);
+            var order = NewOrder.New_Order;
+            order.AddDiscripionOrder(DiscriptionOrder);
+            var raport = new CreateFinalRaport();
+            raport.CreateRaport();
+            order.CreateNewOrders();
         }
 
         private bool StringEmpty()
         {
-            var o = !string.IsNullOrWhiteSpace(Name) 
-                && !(string.IsNullOrWhiteSpace(Phone) 
-                || string.IsNullOrWhiteSpace(Mail));
+            var o = !string.IsNullOrWhiteSpace(DiscriptionOrder);
             return o;
         }
         #endregion

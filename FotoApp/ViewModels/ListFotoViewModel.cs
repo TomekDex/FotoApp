@@ -166,8 +166,8 @@ namespace FotoApp.ViewModels
             _listFoto = l.ActivLoadFoto();
             _countPage = _listFoto.Count / 12 + 1;
             _curentPage = l.LoadPageFoto(1, _listFoto);
-            //NotifyOfPropertyChange(() => CurentPage);
             _afterPage = l.LoadPageFoto(2, _listFoto);
+            NotifyOfPropertyChange(() => CurentPage);
         }
         public void Handle(Papers message)
         {

@@ -61,7 +61,7 @@ namespace FotoApp.ViewModels
             MainPanel = m;
             m.activCheckBox += ActivLeftPanel;
             m.activCheckBox += ActiveRightPanel;
-            m.changeOrder += Raport;
+            m.changeOrder += OnRaport;
 
             var r = new ChangePapersAndSiseViewModel(this);
             RightPanel = r;
@@ -72,18 +72,13 @@ namespace FotoApp.ViewModels
             EventAggregator.PublishOnCurrentThread(path);
         }
 
-        private void Raport()
-        {
-            OnRaport();
-        }
-
         private void ActivLeftPanel()
         {
             var f = new FotoInfoViewModel(this);
             LeftPanel = f;
             var r = new RaportViewModel(this);
             RaportPanel = r;
-            f.changeOrder += Raport;
+            f.changeOrder += OnRaport;
             var m = MainPanel as ListFotoViewModel;
             m.activCheckBox -= ActivLeftPanel;
             NotifyPanel();
@@ -97,7 +92,7 @@ namespace FotoApp.ViewModels
             r.changePapers -= ActiveRightPanel;
             var o = new OrderViewModel(this);
             RightPanel = o;
-            o.changeOrder += Raport;
+            o.changeOrder += OnRaport;
             NotifyPanel();
         }
 
@@ -113,11 +108,10 @@ namespace FotoApp.ViewModels
             {
                 _closingOrder = false;
                 _activOkButton = false;
+                OnRaport();
                 var main = new AndOrderViewModel(null);
+                PanelNull();
                 MainPanel = main;
-                main.andOrder += AndOrder;
-                LeftPanel = null;
-                RightPanel = null;
                 NotifyPanel();
                 NotifyCanOk();
                 var task = new Task(action: AndOrder);
@@ -128,19 +122,25 @@ namespace FotoApp.ViewModels
         private void AndOrder()
         {
             Thread.Sleep(new TimeSpan(0,0,10));
-            MainPanel = null;
+            MainPanel = new FlopyViewModel(this);
             NotifyPanel();
         }
 
         public void Cancel()
         {
-            MainPanel = null;
-            LeftPanel = null;
-            RightPanel = null;
+            PanelNull();
             var order = NewOrder.New_Order;
             order.DeleteNewOrders();
             NotifyCanOk();
             NotifyPanel();
+        }
+
+        private void PanelNull()
+        {
+            MainPanel = null;
+            LeftPanel = null;
+            RightPanel = null;
+            RaportPanel = null;
         }
 
         private void NotifyPanel()

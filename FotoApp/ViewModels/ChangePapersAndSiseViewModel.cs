@@ -9,7 +9,7 @@ using Types = FotoApp.Models.ChangePapersAnSiseModel.Types;
 
 namespace FotoApp.ViewModels
 {
-    public class ChangePapersAndSiseViewModel : ViewModelBase.ViewModelBase, IViewModel
+    public sealed class ChangePapersAndSiseViewModel : ViewModelBase.ViewModelBase
     {
         public delegate void ChangePapers();
         public event ChangePapers changePapers;
@@ -17,13 +17,11 @@ namespace FotoApp.ViewModels
 
         private BindableCollection<SizeM> _siseList;
         private BindableCollection<Types> _typeList;
-        private int _type;
-        private SizeM _sise;
-        private GetPapers _papers;
-        private Papers papers;
+        private GetPapers _detPapers;
+        private Papers _papers;
         public BindableCollection<SizeM> SizeList
         {
-            get { return _siseList; }
+            get => _siseList;
             set
             {
                 _siseList = value;
@@ -33,7 +31,7 @@ namespace FotoApp.ViewModels
 
         public BindableCollection<Types> TypeList
         {
-            get {return _typeList;}
+            get => _typeList;
             set
             {
                 _typeList = value;
@@ -48,9 +46,9 @@ namespace FotoApp.ViewModels
         public ChangePapersAndSiseViewModel(GetFotoViewModel getFoto)
             : base(getFoto)
         {
-            _papers = new GetPapers();
-            papers = new Papers();
-            TypeList = _papers.GetTypes();
+            _detPapers = new GetPapers();
+            _papers = new Papers();
+            _siseList = _detPapers.GetSizes();
         }
 
         #endregion
@@ -59,14 +57,13 @@ namespace FotoApp.ViewModels
 
         public void ChangeType(object o)
         {
-            _siseList = new BindableCollection<SizeM>();
             var tmp = o as Types;
             if (tmp != null)
             {
-                SizeList = _papers.GetSizesByType(_papers.GetTypeByIndex(tmp.id));
+                _papers.TypeID = tmp.id;
             }
-            NotifyOfPropertyChange(()=> SizeList);
-            papers.TypeID = tmp.id;
+            EventAgg.Agregator.EventAggregator.PublishOnCurrentThread(_papers);
+            OnChangePapers();
         }
 
         public void ChangeSize(object o)
@@ -74,22 +71,26 @@ namespace FotoApp.ViewModels
             if (changePapers !=null)
             {
                 var tmp = o as SizeM;
+                var tmpSizes = new Sizes
+                {
+                    Height = tmp.Height,
+                    Width = tmp.Width
+                };
                 if (tmp != null)
                 {
-                    _sise = tmp;
+                    TypeList = _detPapers.GetTypesBySize(tmpSizes);
                 }
-                papers.Height = tmp.Height;
-                papers.Width = tmp.Width;
-                EventAgg.Agregator.EventAggregator.PublishOnCurrentThread(papers);
-                changePapers?.Invoke();
+                _papers.Height = tmp.Height;
+                _papers.Width = tmp.Width;
+                NotifyOfPropertyChange(() => TypeList);
             }
-            
         }
 
-        private void cos()
-        {
-            
-        }
         #endregion
+
+        private void OnChangePapers()
+        {
+            changePapers?.Invoke();
+        }
     }
 }

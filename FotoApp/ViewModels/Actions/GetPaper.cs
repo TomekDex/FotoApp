@@ -1,26 +1,30 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
+using FotoApp.Models.ChangePapersAnSiseModel;
 using FotoApp.Pref;
 using FotoAppDB;
 using FotoAppDB.DBModel;
 using FotoAppDB.Exception;
+using Types = FotoAppDB.DBModel.Types;
 
 namespace FotoApp.ViewModels.Actions
 {
     public class GetPapers
     {
-        private readonly List<Types> _listTypes;
+        private List<Types> _listTypes;
         private List<Sizes> _listSizes;
 
         private readonly FotoAppRAll _all = FotoAppRAll.Ins;
 
         public GetPapers()
         {
-            _listTypes = _all.Types.GetAll(true);
+            _listSizes = _all.Sizes.GetAll(true);
         }
 
-        public BindableCollection<Models.ChangePapersAnSiseModel.Types> GetTypes()
+        public BindableCollection<Models.ChangePapersAnSiseModel.Types> GetTypesBySize(Sizes size)
         {
+            _listTypes = _all.Types.GetTypesBySize(size).ToList();
             var tmp = new BindableCollection<Models.ChangePapersAnSiseModel.Types>();
             foreach (var e in _listTypes)
             {
@@ -39,36 +43,41 @@ namespace FotoApp.ViewModels.Actions
             return tmp;
         }
 
-        public Types GetTypeByIndex(int index)
+        public Sizes GetSizeByIndex(int index)
         {
-            return _listTypes[index - 1];
+            return _listSizes[index - 1];
         }
-        public BindableCollection<Models.ChangePapersAnSiseModel.SizeM> GetSizesByType(Types type)
+        public BindableCollection<SizeM> GetSizes()
         {
-            
-            _listSizes = _all.Sizes.GetSizesByType(type);
-            var tmp = new BindableCollection<Models.ChangePapersAnSiseModel.SizeM>();
+            var tmp = new BindableCollection<SizeM>();
             foreach (var e in _listSizes)
             {
-                var tmpSizes = new Models.ChangePapersAnSiseModel.SizeM
+                var tmpSizes = new SizeM
                 {
                     Height = e.Height,
                     Width = e.Width,
                     SizeText = _all.SizeTexts.GetSizeTextBySizeALang(e, new Languages {Language = Preference.Lang}).Text
                 };
-
                 tmp.Add(tmpSizes);
             }
             return tmp;
         }
 
-        private Models.ChangePapersAnSiseModel.SizeM GetSizes()
+        private Models.ChangePapersAnSiseModel.Types GetTypes()
         {
-            var defSize = new Models.ChangePapersAnSiseModel.SizeM();
-            var tmpSizes = GetSizesByType(GetTypeByIndex(1));
-            defSize.Width = tmpSizes[0].Width;
-            defSize.Height = tmpSizes[0].Height;
-            return defSize;
+            var defType = new Models.ChangePapersAnSiseModel.Types();
+            var tmpType = GetTypesBySize(GetSizeByIndex(1));
+            defType.Type = tmpType[0].Type;
+            defType.id = tmpType[0].id;
+            return defType;
+        }
+        private Models.ChangePapersAnSiseModel.Types GetSize()
+        {
+            var defType = new Models.ChangePapersAnSiseModel.Types();
+            var tmpType = GetTypesBySize(GetSizeByIndex(1));
+            defType.Type = tmpType[0].Type;
+            defType.id = tmpType[0].id;
+            return defType;
         }
 
         public static Papers GetDefaultPaper()

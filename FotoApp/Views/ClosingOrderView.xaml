@@ -7,86 +7,48 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600">
     <UserControl.Resources>
-        
+
     </UserControl.Resources>
     <Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="400" Width="400">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="167*"/>
-                <ColumnDefinition Width="233*"/>
+                <ColumnDefinition Width="80*"/>
+                <ColumnDefinition Width="350*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="80"/>
+                <RowDefinition/>
+                <RowDefinition Height="344"/>
+
             </Grid.RowDefinitions>
 
             <TextBlock HorizontalAlignment="Center"
                        TextWrapping="Wrap" 
-                       Text="Podaj dane w celu zatwierdzenia zlecenia" 
+                       Text="Podaj uwagi do zamówienia" 
                        VerticalAlignment="Top" 
                        Grid.Row="0"
-                       Margin="52,10,51,0"
-                       Style="{StaticResource Text}" Grid.ColumnSpan="2"/>
+                       Margin="52,10,52,0"
+                       Style="{StaticResource Text}" Grid.ColumnSpan="2" Height="18" Width="296"/>
             <TextBlock HorizontalAlignment="Center"
                        TextWrapping="Wrap" 
-                       Text="Imię Nazwisko" 
+                       Text="Uwagi" 
                        VerticalAlignment="Top" 
                        Grid.Row="1" Grid.Column="0"
-                       Style="{StaticResource Text}" />
-            <TextBlock HorizontalAlignment="Center"
-                       TextWrapping="Wrap" 
-                       Text="Telefon" 
-                       VerticalAlignment="Top" 
-                       Grid.Row="2" Grid.Column="0"
-                       Style="{StaticResource Text}" />
-            <TextBlock HorizontalAlignment="Center"
-                       TextWrapping="Wrap" 
-                       Text="eMail" 
-                       VerticalAlignment="Top" 
-                       Grid.Row="3" Grid.Column="0"
-                       Style="{StaticResource Text}" />
+                       Style="{StaticResource Text}" Height="18" Margin="0,10,0,0" Width="74" />
 
             <TextBox HorizontalAlignment="Right" 
                      VerticalAlignment="Top"
                      Name="TextName"
-                     Height="40"  
+                     Height="274"  
                      Grid.Row="1" 
                      TextWrapping="Wrap"
-                     Text="{Binding Path=Name, Mode=OneWayToSource, ValidatesOnDataErrors=True, NotifyOnValidationError=False, UpdateSourceTrigger=PropertyChanged}" 
-                     Width="221" Grid.Column="1"/>
+                     Text="{Binding Path=DiscriptionOrder, Mode=OneWayToSource, ValidatesOnDataErrors=True, NotifyOnValidationError=False, UpdateSourceTrigger=PropertyChanged}" 
+                     Width="311" Grid.Column="1"/>
             <TextBlock HorizontalAlignment="Right"
                        VerticalAlignment="Bottom"
                        Grid.Row="1"
                        Style="{StaticResource TextBlocValidationTex}"
-                       Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TextName}" Grid.Column="1" Margin="0,0,4,4"></TextBlock>
-            <TextBox HorizontalAlignment="Right" 
-                     VerticalAlignment="Top"
-                     Name="TextPhone"
-                     Height="40"  
-                     Grid.Row="2" 
-                     TextWrapping="Wrap"
-                     Text="{Binding Path=Phone, Mode=OneWayToSource, ValidatesOnDataErrors=True, NotifyOnValidationError=False, UpdateSourceTrigger=PropertyChanged}"
-                     Width="221" Grid.Column="1"/>
-            <TextBlock HorizontalAlignment="Right"
-                       VerticalAlignment="Bottom"
-                       Grid.Row="2"
-                       Style="{StaticResource TextBlocValidationTex}"
-                       Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TextPhone}" Grid.Column="1" Margin="0,0,4,4"></TextBlock>
-            <TextBox HorizontalAlignment="Right" 
-                     VerticalAlignment="Top"
-                     Name="TextMail"
-                     Height="40"  
-                     Grid.Row="3" 
-                     TextWrapping="Wrap"
-                     Text="{Binding Path=Mail, Mode=OneWayToSource, ValidatesOnDataErrors=True, NotifyOnValidationError=False, UpdateSourceTrigger=PropertyChanged}"
-                     Width="221" Grid.Column="1"/>
-            <TextBlock HorizontalAlignment="Right"
-                       VerticalAlignment="Bottom"
-                       Grid.Row="3"
-                       Style="{StaticResource TextBlocValidationTex}"
-                       Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TextMail}" Grid.Column="1" Margin="0,0,4,4"></TextBlock>
+                       Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TextName}" Grid.Column="1" Margin="0,0,4,4" Height="14" Width="0"></TextBlock>
+
         </Grid>
     </Grid>
 </UserControl>

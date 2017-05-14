@@ -49,6 +49,7 @@ namespace FotoApp.ViewModels
             var tmp = o as OrderFoto;
             var of = new OrderFotoHelper(tmp.Foto, tmp.Paper, tmp.Quantity);
             of.DelOrderfoto();
+            of.DelFoto();
             OrderFotoColection.Remove(tmp);
             NotifyOfPropertyChange(() => OrderFotoColection);
             OnChangeOrder();

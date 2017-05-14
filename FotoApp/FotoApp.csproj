@@ -113,6 +113,7 @@
     </Compile>
     <Compile Include="Schell\SchellViewModel.cs" />
     <Compile Include="ViewModels\Actions\CopyFoto.cs" />
+    <Compile Include="ViewModels\Actions\CreateFinalRaport.cs" />
     <Compile Include="ViewModels\Actions\GetDriveType.cs" />
     <Compile Include="ViewModels\Actions\GetPaper.cs" />
     <Compile Include="ViewModels\Actions\LoadFoto.cs" />
@@ -122,12 +123,6 @@
     <Compile Include="ViewModels\ClosingOrderViewModel.cs" />
     <Compile Include="ViewModels\DispatherService.cs" />
     <Compile Include="ViewModels\EndOrderViewModel.cs" />
-    <Compile Include="ViewModels\EvenArgs\Args\FinalOrderArgs.cs" />
-    <Compile Include="ViewModels\EvenArgs\Args\GetPaperArgs.cs" />
-    <Compile Include="ViewModels\EvenArgs\FinalOrder.cs" />
-    <Compile Include="ViewModels\EvenArgs\GetPaper.cs" />
-    <Compile Include="ViewModels\EvenArgs\Hendler\FinalOrderHendler.cs" />
-    <Compile Include="ViewModels\EvenArgs\Hendler\GetPaperHendler.cs" />
     <Compile Include="ViewModels\Exception\NullContactsOrderException.cs" />
     <Compile Include="ViewModels\Exception\NullGetFotoException.cs" />
     <Compile Include="ViewModels\Exception\NullGetPaperExceptin.cs" />
