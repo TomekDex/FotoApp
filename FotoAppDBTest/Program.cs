@@ -30,7 +30,7 @@ namespace FotoAppDBTest
             //s._null = new byte[] { 0x00 };
             s.BlockAll();
             s.Delete();
-            //test
+            //test2
            // s.Delete();
             
             //foreach (OrderFotos o in all.OrderFotos.GetAllFotosInOrder(new Orders() { OrderID = 1 })) Console.WriteLine(o.FotoID.ToString());
